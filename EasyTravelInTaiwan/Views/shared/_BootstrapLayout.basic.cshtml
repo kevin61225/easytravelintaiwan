@@ -1,0 +1,122 @@
+@using System.Web.Optimization
+@using BootstrapSupport
+@using NavigationRoutes
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>@ViewBag.Title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="@Styles.Url("~/content/css")" rel="stylesheet"/>
+        @RenderSection("head", required: false)
+        @Html.Partial("_html5shiv")
+        @* favicons and touch icons go here *@
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="#" title="change in _bootstrapLayout.basic.cshtml">EasyTravelInTaiwan</a>
+                    <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        @Html.Navigation()
+                    </ul>
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <div class="navbar-form pull-right">
+                                <a href="#myModal" role="button" class="btn btn-primary" data-toggle="modal">Sign In</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="navbar-form pull-right">
+                                Welcome !! @Html.ViewContext.HttpContext.User.Identity.Name
+                                @Html.ActionLink("LogOut", "LogOut", "Home", null, new { @class = "btn btn-primary" });
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>        
+        <div class="container">
+            @Html.Partial("_alerts")
+            @Html.Partial("_validationSummary")
+            @RenderBody()   
+            <hr>
+            <footer>
+                <p>&copy; Company @System.DateTime.Now.ToString("yyyy")</p>
+            </footer> 
+        </div>
+         @Scripts.Render("~/js")
+         @RenderSection("Scripts", required: false)
+
+         <!--Login Page -->
+                <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">กั</button>
+                        <h3 id="myModalLabel">Login</h3>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="nav nav-tabs" id="signInTab">
+                            <li class="active"><a href="#logIn" data-toggle="tab">Sign In</a></li>
+                            <li><a href="#signUp" data-toggle="tab">Sign Up</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <!--Login -->
+                            <fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>
+                            <hr/>
+                            <br />
+                            @using (Html.BeginForm("LogIn", "Home"))
+                            {
+                                <div class="tab-pane active" id="logIn" style="max-height: 300px">
+                                    <input id="account" name="account" class="span3" type="text" placeholder="Username" />
+                                    <br />
+                                    <input id="password" name="password" class="span3" type="password" placeholder="Password" />
+                                    <label class="checkbox">
+                                        <input type="checkbox" value="remember me" />
+                                        Remember me
+                                    </label>
+                                    <a href="#">Forget password ?</a>
+                                    <br />
+                                    <button type="submit" class="btn btn-primary">Log In</button>
+                                </div>
+                            }
+                            <!--Sign up -->
+                            <div class="tab-pane" id="signUp" style="max-height: 300px">
+                                <input class="span3" type="text" placeholder="Username" />
+                                <br />
+                                <input class="span3" type="password" placeholder="Password" />
+                                <br />
+                                <div class="well">
+                                    <div id="datetimepicker4" class="input-append">
+                                        <input data-format="yyyy-MM-dd" type="text"></input>
+                                        <span class="add-on">
+                                            <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <script type="text/javascript">
+                                    $(function () {
+                                        $('#datetimepicker4').datetimepicker({
+                                            pickTime: false
+                                        });
+                                    });
+                                </script>
+                                <br />
+                                <input class="span3" type="text" placeholder="Email" />
+                                <br />
+                                <br />
+                                <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Sign Up</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </body>
+</html>
+
