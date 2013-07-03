@@ -1,0 +1,138 @@
+﻿@model EasyTravelInTaiwan.Models.member
+@{
+    Layout = "~/Views/Shared/_BootstrapLayout.basic.cshtml";
+}
+@{
+    ViewBag.Title = "編輯會員資料";
+}
+
+<style>
+    .textColor {
+        color: rgba(173, 169, 169, 1.00);
+        padding: 0px 0px 0px 30px;
+    }
+
+    .headForm {
+        color: rgba(173, 169, 169, 1.00);
+        font-weight: bold;
+        font-family: Arial;
+    }
+
+    .labelFont {
+        font-size: 18px;
+        /*font-weight:bold;*/
+        color: #e8e8e8;
+        padding: 0px 0px 0px 30px;
+    }
+
+    .position {
+        padding: 0px 0px 0px 40px;
+    }
+
+    .position-1 {
+        padding: 0px 0px 0px 30px;
+    }
+</style>    
+    @using (Html.BeginForm())
+    {
+    @Html.ValidationSummary(true)
+    <div class="position">
+    <br>
+    <br>
+    <fieldset>
+        <legend class="headForm span8">Account Setting</legend>
+        <br>
+        <br>
+        <br>
+        <br>
+        @Html.HiddenFor(model => model.UserID)
+        @Html.HiddenFor(model => model.Account)
+        @if(Model.CustomerType != 2 && Model.CustomerType != 4)
+        {
+            <div class="editor-label labelFont">
+                @Html.Label("New password")
+            </div>
+            <div class="editor-field labelFont">
+                @Html.PasswordFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+        }
+        else
+        {
+            @Html.HiddenFor(model => model.Password)
+        }
+        <div class="editor-label labelFont">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field labelFont">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label labelFont">
+            @Html.LabelFor(model => model.Email)
+        </div>
+        <div class="editor-field labelFont">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <div class="editor-label labelFont">
+            @Html.LabelFor(model => model.PhoneNumber)
+        </div>
+        <div class="editor-field labelFont">
+            @Html.EditorFor(model => model.PhoneNumber)
+            @Html.ValidationMessageFor(model => model.PhoneNumber)
+        </div>
+
+        <div class="editor-label labelFont">
+            @Html.LabelFor(model => model.Sex)
+        </div>
+        <div class="editor-field labelFont">
+           <label class="radio inline">
+            @Html.RadioButtonFor(model => model.Sex, "Female")
+            female
+            </label>
+            <label class="radio inline">
+            @Html.RadioButtonFor(model => model.Sex, "Male")
+            male
+            </label>
+            @Html.ValidationMessageFor(model => model.Sex)
+            <br><br>
+        </div>
+
+        <div class="editor-label labelFont">
+            @Html.LabelFor(model => model.UserAddress)
+        </div>
+        <div class="editor-field labelFont">
+            @Html.EditorFor(model => model.UserAddress)
+            @Html.ValidationMessageFor(model => model.UserAddress)
+        </div>
+
+        <div class="editor-label labelFont">
+            @Html.LabelFor(model => model.Birthday)
+        </div>
+        <div class="editor-field labelFont">
+            @Html.EditorFor(model => model.Birthday)
+            @Html.ValidationMessageFor(model => model.Birthday)
+        </div>
+        <br>
+        <p class="position-1">
+            <input type="submit" value="Save" class="btn btn-info"/>
+            |
+@Html.ActionLink("Back", "Index")
+        </p>
+    </fieldset>
+
+    </div>
+    }
+
+@*<div class="position-1">
+    
+</div>*@
+@section Scripts {
+<script type="text/javascript">
+    $('.datepicker').datepicker(); //Initialise any date pickers
+</script>
+}
+        

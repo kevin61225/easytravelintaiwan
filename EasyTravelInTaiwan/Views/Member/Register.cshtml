@@ -1,0 +1,114 @@
+﻿@model EasyTravelInTaiwan.Models.RegisterModel
+
+@{
+    ViewBag.Title = "註冊";
+    Layout = "~/Views/shared/_BootstrapLayout.empty.cshtml";
+}
+
+<h2>會員註冊</h2>
+
+@using (Html.BeginForm("Register", "Member"))
+{
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>請填寫以下資料</legend>
+        <div class='form-horizontal well'>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Account)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Account)
+                @Html.ValidationMessageFor(model => model.Account)
+            </div>
+            <br />
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Password)
+            </div>
+            <div class="editor-field">
+                @Html.PasswordFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+            <br />
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ConfirmPassword)
+            </div>
+            <div class="editor-field">
+                @Html.PasswordFor(model => model.ConfirmPassword)
+                @Html.ValidationMessageFor(model => model.ConfirmPassword)
+            </div>
+            <br />
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Name)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+            <br />
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Email)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Email)
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+            <br />
+            <div class="editor-label">
+                @Html.LabelFor(model => model.PhoneNumber)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.PhoneNumber)
+                @Html.ValidationMessageFor(model => model.PhoneNumber)
+            </div>
+            <br />
+            <div class="editor-field">
+                <label class="radio inline">
+                    @Html.RadioButtonFor(model => model.Sex, "Male")
+                    男
+                </label>
+                <label class="radio inline">
+                    @Html.RadioButtonFor(model => model.Sex, "Female")
+                    女
+                </label>
+                @Html.ValidationMessageFor(model => model.Sex)
+            </div>
+            <br />
+            <div class="editor-label">
+                @Html.LabelFor(model => model.UserAddress)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.UserAddress)
+                @Html.ValidationMessageFor(model => model.UserAddress)
+            </div>
+            <br />
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Birthday)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Birthday)
+                @Html.ValidationMessageFor(model => model.Birthday)
+            </div>
+            <br />
+            <br />
+            <br />
+            <p>
+                <input type="submit" value="創建帳號" class="btn btn-success" />
+            </p>
+            <br />
+            <br />
+            <br />
+        </div>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("回首頁", "Index", "Home", null, new { @class = "btn btn-primary" })
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $('.datepicker').datepicker(); //Initialise any date pickers
+    </script>
+}

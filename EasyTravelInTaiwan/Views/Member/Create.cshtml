@@ -1,0 +1,146 @@
+﻿@model  EasyTravelInTaiwan.Models.member
+
+@{
+    ViewBag.Title = "新增會員";
+}
+
+<h2>新增會員</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>member</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Account)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Account)
+            @Html.ValidationMessageFor(model => model.Account)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Password)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PhoneNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PhoneNumber)
+            @Html.ValidationMessageFor(model => model.PhoneNumber)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Sex)
+        </div>
+        <div class="editor-field">
+            <label class="radio inline">
+            @Html.RadioButtonFor(model => model.Sex,"Female")
+            女
+            </label>
+            <label class="radio inline">
+            @Html.RadioButtonFor(model => model.Sex,"Male")
+            男
+            </label>
+            @Html.ValidationMessageFor(model => model.Sex)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UserAddress)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.UserAddress)
+            @Html.ValidationMessageFor(model => model.UserAddress)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Birthday)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Birthday)
+            @Html.ValidationMessageFor(model => model.Birthday)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Role)
+        </div>
+        <div class="editor-field">
+            <label class="radio inline">
+            @Html.RadioButtonFor(model => model.Role,0)
+            管理者
+            </label>
+            <label class="radio inline">
+            @Html.RadioButtonFor(model => model.Role,1)
+            店員
+            </label>
+            <label class="radio inline">
+            @Html.RadioButtonFor(model => model.Role,2)
+            會員
+            </label>
+            @Html.ValidationMessageFor(model => model.Role)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CustomerType)
+        </div>
+        <div class="editor-field">
+            <label class="radio inline">
+            @Html.RadioButtonFor(model => model.CustomerType,0)
+            VIP
+            </label>
+            <label class="radio inline">
+            @Html.RadioButtonFor(model => model.CustomerType,1)
+            一般會員
+            </label>
+            <label class="radio inline">
+            @Html.RadioButtonFor(model => model.CustomerType,2)
+            FB會員
+            </label>
+            <label class="radio inline">
+            @Html.RadioButtonFor(model => model.CustomerType,3)
+            管理員身分
+            </label>
+            <label class="radio inline">
+            @Html.RadioButtonFor(model => model.CustomerType,4)
+            一般會員(FB帳號)
+            </label>
+            @Html.ValidationMessageFor(model => model.CustomerType)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" class ="btn btn-success"/>
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+<script type="text/javascript">
+    $('.datepicker').datepicker(); //Initialise any date pickers
+</script>
+}

@@ -4,15 +4,26 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using EasyTravelInTaiwan.Models;
 using Models;
 
 namespace BootstrapMvcSample.Controllers
 {
     public class HomeController : BootstrapBaseController
     {
+        dbproject1Entities db = new dbproject1Entities();
         private static List<HomeInputModel> _models = ModelIntializer.CreateHomeInputModels();
         public ActionResult Index()
-        {        
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                FindUserIdByName(User.Identity.Name);
+                Session["Role"] = FindRoleIdByName(User);
+                if ((string)Session["Role"] == "Admin" || (string)Session["Role"] == "Clerk")
+                {
+                    return RedirectToAction("Index", "Author");
+                }
+            }
             var homeInputModels = _models;                                      
             return View(homeInputModels);
         }
@@ -21,7 +32,9 @@ namespace BootstrapMvcSample.Controllers
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
+            TempData["success"] = "已登出";
+            Session.Clear();
+            return RedirectToAction("Index", "Map");
         }
 
         public ActionResult LogIn(string account, string password)
@@ -55,7 +68,44 @@ namespace BootstrapMvcSample.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        private string FindRoleIdByName(System.Security.Principal.IPrincipal User)
+        {
+            try
+            {
+                if (User.IsInRole("Customer"))
+                {
+                    return "Customer";
+                }
+                else if (User.IsInRole("Clerk"))
+                {
+                    return "Clerk";
+                }
+                else if (User.IsInRole("Admin"))
+                {
+                    return "Admin";
+                }
+            }
+            catch
+            {
+            }
+            return "null";
+        }
 
+        private void FindUserIdByName(string userAccount)
+        {
+            member user;
+            try
+            {
+                user = db.members.Where(o => o.Account == userAccount).Single();
+                Session["UserName"] = user.Name;
+                Session["UserId"] = user.UserID;
+            }
+            catch
+            {
+                return;
+            }
+            return;
+        }
 
         [HttpPost]
         public ActionResult Create(HomeInputModel model)

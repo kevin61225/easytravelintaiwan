@@ -1,67 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Globalization;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Models;
 using System.Web.Security;
+using System.ComponentModel.DataAnnotations;
 
-namespace TEST.Models
+namespace EasyTravelInTaiwan.Models
 {
-    public class UsersContext : DbContext
+    public class AccountModels
     {
-        public UsersContext()
-            : base("ProjectConnectionString")
+        //dbproject1Entities _db = new dbproject1Entities();
+
+        public AccountModels(string account, string password)
         {
         }
-
-        public DbSet<UserProfile> UserProfiles { get; set; }
-    }
-
-    [Table("UserProfile")]
-    public class UserProfile
-    {
-        [Key]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int UserId { get; set; }
-        public string UserName { get; set; }
-    }
-
-    public class RegisterExternalLoginModel
-    {
-        [Required]
-        [Display(Name = "使用者名稱")]
-        public string UserName { get; set; }
-
-        public string ExternalLoginData { get; set; }
-    }
-
-    public class LocalPasswordModel
-    {
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "目前密碼")]
-        public string OldPassword { get; set; }
-
-        [Required]
-        [StringLength(100, ErrorMessage = "{0} 長度至少必須為 {2} 個字元。", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "新密碼")]
-        public string NewPassword { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "確認新密碼")]
-        [Compare("NewPassword", ErrorMessage = "新密碼與確認密碼不相符。")]
-        public string ConfirmPassword { get; set; }
     }
 
     public class LoginModel
     {
-        [Required]
+        [Required(ErrorMessage = "請輸入登入帳號")]
         [Display(Name = "使用者名稱")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "請輸入登入密碼")]
         [DataType(DataType.Password)]
         [Display(Name = "密碼")]
         public string Password { get; set; }
@@ -72,26 +35,55 @@ namespace TEST.Models
 
     public class RegisterModel
     {
-        [Required]
-        [Display(Name = "使用者名稱")]
-        public string UserName { get; set; }
+        public int UserID { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "{0} 長度至少必須為 {2} 個字元。", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "密碼")]
+        [Required(ErrorMessage = "請輸入登入帳號")]
+        [StringLength(20, ErrorMessage = "請勿超過20個字")]
+        public string Account { get; set; }
+
+        [Required(ErrorMessage = "請輸入登入密碼")]
+        [StringLength(20, ErrorMessage = "請勿超過20個字")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "確認密碼")]
-        [Compare("Password", ErrorMessage = "密碼和確認密碼不相符。")]
+        [Required(ErrorMessage = "請再輸入一次登入密碼")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "與登入密碼不符")]
         public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage = "請輸入您的姓名")]
+        public string Name { get; set; }
+
+        [DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage = "請輸入電子郵件位址")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "請輸入手機號碼")]
+        [StringLength(10, ErrorMessage = "請勿超過10個字")]
+        public string PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "請選擇性別")]
+        public string Sex { get; set; }
+
+        [Required(ErrorMessage = "請輸入住址")]
+        public string UserAddress { get; set; }
+
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "輸入格式錯誤(ex: 2012-09-06)")]
+        public System.DateTime Birthday { get; set; }
+
+        public int Role { get; set; }
+        public int CustomerType { get; set; }
     }
 
-    public class ExternalLogin
+    public class ForgetPassword
     {
-        public string Provider { get; set; }
-        public string ProviderDisplayName { get; set; }
-        public string ProviderUserId { get; set; }
+        public int user_id { get; set; }
+        public string user_login_name { get; set; }
+        public string user_password { get; set; }
+
+        [Required]
+        [Display(Name = "Email Address : ")]
+        public string user_email_address { get; set; }
     }
+
 }

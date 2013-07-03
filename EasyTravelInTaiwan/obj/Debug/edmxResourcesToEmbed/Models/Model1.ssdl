@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbproject1Model.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="dbproject1ModelStoreContainer">
+    <EntitySet Name="author" EntityType="dbproject1Model.Store.author" store:Type="Tables" Schema="dbproject1" />
+    <EntitySet Name="book" EntityType="dbproject1Model.Store.book" store:Type="Tables" Schema="dbproject1" />
+    <EntitySet Name="book_author" EntityType="dbproject1Model.Store.book_author" store:Type="Tables" Schema="dbproject1" />
+    <EntitySet Name="member" EntityType="dbproject1Model.Store.member" store:Type="Tables" Schema="dbproject1" />
+    <EntitySet Name="order_item" EntityType="dbproject1Model.Store.order_item" store:Type="Tables" Schema="dbproject1" />
+    <EntitySet Name="order_list" EntityType="dbproject1Model.Store.order_list" store:Type="Tables" Schema="dbproject1" />
+    <EntitySet Name="product" EntityType="dbproject1Model.Store.product" store:Type="Tables" Schema="dbproject1" />
+    <EntitySet Name="publisher" EntityType="dbproject1Model.Store.publisher" store:Type="Tables" Schema="dbproject1" />
+    <EntitySet Name="rating" EntityType="dbproject1Model.Store.rating" store:Type="Tables" Schema="dbproject1" />
+    <EntitySet Name="shoppingcart" EntityType="dbproject1Model.Store.shoppingcart" store:Type="Tables" Schema="dbproject1" />
+    <EntitySet Name="stock" EntityType="dbproject1Model.Store.stock" store:Type="Tables" Schema="dbproject1" />
+    <EntitySet Name="trace" EntityType="dbproject1Model.Store.trace" store:Type="Tables" Schema="dbproject1" />
+    <AssociationSet Name="book_ibfk_1" Association="dbproject1Model.Store.book_ibfk_1">
+      <End Role="publisher" EntitySet="publisher" />
+      <End Role="book" EntitySet="book" />
+    </AssociationSet>
+    <AssociationSet Name="order_item_ibfk_1" Association="dbproject1Model.Store.order_item_ibfk_1">
+      <End Role="order_list" EntitySet="order_list" />
+      <End Role="order_item" EntitySet="order_item" />
+    </AssociationSet>
+    <AssociationSet Name="order_item_ibfk_2" Association="dbproject1Model.Store.order_item_ibfk_2">
+      <End Role="product" EntitySet="product" />
+      <End Role="order_item" EntitySet="order_item" />
+    </AssociationSet>
+    <AssociationSet Name="order_list_ibfk_1" Association="dbproject1Model.Store.order_list_ibfk_1">
+      <End Role="member" EntitySet="member" />
+      <End Role="order_list" EntitySet="order_list" />
+    </AssociationSet>
+    <AssociationSet Name="rating_ibfk_1" Association="dbproject1Model.Store.rating_ibfk_1">
+      <End Role="product" EntitySet="product" />
+      <End Role="rating" EntitySet="rating" />
+    </AssociationSet>
+    <AssociationSet Name="rating_ibfk_2" Association="dbproject1Model.Store.rating_ibfk_2">
+      <End Role="member" EntitySet="member" />
+      <End Role="rating" EntitySet="rating" />
+    </AssociationSet>
+    <AssociationSet Name="shoppingcart_ibfk_1" Association="dbproject1Model.Store.shoppingcart_ibfk_1">
+      <End Role="product" EntitySet="product" />
+      <End Role="shoppingcart" EntitySet="shoppingcart" />
+    </AssociationSet>
+    <AssociationSet Name="shoppingcart_ibfk_2" Association="dbproject1Model.Store.shoppingcart_ibfk_2">
+      <End Role="member" EntitySet="member" />
+      <End Role="shoppingcart" EntitySet="shoppingcart" />
+    </AssociationSet>
+    <AssociationSet Name="stock_ibfk_1" Association="dbproject1Model.Store.stock_ibfk_1">
+      <End Role="member" EntitySet="member" />
+      <End Role="stock" EntitySet="stock" />
+    </AssociationSet>
+    <AssociationSet Name="stock_ibfk_2" Association="dbproject1Model.Store.stock_ibfk_2">
+      <End Role="product" EntitySet="product" />
+      <End Role="stock" EntitySet="stock" />
+    </AssociationSet>
+    <AssociationSet Name="trace_ibfk_1" Association="dbproject1Model.Store.trace_ibfk_1">
+      <End Role="product" EntitySet="product" />
+      <End Role="trace" EntitySet="trace" />
+    </AssociationSet>
+    <AssociationSet Name="trace_ibfk_2" Association="dbproject1Model.Store.trace_ibfk_2">
+      <End Role="member" EntitySet="member" />
+      <End Role="trace" EntitySet="trace" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="author">
+    <Key>
+      <PropertyRef Name="AuthorID" />
+    </Key>
+    <Property Name="AuthorID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="AuthorName" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="book">
+    <Key>
+      <PropertyRef Name="BookID" />
+    </Key>
+    <Property Name="BookID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="ReleaseDate" Type="date" Nullable="false" />
+    <Property Name="ISBN" Type="varchar" Nullable="false" MaxLength="13" />
+    <Property Name="Language" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="BookType" Type="varchar" MaxLength="10" />
+    <Property Name="Category" Type="int" Nullable="false" />
+    <Property Name="BookSyllabus" Type="text" />
+    <Property Name="BookImg" Type="mediumblob" Nullable="false" />
+    <Property Name="BookIntro" Type="text" Nullable="false" />
+    <Property Name="PublisherID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="book_author">
+    <Key>
+      <PropertyRef Name="BookID" />
+      <PropertyRef Name="AuthorID" />
+    </Key>
+    <Property Name="BookID" Type="int" Nullable="false" />
+    <Property Name="AuthorID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="member">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Account" Type="varchar" Nullable="false" MaxLength="16" />
+    <Property Name="Password" Type="varchar" Nullable="false" MaxLength="16" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Email" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="PhoneNumber" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="Sex" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="UserAddress" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Birthday" Type="date" Nullable="false" />
+    <Property Name="Role" Type="int" Nullable="false" />
+    <Property Name="CustomerType" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="order_item">
+    <Key>
+      <PropertyRef Name="OrderID" />
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="OrderID" Type="int" Nullable="false" />
+    <Property Name="ProductID" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="order_list">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="Address" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Payment" Type="int" Nullable="false" />
+    <Property Name="TotalPrice" Type="int" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Price" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="BookID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="publisher">
+    <Key>
+      <PropertyRef Name="PublisherID" />
+    </Key>
+    <Property Name="PublisherID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="PublisherName" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="rating">
+    <Key>
+      <PropertyRef Name="UserID" />
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="ProductID" Type="int" Nullable="false" />
+    <Property Name="Time" Type="date" Nullable="false" />
+    <Property Name="Score" Type="int" Nullable="false" />
+    <Property Name="Comment" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="shoppingcart">
+    <Key>
+      <PropertyRef Name="UserID" />
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="ProductID" Type="int" Nullable="false" />
+    <Property Name="Time" Type="date" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="stock">
+    <Key>
+      <PropertyRef Name="UserID" />
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="ProductID" Type="int" Nullable="false" />
+    <Property Name="Time" Type="date" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="trace">
+    <Key>
+      <PropertyRef Name="UserID" />
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="ProductID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="book_ibfk_1">
+    <End Role="publisher" Type="dbproject1Model.Store.publisher" Multiplicity="1" />
+    <End Role="book" Type="dbproject1Model.Store.book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="publisher">
+        <PropertyRef Name="PublisherID" />
+      </Principal>
+      <Dependent Role="book">
+        <PropertyRef Name="PublisherID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="order_item_ibfk_1">
+    <End Role="order_list" Type="dbproject1Model.Store.order_list" Multiplicity="1" />
+    <End Role="order_item" Type="dbproject1Model.Store.order_item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="order_list">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="order_item">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="order_item_ibfk_2">
+    <End Role="product" Type="dbproject1Model.Store.product" Multiplicity="1" />
+    <End Role="order_item" Type="dbproject1Model.Store.order_item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="order_item">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="order_list_ibfk_1">
+    <End Role="member" Type="dbproject1Model.Store.member" Multiplicity="1" />
+    <End Role="order_list" Type="dbproject1Model.Store.order_list" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="member">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="order_list">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="rating_ibfk_1">
+    <End Role="product" Type="dbproject1Model.Store.product" Multiplicity="1" />
+    <End Role="rating" Type="dbproject1Model.Store.rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="rating">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="rating_ibfk_2">
+    <End Role="member" Type="dbproject1Model.Store.member" Multiplicity="1" />
+    <End Role="rating" Type="dbproject1Model.Store.rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="member">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="rating">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="shoppingcart_ibfk_1">
+    <End Role="product" Type="dbproject1Model.Store.product" Multiplicity="1" />
+    <End Role="shoppingcart" Type="dbproject1Model.Store.shoppingcart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="shoppingcart">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="shoppingcart_ibfk_2">
+    <End Role="member" Type="dbproject1Model.Store.member" Multiplicity="1" />
+    <End Role="shoppingcart" Type="dbproject1Model.Store.shoppingcart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="member">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="shoppingcart">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="stock_ibfk_1">
+    <End Role="member" Type="dbproject1Model.Store.member" Multiplicity="1" />
+    <End Role="stock" Type="dbproject1Model.Store.stock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="member">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="stock">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="stock_ibfk_2">
+    <End Role="product" Type="dbproject1Model.Store.product" Multiplicity="1" />
+    <End Role="stock" Type="dbproject1Model.Store.stock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="stock">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="trace_ibfk_1">
+    <End Role="product" Type="dbproject1Model.Store.product" Multiplicity="1" />
+    <End Role="trace" Type="dbproject1Model.Store.trace" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="trace">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="trace_ibfk_2">
+    <End Role="member" Type="dbproject1Model.Store.member" Multiplicity="1" />
+    <End Role="trace" Type="dbproject1Model.Store.trace" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="member">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="trace">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

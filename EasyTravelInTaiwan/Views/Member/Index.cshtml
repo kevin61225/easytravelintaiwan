@@ -1,0 +1,135 @@
+﻿@using BootstrapSupport
+@model EasyTravelInTaiwan.Models.member
+@{
+    Layout = "~/Views/Shared/_BootstrapLayout.basic.cshtml";
+}
+@{
+    ViewBag.Title = "會員資料";
+}
+
+<style>
+    .textColor {
+        color: rgba(173, 169, 169, 1.00);
+        padding: 0px 0px 0px 30px;
+    }
+
+    .headForm {
+        color: rgba(173, 169, 169, 1.00);
+        font-weight: bold;
+        font-family: Arial;
+    }
+
+    .labelFont {
+        font-size: 18px;
+        /*font-weight:bold;*/
+        color: #e8e8e8;
+        padding: 0px 0px 0px 30px;
+    }
+
+    .position {
+        padding: 0px 0px 0px 40px;
+    }
+</style>
+<div class="position">
+    <br>
+    <br>
+    <fieldset>
+        <legend class="headForm span8">My Account</legend>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="display-label labelFont">
+            @Html.DisplayNameFor(model => model.Account)
+        </div>
+        <div class="display-field textColor">
+            @Html.DisplayFor(model => model.Account)
+        </div>
+        <br>
+        <div class="display-label labelFont">
+            @Html.DisplayNameFor(model => model.Name)
+        </div>
+        <div class="display-field textColor">
+            @Html.DisplayFor(model => model.Name)
+        </div>
+        <br>
+        <div class="display-label labelFont">
+            @Html.DisplayNameFor(model => model.Email)
+        </div>
+        <div class="display-field textColor">
+            @Html.DisplayFor(model => model.Email)
+        </div>
+        <br>
+        <div class="display-label labelFont">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </div>
+        <div class="display-field textColor">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </div>
+        <br>
+        <div class="display-label labelFont">
+            @Html.DisplayNameFor(model => model.Sex)
+        </div>
+        <div class="display-field textColor">
+            @{
+                if (Model.Sex == "Male")
+                {@Html.Label("male");
+                }
+                if (Model.Sex == "Female")
+                { @Html.Label("female");
+                }
+            }
+            @*@Html.DisplayFor(model => model.Sex)*@
+        </div>
+        <br>
+        <div class="display-label labelFont">
+            @Html.DisplayNameFor(model => model.UserAddress)
+        </div>
+        <div class="display-field textColor">
+            @Html.DisplayFor(model => model.UserAddress)
+        </div>
+        <br>
+        <div class="display-label labelFont">
+            @Html.DisplayNameFor(model => model.Birthday)
+        </div>
+        <div class="display-field textColor">
+            @Html.DisplayFor(model => model.Birthday)
+        </div>
+        <br />
+        <div class="display-field labelFont">
+            @Html.Label("Type")
+        </div>
+        <div class="display-field textColor">
+            @{
+                if (Model.CustomerType == 0)
+                {
+                    @Html.Label("VIP");
+                }
+                if (Model.CustomerType == 1)
+                {
+                    @Html.Label("一般會員");
+                }
+                if (Model.CustomerType == 2)
+                {
+                    @Html.Label("FB會員");
+                }
+                if (Model.CustomerType == 3)
+                { 
+                    @Html.Label("管理員身分");
+                }                     
+                if(Model.CustomerType == 4)
+                {
+                    @Html.Label("一般會員(FB帳號)")
+                }                                     
+            }
+        </div>
+        <br>
+    </fieldset>
+    <p class="textColor">
+        @Html.ActionLink("Account Setting", "EditAccount", "Member")
+        <br>
+        <br>
+        @Html.ActionLink("HomePage", "Index", "Home")
+    </p>
+
+</div>

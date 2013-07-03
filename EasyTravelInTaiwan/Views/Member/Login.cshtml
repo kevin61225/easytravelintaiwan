@@ -1,0 +1,36 @@
+﻿@model EasyTravelInTaiwan.Models.LoginModel
+
+@{
+    ViewBag.Title = "登入";
+    Layout = "~/Views/shared/_BootstrapLayout.empty.cshtml";
+}
+
+@using (Html.BeginForm("LogIn", "Member"))
+{
+<form class="form-signin">
+    @Html.AntiForgeryToken()
+    <h2 class="form-signin-heading">Please sign in</h2>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.UserName, new { placeholder = "UserName" })
+        @Html.ValidationMessageFor(model => model.UserName)
+    </div>                            
+    <br />
+    <div class="editor-field">
+        @Html.PasswordFor(model => model.Password, new { placeholder = "Password" })
+        @Html.ValidationMessageFor(model => model.Password)
+    </div>     
+    <br />
+    <div class="editor-field">
+        @Html.CheckBoxFor(model => model.RememberMe)
+        @Html.LabelFor(model => model.RememberMe, new { @class = "checkbox" })
+        @Html.ValidationMessageFor(model => model.RememberMe)
+    </div>   
+    <br/>
+    @Html.ActionLink("忘記帳號密碼?", "ForgetPassword", "Member");  
+    <br />
+    <br />
+    <button type="submit" class="btn btn-primary">登入</button>
+    @Html.ActionLink("註冊新會員", "Register", "Member", null, new { @class = "btn btn-primary" })
+</form>
+}
+<p>@Html.ActionLink("回首頁", "Index", "Home", null, new { @class = "btn btn-primary" })</p>

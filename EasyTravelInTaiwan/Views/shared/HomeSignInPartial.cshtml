@@ -1,0 +1,27 @@
+﻿@model EasyTravelInTaiwan.Models.LoginModel
+
+@using BootstrapSupport
+@using(Html.BeginForm("Login", "member"))
+{
+    @Html.AntiForgeryToken()
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.UserName, new { placeholder = "帳號" })
+        @Html.ValidationMessageFor(model => model.UserName)
+    </div>                            
+    <br />
+    <div class="editor-field">
+        @Html.PasswordFor(model => model.Password, new { placeholder = "密碼" })
+        @Html.ValidationMessageFor(model => model.Password)
+    </div>     
+    <br />
+    <div class="editor-field">
+        @Html.CheckBoxFor(model => model.RememberMe)
+        @Html.LabelFor(model => model.RememberMe, new { @class = "checkbox" })
+        @Html.ValidationMessageFor(model => model.RememberMe)
+    </div>     
+    <br/>
+    @Html.ActionLink("忘記帳號密碼?", "ForgetPassword", "Member");
+    <br/>
+    <br />
+    <button type="submit" class="btn btn-primary">登入</button>
+}
