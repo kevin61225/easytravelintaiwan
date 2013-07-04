@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="projectModelStoreContainer" CdmEntityContainer="projectEntities">
+    <EntitySetMapping Name="maplatlngs">
+      <EntityTypeMapping TypeName="projectModel.maplatlng">
+        <MappingFragment StoreEntitySet="maplatlng">
+          <ScalarProperty Name="pt" ColumnName="pt" />
+          <ScalarProperty Name="sno" ColumnName="sno" />
+          <ScalarProperty Name="pName" ColumnName="pName" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="Lng" ColumnName="Lng" />
+          <ScalarProperty Name="Lang" ColumnName="Lang" />
+          <ScalarProperty Name="isView" ColumnName="isView" />
+          <ScalarProperty Name="pRange" ColumnName="pRange" />
+          <ScalarProperty Name="m_layer2" ColumnName="m_layer2" />
+          <ScalarProperty Name="layer1" ColumnName="layer1" />
+          <ScalarProperty Name="NoewIcon" ColumnName="NoewIcon" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="members">
+      <EntityTypeMapping TypeName="projectModel.member">
+        <MappingFragment StoreEntitySet="member">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Account" ColumnName="Account" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="UserAddress" ColumnName="UserAddress" />
+          <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="oneinfodatas">
+      <EntityTypeMapping TypeName="projectModel.oneinfodata">
+        <MappingFragment StoreEntitySet="oneinfodata">
+          <ScalarProperty Name="sno" ColumnName="sno" />
+          <ScalarProperty Name="pName" ColumnName="pName" />
+          <ScalarProperty Name="summ" ColumnName="summ" />
+          <ScalarProperty Name="detail" ColumnName="detail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

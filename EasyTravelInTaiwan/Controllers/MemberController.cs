@@ -16,7 +16,8 @@ namespace EasyTravelInTaiwan.Controllers
     //[Authorize(Roles="Admin")]
     public class MemberController : Controller
     {
-        private dbproject1Entities db = new dbproject1Entities();
+        //private dbproject1Entities db = new dbproject1Entities();
+        private projectEntities db = new projectEntities();
 
         //
         // GET: /Member/
@@ -150,7 +151,6 @@ namespace EasyTravelInTaiwan.Controllers
         {
             if (ModelState.IsValid)
             {
-                member.CustomerType = 0;
                 member.Role = 2;
                 db.members.Add(member);
                 try
@@ -192,7 +192,6 @@ namespace EasyTravelInTaiwan.Controllers
         {
             try
             {
-                member.CustomerType = 1;
                 member.Role = 2;
                 db.members.Add(member);
                 db.SaveChanges();
@@ -249,10 +248,6 @@ namespace EasyTravelInTaiwan.Controllers
                 if (ModelState.IsValid)
                 {
                     db.Entry(member).State = EntityState.Modified;
-                    if (member.UserAddress != "unknown" && member.PhoneNumber != "unknown")
-                    {
-                        member.CustomerType = 4;
-                    }
                     db.SaveChanges();
                     TempData["success"] = "修改成功 !!";
                     return RedirectToAction("Index");
@@ -349,7 +344,6 @@ namespace EasyTravelInTaiwan.Controllers
             fbMember.Name = fbName;
             fbMember.Email = fbEmail;
             fbMember.Role = 2;
-            fbMember.CustomerType = 2;
             fbMember.Birthday = DateTime.Now;
             fbMember.PhoneNumber = "unknown";
             fbMember.Sex = "Male";

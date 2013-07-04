@@ -14,15 +14,6 @@ namespace EasyTravelInTaiwan.Models
     
     public partial class member
     {
-        public member()
-        {
-            this.order_list = new HashSet<order_list>();
-            this.ratings = new HashSet<rating>();
-            this.shoppingcarts = new HashSet<shoppingcart>();
-            this.stocks = new HashSet<stock>();
-            this.products = new HashSet<product>();
-        }
-    
         public int UserID { get; set; }
         public string Account { get; set; }
         public string Password { get; set; }
@@ -33,12 +24,5 @@ namespace EasyTravelInTaiwan.Models
         public string UserAddress { get; set; }
         public System.DateTime Birthday { get; set; }
         public int Role { get; set; }
-        public int CustomerType { get; set; }
-    
-        public virtual ICollection<order_list> order_list { get; set; }
-        public virtual ICollection<rating> ratings { get; set; }
-        public virtual ICollection<shoppingcart> shoppingcarts { get; set; }
-        public virtual ICollection<stock> stocks { get; set; }
-        public virtual ICollection<product> products { get; set; }
     }
 }

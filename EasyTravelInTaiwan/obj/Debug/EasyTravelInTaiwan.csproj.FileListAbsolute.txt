@@ -60,7 +60,6 @@ C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\Antlr3.Runtim
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\EntityFramework.dll
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\Microsoft.Web.Mvc.dll
-C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\Microsoft.Web.WebPages.OAuth.dll
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\Newtonsoft.Json.dll
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\System.Net.Http.Formatting.dll
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\System.Web.Helpers.dll
@@ -72,15 +71,9 @@ C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\System.Web.Ra
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\System.Web.WebPages.Deployment.dll
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\System.Web.WebPages.dll
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\System.Web.WebPages.Razor.dll
+C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\Telerik.Web.Mvc.dll
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\WebGrease.dll
-C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\DotNetOpenAuth.AspNet.dll
-C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\DotNetOpenAuth.Core.dll
-C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\DotNetOpenAuth.OAuth.Consumer.dll
-C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\DotNetOpenAuth.OAuth.dll
-C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
-C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\DotNetOpenAuth.OpenId.dll
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\EntityFramework.xml
-C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\Microsoft.Web.WebPages.OAuth.xml
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\Newtonsoft.Json.xml
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\System.Net.Http.Formatting.xml
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\System.Web.Helpers.xml
@@ -91,12 +84,6 @@ C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\System.Web.Ra
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\System.Web.WebPages.xml
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\System.Web.WebPages.Deployment.xml
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\System.Web.WebPages.Razor.xml
-C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\DotNetOpenAuth.AspNet.xml
-C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\DotNetOpenAuth.Core.xml
-C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\DotNetOpenAuth.OAuth.Consumer.xml
-C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\DotNetOpenAuth.OAuth.xml
-C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
-C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\DotNetOpenAuth.OpenId.xml
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\zh-Hant\EntityFramework.resources.dll
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\zh-Hant\System.Net.Http.Formatting.resources.dll
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\zh-Hant\System.Web.Helpers.resources.dll
@@ -107,7 +94,5 @@ C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\zh-Hant\Syste
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\zh-Hant\System.Web.WebPages.resources.dll
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\zh-Hant\System.Web.WebPages.Deployment.resources.dll
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\zh-Hant\System.Web.WebPages.Razor.resources.dll
-C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\obj\Debug\EasyTravelInTaiwan.csprojResolveAssemblyReference.cache
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\obj\Debug\EasyTravelInTaiwan.dll
 C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\obj\Debug\EasyTravelInTaiwan.pdb
-C:\Users\KevinDo\Desktop\easytravelintaiwan\EasyTravelInTaiwan\bin\Telerik.Web.Mvc.dll

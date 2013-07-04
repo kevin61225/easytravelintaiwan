@@ -87,18 +87,6 @@
          }
     </div>
     <br>
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.CustomerType)
-    </div>
-    <div class="display-field">
-        @{
-            if (Model.CustomerType == 0){@Html.Label("VIP");}
-            if (Model.CustomerType == 1){@Html.Label("一般會員");}
-            if (Model.CustomerType == 2){@Html.Label("FB會員");}
-            if (Model.CustomerType == 3) { @Html.Label("管理員身分"); }                                                          
-         }
-    </div>
-    <br>
 </fieldset>
 <p>
     @Html.ActionLink("Back to List", "Index")

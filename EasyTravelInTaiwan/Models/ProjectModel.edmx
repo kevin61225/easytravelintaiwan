@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="projectModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="projectModelStoreContainer">
+          <EntitySet Name="maplatlng" EntityType="projectModel.Store.maplatlng" store:Type="Tables" Schema="project" />
+          <EntitySet Name="member" EntityType="projectModel.Store.member" store:Type="Tables" Schema="project" />
+          <EntitySet Name="oneinfodata" EntityType="projectModel.Store.oneinfodata" store:Type="Tables" Schema="project" />
+        </EntityContainer>
+        <EntityType Name="maplatlng">
+          <Key>
+            <PropertyRef Name="sno" />
+          </Key>
+          <Property Name="pt" Type="text" Nullable="false" />
+          <Property Name="sno" Type="varchar" Nullable="false" MaxLength="40" />
+          <Property Name="pName" Type="text" Nullable="false" />
+          <Property Name="Lat" Type="text" Nullable="false" />
+          <Property Name="Lng" Type="text" Nullable="false" />
+          <Property Name="Lang" Type="text" Nullable="false" />
+          <Property Name="isView" Type="text" Nullable="false" />
+          <Property Name="pRange" Type="text" Nullable="false" />
+          <Property Name="m_layer2" Type="text" />
+          <Property Name="layer1" Type="text" Nullable="false" />
+          <Property Name="NoewIcon" Type="text" />
+        </EntityType>
+        <EntityType Name="member">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="varchar" Nullable="false" MaxLength="40" />
+          <Property Name="Password" Type="varchar" Nullable="false" MaxLength="40" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="40" />
+          <Property Name="Email" Type="varchar" Nullable="false" MaxLength="40" />
+          <Property Name="PhoneNumber" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="Sex" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="UserAddress" Type="varchar" Nullable="false" MaxLength="49" />
+          <Property Name="Birthday" Type="date" Nullable="false" />
+          <Property Name="Role" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="oneinfodata">
+          <Key>
+            <PropertyRef Name="sno" />
+          </Key>
+          <Property Name="sno" Type="varchar" Nullable="false" MaxLength="80" />
+          <Property Name="pName" Type="text" Nullable="false" />
+          <Property Name="summ" Type="text" Nullable="false" />
+          <Property Name="detail" Type="text" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="projectModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="projectEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="maplatlngs" EntityType="projectModel.maplatlng" />
+          <EntitySet Name="members" EntityType="projectModel.member" />
+          <EntitySet Name="oneinfodatas" EntityType="projectModel.oneinfodata" />
+        </EntityContainer>
+        <EntityType Name="maplatlng">
+          <Key>
+            <PropertyRef Name="sno" />
+          </Key>
+          <Property Name="pt" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="sno" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
+          <Property Name="pName" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="Lat" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="Lng" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="Lang" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="isView" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="pRange" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="m_layer2" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="layer1" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="NoewIcon" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="member">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Sex" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="UserAddress" Type="String" Nullable="false" MaxLength="49" Unicode="false" FixedLength="false" />
+          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Role" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="oneinfodata">
+          <Key>
+            <PropertyRef Name="sno" />
+          </Key>
+          <Property Name="sno" Type="String" Nullable="false" MaxLength="80" Unicode="false" FixedLength="false" />
+          <Property Name="pName" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="summ" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="detail" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="projectModelStoreContainer" CdmEntityContainer="projectEntities">
+          <EntitySetMapping Name="maplatlngs">
+            <EntityTypeMapping TypeName="projectModel.maplatlng">
+              <MappingFragment StoreEntitySet="maplatlng">
+                <ScalarProperty Name="pt" ColumnName="pt" />
+                <ScalarProperty Name="sno" ColumnName="sno" />
+                <ScalarProperty Name="pName" ColumnName="pName" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="Lng" ColumnName="Lng" />
+                <ScalarProperty Name="Lang" ColumnName="Lang" />
+                <ScalarProperty Name="isView" ColumnName="isView" />
+                <ScalarProperty Name="pRange" ColumnName="pRange" />
+                <ScalarProperty Name="m_layer2" ColumnName="m_layer2" />
+                <ScalarProperty Name="layer1" ColumnName="layer1" />
+                <ScalarProperty Name="NoewIcon" ColumnName="NoewIcon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="members">
+            <EntityTypeMapping TypeName="projectModel.member">
+              <MappingFragment StoreEntitySet="member">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="UserAddress" ColumnName="UserAddress" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="oneinfodatas">
+            <EntityTypeMapping TypeName="projectModel.oneinfodata">
+              <MappingFragment StoreEntitySet="oneinfodata">
+                <ScalarProperty Name="sno" ColumnName="sno" />
+                <ScalarProperty Name="pName" ColumnName="pName" />
+                <ScalarProperty Name="summ" ColumnName="summ" />
+                <ScalarProperty Name="detail" ColumnName="detail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -25,9 +25,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Role)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerType)
-        </th>
         <th></th>
     </tr>
 
@@ -44,15 +41,6 @@
                 if(item.Role == 0)  {@Html.Label("管理者");}
                 if(item.Role == 1)  {@Html.Label("店員");}
                 if (item.Role == 2) {@Html.Label("會員");}                                                    
-            }
-        </td>
-        <td>
-            @{
-                if(item.CustomerType == 0)  {@Html.Label("VIP");}
-                if(item.CustomerType == 1)  {@Html.Label("一般會員");}
-                if (item.CustomerType == 2) {@Html.Label("FB會員");}
-                if (item.CustomerType == 3) { @Html.Label("管理員身分"); }
-                if (item.CustomerType == 4) { @Html.Label("一般會員(FB帳號)"); }                                                  
             }
         </td>
         <td>

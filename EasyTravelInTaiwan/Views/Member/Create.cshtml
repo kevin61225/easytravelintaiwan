@@ -101,34 +101,6 @@
             </label>
             @Html.ValidationMessageFor(model => model.Role)
         </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CustomerType)
-        </div>
-        <div class="editor-field">
-            <label class="radio inline">
-            @Html.RadioButtonFor(model => model.CustomerType,0)
-            VIP
-            </label>
-            <label class="radio inline">
-            @Html.RadioButtonFor(model => model.CustomerType,1)
-            一般會員
-            </label>
-            <label class="radio inline">
-            @Html.RadioButtonFor(model => model.CustomerType,2)
-            FB會員
-            </label>
-            <label class="radio inline">
-            @Html.RadioButtonFor(model => model.CustomerType,3)
-            管理員身分
-            </label>
-            <label class="radio inline">
-            @Html.RadioButtonFor(model => model.CustomerType,4)
-            一般會員(FB帳號)
-            </label>
-            @Html.ValidationMessageFor(model => model.CustomerType)
-        </div>
-
         <p>
             <input type="submit" value="Create" class ="btn btn-success"/>
         </p>

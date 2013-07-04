@@ -72,7 +72,6 @@ namespace EasyTravelInTaiwan.Models
         public System.DateTime Birthday { get; set; }
 
         public int Role { get; set; }
-        public int CustomerType { get; set; }
     }
 
     public class ForgetPassword
