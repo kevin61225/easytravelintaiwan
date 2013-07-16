@@ -1,7 +1,7 @@
 ﻿function FacebookInit() {
     FB.init({
-        appId: '166647016842492', // App ID
-        channelUrl: 'http://localhost:3581/', // Channel File
+        appId: '544818928892863', // App ID
+        channelUrl: 'http://localhost:51145/', // Channel File
         status: true, // check login status
         cookie: true, // enable cookies to allow the server to access the session
         xfbml: true  // parse XFBML

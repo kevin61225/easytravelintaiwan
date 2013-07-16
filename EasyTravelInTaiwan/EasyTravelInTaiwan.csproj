@@ -606,7 +606,9 @@
     <Content Include="scripts\2012.1.214\telerik.window.min.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\ContextMenu.js" />
     <Content Include="scripts\fbAuthJScript.js" />
+    <Content Include="scripts\GoogleMapRightClick.js" />
     <Content Include="scripts\html5shiv.js" />
     <EntityDeploy Include="Models\ProjectModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -630,6 +632,7 @@
     <Content Include="scripts\jquery-1.9.1.min.js" />
     <Content Include="scripts\jquery-migrate-1.1.1.js" />
     <Content Include="scripts\jquery-migrate-1.1.1.min.js" />
+    <Content Include="scripts\jquery.geocomplete.js" />
     <Content Include="scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="scripts\jquery.unobtrusive-ajax.min.js" />
     <None Include="scripts\jquery.validate-vsdoc.js" />
@@ -683,14 +686,16 @@
     <Content Include="Views\Member\Login.cshtml" />
     <Content Include="Views\Member\Register.cshtml" />
     <Content Include="Views\Member\_ViewStart.cshtml" />
+    <Content Include="Views\Map\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Filters\" />
-    <Folder Include="Views\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\shared\_html5shiv.cshtml" />

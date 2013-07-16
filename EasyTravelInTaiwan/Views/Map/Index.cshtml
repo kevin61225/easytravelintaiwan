@@ -3,15 +3,62 @@
 }
 
 <style type="text/css">
-    #map_canvas {
+    #myMap {
         height: 400px;
         width: 90%;
     }
+
+    /*	start styles for the ContextMenu	*/
+    .context_menu {
+        background-color: white;
+        border: 1px solid gray;
+    }
+
+    .context_menu_item {
+        padding: 3px 6px;
+    }
+
+        .context_menu_item:hover {
+            background-color: #CCCCCC;
+        }
+
+    .context_menu_separator {
+        background-color: gray;
+        height: 1px;
+        margin: 0;
+        padding: 0;
+    }
+
+    #clearDirectionsItem, #getDirectionsItem {
+        display: none;
+    }
 </style>
+
 
 <!--引入 Google API-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.9&sensor=false"></script>
+<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+<script src="~/scripts/ContextMenu.js"></script>
+<script src="~/scripts/jquery.geocomplete.js"></script>
+<script src="~/scripts/GoogleMapRightClick.js"></script>
+
+<input id="inputGeo" type="text" placeholder="Enter a place" maxlength="100" autocomplete="off" />
+<input id="searchBtn" type="button" value="Search" class="btn" />
+
+<div id="myMap" class="myGoogleMap" aria-setsize="500"></div>
+<br />
+
+<form id="status">
+    Latitude:  
+    <input name="lat" type="text" value="">
+    Longitude: 
+    <input name="lng" type="text" value="">
+    Address:   
+    <input name="formatted_address" type="text" value="">
+</form>
+
+<div id="info"></div>
 
 <script type="text/javascript">
 
@@ -21,30 +68,55 @@
         anchor: new google.maps.Point(17, 38)
     };
 
-    /* 規劃 */
-    var directionsService = new google.maps.DirectionsService();
-    var start = "台北市介壽國中";
-    var end = "台北市台北科技大學";
-    var waypoints = "台北市台北車站,台北市國父紀念館";
-    //規畫路徑呈現選項
-    var rendererOptions = {
-        suppressMarkers: true,
-        draggable: true
-    };
-    directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
-
-    function init() {
-
-        var mapDiv = document.getElementById('map_canvas');
-        var map = new google.maps.Map(mapDiv, {
-            center: new google.maps.LatLng(25.039941, 121.512812),
+    $("#inputGeo").geocomplete({
+        map: "#myMap",
+        location: new google.maps.LatLng(25.039941, 121.512812),
+        mapOptions: {
             zoom: 15,
-            scaleControl: true,
+            center: new google.maps.LatLng(25.039941, 121.512812),
+            scrollwheel: true,
+            scaleControl: false,
             mapTypeId: google.maps.MapTypeId.ROADMAP
-        });
+        },
+        markerOptions: {
+            draggable: true,
+            icon: mainIcon,
+            visible: true,
+            title: '移動我 !!'
+        },
+        details: "#status",
+    })
+    .bind("geocode:result", function (event, result) {
+        console.log("Result: " + result.formatted_address);
+    })
+    .bind("geocode:error", function (event, status) {
+        console.log("ERROR: " + status);
+    })
+    .bind("geocode:multiple", function (event, results) {
+        console.log("Multiple: " + results.length + " results found");
+    })
+    .bind("geocode:dragged", function (event, latLng) {
+        $("input[name=lat]").val(latLng.lat());
+        $("input[name=lng]").val(latLng.lng());
+    });
 
-        directionsDisplay.setMap(map);
-        var distanceWidget = new DistanceWidget(map);
+    $("#searchBtn").click(function () {
+        $("#inputGeo").trigger("geocode");
+    });
+
+    var gmap = $("#inputGeo").geocomplete("map");
+    var marker = $("#inputGeo").geocomplete("marker");
+
+    function initialize() {
+
+        var distanceWidget = new DistanceWidget(gmap);
+
+        //directionsDisplay.setMap(gmap);
+
+        google.maps.event.addListener(marker, 'position_changed', function () {
+            distanceWidget.set('position', marker.getPosition());
+            displayInfo(distanceWidget);
+        });
 
         google.maps.event.addListener(distanceWidget, 'distance_changed', function () {
             displayInfo(distanceWidget);
@@ -53,7 +125,30 @@
         google.maps.event.addListener(distanceWidget, 'position_changed', function () {
             displayInfo(distanceWidget);
         });
+
+
+        InitRightClick(gmap);
+
+        //google.maps.event.addListener(marker, 'dblclick', function () {
+        //    // When a user double clicks on the icon fit to the map to the bounds
+        //    gmap.fitBounds(distanceWidget.get('bounds'));
+        //    console.log("dbclick!!");
+        //});
     }
+
+    /* 規劃 */
+    var directionsService = new google.maps.DirectionsService();
+    var start = "台北市介壽國中";
+    var end = "台北市台北科技大學";
+    var waypoints = "台北市台北車站,台北市國父紀念館";
+
+    //規畫路徑呈現選項
+    var rendererOptions = {
+        suppressMarkers: true,
+        draggable: true
+    };
+
+    directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
 
     function displayInfo(widget) {
         var info = document.getElementById('info');
@@ -91,7 +186,7 @@
                 directionsDisplay.setDirections(response);
             }
         });
-        console.log("done!!");
+
     }
 
     function DistanceWidget(map) {
@@ -101,8 +196,9 @@
         var marker = new google.maps.Marker({
             position: map.getCenter(),
             draggable: true,
-            title: '移動我 !!',
+            //title: '移動我 !!',
             icon: mainIcon,
+            visible: false
         });
 
         // Bind the marker map property to the DistanceWidget map property
@@ -127,8 +223,15 @@
         // Bind to the radiusWidgets' bounds property
         this.bindTo('bounds', radiusWidget);
 
+        //var me = this;
+        //google.maps.event.addListener(marker, 'dblclick', function () {
+        //    // When a user double clicks on the icon fit to the map to the bounds
+        //    map.fitBounds(me.get('bounds'));
+        //});
+
         //google.maps.event.addListener(marker, 'dragend', function () { alert(marker.getPosition()); });
     }
+
     DistanceWidget.prototype = new google.maps.MVCObject();
 
     function RadiusWidget() {
@@ -136,8 +239,8 @@
             strokeWeight: 2
         });
 
-        // Set the distance property value, default to 20km.
-        this.set('distance', 20);
+        // Set the distance property value, default to 10km.
+        this.set('distance', 10);
 
         // Bind the RadiusWidget bounds property to the circle bounds property.
         this.bindTo('bounds', circle);
@@ -204,7 +307,6 @@
         return d;
     };
 
-
     /**
      * Set the distance of the circle based on the position of the sizer.
      */
@@ -220,10 +322,6 @@
         this.set('distance', distance);
     };
 
-    google.maps.event.addDomListener(window, 'load', init);
+    google.maps.event.addDomListener(window, 'load', initialize);
     google.maps.event.addDomListener(window, 'load', calcRoute);
 </script>
-
-
-<div id="map_canvas" class="map_canvas" aria-setsize="500"></div>
-<div id="info"></div>
