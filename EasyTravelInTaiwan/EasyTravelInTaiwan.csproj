@@ -333,6 +333,7 @@
     <Compile Include="Models\maplatlng.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MapModel.cs" />
     <Compile Include="Models\member.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
@@ -632,6 +633,7 @@
     <Content Include="scripts\jquery-1.9.1.min.js" />
     <Content Include="scripts\jquery-migrate-1.1.1.js" />
     <Content Include="scripts\jquery-migrate-1.1.1.min.js" />
+    <Content Include="scripts\jquery.blockUI.js" />
     <Content Include="scripts\jquery.geocomplete.js" />
     <Content Include="scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="scripts\jquery.unobtrusive-ajax.min.js" />
@@ -686,7 +688,6 @@
     <Content Include="Views\Member\Login.cshtml" />
     <Content Include="Views\Member\Register.cshtml" />
     <Content Include="Views\Member\_ViewStart.cshtml" />
-    <Content Include="Views\Map\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EasyTravelInTaiwan.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -19,6 +20,13 @@ namespace EasyTravelInTaiwan.Controllers
         public ActionResult Test()
         {
             return View();
+        }
+
+        public ActionResult GetMap()
+        {
+            var mapMarkerList = new MapRepository();
+
+            return Json(mapMarkerList, JsonRequestBehavior.AllowGet);
         }
 
     }

@@ -1,14 +1,15 @@
-﻿function InitRightClick(map) {
+﻿function InitRightClick() {
 
-    var gmap = map;
+    //var gmap = map;
 
     var directionsRendererOptions = {};
-    directionsRendererOptions.draggable = false;
+    directionsRendererOptions.draggable = true;
     directionsRendererOptions.hideRouteList = true;
-    directionsRendererOptions.suppressMarkers = false;
+    directionsRendererOptions.suppressMarkers = true;
     directionsRendererOptions.preserveViewport = false;
     var directionsRenderer = new google.maps.DirectionsRenderer(directionsRendererOptions);
     var directionsService = new google.maps.DirectionsService();
+    var waypoints;
 
     var contextMenuOptions = {};
     contextMenuOptions.classNames = { menu: 'context_menu', menuSeparator: 'context_menu_separator' };
@@ -30,8 +31,14 @@
 
     var contextMenu = new ContextMenu(gmap, contextMenuOptions);
 
-    google.maps.event.addListener(gmap, 'rightclick', function (mouseEvent) {
-        contextMenu.show(mouseEvent.latLng);
+    google.maps.event.addListener(gmap, 'rightclick', function (marker) {
+        //contextMenu.show(mouseEvent.latLng);
+        try {
+            contextMenu.show(marker.getPosition());
+            console.log(marker);
+        } catch (err) {
+
+        }
     });
 
     //	create markers to show directions origin and destination
@@ -41,11 +48,13 @@
     markerOptions.map = null;
     markerOptions.position = new google.maps.LatLng(0, 0);
     markerOptions.title = '起點';
+    markerOptions.visible = false;
 
     var originMarker = new google.maps.Marker(markerOptions);
 
     markerOptions.icon = 'http://www.google.com/intl/en_ALL/mapfiles/markerB.png';
     markerOptions.title = '終點';
+    markerOptions.visible = false;
     var destinationMarker = new google.maps.Marker(markerOptions);
 
     //	listen for the ContextMenu 'menu_item_selected' event
@@ -95,13 +104,13 @@
                 });
                 break;
             case 'zoom_in_click':
-                map.setZoom(gmap.getZoom() + 1);
+                gmap.setZoom(gmap.getZoom() + 1);
                 break;
             case 'zoom_out_click':
-                map.setZoom(gmap.getZoom() - 1);
+                gmap.setZoom(gmap.getZoom() - 1);
                 break;
             case 'center_map_click':
-                map.panTo(latLng);
+                gmap.panTo(latLng);
                 break;
         }
         if (originMarker.getMap() && destinationMarker.getMap() && document.getElementById('getDirectionsItem').style.display === '') {
