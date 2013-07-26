@@ -572,6 +572,23 @@
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Icons\01.png" />
+    <Content Include="Content\Icons\02.png" />
+    <Content Include="Content\Icons\03.png" />
+    <Content Include="Content\Icons\04.png" />
+    <Content Include="Content\Icons\20.png" />
+    <Content Include="Content\Icons\ajax-loader.gif" />
+    <Content Include="Content\Icons\hotel11.png" />
+    <Content Include="Content\Icons\hotel12.png" />
+    <Content Include="Content\Icons\hotel13.png" />
+    <Content Include="Content\Icons\hotel14.png" />
+    <Content Include="Content\Icons\loader-clock.gif" />
+    <Content Include="Content\Icons\loader-clock1.gif" />
+    <Content Include="Content\Icons\loader-clock11.gif" />
+    <Content Include="Content\Icons\loader-indic.gif" />
+    <Content Include="Content\Icons\loader-snake.gif" />
+    <Content Include="Content\Icons\loader-snake1.gif" />
+    <Content Include="Content\images\FB-logo.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Global.asax" />
@@ -628,6 +645,7 @@
       <DependentUpon>ProjectModel.edmx</DependentUpon>
       <LastGenOutput>ProjectModel.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\project.pubxml" />
     <None Include="scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="scripts\jquery-1.9.1.js" />
     <Content Include="scripts\jquery-1.9.1.min.js" />

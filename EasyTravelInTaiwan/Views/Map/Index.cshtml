@@ -80,52 +80,55 @@
 
 <div id="info"></div>
 
+<ul class="nav nav-pills nav-stacked" id="InputsWrapper" >
+</ul>
+
 <script type="text/javascript">
 
     var mainIcon = {
-        url: 'Icons/04.png',
+        url: 'Content/Icons/04.png',
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(17, 38)
     };
 
     var foodIcon = {
-        url: 'Icons/02.png',
+        url: 'Content/Icons/02.png',
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(17, 38)
     };
 
     var hotelIcon = {
-        url: 'Icons/01.png',
+        url: 'Content/Icons/01.png',
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(17, 38)
     };
 
     var hotelIcon11 = {
-        url: 'Icons/hotel11.png',
+        url: 'Content/Icons/hotel11.png',
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(17, 38)
     }
 
     var hotelIcon12 = {
-        url: 'Icons/hotel12.png',
+        url: 'Content/Icons/hotel12.png',
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(17, 38)
     }
 
     var hotelIcon13 = {
-        url: 'Icons/hotel13.png',
+        url: 'Content/Icons/hotel13.png',
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(17, 38)
     }
 
     var hotelIcon14 = {
-        url: 'Icons/hotel14.png',
+        url: 'Content/Icons/hotel14.png',
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(17, 38)
     }
 
     var viewIcon = {
-        url: 'Icons/03.png',
+        url: 'Content/Icons/03.png',
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(17, 38)
     };
@@ -243,10 +246,12 @@
             map: gmap,
             title: item.pName,
             icon: markerIcon,
-            visible: false
+            visible: false,
+            isChecked: false,
+            gIndex: gmarkers.length
         });
         marker.category = item.pt;
-
+        
         gmarkers.push(marker);
 
         // add a marker click event
@@ -274,7 +279,7 @@
     // == hides all markers of a particular category, and ensures the checkbox is cleared ==
     function hide(category) {
         for (var i = 0; i < gmarkers.length; i++) {
-            if (gmarkers[i].category == category) {
+            if (gmarkers[i].category == category && !gmarkers[i].isChecked) {
                 gmarkers[i].setVisible(false);
             }
         }
@@ -282,6 +287,11 @@
         //document.getElementById(category + "box").checked = false;
         // == close the info window, in case its open on a marker that we just hid
         infowindow.close();
+    }
+
+    function myclick(i) {
+        google.maps.event.trigger(gmarkers[i], "click");
+        console.log("triggered");
     }
 
     function boxclick(box, category) {
@@ -464,6 +474,7 @@
 
         // Set the distance property for any objects that are bound to it
         this.set('distance', distance);
+
     };
 
     function DisableBlockUI() {
@@ -473,9 +484,8 @@
     google.maps.event.addDomListener(window, 'load', initialize);
     google.maps.event.addDomListener(window, 'load', calcRoute);
 
-
     $.blockUI({
-        message: $('<h5 style="text-align:center font-size= 24px"><img src="Icons/loader-indic.gif" /> <br/><br/>系統資料讀取中，請稍後 ...</h5>'),
+        message: $('<h5 style="text-align:center font-size= 24px"><img src="Content/Icons/loader-indic.gif" /> <br/><br/>系統資料讀取中，請稍後 ...</h5>'),
         css: {
             top: ($(window).height() - 240) / 2 + 'px',
             left: ($(window).width() - 240) / 2 + 'px',
