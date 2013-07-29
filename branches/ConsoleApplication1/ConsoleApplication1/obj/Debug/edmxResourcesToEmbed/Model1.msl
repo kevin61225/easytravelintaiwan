@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="testdbModelStoreContainer" CdmEntityContainer="projectEntities">
+    <EntitySetMapping Name="cities">
+      <EntityTypeMapping TypeName="testdbModel.city">
+        <MappingFragment StoreEntitySet="city">
+          <ScalarProperty Name="Citynumber" ColumnName="Citynumber" />
+          <ScalarProperty Name="Cityname" ColumnName="Cityname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="places">
+      <EntityTypeMapping TypeName="testdbModel.place">
+        <MappingFragment StoreEntitySet="place">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Citynumber" ColumnName="Citynumber" />
+          <ScalarProperty Name="Typenumber" ColumnName="Typenumber" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Telphone" ColumnName="Telphone" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Carmethod" ColumnName="Carmethod" />
+          <ScalarProperty Name="Busmethod" ColumnName="Busmethod" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="placeimages">
+      <EntityTypeMapping TypeName="testdbModel.placeimage">
+        <MappingFragment StoreEntitySet="placeimage">
+          <ScalarProperty Name="sid" ColumnName="sid" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Imagetype" ColumnName="Imagetype" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="viewtypes">
+      <EntityTypeMapping TypeName="testdbModel.viewtype">
+        <MappingFragment StoreEntitySet="viewtype">
+          <ScalarProperty Name="Typenumber" ColumnName="Typenumber" />
+          <ScalarProperty Name="Typename" ColumnName="Typename" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

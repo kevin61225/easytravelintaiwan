@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="testdbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="testdbModelStoreContainer">
+          <EntitySet Name="city" EntityType="testdbModel.Store.city" store:Type="Tables" Schema="testdb" />
+          <EntitySet Name="place" EntityType="testdbModel.Store.place" store:Type="Tables" Schema="testdb" />
+          <EntitySet Name="placeimage" EntityType="testdbModel.Store.placeimage" store:Type="Tables" Schema="testdb" />
+          <EntitySet Name="viewtype" EntityType="testdbModel.Store.viewtype" store:Type="Tables" Schema="testdb" />
+          <AssociationSet Name="place_ibfk_1" Association="testdbModel.Store.place_ibfk_1">
+            <End Role="city" EntitySet="city" />
+            <End Role="place" EntitySet="place" />
+          </AssociationSet>
+          <AssociationSet Name="place_ibfk_2" Association="testdbModel.Store.place_ibfk_2">
+            <End Role="viewtype" EntitySet="viewtype" />
+            <End Role="place" EntitySet="place" />
+          </AssociationSet>
+          <AssociationSet Name="placeimage_ibfk_1" Association="testdbModel.Store.placeimage_ibfk_1">
+            <End Role="place" EntitySet="place" />
+            <End Role="placeimage" EntitySet="placeimage" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="city">
+          <Key>
+            <PropertyRef Name="Citynumber" />
+          </Key>
+          <Property Name="Citynumber" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="Cityname" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="place">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Name" Type="text" Nullable="false" />
+          <Property Name="Citynumber" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="Typenumber" Type="int" Nullable="false" />
+          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="Telphone" Type="text" />
+          <Property Name="Address" Type="text" />
+          <Property Name="Url" Type="text" />
+          <Property Name="Carmethod" Type="text" />
+          <Property Name="Busmethod" Type="text" />
+        </EntityType>
+        <EntityType Name="placeimage">
+          <Key>
+            <PropertyRef Name="sid" />
+          </Key>
+          <Property Name="sid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Name" Type="text" Nullable="false" />
+          <Property Name="Imagetype" Type="int" Nullable="false" />
+          <Property Name="Image" Type="longblob" />
+        </EntityType>
+        <EntityType Name="viewtype">
+          <Key>
+            <PropertyRef Name="Typenumber" />
+          </Key>
+          <Property Name="Typenumber" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Typename" Type="text" Nullable="false" />
+        </EntityType>
+        <Association Name="place_ibfk_1">
+          <End Role="city" Type="testdbModel.Store.city" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="place" Type="testdbModel.Store.place" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="city">
+              <PropertyRef Name="Citynumber" />
+            </Principal>
+            <Dependent Role="place">
+              <PropertyRef Name="Citynumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="place_ibfk_2">
+          <End Role="viewtype" Type="testdbModel.Store.viewtype" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="place" Type="testdbModel.Store.place" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="viewtype">
+              <PropertyRef Name="Typenumber" />
+            </Principal>
+            <Dependent Role="place">
+              <PropertyRef Name="Typenumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="placeimage_ibfk_1">
+          <End Role="place" Type="testdbModel.Store.place" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="placeimage" Type="testdbModel.Store.placeimage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="place">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="placeimage">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="testdbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="projectEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="cities" EntityType="testdbModel.city" />
+          <EntitySet Name="places" EntityType="testdbModel.place" />
+          <EntitySet Name="placeimages" EntityType="testdbModel.placeimage" />
+          <EntitySet Name="viewtypes" EntityType="testdbModel.viewtype" />
+          <AssociationSet Name="place_ibfk_1" Association="testdbModel.place_ibfk_1">
+            <End Role="city" EntitySet="cities" />
+            <End Role="place" EntitySet="places" />
+          </AssociationSet>
+          <AssociationSet Name="place_ibfk_2" Association="testdbModel.place_ibfk_2">
+            <End Role="viewtype" EntitySet="viewtypes" />
+            <End Role="place" EntitySet="places" />
+          </AssociationSet>
+          <AssociationSet Name="placeimage_ibfk_1" Association="testdbModel.placeimage_ibfk_1">
+            <End Role="place" EntitySet="places" />
+            <End Role="placeimage" EntitySet="placeimages" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="city">
+          <Key>
+            <PropertyRef Name="Citynumber" />
+          </Key>
+          <Property Name="Citynumber" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Cityname" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="places" Relationship="testdbModel.place_ibfk_1" FromRole="city" ToRole="place" />
+        </EntityType>
+        <EntityType Name="place">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="Citynumber" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Typenumber" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="Telphone" Type="String" Nullable="true" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="Address" Type="String" Nullable="true" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="Url" Type="String" Nullable="true" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="Carmethod" Type="String" Nullable="true" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="Busmethod" Type="String" Nullable="true" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="city" Relationship="testdbModel.place_ibfk_1" FromRole="place" ToRole="city" />
+          <NavigationProperty Name="viewtype" Relationship="testdbModel.place_ibfk_2" FromRole="place" ToRole="viewtype" />
+          <NavigationProperty Name="placeimages" Relationship="testdbModel.placeimage_ibfk_1" FromRole="place" ToRole="placeimage" />
+        </EntityType>
+        <EntityType Name="placeimage">
+          <Key>
+            <PropertyRef Name="sid" />
+          </Key>
+          <Property Name="sid" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="Imagetype" Type="Int32" Nullable="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="place" Relationship="testdbModel.placeimage_ibfk_1" FromRole="placeimage" ToRole="place" />
+        </EntityType>
+        <EntityType Name="viewtype">
+          <Key>
+            <PropertyRef Name="Typenumber" />
+          </Key>
+          <Property Name="Typenumber" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Typename" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="places" Relationship="testdbModel.place_ibfk_2" FromRole="viewtype" ToRole="place" />
+        </EntityType>
+        <Association Name="place_ibfk_1">
+          <End Role="city" Type="testdbModel.city" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="place" Type="testdbModel.place" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="city">
+              <PropertyRef Name="Citynumber" />
+            </Principal>
+            <Dependent Role="place">
+              <PropertyRef Name="Citynumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="place_ibfk_2">
+          <End Role="viewtype" Type="testdbModel.viewtype" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="place" Type="testdbModel.place" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="viewtype">
+              <PropertyRef Name="Typenumber" />
+            </Principal>
+            <Dependent Role="place">
+              <PropertyRef Name="Typenumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="placeimage_ibfk_1">
+          <End Role="place" Type="testdbModel.place" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="placeimage" Type="testdbModel.placeimage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="place">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="placeimage">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="testdbModelStoreContainer" CdmEntityContainer="projectEntities">
+          <EntitySetMapping Name="cities">
+            <EntityTypeMapping TypeName="testdbModel.city">
+              <MappingFragment StoreEntitySet="city">
+                <ScalarProperty Name="Citynumber" ColumnName="Citynumber" />
+                <ScalarProperty Name="Cityname" ColumnName="Cityname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="places">
+            <EntityTypeMapping TypeName="testdbModel.place">
+              <MappingFragment StoreEntitySet="place">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Citynumber" ColumnName="Citynumber" />
+                <ScalarProperty Name="Typenumber" ColumnName="Typenumber" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Telphone" ColumnName="Telphone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Carmethod" ColumnName="Carmethod" />
+                <ScalarProperty Name="Busmethod" ColumnName="Busmethod" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="placeimages">
+            <EntityTypeMapping TypeName="testdbModel.placeimage">
+              <MappingFragment StoreEntitySet="placeimage">
+                <ScalarProperty Name="sid" ColumnName="sid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Imagetype" ColumnName="Imagetype" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="viewtypes">
+            <EntityTypeMapping TypeName="testdbModel.viewtype">
+              <MappingFragment StoreEntitySet="viewtype">
+                <ScalarProperty Name="Typenumber" ColumnName="Typenumber" />
+                <ScalarProperty Name="Typename" ColumnName="Typename" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
