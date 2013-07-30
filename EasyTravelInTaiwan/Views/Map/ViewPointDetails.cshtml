@@ -1,0 +1,157 @@
+﻿@model EasyTravelInTaiwan.Models.place
+
+@{
+    ViewBag.Title = "ViewPointDetails";
+    Layout = "~/Views/shared/_BootstrapLayout.basic.cshtml";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+<script src="~/scripts/sco.panes.js"></script>
+<link href="~/Content/scojs.css" rel="stylesheet" />
+
+<style>
+    .image_row {
+        background-color: #EEE;
+        height: 150px;
+        width: 150px;
+        text-align: center;
+        /* Firefox, Chrome */
+        line-height: 150px;
+        /* IE */
+        *font-size: 135px; /* 200px * 0.9 = 180px */
+        *font-family: Arial;
+    }
+
+        .image_row input[type="image"] {
+            max-height: 150px;
+            width: auto;
+        }
+
+        .image_row input[type="image"] {
+            max-width: 150px;
+            height: auto;
+        }
+
+        .image_row input[type="image"] {
+            vertical-align: middle;
+        }
+</style>
+
+<h2>ViewPointDetails</h2>
+
+<fieldset>
+    <legend>place</legend>
+
+    <div class="row">
+        <div class="span6">
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.Name)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Name)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.Citynumber)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.city.Cityname)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.viewtype)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.viewtype.Typename)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.Description)
+            </div>
+            <div class="display-field">
+                @{
+                    var text = Html.DisplayFor(model => model.Description);
+                }
+                @Html.Raw(text)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.Telphone)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Telphone)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.Address)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Address)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.Url)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Url)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.Carmethod)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Carmethod)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.Busmethod)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Busmethod)
+            </div>
+        </div>
+        <div class="span6">
+            <div class="display-label">
+                @Html.DisplayName("ImageList")
+            </div>
+            <div class="display-field">
+                <div class="pane-wrapper" id="panes-example">
+                    @foreach (EasyTravelInTaiwan.Models.placeimage image in Model.placeimages)
+                    {
+                        <div>
+                            <img src="@Url.Action("RenderBookImage", new { id = image.sid })" alt="SlideImage" />
+                        </div>
+                    }
+                </div>
+                <div class="row">
+                    @{
+                        int i = 0;
+                        foreach (EasyTravelInTaiwan.Models.placeimage image in Model.placeimages)
+                        {
+                            string onclick = string.Format("changePane({0})", i);
+                            <div class="span3 image_row">
+                                <input type="image" src="@Url.Action("RenderBookImage", new { id = image.sid })" id="image-@i" 
+                                         onclick="@onclick"/>
+                            </div>
+                            i++;
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "ViewPointEdit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "ViewPointList")
+</p>
+
+
+<script type="text/javascript">
+    var $panes = $.scojs_panes('#panes-example', { easing: 'flip' });
+    function changePane(i) {
+        console.log(i);
+        $panes.select(i);
+    }
+</script>

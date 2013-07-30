@@ -1,0 +1,53 @@
+﻿@model IEnumerable<EasyTravelInTaiwan.Models.place>
+
+@{
+    Layout = "~/Views/shared/_BootstrapLayout.basic.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayName("PlaceName")
+        </th>
+        <th>
+            @Html.DisplayName("City")
+        </th>
+        <th>
+            @Html.DisplayName("Detail")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.city.Cityname)
+        </td>
+        <td>
+           <div class="btn-group">
+                    <a class="btn dropdown-toggle btn btn-info" data-toggle="dropdown" href="#">
+                        Action
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        @*<li>@Html.ActionLink("編輯", "Edit", new { id = item.BookID }) </li>*@
+                        <li>@Html.ActionLink("詳細資料", "ViewPointDetails", new { id=item.Id  }) </li>
+                        @*<li>@Html.ActionLink("新增作者", "AddAuthorToBook", new { id=item.BookID  }) </li>*@
+                        @*<li>@Html.ActionLink("刪除作者", "RemoveAuthorFromBook", new { id=item.BookID  }) </li>*@
+                        @*<li class="divider"></li>*@
+                        @*<li>@Html.ActionLink("刪除", "Delete", new { id=item.BookID  })</li>*@
+
+                        
+                    </ul>
+                </div>
+        </td>
+    </tr>
+}
+
+</table>

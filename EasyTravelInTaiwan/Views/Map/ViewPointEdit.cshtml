@@ -1,0 +1,98 @@
+﻿@model EasyTravelInTaiwan.Models.place
+
+@{
+    Layout = "~/Views/shared/_BootstrapLayout.basic.cshtml";
+}
+
+<h2>ViewPointEdit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>place</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Citynumber, "city")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Citynumber")
+            @Html.ValidationMessageFor(model => model.Citynumber)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Typenumber, "viewtype")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Typenumber", String.Empty)
+            @Html.ValidationMessageFor(model => model.Typenumber)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Telphone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Telphone)
+            @Html.ValidationMessageFor(model => model.Telphone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Address)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Address)
+            @Html.ValidationMessageFor(model => model.Address)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Url)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Url)
+            @Html.ValidationMessageFor(model => model.Url)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Carmethod)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Carmethod)
+            @Html.ValidationMessageFor(model => model.Carmethod)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Busmethod)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Busmethod)
+            @Html.ValidationMessageFor(model => model.Busmethod)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "ViewPointList")
+</div>
