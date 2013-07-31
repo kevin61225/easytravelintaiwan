@@ -588,9 +588,12 @@
     <Content Include="Content\Icons\loader-indic.gif" />
     <Content Include="Content\Icons\loader-snake.gif" />
     <Content Include="Content\Icons\loader-snake1.gif" />
+    <Content Include="Content\images\bg-tile.png" />
     <Content Include="Content\images\FB-logo.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\ui.css" />
+    <Content Include="Content\ui.progress-bar.css" />
     <Content Include="Global.asax" />
     <Content Include="scripts\2012.1.214\jquery-1.7.1.min.js" />
     <Content Include="scripts\2012.1.214\jquery.validate.min.js" />
@@ -651,6 +654,7 @@
     <Content Include="scripts\jquery-1.9.1.min.js" />
     <Content Include="scripts\jquery-migrate-1.1.1.js" />
     <Content Include="scripts\jquery-migrate-1.1.1.min.js" />
+    <Content Include="scripts\jquery.ajax-progress.js" />
     <Content Include="scripts\jquery.blockUI.js" />
     <Content Include="scripts\jquery.geocomplete.js" />
     <Content Include="scripts\jquery.unobtrusive-ajax.js" />
@@ -661,11 +665,13 @@
     <Content Include="scripts\jquery.validate.unobtrusive-custom-for-bootstrap.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="scripts\progress.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>

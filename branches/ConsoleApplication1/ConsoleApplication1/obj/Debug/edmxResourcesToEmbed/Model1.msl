@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="testdbModelStoreContainer" CdmEntityContainer="projectEntities">
+  <EntityContainerMapping StorageEntityContainer="projectModelStoreContainer" CdmEntityContainer="projectEntities">
     <EntitySetMapping Name="cities">
-      <EntityTypeMapping TypeName="testdbModel.city">
+      <EntityTypeMapping TypeName="projectModel.city">
         <MappingFragment StoreEntitySet="city">
           <ScalarProperty Name="Citynumber" ColumnName="Citynumber" />
           <ScalarProperty Name="Cityname" ColumnName="Cityname" />
@@ -10,7 +10,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="places">
-      <EntityTypeMapping TypeName="testdbModel.place">
+      <EntityTypeMapping TypeName="projectModel.place">
         <MappingFragment StoreEntitySet="place">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -26,7 +26,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="placeimages">
-      <EntityTypeMapping TypeName="testdbModel.placeimage">
+      <EntityTypeMapping TypeName="projectModel.placeimage">
         <MappingFragment StoreEntitySet="placeimage">
           <ScalarProperty Name="sid" ColumnName="sid" />
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -37,7 +37,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="viewtypes">
-      <EntityTypeMapping TypeName="testdbModel.viewtype">
+      <EntityTypeMapping TypeName="projectModel.viewtype">
         <MappingFragment StoreEntitySet="viewtype">
           <ScalarProperty Name="Typenumber" ColumnName="Typenumber" />
           <ScalarProperty Name="Typename" ColumnName="Typename" />

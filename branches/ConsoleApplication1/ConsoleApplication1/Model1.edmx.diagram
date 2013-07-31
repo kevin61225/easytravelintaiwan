@@ -4,14 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="86d447e314df4e519fcebbc64dc82f22" Name="圖表1">
-        <EntityTypeShape EntityType="testdbModel.city" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="testdbModel.place" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="testdbModel.placeimage" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="testdbModel.viewtype" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
-        <AssociationConnector Association="testdbModel.place_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="testdbModel.place_ibfk_2" ManuallyRouted="false" />
-        <AssociationConnector Association="testdbModel.placeimage_ibfk_1" ManuallyRouted="false" />
+      <Diagram DiagramId="9515cffbd6d54124a8e99a7ad97881ec" Name="圖表1">
+        <EntityTypeShape EntityType="projectModel.city" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectModel.place" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectModel.placeimage" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectModel.viewtype" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <AssociationConnector Association="projectModel.place_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="projectModel.place_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="projectModel.placeimage_ibfk_1" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

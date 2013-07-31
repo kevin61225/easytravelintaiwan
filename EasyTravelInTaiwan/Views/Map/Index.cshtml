@@ -34,54 +34,56 @@
     }
 </style>
 
+<link href="~/Content/ui.css" rel="stylesheet" />
+<link href="~/Content/ui.progress-bar.css" rel="stylesheet" />
 
 <!--引入 Google API-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.9&sensor=false"></script>
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script src="~/scripts/jquery.blockUI.js"></script>
 <script src="~/scripts/ContextMenu.js"></script>
 <script src="~/scripts/jquery.geocomplete.js"></script>
 <script src="~/scripts/GoogleMapRightClick.js"></script>
-<script type="text/javascript">
+<script src="~/scripts/jquery.ajax-progress.js"></script>
+<script src="~/scripts/progress.js"></script>
 
-    function ClickFood() {
-        alert(FoodCheckBox.checked);
-    }
-    function ClickHotel() {
-        alert(HotelCheckBox.checked);
-    }
-    function ClickView() {
-        alert(ViewCheckBox.checked);
-    }
+@*<div id="Progress-container">
+    <div id="progress_bar" class="ui-progress-bar ui-container">
+        <div class="ui-progress" style="width: 79%;">
+            <span class="ui-label" style="display: none;">資料讀取中 <b class="value">79%</b></span>
+        </div>
+        <!-- .ui-progress -->
+    </div>
+</div>*@
 
-</script>
 <input id="inputGeo" type="text" placeholder="Enter a place" maxlength="100" autocomplete="off" />
 <input id="searchBtn" type="button" value="Search" class="btn" />
 
-食物
-@Html.CheckBox("FoodCheckBox", false, new { onclick = "boxclick(this, '07')" })
-旅館
-@Html.CheckBox("HotelCheckBox", false, new { onclick = "boxclick(this, '06')" })
-風景
-@Html.CheckBox("ViewCheckBox", false, new { onclick = "boxclick(this, '10')" })
+<div id="placeFilter" class="btn-group filterClass" data-toggle="buttons-checkbox">
+    <button type="button" class="btn btn-primary " value="07">食物</button>
+    <button type="button" class="btn btn-primary " value="06">旅館</button>
+    <button type="button" class="btn btn-primary " value="10">風景</button>
+</div>
 
 <div id="map_canvas" class="map_canvas" aria-setsize="500"></div>
 <br />
 
-<form id="status">
+@*<form id="status">
     Latitude:  
     <input name="lat" type="text" value="">
     Longitude: 
     <input name="lng" type="text" value="">
     Address:   
     <input name="formatted_address" type="text" value="">
-</form>
+</form>*@
+
+<ul class="nav nav-pills nav-stacked" id="InputsWrapper">
+</ul>
 
 <div id="info"></div>
-
-<ul class="nav nav-pills nav-stacked" id="InputsWrapper" >
-</ul>
 
 <script type="text/javascript">
 
@@ -161,49 +163,98 @@
         console.log("Multiple: " + results.length + " results found");
     })
     .bind("geocode:dragged", function (event, latLng) {
-        $("input[name=lat]").val(latLng.lat());
-        $("input[name=lng]").val(latLng.lng());
+        //$("input[name=lat]").val(latLng.lat());
+        //$("input[name=lng]").val(latLng.lng());
     });
 
     $("#searchBtn").click(function () {
         $("#inputGeo").trigger("geocode");
     });
 
+    $(".filterClass .btn").click(function (event) {
+        boxclick($(this).hasClass("active"), $(this).val());
+    });
+
+    $(document).on('click', '#InputsWrapper li', function () {
+        var str = $(this).attr('id');
+        var n = str.split("-");
+        console.log(n[1]);
+        google.maps.event.trigger(gmarkers[n[1]], "click");
+    });
+
     var gmap = $("#inputGeo").geocomplete("map");
-    var marker = $("#inputGeo").geocomplete("marker");
+    var gmarker = $("#inputGeo").geocomplete("marker");
     var infowindow = new google.maps.InfoWindow();
     var gmarkers = [];
 
-    $.getJSON("/Map/GetMap", initialize);
+    //$.getJSON("/Map/GetMap", initialize);
+
+        $.ajax({
+            type: 'POST',
+            url: '/Map/GetMap',
+            dataType: 'json',
+            success: function (data) {
+                $('#progress_bar .ui-progress').animateProgress(100, function () {
+                    $('#Progress-container').slideDown();
+                    $('#fork_me').fadeIn();
+                });
+                initialize(data);
+            },
+            error: function () {
+                console.log('Load Error Occur !');
+            },
+            progress: function (e) {
+                if (e.lengthComputable) {
+                    var pct = (e.loaded / e.total) * 100;
+                    console.log(parseInt((e.loaded / e.total * 100), 10));
+                    $('#progress_bar .ui-progress').animateProgress(pct, function () {
+                        $('#Progress-container').slideDown();
+                        $('#fork_me').fadeIn();
+                    });
+                } else {
+                    console.warn('Content Length not reported!');
+                }
+            }
+        });
+
+    // Hide the label at start
+    $('#progress_bar .ui-progress .ui-label').hide();
+    // Set initial value
+    $('#progress_bar .ui-progress').css('width', '7%');
+    // Simulate some progress
+    $('#progress_bar .ui-progress').animateProgress(50, function () {
+    });
 
     function initialize(mapData) {
+
+        ////google.maps.event.addListener(gmarker, 'dblclick', function () {
+        ////    // When a user double clicks on the icon fit to the map to the bounds
+        ////    gmap.fitBounds(distanceWidget.get('bounds'));
+        ////    console.log("dbclick!!");
+        ////});
 
         $.each(mapData, function (i, item) {
             setupLocationMarker(item);
         });
 
         InitRightClick();
+
+        var distanceWidget = new DistanceWidget();
+
+        //google.maps.event.addListener(gmarker, 'position_changed', function () {
+        //    distanceWidget.set('position', gmarker.getPosition());
+        //    displayInfo(distanceWidget);
+        //});
+
+        google.maps.event.addListener(distanceWidget, 'distance_changed', function () {
+            displayInfo(distanceWidget);
+        });
+
+        google.maps.event.addListener(distanceWidget, 'position_changed', function () {
+            displayInfo(distanceWidget);
+        });
+
         console.log(gmarkers.length);
-        //var distanceWidget = new DistanceWidget(gmap);
-
-        //google.maps.event.addListener(marker, 'position_changed', function () {
-        //    distanceWidget.set('position', marker.getPosition());
-        //    displayInfo(distanceWidget);
-        //});
-
-        //google.maps.event.addListener(distanceWidget, 'distance_changed', function () {
-        //    displayInfo(distanceWidget);
-        //});
-
-        //google.maps.event.addListener(distanceWidget, 'position_changed', function () {
-        //    displayInfo(distanceWidget);
-        //});
-
-        //google.maps.event.addListener(marker, 'dblclick', function () {
-        //    // When a user double clicks on the icon fit to the map to the bounds
-        //    gmap.fitBounds(distanceWidget.get('bounds'));
-        //    console.log("dbclick!!");
-        //});
     }
 
     function setupLocationMarker(item) {
@@ -251,7 +302,7 @@
             gIndex: gmarkers.length
         });
         marker.category = item.pt;
-        
+
         gmarkers.push(marker);
 
         // add a marker click event
@@ -291,11 +342,10 @@
 
     function myclick(i) {
         google.maps.event.trigger(gmarkers[i], "click");
-        console.log("triggered");
     }
 
-    function boxclick(box, category) {
-        if (box.checked) {
+    function boxclick(isChecked, category) {
+        if (!isChecked) {
             show(category);
         } else {
             hide(category);
@@ -309,58 +359,18 @@
         info.innerHTML = 'Position: ' + widget.get('position') + ', distance: ' +
           widget.get('distance');
     }
+ 
+    function DistanceWidget() {
 
-    //規畫路徑
-    function calcRoute() {
-        if (!waypoints) return;
-
-        var arrPoint = waypoints.split(",");
-
-        //經過地點
-        var waypts = [];
-        for (var i = 0; i < arrPoint.length; i++) {
-            waypts.push({
-                location: arrPoint[i],
-                stopover: true
-            });
-        }
-
-        //規畫路徑請求
-        var request = {
-            origin: start,
-            destination: end,
-            waypoints: waypts,
-            optimizeWaypoints: true,
-            travelMode: google.maps.DirectionsTravelMode.WALKING
-        };
-
-        directionsService.route(request, function (response, status) {
-            //規畫路徑回傳結果
-            if (status == google.maps.DirectionsStatus.OK) {
-                directionsDisplay.setDirections(response);
-            }
-        });
-
-    }
-
-    function DistanceWidget(map) {
-        this.set('map', map);
-        this.set('position', map.getCenter());
-
-        var marker = new google.maps.Marker({
-            position: map.getCenter(),
-            draggable: true,
-            //title: '移動我 !!',
-            icon: mainIcon,
-            visible: false
-        });
+        this.set('map', gmap);
+        this.set('position', gmap.getCenter());
 
         // Bind the marker map property to the DistanceWidget map property
-        marker.bindTo('map', this);
+        gmarker.bindTo('map', this);
 
         // Bind the marker position property to the DistanceWidget position
         // property
-        marker.bindTo('position', this);
+        gmarker.bindTo('position', this);
 
         // Create a new radius widget
         var radiusWidget = new RadiusWidget();
@@ -383,7 +393,7 @@
         //    map.fitBounds(me.get('bounds'));
         //});
 
-        //google.maps.event.addListener(marker, 'dragend', function () { alert(marker.getPosition()); });
+        //google.maps.event.addListener(gmarker, 'dragend', function () { alert(gmarker.getPosition()); });
     }
 
     DistanceWidget.prototype = new google.maps.MVCObject();
@@ -481,11 +491,12 @@
         $.unblockUI();
     }
 
-    google.maps.event.addDomListener(window, 'load', initialize);
-    google.maps.event.addDomListener(window, 'load', calcRoute);
+    //google.maps.event.addDomListener(window, 'load', initialize);
+    //google.maps.event.addDomListener(window, 'load', calcRoute);
 
     $.blockUI({
-        message: $('<h5 style="text-align:center font-size= 24px"><img src="Content/Icons/loader-indic.gif" /> <br/><br/>系統資料讀取中，請稍後 ...</h5>'),
+        //message: $('<h5 style="text-align:center font-size= 24px"><img src="Content/Icons/loader-indic.gif" /> <br/><br/>系統資料讀取中，請稍後 ...</h5>'),
+        message: $('<div id="progress_bar" class="ui-progress-bar ui-container"><div class="ui-progress" style="width: 79%;"><span class="ui-label" style="display: /*none*/;">資料讀取中... <b class="value">79%</b></span></div></div>'),
         css: {
             top: ($(window).height() - 240) / 2 + 'px',
             left: ($(window).width() - 240) / 2 + 'px',

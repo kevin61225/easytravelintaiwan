@@ -105,7 +105,8 @@
                         location: tempWaypt,
                         stopover: true
                     });
-                    $(InputsWrapper).append('<li id="place' + markerIndex + '"><a href="javascript:myclick(' + markerIndex + ')">' + tempWaypt + '</a></li>');
+                    $("#InputsWrapper").append('<li id="place-' + markerIndex + '"><a href="#">' + tempWaypt + '</a></li>');
+
                     gmarkers[markerIndex].isChecked = true;
                     x++; //text box increment
                     if (isCalculated) {
