@@ -1,0 +1,21 @@
+﻿@model IEnumerable<EasyTravelInTaiwan.Models.placeimage>
+
+@{
+    ViewBag.Title = "ViewPointDetails";
+    Layout = "~/Views/shared/_BootstrapLayout.basic.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ShowImage</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body>
+    <div>
+        @Html.Partial("_imagePartial", Model)
+    </div>
+</body>
+</html>

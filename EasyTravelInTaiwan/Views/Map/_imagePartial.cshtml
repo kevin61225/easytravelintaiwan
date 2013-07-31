@@ -1,0 +1,24 @@
+﻿@model IEnumerable<EasyTravelInTaiwan.Models.placeimage>
+
+<link href="~/Content/bootstrap.lightbox.css" rel="stylesheet" />
+<script src="~/scripts/bootstrap.lightbox.js"></script>
+
+<style>
+    .thumbnail img {
+        width: 150px;
+        height: 150px;
+    }
+</style>
+
+<div>
+    <ul class="thumbnails" data-toggle="lightbox">
+        @foreach (var image in Model)
+        {
+            <li class="span3">
+                <a href="@Url.Action("RenderBookImage", new { id = image.sid })" title="@image.Name" class="thumbnail">
+                    <img src="@Url.Action("RenderBookImage", new { id = image.sid })" width="150" height="150" alt=""/>
+                </a>
+            </li>
+        }
+    </ul>
+</div>
