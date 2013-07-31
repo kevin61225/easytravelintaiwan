@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="testdbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="testdbModelStoreContainer">
-    <EntitySet Name="city" EntityType="testdbModel.Store.city" store:Type="Tables" Schema="testdb" />
-    <EntitySet Name="place" EntityType="testdbModel.Store.place" store:Type="Tables" Schema="testdb" />
-    <EntitySet Name="placeimage" EntityType="testdbModel.Store.placeimage" store:Type="Tables" Schema="testdb" />
-    <EntitySet Name="viewtype" EntityType="testdbModel.Store.viewtype" store:Type="Tables" Schema="testdb" />
-    <AssociationSet Name="place_ibfk_1" Association="testdbModel.Store.place_ibfk_1">
+<Schema Namespace="projectModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="projectModelStoreContainer">
+    <EntitySet Name="city" EntityType="projectModel.Store.city" store:Type="Tables" Schema="project" />
+    <EntitySet Name="place" EntityType="projectModel.Store.place" store:Type="Tables" Schema="project" />
+    <EntitySet Name="placeimage" EntityType="projectModel.Store.placeimage" store:Type="Tables" Schema="project" />
+    <EntitySet Name="viewtype" EntityType="projectModel.Store.viewtype" store:Type="Tables" Schema="project" />
+    <AssociationSet Name="place_ibfk_1" Association="projectModel.Store.place_ibfk_1">
       <End Role="city" EntitySet="city" />
       <End Role="place" EntitySet="place" />
     </AssociationSet>
-    <AssociationSet Name="place_ibfk_2" Association="testdbModel.Store.place_ibfk_2">
+    <AssociationSet Name="place_ibfk_2" Association="projectModel.Store.place_ibfk_2">
       <End Role="viewtype" EntitySet="viewtype" />
       <End Role="place" EntitySet="place" />
     </AssociationSet>
-    <AssociationSet Name="placeimage_ibfk_1" Association="testdbModel.Store.placeimage_ibfk_1">
+    <AssociationSet Name="placeimage_ibfk_1" Association="projectModel.Store.placeimage_ibfk_1">
       <End Role="place" EntitySet="place" />
       <End Role="placeimage" EntitySet="placeimage" />
     </AssociationSet>
@@ -58,10 +58,8 @@
     <Property Name="Typename" Type="text" Nullable="false" />
   </EntityType>
   <Association Name="place_ibfk_1">
-    <End Role="city" Type="testdbModel.Store.city" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="place" Type="testdbModel.Store.place" Multiplicity="*" />
+    <End Role="city" Type="projectModel.Store.city" Multiplicity="1" />
+    <End Role="place" Type="projectModel.Store.place" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="city">
         <PropertyRef Name="Citynumber" />
@@ -72,10 +70,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="place_ibfk_2">
-    <End Role="viewtype" Type="testdbModel.Store.viewtype" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="place" Type="testdbModel.Store.place" Multiplicity="*" />
+    <End Role="viewtype" Type="projectModel.Store.viewtype" Multiplicity="1" />
+    <End Role="place" Type="projectModel.Store.place" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="viewtype">
         <PropertyRef Name="Typenumber" />
@@ -86,10 +82,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="placeimage_ibfk_1">
-    <End Role="place" Type="testdbModel.Store.place" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="placeimage" Type="testdbModel.Store.placeimage" Multiplicity="*" />
+    <End Role="place" Type="projectModel.Store.place" Multiplicity="1" />
+    <End Role="placeimage" Type="projectModel.Store.placeimage" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="place">
         <PropertyRef Name="Id" />

@@ -10,3 +10,15 @@ D:\School\C#\TestProject\ConsoleApplication1\ConsoleApplication1\bin\Debug\zh-Ha
 D:\School\C#\TestProject\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
 D:\School\C#\TestProject\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
 D:\School\C#\TestProject\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.csprojResolveAssemblyReference.cache
+C:\Users\KevinDo\Desktop\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+C:\Users\KevinDo\Desktop\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+C:\Users\KevinDo\Desktop\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+C:\Users\KevinDo\Desktop\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\bin\Debug\EntityFramework.dll
+C:\Users\KevinDo\Desktop\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\bin\Debug\HtmlAgilityPack.dll
+C:\Users\KevinDo\Desktop\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\bin\Debug\EntityFramework.xml
+C:\Users\KevinDo\Desktop\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\KevinDo\Desktop\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\bin\Debug\HtmlAgilityPack.xml
+C:\Users\KevinDo\Desktop\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\bin\Debug\zh-Hant\EntityFramework.resources.dll
+C:\Users\KevinDo\Desktop\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.csprojResolveAssemblyReference.cache
+C:\Users\KevinDo\Desktop\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+C:\Users\KevinDo\Desktop\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
