@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BootstrapSupport.HtmlHelpers;
 
 namespace EasyTravelInTaiwan.Controllers
 {
@@ -56,6 +57,14 @@ namespace EasyTravelInTaiwan.Controllers
             ViewBag.Typenumber = new SelectList(db.viewtypes, "Typenumber", "Typename", place.Typenumber);
             ViewBag.Citynumber = new SelectList(db.cities, "Citynumber", "Cityname", place.Citynumber);
             return View(place);
+        }
+
+        public ActionResult MapLatLng(int page = 1)
+        {
+            var pageSize = 100;
+            IEnumerable<maplatlng> maplatlng = db.maplatlngs.OrderBy(o => o.Lng); ;
+            ViewData.Model = maplatlng;
+            return View(maplatlng.ToPagedList(page, pageSize));
         }
 
         public FileContentResult RenderBookImage(int id)

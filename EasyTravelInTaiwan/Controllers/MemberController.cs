@@ -253,7 +253,7 @@ namespace EasyTravelInTaiwan.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            catch 
+            catch
             {
                 TempData["Error"] = "更新錯誤";
                 return RedirectToAction("Index");
@@ -310,7 +310,7 @@ namespace EasyTravelInTaiwan.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch 
+            catch
             {
                 TempData["error"] = "刪除錯誤";
                 return RedirectToAction("index");
@@ -388,7 +388,7 @@ namespace EasyTravelInTaiwan.Controllers
         [HttpPost]
         public ActionResult ForgetPassword(string user_email_address)
         {
-            List<member> memberList= new List<member>();
+            List<member> memberList = new List<member>();
             try
             {
                 memberList = db.members.Where(o => o.Email == user_email_address).ToList();
@@ -429,7 +429,7 @@ namespace EasyTravelInTaiwan.Controllers
             msg.From = new MailAddress("taipetechbookstore@gmail.com");
             msg.To.Add(member.Email);
             msg.Subject = "Welcome to TaipeiTech BookStore !!";
-            msg.Body = "Hello !! " + member.Name + " ,welcome to TaipeiTech Bookstore !! Enjoy your shopping ~" +  "\n\n by TaipeiTech Bookstore";
+            msg.Body = "Hello !! " + member.Name + " ,welcome to TaipeiTech Bookstore !! Enjoy your shopping ~" + "\n\n by TaipeiTech Bookstore";
             msg.Priority = MailPriority.High;
 
             SmtpClient client = new SmtpClient();

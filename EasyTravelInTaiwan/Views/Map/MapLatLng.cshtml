@@ -1,0 +1,106 @@
+﻿@*@model IEnumerable<EasyTravelInTaiwan.Models.maplatlng>*@
+@using BootstrapSupport
+@using BootstrapSupport.HtmlHelpers
+@model BootstrapSupport.HtmlHelpers.IPagedList<EasyTravelInTaiwan.Models.maplatlng>
+
+@{   
+    ViewBag.Title = "MapLatLng";
+}
+
+<style>
+    .table tbody tr:hover td, .table tbody tr:hover th {
+        background-color: #b6ff00;
+    }
+</style>
+<h2>MapLatLng</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-striped table-hover">
+    <tr>
+        <th>
+            @Html.DisplayName("pt")
+        </th>
+        <th>
+            @Html.DisplayName("sno")
+        </th>
+        <th>
+            @Html.DisplayName("pName")
+        </th>
+        <th>
+            @Html.DisplayName("Lat")
+        </th>
+        <th>
+            @Html.DisplayName("Lng")
+        </th>
+        <th>
+            @Html.DisplayName("Lang")
+        </th>
+        <th>
+            @Html.DisplayName("isView")
+        </th>
+        <th>
+            @Html.DisplayName("pRange")
+        </th>
+        <th>
+            @Html.DisplayName("m_layer2")
+        </th>
+        <th>
+            @Html.DisplayName("layer1")
+        </th>
+        <th>
+            @Html.DisplayName("NoewIcon")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in ViewData.Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.pt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lng)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lang)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isView)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pRange)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.m_layer2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.layer1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoewIcon)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
+@Html.Pager(Model.PageIndex,
+            Model.TotalPages,
+            x => Url.Action("MapLatLng", new {page = x}),
+            "pagination-centered")

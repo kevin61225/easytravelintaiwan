@@ -41,7 +41,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.9&sensor=false"></script>
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
-
+<script src="~/scripts/jquery.ui.core.js"></script>
+<script src="~/scripts/jquery.ui.widget.js"></script>
+<script src="~/scripts/jquery.ui.progressbar.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script src="~/scripts/jquery.blockUI.js"></script>
 <script src="~/scripts/ContextMenu.js"></script>
@@ -60,7 +62,7 @@
 </div>*@
 
 <input id="inputGeo" type="text" placeholder="Enter a place" maxlength="100" autocomplete="off" />
-<input id="searchBtn" type="button" value="Search" class="btn" />
+@*<input id="searchBtn" type="button" value="Search" class="btn" />*@
 
 <div id="placeFilter" class="btn-group filterClass" data-toggle="buttons-checkbox">
     <button type="button" class="btn btn-primary " value="07">食物</button>
@@ -135,6 +137,20 @@
         anchor: new google.maps.Point(17, 38)
     };
 
+    //$("#searchBtn").click(function () {
+    //    $("#inputGeo").trigger("geocode");
+    //});
+
+
+    //// Hide the label at start
+    //$('#progress_bar .ui-progress .ui-label').hide();
+    //// Set initial value
+    //$('#progress_bar .ui-progress').css('width', '50%');
+    //// Simulate some progress
+    //$('#progress_bar .ui-progress').animateProgress(50, function () {
+    //});
+
+
     $("#inputGeo").geocomplete({
         map: ".map_canvas",
         location: new google.maps.LatLng(25.039941, 121.512812),
@@ -167,10 +183,6 @@
         //$("input[name=lng]").val(latLng.lng());
     });
 
-    $("#searchBtn").click(function () {
-        $("#inputGeo").trigger("geocode");
-    });
-
     $(".filterClass .btn").click(function (event) {
         boxclick($(this).hasClass("active"), $(this).val());
     });
@@ -182,6 +194,15 @@
         google.maps.event.trigger(gmarkers[n[1]], "click");
     });
 
+    //$(document).on('click', '#InputsWrapper li', function (e) {
+    //    if (e.button == 2) {
+    //        var str = $(this).attr('id');
+    //        var n = str.split("-");
+    //        console.log(n[1]);
+    //    }
+    //    //google.maps.event.trigger(gmarkers[n[1]], "click");
+    //});
+
     var gmap = $("#inputGeo").geocomplete("map");
     var gmarker = $("#inputGeo").geocomplete("marker");
     var infowindow = new google.maps.InfoWindow();
@@ -189,40 +210,25 @@
 
     //$.getJSON("/Map/GetMap", initialize);
 
-        $.ajax({
-            type: 'POST',
-            url: '/Map/GetMap',
-            dataType: 'json',
-            success: function (data) {
-                $('#progress_bar .ui-progress').animateProgress(100, function () {
-                    $('#Progress-container').slideDown();
-                    $('#fork_me').fadeIn();
-                });
-                initialize(data);
-            },
-            error: function () {
-                console.log('Load Error Occur !');
-            },
-            progress: function (e) {
-                if (e.lengthComputable) {
-                    var pct = (e.loaded / e.total) * 100;
-                    console.log(parseInt((e.loaded / e.total * 100), 10));
-                    $('#progress_bar .ui-progress').animateProgress(pct, function () {
-                        $('#Progress-container').slideDown();
-                        $('#fork_me').fadeIn();
-                    });
-                } else {
-                    console.warn('Content Length not reported!');
-                }
-            }
-        });
 
-    // Hide the label at start
-    $('#progress_bar .ui-progress .ui-label').hide();
-    // Set initial value
-    $('#progress_bar .ui-progress').css('width', '7%');
-    // Simulate some progress
-    $('#progress_bar .ui-progress').animateProgress(50, function () {
+    $.ajax({
+        type: 'POST',
+        url: '/Map/GetMap',
+        dataType: 'json',
+        success: function (data) {
+            initialize(data);
+        },
+        error: function () {
+            console.log('Load Error Occur !');
+        },
+        progress: function (e) {
+            if (e.lengthComputable) {
+                var pct = (e.loaded / e.total) * 100;
+                console.log(parseInt((e.loaded / e.total * 100), 10));
+            } else {
+                console.warn('Content Length not reported!');
+            }
+        }
     });
 
     function initialize(mapData) {
@@ -340,10 +346,6 @@
         infowindow.close();
     }
 
-    function myclick(i) {
-        google.maps.event.trigger(gmarkers[i], "click");
-    }
-
     function boxclick(isChecked, category) {
         if (!isChecked) {
             show(category);
@@ -359,7 +361,7 @@
         info.innerHTML = 'Position: ' + widget.get('position') + ', distance: ' +
           widget.get('distance');
     }
- 
+
     function DistanceWidget() {
 
         this.set('map', gmap);
@@ -400,9 +402,10 @@
 
     function RadiusWidget() {
         var circle = new google.maps.Circle({
-            strokeWeight: 2
+            strokeWeight: 2,
+            clickable: true
         });
-
+        console.log(circle);
         // Set the distance property value, default to 10km.
         this.set('distance', 10);
 
@@ -496,7 +499,7 @@
 
     $.blockUI({
         //message: $('<h5 style="text-align:center font-size= 24px"><img src="Content/Icons/loader-indic.gif" /> <br/><br/>系統資料讀取中，請稍後 ...</h5>'),
-        message: $('<div id="progress_bar" class="ui-progress-bar ui-container"><div class="ui-progress" style="width: 79%;"><span class="ui-label" style="display: /*none*/;">資料讀取中... <b class="value">79%</b></span></div></div>'),
+        message: $('<div id="progress_bar" class="ui-progress-bar ui-container"><div class="ui-progress" style="width: 70%;"><span class="ui-label" style="display: none;">資料讀取中... <b class="value">70%</b></span></div></div>'),
         css: {
             top: ($(window).height() - 240) / 2 + 'px',
             left: ($(window).width() - 240) / 2 + 'px',
@@ -507,9 +510,21 @@
             opacity: .7
         }
     });
-
+    $('#progress_bar .ui-progress .ui-label').hide();
+    $('#progress_bar .ui-progress').css('width', '7%');
+    var timer = 99;
+    $('#progress_bar .ui-progress').animateProgress(timer, function () {
+        setTimeout(function () {
+            if (timer >= 100) {
+                timer = 10;
+            }
+            $('#progress_bar .ui-progress').animateProgress(timer, function () {
+                //$('#main_content').slideDown();
+            });
+            timer += 10;
+            console.log("in");
+        }, 2000);
+    });
     $(document).ajaxStop($.unblockUI);
 
 </script>
-
-

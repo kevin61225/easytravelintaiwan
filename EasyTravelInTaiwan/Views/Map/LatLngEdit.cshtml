@@ -1,0 +1,112 @@
+﻿@model EasyTravelInTaiwan.Models.maplatlng
+
+@{
+    ViewBag.Title = "LatLngEdit";
+}
+
+<h2>LatLngEdit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>maplatlng</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.pt)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.pt)
+            @Html.ValidationMessageFor(model => model.pt)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.sno)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.sno)
+            @Html.ValidationMessageFor(model => model.sno)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.pName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.pName)
+            @Html.ValidationMessageFor(model => model.pName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Lat)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Lat)
+            @Html.ValidationMessageFor(model => model.Lat)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Lng)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Lng)
+            @Html.ValidationMessageFor(model => model.Lng)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Lang)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Lang)
+            @Html.ValidationMessageFor(model => model.Lang)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.isView)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.isView)
+            @Html.ValidationMessageFor(model => model.isView)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.pRange)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.pRange)
+            @Html.ValidationMessageFor(model => model.pRange)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.m_layer2)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.m_layer2)
+            @Html.ValidationMessageFor(model => model.m_layer2)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.layer1)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.layer1)
+            @Html.ValidationMessageFor(model => model.layer1)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NoewIcon)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NoewIcon)
+            @Html.ValidationMessageFor(model => model.NoewIcon)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

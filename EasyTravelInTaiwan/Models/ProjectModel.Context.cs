@@ -28,5 +28,9 @@ namespace EasyTravelInTaiwan.Models
         public DbSet<maplatlng> maplatlngs { get; set; }
         public DbSet<member> members { get; set; }
         public DbSet<oneinfodata> oneinfodatas { get; set; }
+        public DbSet<city> cities { get; set; }
+        public DbSet<place> places { get; set; }
+        public DbSet<placeimage> placeimages { get; set; }
+        public DbSet<viewtype> viewtypes { get; set; }
     }
 }

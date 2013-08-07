@@ -4,12 +4,35 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="projectModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="projectModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="projectModelStoreContainer">
+          <EntitySet Name="city" EntityType="projectModel.Store.city" store:Type="Tables" Schema="project" />
           <EntitySet Name="maplatlng" EntityType="projectModel.Store.maplatlng" store:Type="Tables" Schema="project" />
           <EntitySet Name="member" EntityType="projectModel.Store.member" store:Type="Tables" Schema="project" />
           <EntitySet Name="oneinfodata" EntityType="projectModel.Store.oneinfodata" store:Type="Tables" Schema="project" />
+          <EntitySet Name="place" EntityType="projectModel.Store.place" store:Type="Tables" Schema="project" />
+          <EntitySet Name="placeimage" EntityType="projectModel.Store.placeimage" store:Type="Tables" Schema="project" />
+          <EntitySet Name="viewtype" EntityType="projectModel.Store.viewtype" store:Type="Tables" Schema="project" />
+          <AssociationSet Name="place_ibfk_1" Association="projectModel.Store.place_ibfk_1">
+            <End Role="city" EntitySet="city" />
+            <End Role="place" EntitySet="place" />
+          </AssociationSet>
+          <AssociationSet Name="place_ibfk_2" Association="projectModel.Store.place_ibfk_2">
+            <End Role="viewtype" EntitySet="viewtype" />
+            <End Role="place" EntitySet="place" />
+          </AssociationSet>
+          <AssociationSet Name="placeimage_ibfk_1" Association="projectModel.Store.placeimage_ibfk_1">
+            <End Role="place" EntitySet="place" />
+            <End Role="placeimage" EntitySet="placeimage" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="city">
+          <Key>
+            <PropertyRef Name="Citynumber" />
+          </Key>
+          <Property Name="Citynumber" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="Cityname" Type="text" Nullable="false" />
+        </EntityType>
         <EntityType Name="maplatlng">
           <Key>
             <PropertyRef Name="sno" />
@@ -50,8 +73,75 @@
           <Property Name="summ" Type="text" Nullable="false" />
           <Property Name="detail" Type="text" Nullable="false" />
         </EntityType>
-      </Schema>
-    </edmx:StorageModels>
+        <EntityType Name="place">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Name" Type="text" Nullable="false" />
+          <Property Name="Citynumber" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="Typenumber" Type="int" Nullable="false" />
+          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="Telphone" Type="text" />
+          <Property Name="Address" Type="text" />
+          <Property Name="Url" Type="text" />
+          <Property Name="Carmethod" Type="text" />
+          <Property Name="Busmethod" Type="text" />
+        </EntityType>
+        <EntityType Name="placeimage">
+          <Key>
+            <PropertyRef Name="sid" />
+          </Key>
+          <Property Name="sid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Name" Type="text" Nullable="false" />
+          <Property Name="Imagetype" Type="int" Nullable="false" />
+          <Property Name="Image" Type="longblob" />
+        </EntityType>
+        <EntityType Name="viewtype">
+          <Key>
+            <PropertyRef Name="Typenumber" />
+          </Key>
+          <Property Name="Typenumber" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Typename" Type="text" Nullable="false" />
+        </EntityType>
+        <Association Name="place_ibfk_1">
+          <End Role="city" Type="projectModel.Store.city" Multiplicity="1" />
+          <End Role="place" Type="projectModel.Store.place" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="city">
+              <PropertyRef Name="Citynumber" />
+            </Principal>
+            <Dependent Role="place">
+              <PropertyRef Name="Citynumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="place_ibfk_2">
+          <End Role="viewtype" Type="projectModel.Store.viewtype" Multiplicity="1" />
+          <End Role="place" Type="projectModel.Store.place" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="viewtype">
+              <PropertyRef Name="Typenumber" />
+            </Principal>
+            <Dependent Role="place">
+              <PropertyRef Name="Typenumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="placeimage_ibfk_1">
+          <End Role="place" Type="projectModel.Store.place" Multiplicity="1" />
+          <End Role="placeimage" Type="projectModel.Store.placeimage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="place">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="placeimage">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="projectModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -59,6 +149,22 @@
           <EntitySet Name="maplatlngs" EntityType="projectModel.maplatlng" />
           <EntitySet Name="members" EntityType="projectModel.member" />
           <EntitySet Name="oneinfodatas" EntityType="projectModel.oneinfodata" />
+          <EntitySet Name="cities" EntityType="projectModel.city" />
+          <EntitySet Name="places" EntityType="projectModel.place" />
+          <EntitySet Name="placeimages" EntityType="projectModel.placeimage" />
+          <EntitySet Name="viewtypes" EntityType="projectModel.viewtype" />
+          <AssociationSet Name="place_ibfk_1" Association="projectModel.place_ibfk_1">
+            <End Role="city" EntitySet="cities" />
+            <End Role="place" EntitySet="places" />
+          </AssociationSet>
+          <AssociationSet Name="place_ibfk_2" Association="projectModel.place_ibfk_2">
+            <End Role="viewtype" EntitySet="viewtypes" />
+            <End Role="place" EntitySet="places" />
+          </AssociationSet>
+          <AssociationSet Name="placeimage_ibfk_1" Association="projectModel.placeimage_ibfk_1">
+            <End Role="place" EntitySet="places" />
+            <End Role="placeimage" EntitySet="placeimages" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="maplatlng">
           <Key>
@@ -100,6 +206,87 @@
           <Property Name="summ" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
           <Property Name="detail" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
         </EntityType>
+        <EntityType Name="city">
+          <Key>
+            <PropertyRef Name="Citynumber" />
+          </Key>
+          <Property Type="String" Name="Citynumber" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Cityname" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="places" Relationship="projectModel.place_ibfk_1" FromRole="city" ToRole="place" />
+        </EntityType>
+        <EntityType Name="place">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Citynumber" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Typenumber" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Telphone" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Address" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Url" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Carmethod" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Busmethod" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="city" Relationship="projectModel.place_ibfk_1" FromRole="place" ToRole="city" />
+          <NavigationProperty Name="viewtype" Relationship="projectModel.place_ibfk_2" FromRole="place" ToRole="viewtype" />
+          <NavigationProperty Name="placeimages" Relationship="projectModel.placeimage_ibfk_1" FromRole="place" ToRole="placeimage" />
+        </EntityType>
+        <EntityType Name="placeimage">
+          <Key>
+            <PropertyRef Name="sid" />
+          </Key>
+          <Property Type="Int32" Name="sid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Imagetype" Nullable="false" />
+          <Property Type="Binary" Name="Image" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="place" Relationship="projectModel.placeimage_ibfk_1" FromRole="placeimage" ToRole="place" />
+        </EntityType>
+        <EntityType Name="viewtype">
+          <Key>
+            <PropertyRef Name="Typenumber" />
+          </Key>
+          <Property Type="Int32" Name="Typenumber" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Typename" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="places" Relationship="projectModel.place_ibfk_2" FromRole="viewtype" ToRole="place" />
+        </EntityType>
+        <Association Name="place_ibfk_1">
+          <End Type="projectModel.city" Role="city" Multiplicity="1" />
+          <End Type="projectModel.place" Role="place" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="city">
+              <PropertyRef Name="Citynumber" />
+            </Principal>
+            <Dependent Role="place">
+              <PropertyRef Name="Citynumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="place_ibfk_2">
+          <End Type="projectModel.viewtype" Role="viewtype" Multiplicity="1" />
+          <End Type="projectModel.place" Role="place" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="viewtype">
+              <PropertyRef Name="Typenumber" />
+            </Principal>
+            <Dependent Role="place">
+              <PropertyRef Name="Typenumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="placeimage_ibfk_1">
+          <End Type="projectModel.place" Role="place" Multiplicity="1" />
+          <End Type="projectModel.placeimage" Role="placeimage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="place">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="placeimage">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -149,6 +336,49 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="cities">
+            <EntityTypeMapping TypeName="projectModel.city">
+              <MappingFragment StoreEntitySet="city">
+                <ScalarProperty Name="Cityname" ColumnName="Cityname" />
+                <ScalarProperty Name="Citynumber" ColumnName="Citynumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="places">
+            <EntityTypeMapping TypeName="projectModel.place">
+              <MappingFragment StoreEntitySet="place">
+                <ScalarProperty Name="Busmethod" ColumnName="Busmethod" />
+                <ScalarProperty Name="Carmethod" ColumnName="Carmethod" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Telphone" ColumnName="Telphone" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Typenumber" ColumnName="Typenumber" />
+                <ScalarProperty Name="Citynumber" ColumnName="Citynumber" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="placeimages">
+            <EntityTypeMapping TypeName="projectModel.placeimage">
+              <MappingFragment StoreEntitySet="placeimage">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Imagetype" ColumnName="Imagetype" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="sid" ColumnName="sid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="viewtypes">
+            <EntityTypeMapping TypeName="projectModel.viewtype">
+              <MappingFragment StoreEntitySet="viewtype">
+                <ScalarProperty Name="Typename" ColumnName="Typename" />
+                <ScalarProperty Name="Typenumber" ColumnName="Typenumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -163,7 +393,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
       </DesignerInfoPropertySet>

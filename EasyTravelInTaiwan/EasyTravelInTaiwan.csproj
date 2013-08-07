@@ -329,6 +329,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\city.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\HomeInputModel.cs" />
     <Compile Include="Models\maplatlng.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
@@ -338,6 +341,12 @@
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\oneinfodata.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\place.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\placeimage.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProjectModel.Context.cs">
@@ -354,6 +363,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ProjectModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\viewtype.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
     <Compile Include="NavigationRoutes\INavigationRouteFilter.cs" />
     <Compile Include="NavigationRoutes\NamedRoute.cs" />
@@ -657,6 +669,9 @@
     <Content Include="scripts\jquery.ajax-progress.js" />
     <Content Include="scripts\jquery.blockUI.js" />
     <Content Include="scripts\jquery.geocomplete.js" />
+    <Content Include="scripts\jquery.ui.core.js" />
+    <Content Include="scripts\jquery.ui.progressbar.js" />
+    <Content Include="scripts\jquery.ui.widget.js" />
     <Content Include="scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="scripts\jquery.unobtrusive-ajax.min.js" />
     <None Include="scripts\jquery.validate-vsdoc.js" />
@@ -712,6 +727,8 @@
     <Content Include="Views\Member\Login.cshtml" />
     <Content Include="Views\Member\Register.cshtml" />
     <Content Include="Views\Member\_ViewStart.cshtml" />
+    <Content Include="Views\Map\MapLatLng.cshtml" />
+    <Content Include="Views\Map\LatLngEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

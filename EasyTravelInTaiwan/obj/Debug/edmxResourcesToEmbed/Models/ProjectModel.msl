@@ -44,5 +44,48 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="cities">
+      <EntityTypeMapping TypeName="projectModel.city">
+        <MappingFragment StoreEntitySet="city">
+          <ScalarProperty Name="Cityname" ColumnName="Cityname" />
+          <ScalarProperty Name="Citynumber" ColumnName="Citynumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="places">
+      <EntityTypeMapping TypeName="projectModel.place">
+        <MappingFragment StoreEntitySet="place">
+          <ScalarProperty Name="Busmethod" ColumnName="Busmethod" />
+          <ScalarProperty Name="Carmethod" ColumnName="Carmethod" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Telphone" ColumnName="Telphone" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Typenumber" ColumnName="Typenumber" />
+          <ScalarProperty Name="Citynumber" ColumnName="Citynumber" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="placeimages">
+      <EntityTypeMapping TypeName="projectModel.placeimage">
+        <MappingFragment StoreEntitySet="placeimage">
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Imagetype" ColumnName="Imagetype" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="sid" ColumnName="sid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="viewtypes">
+      <EntityTypeMapping TypeName="projectModel.viewtype">
+        <MappingFragment StoreEntitySet="viewtype">
+          <ScalarProperty Name="Typename" ColumnName="Typename" />
+          <ScalarProperty Name="Typenumber" ColumnName="Typenumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

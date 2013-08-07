@@ -8,7 +8,6 @@
     var x = InputsWrapper.length; //initlal text box count
     var FieldCount = 1; //to keep track of text box added
 
-
     var directionsRendererOptions = {};
     directionsRendererOptions.draggable = true;
     directionsRendererOptions.hideRouteList = true;
@@ -41,6 +40,12 @@
     contextMenuOptions.menuItems = menuItems;
 
     var contextMenu = new ContextMenu(gmap, contextMenuOptions);
+    
+    //google.maps.event.addListener(distanceWidget.radiusWidget.circle, 'click', function () {
+    //    console.log("circle clicked !!");
+    //    console.log(distanceWidget.radiusWidget.circle);
+    //    contextMenu.hide();
+    //});
 
     google.maps.event.addListener(gmap, 'rightclick', function (marker) {
         //contextMenu.show(mouseEvent.latLng);

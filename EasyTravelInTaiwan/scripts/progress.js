@@ -28,7 +28,7 @@
       $(this).animate({
           width: progress + '%'
       }, {
-        duration: 2000, 
+        duration: 22000, 
         
         // swing or linear
         easing: 'swing',
@@ -38,7 +38,7 @@
           var labelEl = $('.ui-label', this),
               valueEl = $('.value', labelEl);
           
-          if (Math.ceil(progress) < 20 && $('.ui-label', this).is(":visible")) {
+          if (Math.ceil(progress) < 63 && $('.ui-label', this).is(":visible")) {
             labelEl.hide();
           }else{
             if (labelEl.is(":hidden")) {
