@@ -63,5 +63,38 @@ namespace EasyTravelInTaiwan.Controllers
             byte[] img = db.placeimages.Find(id).Image;
             return File(img, "image/jpeg");
         }
+
+        public ActionResult ShowImage(string id)
+        {
+            place place = db.places.Find(id);
+            if (place == null)
+            {
+                return HttpNotFound();
+            }
+            List<placeimage> imageList = place.placeimages.ToList();
+            return View(imageList);
+        }
+
+        public ActionResult CityViews(string id)
+        {
+            List<place> placeInCity = db.places.Where(o => o.Citynumber == id).ToList();
+            List<viewtype> TypeList = new List<viewtype>();
+            foreach (viewtype type in db.viewtypes)
+            {
+                int count = placeInCity.Where(o => o.Typenumber == type.Typenumber).Count();
+                if (count != 0)
+                {
+                    TypeList.Add(type);
+                }
+            }
+            ViewBag.TypeList = TypeList;
+            ViewBag.Title = db.cities.Find(id).Cityname;
+            return View(placeInCity);
+        }
+
+        public ActionResult CityList()
+        {
+            return View(db.cities.ToList());
+        }
     }
 }

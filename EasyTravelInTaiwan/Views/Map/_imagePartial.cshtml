@@ -11,14 +11,23 @@
 </style>
 
 <div>
-    <ul class="thumbnails" data-toggle="lightbox">
-        @foreach (var image in Model)
-        {
-            <li class="span3">
-                <a href="@Url.Action("RenderBookImage", new { id = image.sid })" title="@image.Name" class="thumbnail">
-                    <img src="@Url.Action("RenderBookImage", new { id = image.sid })" width="150" height="150" alt=""/>
-                </a>
-            </li>
-        }
-    </ul>
+
+    @if (Model.Count()>0 )
+    {
+        <ul class="thumbnails" data-toggle="lightbox">
+            @foreach (var image in Model)
+            {
+                <li class="span3">
+                    <a href="@Url.Action("RenderBookImage", new { id = image.sid })" title="@image.Name" class="thumbnail">
+                        <img src="@Url.Action("RenderBookImage", new { id = image.sid })" width="150" height="150" alt=""/>
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+    else 
+    { 
+        <h2>This place don't have any picture!!~</h2>
+    }
+
 </div>

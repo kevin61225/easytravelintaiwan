@@ -1,0 +1,25 @@
+﻿@model IEnumerable<EasyTravelInTaiwan.Models.city>
+
+@{
+    Layout = "~/Views/shared/_BootstrapLayout.basic.cshtml";
+}
+
+<h2>CityList</h2>
+<table>
+    <tr>
+        @{
+            int i = 0;
+        }
+        @foreach (EasyTravelInTaiwan.Models.city city in Model)
+        {
+            i++;
+            <td class="span4">
+                @Html.ActionLink(city.Cityname, "CityViews", new { id = city.Citynumber })
+            </td>
+            if (i % 3 == 0)
+            {
+                @Html.Raw("</tr><tr>")
+            }
+        }
+    </tr>
+</table>

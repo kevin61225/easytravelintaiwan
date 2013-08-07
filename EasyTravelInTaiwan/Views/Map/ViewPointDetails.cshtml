@@ -6,86 +6,80 @@
 }
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 
-<h2>ViewPointDetails</h2>
+<h3>
+    <ul class="breadcrumb">
+        <li><a href="@Url.Action("CityViews", new { id = Model.Citynumber })">@Html.DisplayFor(model => model.city.Cityname)</a> <span class="divider">/</span></li>
+        <li class="active">@Html.DisplayFor(model => model.Name)</li>
+    </ul>
+</h3>
+<hr />
 
-<fieldset>
-    <legend><h3>@Html.DisplayFor(model => model.Name)</h3></legend>
-
+<div>
     <div>
-        <div>
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.Citynumber)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.city.Cityname)
-            </div>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.viewtype)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.viewtype.Typename)
-            </div>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.Description)
-            </div>
-            <div class="display-field">
-                @{
-                    var text = Html.DisplayFor(model => model.Description);
-                    @Html.Raw(text.ToHtmlString())
-                }
-                
-            </div>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.Telphone)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.Telphone)
-            </div>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.Address)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.Address)
-            </div>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.Url)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.Url)
-            </div>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.Carmethod)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.Carmethod)
-            </div>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.Busmethod)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.Busmethod)
-            </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.viewtype)
         </div>
-        <div>
-            <div class="display-label">
-                @Html.DisplayName("ImageList")
-            </div>
-            <div class="display-field">
-                <div>
-                    @Html.Partial("_imagePartial", Model.placeimages)
-                </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.viewtype.Typename)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Description)
+        </div>
+        <div class="display-field">
+            @{
+                @Html.Raw(Model.Description)
+            }
+
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Telphone)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Telphone)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Address)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Address)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Url)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Url)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Carmethod)
+        </div>
+        <div class="display-field">
+            @Html.Raw(Model.Carmethod)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Busmethod)
+        </div>
+        <div class="display-field">
+            @Html.Raw(Model.Busmethod)
+        </div>
+    </div>
+    <div>
+        <div class="display-label">
+            @Html.DisplayName("ImageList")
+        </div>
+        <div class="display-field">
+            <div>
+                @Html.Partial("_imagePartial", Model.placeimages)
             </div>
         </div>
     </div>
+</div>
 
-</fieldset>
 <p>
     @Html.ActionLink("Edit", "ViewPointEdit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "ViewPointList")
