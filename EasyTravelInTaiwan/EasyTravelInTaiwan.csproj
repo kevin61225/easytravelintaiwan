@@ -729,6 +729,13 @@
     <Content Include="Views\Member\_ViewStart.cshtml" />
     <Content Include="Views\Map\MapLatLng.cshtml" />
     <Content Include="Views\Map\LatLngEdit.cshtml" />
+    <Content Include="Views\Map\CityList.cshtml" />
+    <Content Include="Views\Map\CityViews.cshtml" />
+    <Content Include="Views\Map\ShowImage.cshtml" />
+    <Content Include="Views\Map\ViewPointDetails.cshtml" />
+    <Content Include="Views\Map\ViewPointEdit.cshtml" />
+    <Content Include="Views\Map\ViewPointList.cshtml" />
+    <Content Include="Views\Map\_imagePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
