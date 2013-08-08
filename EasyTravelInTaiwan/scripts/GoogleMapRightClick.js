@@ -39,7 +39,7 @@
     menuItems.push({ className: 'context_menu_item', eventName: 'center_map_click', label: '設定中心點' });
     contextMenuOptions.menuItems = menuItems;
 
-    var contextMenu = new ContextMenu(gmap, contextMenuOptions);
+    contextMenu = new ContextMenu(gmap, contextMenuOptions);
     
     //google.maps.event.addListener(distanceWidget.radiusWidget.circle, 'click', function () {
     //    console.log("circle clicked !!");

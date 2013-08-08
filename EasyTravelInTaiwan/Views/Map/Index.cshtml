@@ -82,8 +82,15 @@
     <input name="formatted_address" type="text" value="">
 </form>*@
 
-<ul class="nav nav-pills nav-stacked" id="InputsWrapper">
-</ul>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+    <ul class="nav nav-pills nav-stacked" id="InputsWrapper">
+    </ul>
+    <p>
+        <input type="submit" value="Create" class="btn btn-success" />
+    </p>
+}
 
 <div id="info"></div>
 
@@ -207,6 +214,7 @@
     var gmarker = $("#inputGeo").geocomplete("marker");
     var infowindow = new google.maps.InfoWindow();
     var gmarkers = [];
+    var contextMenu;
 
     //$.getJSON("/Map/GetMap", initialize);
 
@@ -215,6 +223,7 @@
         type: 'POST',
         url: '/Map/GetMap',
         dataType: 'json',
+        cache: true,
         success: function (data) {
             initialize(data);
         },
@@ -405,7 +414,10 @@
             strokeWeight: 2,
             clickable: true
         });
-        console.log(circle);
+
+        google.maps.event.addListener(circle, 'click', function () {
+            contextMenu.hide();
+        });
         // Set the distance property value, default to 10km.
         this.set('distance', 10);
 
@@ -493,9 +505,6 @@
     function DisableBlockUI() {
         $.unblockUI();
     }
-
-    //google.maps.event.addDomListener(window, 'load', initialize);
-    //google.maps.event.addDomListener(window, 'load', calcRoute);
 
     $.blockUI({
         //message: $('<h5 style="text-align:center font-size= 24px"><img src="Content/Icons/loader-indic.gif" /> <br/><br/>系統資料讀取中，請稍後 ...</h5>'),

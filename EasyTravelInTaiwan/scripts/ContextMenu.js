@@ -54,10 +54,10 @@ ContextMenu.prototype.draw = function () {
         this.menu_.style.left = left + 'px';
         this.menu_.style.top = top + 'px';
 
-        setTimeout(function () {
-            $this.hide();
-            console.log("hide");
-        }, 1000);
+        //setTimeout(function () {
+        //    $this.hide();
+        //    console.log("hide");
+        //}, 1000);
     }
 
 };
