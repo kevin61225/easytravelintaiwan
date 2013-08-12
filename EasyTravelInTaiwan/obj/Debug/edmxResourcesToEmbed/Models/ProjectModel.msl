@@ -87,5 +87,22 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="travellists">
+      <EntityTypeMapping TypeName="projectModel.travellist">
+        <MappingFragment StoreEntitySet="travellist">
+          <ScalarProperty Name="TName" ColumnName="TName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Tid" ColumnName="Tid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="travellistplaces">
+      <EntityTypeMapping TypeName="projectModel.travellistplace">
+        <MappingFragment StoreEntitySet="travellistplace">
+          <ScalarProperty Name="Sno" ColumnName="Sno" />
+          <ScalarProperty Name="Tid" ColumnName="Tid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

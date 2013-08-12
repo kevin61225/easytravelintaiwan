@@ -364,6 +364,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ProjectModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\travellist.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\travellistplace.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\viewtype.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
@@ -736,6 +742,8 @@
     <Content Include="Views\Map\ViewPointEdit.cshtml" />
     <Content Include="Views\Map\ViewPointList.cshtml" />
     <Content Include="Views\Map\_imagePartial.cshtml" />
+    <Content Include="Views\Map\_travelListPartial.cshtml" />
+    <Content Include="Views\Map\_travelListPlacePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -28,4 +28,10 @@ namespace EasyTravelInTaiwan.Models
             }
         }
     }
+
+    public class PlaceInfo
+    {
+        public string id { get; set; }
+        public string name { get; set; }
+    }
 }

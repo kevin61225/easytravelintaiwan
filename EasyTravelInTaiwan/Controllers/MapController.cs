@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BootstrapSupport.HtmlHelpers;
+using System.Web.Services.Description;
 
 namespace EasyTravelInTaiwan.Controllers
 {
@@ -14,8 +15,56 @@ namespace EasyTravelInTaiwan.Controllers
         // GET: /Map/
         projectEntities db = new projectEntities();
 
+        public string FindRoleIdByName(System.Security.Principal.IPrincipal User)
+        {
+            try
+            {
+                if (User.IsInRole("Customer"))
+                {
+                    return "Customer";
+                }
+                else if (User.IsInRole("Clerk"))
+                {
+                    return "Clerk";
+                }
+                else if (User.IsInRole("Admin"))
+                {
+                    return "Admin";
+                }
+            }
+            catch
+            {
+            }
+            return "null";
+        }
+
+        public void FindUserIdByName(string userAccount)
+        {
+            member user;
+            try
+            {
+                user = db.members.Where(o => o.Account == userAccount).Single();
+                Session["UserName"] = user.Name;
+                Session["UserId"] = user.UserID;
+            }
+            catch
+            {
+                return;
+            }
+            return;
+        }
+
         public ActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                FindUserIdByName(User.Identity.Name);
+                Session["Role"] = FindRoleIdByName(User);
+                if ((string)Session["Role"] == "Admin" || (string)Session["Role"] == "Clerk")
+                {
+                    return RedirectToAction("Index", "Author");
+                }
+            }
             return View();
         }
 
@@ -24,11 +73,37 @@ namespace EasyTravelInTaiwan.Controllers
             return View();
         }
 
-        public ActionResult GetMap()
+        public JsonResult GetMap()
         {
             var mapMarkerList = new MapRepository();
 
             return Json(mapMarkerList, JsonRequestBehavior.AllowGet);
+        }
+
+        [ChildActionOnly]
+        public ActionResult TravelListPartial()
+        {
+            int uid = 2;
+            //int uid = (int)Session["UserId"];
+            List<travellist> travelList = db.travellists.Where(list => list.UserId == uid).ToList<travellist>();
+            if (travelList == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("_travelListPartial", travelList);
+        }
+
+        [ChildActionOnly]
+        public ActionResult TravelListPlacePartial()
+        {
+            int uid = 2;
+            //int uid = (int)Session["UserId"];
+            List<travellistplace> travelListPlace = db.travellistplaces.Where(list => list.Tid == uid).ToList<travellistplace>();
+            if (travelListPlace == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("_travelListPlacePartial", travelListPlace);
         }
 
         public ActionResult ViewPointList()
@@ -104,6 +179,16 @@ namespace EasyTravelInTaiwan.Controllers
         public ActionResult CityList()
         {
             return View(db.cities.ToList());
+        }
+
+        [HttpPost]
+        public JsonResult PostPlace(List<PlaceInfo> info)
+        {
+            if (info != null)
+            {
+                return Json(new { Status = 1, Message = "Success" });
+            }
+            return Json(new { Status = 2, Message = "info is null" });
         }
     }
 }

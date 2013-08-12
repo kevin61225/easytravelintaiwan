@@ -54,7 +54,7 @@
             tempWaypt = ''
             tempWaypt = marker.title;
             markerIndex = marker.gIndex;
-            console.log(marker);
+            console.log(marker.gId);
         } catch (err) {
 
         }

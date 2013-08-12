@@ -32,5 +32,7 @@ namespace EasyTravelInTaiwan.Models
         public DbSet<place> places { get; set; }
         public DbSet<placeimage> placeimages { get; set; }
         public DbSet<viewtype> viewtypes { get; set; }
+        public DbSet<travellist> travellists { get; set; }
+        public DbSet<travellistplace> travellistplaces { get; set; }
     }
 }

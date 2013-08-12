@@ -20,6 +20,16 @@
       <End Role="place" EntitySet="places" />
       <End Role="placeimage" EntitySet="placeimages" />
     </AssociationSet>
+    <EntitySet Name="travellists" EntityType="projectModel.travellist" />
+    <EntitySet Name="travellistplaces" EntityType="projectModel.travellistplace" />
+    <AssociationSet Name="travellist_ibfk_1" Association="projectModel.travellist_ibfk_1">
+      <End Role="member" EntitySet="members" />
+      <End Role="travellist" EntitySet="travellists" />
+    </AssociationSet>
+    <AssociationSet Name="travellistplace_ibfk_1" Association="projectModel.travellistplace_ibfk_1">
+      <End Role="travellist" EntitySet="travellists" />
+      <End Role="travellistplace" EntitySet="travellistplaces" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="maplatlng">
     <Key>
@@ -51,6 +61,7 @@
     <Property Name="UserAddress" Type="String" Nullable="false" MaxLength="49" Unicode="false" FixedLength="false" />
     <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="Role" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="travellists" Relationship="projectModel.travellist_ibfk_1" FromRole="member" ToRole="travellist" />
   </EntityType>
   <EntityType Name="oneinfodata">
     <Key>
@@ -139,6 +150,49 @@
       </Principal>
       <Dependent Role="placeimage">
         <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="travellist">
+    <Key>
+      <PropertyRef Name="Tid" />
+    </Key>
+    <Property Type="Int32" Name="Tid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="UserId" Nullable="false" />
+    <Property Type="String" Name="TName" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="member" Relationship="projectModel.travellist_ibfk_1" FromRole="travellist" ToRole="member" />
+    <NavigationProperty Name="travellistplaces" Relationship="projectModel.travellistplace_ibfk_1" FromRole="travellist" ToRole="travellistplace" />
+  </EntityType>
+  <EntityType Name="travellistplace">
+    <Key>
+      <PropertyRef Name="Tid" />
+      <PropertyRef Name="Sno" />
+    </Key>
+    <Property Type="Int32" Name="Tid" Nullable="false" />
+    <Property Type="String" Name="Sno" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="travellist" Relationship="projectModel.travellistplace_ibfk_1" FromRole="travellistplace" ToRole="travellist" />
+  </EntityType>
+  <Association Name="travellist_ibfk_1">
+    <End Type="projectModel.member" Role="member" Multiplicity="1" />
+    <End Type="projectModel.travellist" Role="travellist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="member">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="travellist">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="travellistplace_ibfk_1">
+    <End Type="projectModel.travellist" Role="travellist" Multiplicity="1" />
+    <End Type="projectModel.travellistplace" Role="travellistplace" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="travellist">
+        <PropertyRef Name="Tid" />
+      </Principal>
+      <Dependent Role="travellistplace">
+        <PropertyRef Name="Tid" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

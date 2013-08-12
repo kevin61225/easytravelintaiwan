@@ -12,6 +12,13 @@
           <EntitySet Name="oneinfodata" EntityType="projectModel.Store.oneinfodata" store:Type="Tables" Schema="project" />
           <EntitySet Name="place" EntityType="projectModel.Store.place" store:Type="Tables" Schema="project" />
           <EntitySet Name="placeimage" EntityType="projectModel.Store.placeimage" store:Type="Tables" Schema="project" />
+          <EntitySet Name="travellist" EntityType="projectModel.Store.travellist" store:Type="Tables" Schema="project" />
+          <EntitySet Name="travellistplace" EntityType="projectModel.Store.travellistplace" store:Type="Tables" store:Schema="project" store:Name="travellistplace">
+            <DefiningQuery>SELECT
+      `travellistplace`.`Tid`, 
+      `travellistplace`.`Sno`
+      FROM `travellistplace` AS `travellistplace`</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="viewtype" EntityType="projectModel.Store.viewtype" store:Type="Tables" Schema="project" />
           <AssociationSet Name="place_ibfk_1" Association="projectModel.Store.place_ibfk_1">
             <End Role="city" EntitySet="city" />
@@ -24,6 +31,14 @@
           <AssociationSet Name="placeimage_ibfk_1" Association="projectModel.Store.placeimage_ibfk_1">
             <End Role="place" EntitySet="place" />
             <End Role="placeimage" EntitySet="placeimage" />
+          </AssociationSet>
+          <AssociationSet Name="travellist_ibfk_1" Association="projectModel.Store.travellist_ibfk_1">
+            <End Role="member" EntitySet="member" />
+            <End Role="travellist" EntitySet="travellist" />
+          </AssociationSet>
+          <AssociationSet Name="travellistplace_ibfk_1" Association="projectModel.Store.travellistplace_ibfk_1">
+            <End Role="travellist" EntitySet="travellist" />
+            <End Role="travellistplace" EntitySet="travellistplace" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="city">
@@ -98,6 +113,25 @@
           <Property Name="Imagetype" Type="int" Nullable="false" />
           <Property Name="Image" Type="longblob" />
         </EntityType>
+        <EntityType Name="travellist">
+          <Key>
+            <PropertyRef Name="Tid" />
+          </Key>
+          <Property Name="Tid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="TName" Type="text" Nullable="false" />
+        </EntityType>
+        <!--產生期間發現錯誤:
+      警告 6002: 資料表/檢視 'def.project.travellistplace' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
+      -->
+        <EntityType Name="travellistplace">
+          <Key>
+            <PropertyRef Name="Tid" />
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Tid" Type="int" Nullable="false" />
+          <Property Name="Sno" Type="text" Nullable="false" />
+        </EntityType>
         <EntityType Name="viewtype">
           <Key>
             <PropertyRef Name="Typenumber" />
@@ -141,6 +175,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="travellist_ibfk_1">
+          <End Role="member" Type="projectModel.Store.member" Multiplicity="1" />
+          <End Role="travellist" Type="projectModel.Store.travellist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="travellist">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="travellistplace_ibfk_1">
+          <End Role="travellist" Type="projectModel.Store.travellist" Multiplicity="1" />
+          <End Role="travellistplace" Type="projectModel.Store.travellistplace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="travellist">
+              <PropertyRef Name="Tid" />
+            </Principal>
+            <Dependent Role="travellistplace">
+              <PropertyRef Name="Tid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -164,6 +222,16 @@
           <AssociationSet Name="placeimage_ibfk_1" Association="projectModel.placeimage_ibfk_1">
             <End Role="place" EntitySet="places" />
             <End Role="placeimage" EntitySet="placeimages" />
+          </AssociationSet>
+          <EntitySet Name="travellists" EntityType="projectModel.travellist" />
+          <EntitySet Name="travellistplaces" EntityType="projectModel.travellistplace" />
+          <AssociationSet Name="travellist_ibfk_1" Association="projectModel.travellist_ibfk_1">
+            <End Role="member" EntitySet="members" />
+            <End Role="travellist" EntitySet="travellists" />
+          </AssociationSet>
+          <AssociationSet Name="travellistplace_ibfk_1" Association="projectModel.travellistplace_ibfk_1">
+            <End Role="travellist" EntitySet="travellists" />
+            <End Role="travellistplace" EntitySet="travellistplaces" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="maplatlng">
@@ -196,6 +264,7 @@
           <Property Name="UserAddress" Type="String" Nullable="false" MaxLength="49" Unicode="false" FixedLength="false" />
           <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Role" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="travellists" Relationship="projectModel.travellist_ibfk_1" FromRole="member" ToRole="travellist" />
         </EntityType>
         <EntityType Name="oneinfodata">
           <Key>
@@ -284,6 +353,49 @@
             </Principal>
             <Dependent Role="placeimage">
               <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="travellist">
+          <Key>
+            <PropertyRef Name="Tid" />
+          </Key>
+          <Property Type="Int32" Name="Tid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="TName" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="member" Relationship="projectModel.travellist_ibfk_1" FromRole="travellist" ToRole="member" />
+          <NavigationProperty Name="travellistplaces" Relationship="projectModel.travellistplace_ibfk_1" FromRole="travellist" ToRole="travellistplace" />
+        </EntityType>
+        <EntityType Name="travellistplace">
+          <Key>
+            <PropertyRef Name="Tid" />
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Type="Int32" Name="Tid" Nullable="false" />
+          <Property Type="String" Name="Sno" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="travellist" Relationship="projectModel.travellistplace_ibfk_1" FromRole="travellistplace" ToRole="travellist" />
+        </EntityType>
+        <Association Name="travellist_ibfk_1">
+          <End Type="projectModel.member" Role="member" Multiplicity="1" />
+          <End Type="projectModel.travellist" Role="travellist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="travellist">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="travellistplace_ibfk_1">
+          <End Type="projectModel.travellist" Role="travellist" Multiplicity="1" />
+          <End Type="projectModel.travellistplace" Role="travellistplace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="travellist">
+              <PropertyRef Name="Tid" />
+            </Principal>
+            <Dependent Role="travellistplace">
+              <PropertyRef Name="Tid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -376,6 +488,23 @@
               <MappingFragment StoreEntitySet="viewtype">
                 <ScalarProperty Name="Typename" ColumnName="Typename" />
                 <ScalarProperty Name="Typenumber" ColumnName="Typenumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="travellists">
+            <EntityTypeMapping TypeName="projectModel.travellist">
+              <MappingFragment StoreEntitySet="travellist">
+                <ScalarProperty Name="TName" ColumnName="TName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Tid" ColumnName="Tid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="travellistplaces">
+            <EntityTypeMapping TypeName="projectModel.travellistplace">
+              <MappingFragment StoreEntitySet="travellistplace">
+                <ScalarProperty Name="Sno" ColumnName="Sno" />
+                <ScalarProperty Name="Tid" ColumnName="Tid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

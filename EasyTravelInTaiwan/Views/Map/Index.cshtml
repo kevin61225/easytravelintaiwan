@@ -39,13 +39,14 @@
 
 <!--引入 Google API-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="~/scripts/jquery.blockUI.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.9&sensor=false"></script>
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
 <script src="~/scripts/jquery.ui.core.js"></script>
 <script src="~/scripts/jquery.ui.widget.js"></script>
 <script src="~/scripts/jquery.ui.progressbar.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script src="~/scripts/jquery.blockUI.js"></script>
+
 <script src="~/scripts/ContextMenu.js"></script>
 <script src="~/scripts/jquery.geocomplete.js"></script>
 <script src="~/scripts/GoogleMapRightClick.js"></script>
@@ -70,7 +71,19 @@
     <button type="button" class="btn btn-primary " value="10">風景</button>
 </div>
 
-<div id="map_canvas" class="map_canvas" aria-setsize="500"></div>
+<div class="row">
+    <div class="span6">
+        <div id="map_canvas" class="map_canvas" aria-setsize="500"></div>
+    </div>
+    <div class="row">
+        <div class="span6">
+            @Html.Action("TravelListPartial", "Map")
+        </div>
+        <div class="span6">
+            @Html.Action("TravelListPlacePartial", "Map")
+        </div>
+    </div>
+</div>
 <br />
 
 @*<form id="status">
@@ -82,19 +95,55 @@
     <input name="formatted_address" type="text" value="">
 </form>*@
 
-@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+@*@using (Html.BeginForm("Index", "Map", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
-    <ul class="nav nav-pills nav-stacked" id="InputsWrapper">
-    </ul>
-    <p>
-        <input type="submit" value="Create" class="btn btn-success" />
-    </p>
-}
+
+    <form id="myForm">
+        <ul class="nav nav-pills nav-stacked" id="InputsWrapper">
+        </ul>
+        <p>
+            <input type="submit" value="Create" class="btn btn-success" onclick="UploadTravelList()" />
+        </p>
+    </form>
+}*@
+
+<input type="button" class="btn btn-success" id="clickBtn" value="ConverToJson" />
 
 <div id="info"></div>
 
 <script type="text/javascript">
+
+    $(window).on('unload', function () {
+        //localStorage.clear();
+    });
+
+    $(window).on('beforeunload', function (e) {
+        return '如果直接離開的話，尚未儲存的資訊將會被清除。';
+    });
+
+
+    $("#clickBtn").click(function () {
+        var placeItems = [];
+        $("#InputsWrapper").children().each(function () {
+            var $this = $(this);
+            var str = $(this).attr('id');
+            var n = str.split("-");
+            var item = { id: gmarkers[n[1]].gId, name: $this.children().html() };
+            placeItems.push(item);
+            console.log(gmarkers[n[1]]);
+            console.log(JSON.stringify(placeItems));
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("PostPlace")",
+            success: function (data) { console.log(data) },
+            data: JSON.stringify(placeItems),
+            contentType: 'application/json; charset=utf-8'
+        });
+    });
 
     var mainIcon = {
         url: 'Content/Icons/04.png',
@@ -194,11 +243,19 @@
         boxclick($(this).hasClass("active"), $(this).val());
     });
 
-    $(document).on('click', '#InputsWrapper li', function () {
-        var str = $(this).attr('id');
-        var n = str.split("-");
-        console.log(n[1]);
-        google.maps.event.trigger(gmarkers[n[1]], "click");
+    $(document).on('click', '#InputsWrapper li', function (e) {
+        //if (e.button == 1) {
+            var str = $(this).attr('id');
+            var n = str.split("-");
+            console.log(n[1]);
+            console.log(e);
+            google.maps.event.trigger(gmarkers[n[1]], "click");
+        //}
+        //else if (e.button == 2) {
+        //    var str = $(this).attr('id');
+        //    var n = str.split("-");
+        //    console.log(e.button);
+        //}
     });
 
     //$(document).on('click', '#InputsWrapper li', function (e) {
@@ -207,7 +264,6 @@
     //        var n = str.split("-");
     //        console.log(n[1]);
     //    }
-    //    //google.maps.event.trigger(gmarkers[n[1]], "click");
     //});
 
     var gmap = $("#inputGeo").geocomplete("map");
@@ -215,31 +271,41 @@
     var infowindow = new google.maps.InfoWindow();
     var gmarkers = [];
     var contextMenu;
+    var unloading = false;
 
-    //$.getJSON("/Map/GetMap", initialize);
-
-
-    $.ajax({
-        type: 'POST',
-        url: '/Map/GetMap',
-        dataType: 'json',
-        cache: true,
-        success: function (data) {
-            initialize(data);
-        },
-        error: function () {
-            console.log('Load Error Occur !');
-        },
-        progress: function (e) {
-            if (e.lengthComputable) {
-                var pct = (e.loaded / e.total) * 100;
-                console.log(parseInt((e.loaded / e.total * 100), 10));
-            } else {
-                console.warn('Content Length not reported!');
-            }
+    $.ready()
+    {
+        if (localStorage['json_array'] == null) {
+            $.ajax({
+                type: 'POST',
+                url: '/Map/GetMap',
+                dataType: 'json',
+                cache: true,
+                success: function (data) {
+                    localStorage['json_array'] = JSON.stringify(data);
+                    initialize(data);
+                    //DisableBlockUI();
+                },
+                error: function () {
+                    console.log('Load Error Occur !');
+                },
+                progress: function (e) {
+                    if (e.lengthComputable) {
+                        var pct = (e.loaded / e.total) * 100;
+                        console.log(parseInt((e.loaded / e.total * 100), 10));
+                    } else {
+                        console.warn('Content Length not reported!');
+                    }
+                }
+            });
         }
-    });
+        else {
 
+            var data = JSON.parse(localStorage['json_array']);
+            initialize(data);
+            $.unblockUI();
+        }
+    }
     function initialize(mapData) {
 
         ////google.maps.event.addListener(gmarker, 'dblclick', function () {
@@ -314,7 +380,8 @@
             icon: markerIcon,
             visible: false,
             isChecked: false,
-            gIndex: gmarkers.length
+            gIndex: gmarkers.length,
+            gId: item.sno
         });
         marker.category = item.pt;
 
@@ -371,6 +438,8 @@
           widget.get('distance');
     }
 
+    DistanceWidget.prototype = new google.maps.MVCObject();
+
     function DistanceWidget() {
 
         this.set('map', gmap);
@@ -403,11 +472,7 @@
         //    // When a user double clicks on the icon fit to the map to the bounds
         //    map.fitBounds(me.get('bounds'));
         //});
-
-        //google.maps.event.addListener(gmarker, 'dragend', function () { alert(gmarker.getPosition()); });
     }
-
-    DistanceWidget.prototype = new google.maps.MVCObject();
 
     function RadiusWidget() {
         var circle = new google.maps.Circle({
@@ -502,12 +567,7 @@
 
     };
 
-    function DisableBlockUI() {
-        $.unblockUI();
-    }
-
     $.blockUI({
-        //message: $('<h5 style="text-align:center font-size= 24px"><img src="Content/Icons/loader-indic.gif" /> <br/><br/>系統資料讀取中，請稍後 ...</h5>'),
         message: $('<div id="progress_bar" class="ui-progress-bar ui-container"><div class="ui-progress" style="width: 70%;"><span class="ui-label" style="display: none;">資料讀取中... <b class="value">70%</b></span></div></div>'),
         css: {
             top: ($(window).height() - 240) / 2 + 'px',
@@ -527,7 +587,7 @@
             if (timer >= 100) {
                 timer = 10;
             }
-            $('#progress_bar .ui-progress').animateProgress(timer, function () {
+            $(this).animateProgress(timer, function () {
                 //$('#main_content').slideDown();
             });
             timer += 10;
@@ -536,4 +596,15 @@
     });
     $(document).ajaxStop($.unblockUI);
 
+    function UploadTravelList() {
+        $.ajax({
+            type: 'POST',
+            url: '/Maps/Index',
+            data: $('#InputsWrapper').serialize(),
+            success: function (jsonResult) {
+                console.log(jsonResult);
+                //$('#searchResults').innerHtml(jsonResult);
+            }
+        });
+    }
 </script>

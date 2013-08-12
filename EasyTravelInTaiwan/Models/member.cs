@@ -14,6 +14,11 @@ namespace EasyTravelInTaiwan.Models
     
     public partial class member
     {
+        public member()
+        {
+            this.travellists = new HashSet<travellist>();
+        }
+    
         public int UserID { get; set; }
         public string Account { get; set; }
         public string Password { get; set; }
@@ -24,5 +29,7 @@ namespace EasyTravelInTaiwan.Models
         public string UserAddress { get; set; }
         public System.DateTime Birthday { get; set; }
         public int Role { get; set; }
+    
+        public virtual ICollection<travellist> travellists { get; set; }
     }
 }
