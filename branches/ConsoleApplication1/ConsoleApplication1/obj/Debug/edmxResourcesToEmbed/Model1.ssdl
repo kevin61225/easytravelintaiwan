@@ -2,9 +2,16 @@
 <Schema Namespace="projectModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="projectModelStoreContainer">
     <EntitySet Name="city" EntityType="projectModel.Store.city" store:Type="Tables" Schema="project" />
+    <EntitySet Name="hotel" EntityType="projectModel.Store.hotel" store:Type="Tables" Schema="project" />
+    <EntitySet Name="hotelimage" EntityType="projectModel.Store.hotelimage" store:Type="Tables" Schema="project" />
+    <EntitySet Name="maplatlng" EntityType="projectModel.Store.maplatlng" store:Type="Tables" Schema="project" />
     <EntitySet Name="place" EntityType="projectModel.Store.place" store:Type="Tables" Schema="project" />
     <EntitySet Name="placeimage" EntityType="projectModel.Store.placeimage" store:Type="Tables" Schema="project" />
     <EntitySet Name="viewtype" EntityType="projectModel.Store.viewtype" store:Type="Tables" Schema="project" />
+    <AssociationSet Name="hotelimage_ibfk_1" Association="projectModel.Store.hotelimage_ibfk_1">
+      <End Role="hotel" EntitySet="hotel" />
+      <End Role="hotelimage" EntitySet="hotelimage" />
+    </AssociationSet>
     <AssociationSet Name="place_ibfk_1" Association="projectModel.Store.place_ibfk_1">
       <End Role="city" EntitySet="city" />
       <End Role="place" EntitySet="place" />
@@ -24,6 +31,48 @@
     </Key>
     <Property Name="Citynumber" Type="varchar" Nullable="false" MaxLength="20" />
     <Property Name="Cityname" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="hotel">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Name" Type="text" Nullable="false" />
+    <Property Name="Citynumber" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="Typenumber" Type="int" Nullable="false" />
+    <Property Name="Description" Type="text" />
+    <Property Name="Address" Type="text" Nullable="false" />
+    <Property Name="Url" Type="text" />
+    <Property Name="Telphone" Type="varchar" MaxLength="20" />
+    <Property Name="FaxNumber" Type="varchar" MaxLength="20" />
+    <Property Name="Rooms" Type="int" />
+    <Property Name="Price" Type="text" />
+    <Property Name="Email" Type="text" />
+  </EntityType>
+  <EntityType Name="hotelimage">
+    <Key>
+      <PropertyRef Name="sid" />
+    </Key>
+    <Property Name="sid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Id" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Name" Type="text" Nullable="false" />
+    <Property Name="Image" Type="longblob" />
+  </EntityType>
+  <EntityType Name="maplatlng">
+    <Key>
+      <PropertyRef Name="sno" />
+    </Key>
+    <Property Name="pt" Type="text" Nullable="false" />
+    <Property Name="sno" Type="varchar" Nullable="false" MaxLength="40" />
+    <Property Name="pName" Type="text" Nullable="false" />
+    <Property Name="Lat" Type="text" Nullable="false" />
+    <Property Name="Lng" Type="text" Nullable="false" />
+    <Property Name="Lang" Type="text" Nullable="false" />
+    <Property Name="isView" Type="text" Nullable="false" />
+    <Property Name="pRange" Type="text" Nullable="false" />
+    <Property Name="m_layer2" Type="text" />
+    <Property Name="layer1" Type="text" Nullable="false" />
+    <Property Name="NoewIcon" Type="text" />
   </EntityType>
   <EntityType Name="place">
     <Key>
@@ -57,8 +106,22 @@
     <Property Name="Typenumber" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Typename" Type="text" Nullable="false" />
   </EntityType>
+  <Association Name="hotelimage_ibfk_1">
+    <End Role="hotel" Type="projectModel.Store.hotel" Multiplicity="1" />
+    <End Role="hotelimage" Type="projectModel.Store.hotelimage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hotel">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="hotelimage">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="place_ibfk_1">
-    <End Role="city" Type="projectModel.Store.city" Multiplicity="1" />
+    <End Role="city" Type="projectModel.Store.city" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="place" Type="projectModel.Store.place" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="city">
@@ -70,7 +133,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="place_ibfk_2">
-    <End Role="viewtype" Type="projectModel.Store.viewtype" Multiplicity="1" />
+    <End Role="viewtype" Type="projectModel.Store.viewtype" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="place" Type="projectModel.Store.place" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="viewtype">
@@ -82,7 +147,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="placeimage_ibfk_1">
-    <End Role="place" Type="projectModel.Store.place" Multiplicity="1" />
+    <End Role="place" Type="projectModel.Store.place" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="placeimage" Type="projectModel.Store.placeimage" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="place">

@@ -22,3 +22,14 @@ C:\Users\KevinDo\Desktop\easytravelintaiwan\branches\ConsoleApplication1\Console
 C:\Users\KevinDo\Desktop\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.csprojResolveAssemblyReference.cache
 C:\Users\KevinDo\Desktop\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
 C:\Users\KevinDo\Desktop\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
+D:\School\專題\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+D:\School\專題\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+D:\School\專題\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+D:\School\專題\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\bin\Debug\EntityFramework.dll
+D:\School\專題\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\bin\Debug\HtmlAgilityPack.dll
+D:\School\專題\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\bin\Debug\EntityFramework.xml
+D:\School\專題\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\bin\Debug\HtmlAgilityPack.pdb
+D:\School\專題\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\bin\Debug\HtmlAgilityPack.xml
+D:\School\專題\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\bin\Debug\zh-Hant\EntityFramework.resources.dll
+D:\School\專題\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+D:\School\專題\easytravelintaiwan\branches\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
