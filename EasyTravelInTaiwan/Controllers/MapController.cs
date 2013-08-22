@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using BootstrapSupport.HtmlHelpers;
 using System.Web.Services.Description;
+using System.Web.Security;
 
 namespace EasyTravelInTaiwan.Controllers
 {
@@ -54,8 +55,16 @@ namespace EasyTravelInTaiwan.Controllers
             return;
         }
 
+        [Authorize(Roles = "Admin, Clerk, Customer")]
         public ActionResult Index()
         {
+            if (Session["UserId"] != null)
+            {
+                FormsAuthentication.SignOut();
+                Session.Clear();
+                return RedirectToAction("Index");
+            }
+
             if (User.Identity.IsAuthenticated)
             {
                 FindUserIdByName(User.Identity.Name);
@@ -83,8 +92,8 @@ namespace EasyTravelInTaiwan.Controllers
         [ChildActionOnly]
         public ActionResult TravelListPartial()
         {
-            int uid = 2;
-            //int uid = (int)Session["UserId"];
+            //int uid = 2;
+            int uid = (int)Session["UserId"];
             List<travellist> travelList = db.travellists.Where(list => list.UserId == uid).ToList<travellist>();
             if (travelList == null)
             {
@@ -96,8 +105,8 @@ namespace EasyTravelInTaiwan.Controllers
         [ChildActionOnly]
         public ActionResult TravelListPlacePartial()
         {
-            int uid = 2;
-            //int uid = (int)Session["UserId"];
+            //int uid = 2;
+            int uid = (int)Session["UserId"];
             List<travellistplace> travelListPlace = db.travellistplaces.Where(list => list.Tid == uid).ToList<travellistplace>();
             if (travelListPlace == null)
             {
@@ -190,5 +199,26 @@ namespace EasyTravelInTaiwan.Controllers
             }
             return Json(new { Status = 2, Message = "info is null" });
         }
+
+        [HttpPost]
+        public ActionResult CreateNewList(string TravelListName)
+        {
+            travellist newList = new travellist();
+            newList.TName = TravelListName;
+            newList.UserId = (int)Session["UserId"];
+
+            try
+            {
+                db.travellists.Add(newList);
+                db.SaveChanges();
+            }
+            catch
+            {
+                TempData["Error"] = "儲存錯誤";
+            }
+
+            return RedirectToAction("TravelListPartial");
+        }
+
     }
 }

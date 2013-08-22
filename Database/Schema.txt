@@ -1,0 +1,10 @@
+需求
+1. 紀錄使用者曾經去過的地方
+2. 可推薦給其他使用者
+3. 其他使用者可以對別的使用者清單評分
+
+TravelList: (旅遊清單)
+Tid UserId TName
+
+TravelListPlace:(旅遊清單細項)
+Tid Sno

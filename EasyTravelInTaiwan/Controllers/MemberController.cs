@@ -50,7 +50,7 @@ namespace EasyTravelInTaiwan.Controllers
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult LogIn(LoginModel loginModel)
+        public ActionResult LogIn(LoginModel loginModel, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -61,7 +61,8 @@ namespace EasyTravelInTaiwan.Controllers
                 }
             }
             TempData["success"] = "登入成功 ! 歡迎使用";
-            return RedirectToAction("Index", "Home");
+
+            return RedirectToAction("Index", "Map");
         }
 
         private bool AutoLogin(LoginModel model)
@@ -178,8 +179,9 @@ namespace EasyTravelInTaiwan.Controllers
 
         // GET: /Member/Login
 
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 

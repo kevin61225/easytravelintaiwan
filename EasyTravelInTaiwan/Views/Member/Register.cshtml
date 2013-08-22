@@ -95,17 +95,16 @@
             <br />
             <p>
                 <input type="submit" value="創建帳號" class="btn btn-success" />
+                @Html.ActionLink("回首頁", "Index", "Home", null, new { @class = "btn btn-primary" })
             </p>
             <br />
             <br />
             <br />
         </div>
     </fieldset>
+    
 }
 
-<div>
-    @Html.ActionLink("回首頁", "Index", "Home", null, new { @class = "btn btn-primary" })
-</div>
 
 @section Scripts {
     <script type="text/javascript">
