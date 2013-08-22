@@ -26,6 +26,9 @@ namespace ConsoleApplication1
         }
     
         public DbSet<city> cities { get; set; }
+        public DbSet<hotel> hotels { get; set; }
+        public DbSet<hotelimage> hotelimages { get; set; }
+        public DbSet<maplatlng> maplatlngs { get; set; }
         public DbSet<place> places { get; set; }
         public DbSet<placeimage> placeimages { get; set; }
         public DbSet<viewtype> viewtypes { get; set; }

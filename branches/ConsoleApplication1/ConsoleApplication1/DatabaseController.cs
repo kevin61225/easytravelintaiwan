@@ -27,7 +27,7 @@ namespace ConsoleApplication1
                 db.SaveChanges();
                 return true;
             }
-            else 
+            else
             {
                 return false;
             }
@@ -53,6 +53,25 @@ namespace ConsoleApplication1
         public void InsertPlaceImage(placeimage insertImage) //
         {
             db.placeimages.Add(insertImage);
+            db.SaveChanges();
+        }
+
+        public void InsertHotel(hotel inserthotel)
+        {
+            db.hotels.Add(inserthotel);
+            db.SaveChanges();
+        }
+
+        public void InsertHotelImage(hotelimage inserthotelimage)
+        {
+            db.hotelimages.Add(inserthotelimage);
+            db.SaveChanges();
+        }
+
+        public void EditHotel(hotel hotel)
+        {
+            db.Entry(hotel).State = System.Data.EntityState.Modified;
+            
             db.SaveChanges();
         }
     }

@@ -158,7 +158,7 @@ namespace ConsoleApplication1
 
                             database.InsertPlaceImage(insertImage);
                         }
-                        catch(Exception e)
+                        catch (Exception e)
                         {
                             Console.WriteLine(e.Message);
                             continue;
@@ -173,56 +173,56 @@ namespace ConsoleApplication1
 
         private Info GetPlaceTourGuide(HtmlDocument doc)
         {
-            const int REGULAR_COUNT = 5;
+            //const int REGULAR_COUNT = 5;
             string placeInfoXPath = "//*[@class=\"live3_right\"]";
             string placeTitleXPath = "//*[@class=\"live3_left\"]";
             HtmlNodeCollection placeInfoCollection = doc.DocumentNode.SelectNodes(placeInfoXPath);
             Info placeInfo = new Info();
-            if (placeInfoCollection.Count == REGULAR_COUNT)
-            {
-                // node 1 電話
-                placeInfo.Tel = placeInfoCollection[0].InnerText;
-                // node 2 地址
-                placeInfo.Address = placeInfoCollection[1].ChildNodes[0].InnerText;
-                // node 3 網站
-                placeInfo.IntroHref = placeInfoCollection[2].ChildNodes["a"].GetAttributeValue("href", null);
-                // node 4 自行開車
-                placeInfo.CarMethod = placeInfoCollection[3].InnerHtml;
-                // node 5 大眾運輸
-                placeInfo.BusMethod = placeInfoCollection[4].InnerHtml;
-            }
-            else
-            {
-                HtmlNodeCollection placeTitleCollection = doc.DocumentNode.SelectNodes(placeTitleXPath);
+            //if (placeInfoCollection.Count == REGULAR_COUNT)
+            //{
+            //    // node 1 電話
+            //    placeInfo.Tel = placeInfoCollection[0].InnerText;
+            //    // node 2 地址
+            //    placeInfo.Address = placeInfoCollection[1].ChildNodes[0].InnerText;
+            //    // node 3 網站
+            //    placeInfo.IntroHref = placeInfoCollection[2].ChildNodes["a"].GetAttributeValue("href", null);
+            //    // node 4 自行開車
+            //    placeInfo.CarMethod = placeInfoCollection[3].InnerHtml;
+            //    // node 5 大眾運輸
+            //    placeInfo.BusMethod = placeInfoCollection[4].InnerHtml;
+            //}
+            //else
+            //{
+            HtmlNodeCollection placeTitleCollection = doc.DocumentNode.SelectNodes(placeTitleXPath);
 
-                for (int i = 0; i < placeTitleCollection.Count; i++)
+            for (int i = 0; i < placeTitleCollection.Count; i++)
+            {
+                switch (placeTitleCollection[i].InnerText)
                 {
-                    switch (placeTitleCollection[i].InnerText)
-                    {
-                        case "電話":
-                            placeInfo.Tel = placeInfoCollection[i].InnerText;
-                            break;
-                        case "地址":
-                            placeInfo.Address = placeInfoCollection[i].ChildNodes[0].InnerText;
-                            break;
-                        case "網站":
-                            placeInfo.IntroHref = placeInfoCollection[i].ChildNodes["a"].GetAttributeValue("href", null);
-                            break;
-                        case "自行開車":
-                            placeInfo.CarMethod = placeInfoCollection[i].InnerHtml;
-                            break;
-                        case "大眾運輸":
-                            placeInfo.BusMethod = placeInfoCollection[i].InnerHtml;
-                            break;
-                        default:
-                            string titleXPath = "//*[@id=\"ctl00_ContentPlaceHolder1_Wuc_Cnt1_Wuc_OneView1_lbl_mw_name\"]";
-                            string title = doc.DocumentNode.SelectSingleNode(titleXPath).InnerText;
-                            string tour_live_left = placeTitleCollection[i].InnerText;
-                            WriteLog("Unexpect description type: " + tour_live_left + " in " + title);
-                            break;
-                    }
+                    case "電話":
+                        placeInfo.Tel = placeInfoCollection[i].InnerText;
+                        break;
+                    case "地址":
+                        placeInfo.Address = placeInfoCollection[i].ChildNodes[0].InnerText;
+                        break;
+                    case "網站":
+                        placeInfo.IntroHref = placeInfoCollection[i].ChildNodes["a"].GetAttributeValue("href", null);
+                        break;
+                    case "自行開車":
+                        placeInfo.CarMethod = placeInfoCollection[i].InnerHtml;
+                        break;
+                    case "大眾運輸":
+                        placeInfo.BusMethod = placeInfoCollection[i].InnerHtml;
+                        break;
+                    default:
+                        string titleXPath = "//*[@id=\"ctl00_ContentPlaceHolder1_Wuc_Cnt1_Wuc_OneView1_lbl_mw_name\"]";
+                        string title = doc.DocumentNode.SelectSingleNode(titleXPath).InnerText;
+                        string tour_live_left = placeTitleCollection[i].InnerText;
+                        WriteLog("Unexpect description type: " + tour_live_left + " in " + title);
+                        break;
                 }
             }
+            //}
             return placeInfo;
         }
 
@@ -270,7 +270,7 @@ namespace ConsoleApplication1
             return description;
         }
 
-        public string GetPlaceImageUrl(HtmlDocument doc)
+        private string GetPlaceImageUrl(HtmlDocument doc)
         {   // 景點可能會沒有圖片 => collection is null
             string placeImageXPath = "//*[@class=\"photoleft_line\"]";
             HtmlNode placeImage = doc.DocumentNode.SelectSingleNode(placeImageXPath);
@@ -330,6 +330,231 @@ namespace ConsoleApplication1
                 WriteLog(urlImage + e.Message);
                 throw new Exception("Request 逾時");
             }
+        }
+
+        public void HotelDataSpider()
+        {
+            string href = "http://taiwan.net.tw/m1.aspx?sNo=0000112&id=";
+            string hotelPt = "06";
+            List<maplatlng> maplist = database.Database.maplatlngs.Where(o => o.pt == hotelPt).OrderBy(o => o.pName).ToList();
+            // sample: http://taiwan.net.tw/m1.aspx?sNo=0000112&id=12040132
+            Random sleepMul = new Random(Guid.NewGuid().GetHashCode());
+            //int i = 1;
+            //foreach (maplatlng item in maplist)
+            //{
+            //    Console.Write(i++ + ". ");
+            //    GetHotelData(href + item.sno, item.pName);
+            //    int sleepTime = sleepMul.Next(30, 99) * 100;
+            //    Console.WriteLine("sleep for {0} second", (double)sleepTime / 1000);
+            //    System.Threading.Thread.Sleep(sleepTime);      //hold
+            //}
+
+            //393
+            GetHotelData(href + maplist[393].sno, maplist[393].pName);
+
+            //for (int j = 0; j < maplist.Count; j++)
+            //{
+            //    Console.Write((j + 1) + ". ");
+            //    GetHotelData(href + maplist[j].sno, maplist[j].pName);
+            //    int sleepTime = sleepMul.Next(30, 99) * 100;
+            //    Console.WriteLine("sleep for {0} second", (double)sleepTime / 1000);
+            //    System.Threading.Thread.Sleep(sleepTime);      //hold
+            //}
+        }
+
+        private void GetHotelData(string href, string name)
+        {
+            HtmlWeb webClient = new HtmlWeb();
+            if (href != "Error")
+            {
+                string placeId = GetPlaceId(href);  // get hotel id
+                //string cityNumber = GetCityNumber(href);
+
+                HtmlDocument doc = webClient.Load(href);
+
+                string titleXPath = "//*[@id=\"ctl00_ContentPlaceHolder1_Wuc_Cnt1_Wuc_OneView1_lbl_mw_name\"]";
+                HtmlNode titleNode = doc.DocumentNode.SelectSingleNode(titleXPath);
+                if (titleNode == null)
+                {
+                    WriteLog("Error Page: " + href);
+                    return;
+                }
+
+
+                Dictionary<string, string> pictureRow = GetPictureRow(doc); // picture row
+                hotel info = GetHotelTourGuide(doc);                         // tour guide
+
+                info.Id = placeId;
+                info.Description = GetHotelDescription(doc);     // description
+                info.Name = name;
+                try
+                {
+                    info.Citynumber = AnalyzeCity(info.Address);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine(name + "wierd address, input cityNumber");
+                    info.Citynumber = Console.ReadLine();
+                }
+                info.Typenumber = 16;
+
+                database.InsertHotel(info);
+
+                if (pictureRow.Count != 0)
+                {
+                    foreach (KeyValuePair<string, string> imgdata in pictureRow)
+                    {
+                        try
+                        {
+                            hotelimage insertImage = new hotelimage();
+                            insertImage.Image = RequestImage(imgdata.Key);
+                            System.Threading.Thread.Sleep(500);      //hold
+                            insertImage.Name = (imgdata.Value != "") ? imgdata.Value : name;
+                            insertImage.Id = placeId;
+
+                            database.InsertHotelImage(insertImage);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.Message);
+                            continue;
+                        }
+                    }
+                }
+                Console.WriteLine(name + " :Success");
+            }
+            else
+                Console.WriteLine(name + " :Fail");
+            //Console.WriteLine(name);
+        }
+
+        private string AnalyzeCity(string address)
+        {
+            if (address != null)
+            {
+                //if (address.Contains("臺北市") || address.Contains("台北市"))
+                //{
+                //    return "0001090";
+                //}
+                //else
+                //{
+                //    return "0001091";
+                //}
+                List<city> list = database.Database.cities.ToList();
+                foreach (var City in list)
+                {
+                    if (address.Contains(City.Cityname))
+                    {
+                        return City.Citynumber;
+                    }
+                }
+                return "0001090";
+            }
+            else throw new Exception();
+        }
+
+        private hotel GetHotelTourGuide(HtmlDocument doc)
+        {
+            string placeInfoXPath = "//*[@class=\"live3_right\"]";
+            string placeTitleXPath = "//*[@class=\"live3_left\"]";
+            HtmlNodeCollection placeInfoCollection = doc.DocumentNode.SelectNodes(placeInfoXPath);
+            hotel hotelInfo = new hotel();
+            HtmlNodeCollection placeTitleCollection = doc.DocumentNode.SelectNodes(placeTitleXPath);
+            for (int i = 0; i < placeTitleCollection.Count; i++)
+            {
+                switch (placeTitleCollection[i].InnerText)
+                {
+                    case "電話":
+                        hotelInfo.Telphone = placeInfoCollection[i].InnerText;
+                        break;
+                    case "傳真":
+                        hotelInfo.FaxNumber = placeInfoCollection[i].InnerText;
+                        break;
+                    case "電子信箱":
+                        hotelInfo.Email = placeInfoCollection[i].InnerText;
+                        break;
+                    case "房間數":
+                        try
+                        {
+                            hotelInfo.Rooms = int.Parse(placeInfoCollection[i].InnerText);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.Message);
+                            hotelInfo.Rooms = int.Parse(Console.ReadLine());
+                        }
+                        break;
+                    case "參考房價":
+                        hotelInfo.Price = placeInfoCollection[i].InnerText;
+                        break;
+                    case "地址":
+                        hotelInfo.Address = placeInfoCollection[i].ChildNodes[0].InnerText;
+                        break;
+                    case "網站":
+                        hotelInfo.Url = placeInfoCollection[i].ChildNodes["a"].GetAttributeValue("href", null);
+                        break;
+                    default:
+                        string titleXPath = "//*[@id=\"ctl00_ContentPlaceHolder1_Wuc_Cnt1_Wuc_OneView1_lbl_mw_name\"]";
+                        string title = doc.DocumentNode.SelectSingleNode(titleXPath).InnerText;
+                        string tour_live_left = placeTitleCollection[i].InnerText;
+                        WriteLog("Unexpect description type: " + tour_live_left + " in " + title);
+                        break;
+                }
+            }
+            return hotelInfo;
+        }
+
+        private string GetHotelDescription(HtmlDocument doc)
+        {
+            string descriptonXPath = "//*[@class=\"tour_content\"]";
+            string description = "";
+            HtmlNodeCollection descriptionCollection = doc.DocumentNode.SelectNodes(descriptonXPath);
+            if (descriptionCollection != null)
+            {
+                foreach (HtmlNode tourContentNode in descriptionCollection)
+                {
+                    description += tourContentNode.InnerHtml;
+                }
+            }
+            return description;
+        }
+
+        public void CheckLackHotel()
+        {
+            List<maplatlng> maplist = database.Database.maplatlngs.Where(o => o.pt == "06").OrderBy(o => o.pName).ToList();
+            int i = 0;
+            foreach (maplatlng place in maplist)
+            {
+                if (database.Database.hotels.Find(place.sno) == null)
+                {
+                    Console.WriteLine("Lack hotel data:{0}, id: {1}, i = {2}", place.pName, place.sno, i);
+                }
+                i++;
+            }
+            Console.WriteLine("Complete");
+        }
+
+        public void CheckCityRight()
+        {
+            List<hotel> list = database.Database.hotels.ToList();
+            foreach (hotel checkHotel in list)
+            {
+                //string cityNumber = AnalyzeCity(checkHotel.Address);
+                //if (checkHotel.Citynumber != cityNumber)
+                //{
+                //    Console.WriteLine("Address:{0}", checkHotel.Address);
+                //    Console.WriteLine("CityNumber {0} change into {1}, id = {2}", checkHotel.Citynumber, cityNumber, checkHotel.Id);
+                //    checkHotel.Citynumber = cityNumber;
+                //    database.EditHotel(checkHotel);
+                //    //database.Database.SaveChanges();
+                //}
+                if (checkHotel.Citynumber == "0001091")
+                {
+                    Console.WriteLine("{0}, Address:{1}", checkHotel.Citynumber, checkHotel.Address);
+                }
+            }
+            Console.WriteLine("Complete");
         }
     }
 }
