@@ -11,9 +11,11 @@ namespace ConsoleApplication1
         static void Main(string[] args)
         {
             AgilityRequest ar = new AgilityRequest();
-            ar.StartSpider();
+            //ar.StartSpider();
             //ar.GetThirdLayerData("花博公園", 7, "m1.aspx?sNo=0001090&id=A12-00140");
             //ar.GetThirdLayerData("總統府", 7,   "m1.aspx?sNo=0001090&id=137");
+            //ar.HotelDataSpider();
+            ar.CheckCityRight();
             Console.ReadLine();
         }
     }
