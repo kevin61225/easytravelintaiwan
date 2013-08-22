@@ -9,6 +9,51 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="hotels">
+      <EntityTypeMapping TypeName="projectModel.hotel">
+        <MappingFragment StoreEntitySet="hotel">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Citynumber" ColumnName="Citynumber" />
+          <ScalarProperty Name="Typenumber" ColumnName="Typenumber" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Telphone" ColumnName="Telphone" />
+          <ScalarProperty Name="FaxNumber" ColumnName="FaxNumber" />
+          <ScalarProperty Name="Rooms" ColumnName="Rooms" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="hotelimages">
+      <EntityTypeMapping TypeName="projectModel.hotelimage">
+        <MappingFragment StoreEntitySet="hotelimage">
+          <ScalarProperty Name="sid" ColumnName="sid" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="maplatlngs">
+      <EntityTypeMapping TypeName="projectModel.maplatlng">
+        <MappingFragment StoreEntitySet="maplatlng">
+          <ScalarProperty Name="pt" ColumnName="pt" />
+          <ScalarProperty Name="sno" ColumnName="sno" />
+          <ScalarProperty Name="pName" ColumnName="pName" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="Lng" ColumnName="Lng" />
+          <ScalarProperty Name="Lang" ColumnName="Lang" />
+          <ScalarProperty Name="isView" ColumnName="isView" />
+          <ScalarProperty Name="pRange" ColumnName="pRange" />
+          <ScalarProperty Name="m_layer2" ColumnName="m_layer2" />
+          <ScalarProperty Name="layer1" ColumnName="layer1" />
+          <ScalarProperty Name="NoewIcon" ColumnName="NoewIcon" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="places">
       <EntityTypeMapping TypeName="projectModel.place">
         <MappingFragment StoreEntitySet="place">
