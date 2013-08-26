@@ -33,3 +33,43 @@
         </tr>
     </table>
 </div>
+
+<script type="text/javascript">
+    var selectedList;
+    $(document).on('click', '#InputsWrapper li', function (e) {
+        //if (e.button == 1) {
+        var str = $(this).attr('id');
+        var n = str.split("-");
+        console.log(n[1]);
+        console.log(e);
+        google.maps.event.trigger(gmarkers[n[1]], "click");
+        //}
+        //else if (e.button == 2) {
+        //    var str = $(this).attr('id');
+        //    var n = str.split("-");
+        //    console.log(e.button);
+        //}
+    });
+
+
+    $("#Create-List-Button").click(function () {
+        var placeItems = [];
+        $("#InputsWrapper").children().each(function () {
+            var $this = $(this);
+            var str = $(this).attr('id');
+            var n = str.split("-");
+            var item = { Tid: selectedList, sno: gmarkers[n[1]].gId };
+            placeItems.push(item);
+            console.log(gmarkers[n[1]]);
+            console.log(JSON.stringify(placeItems));
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("PostPlace")",
+            success: function (data) { console.log(data) },
+            data: JSON.stringify(placeItems),
+            contentType: 'application/json; charset=utf-8'
+        });
+    });
+</script>

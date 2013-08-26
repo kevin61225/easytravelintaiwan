@@ -7,10 +7,10 @@
         <tr>
             @if (Model.Count() > 0)
             {
-                <ul class="nav nav-pills nav-stacked">
+                <ul id="TravelList" class="nav nav-pills nav-stacked">
                     @foreach (var travellist in Model)
                     {
-                        <li class="span3">
+                        <li id="List-@travellist.Tid" class="span3">
                             @*<a href="@Url.Action("RenderBookImage", new { id = image.sid })" title="@image.Name" class="thumbnail">
                         <img src="@Url.Action("RenderBookImage", new { id = image.sid })" width="150" height="150" alt=""/>
                     </a>*@
@@ -21,7 +21,7 @@
             }
             else
             { 
-                <ul class="nav nav-pills nav-stacked">
+                <ul id="TravelList" class="nav nav-pills nav-stacked">
                     <li><a href="#">尚無旅遊清單</a></li>
                 </ul>
             }
@@ -41,10 +41,10 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3 id="myModalLabel">建立新的規畫清單</h3>
     </div>
+
+          
     <div class="modal-body">
-        @using (Html.BeginForm("CreateNewList", "Map"))
-        {
-            <form>
+        
                 <div class="editor-label">
                     @Html.Label("清單名稱")
                 </div>
@@ -52,17 +52,37 @@
                     @Html.Editor("TravelListName")
                     @*@Html.ValidationMessageFor(model => model.Account)*@
                 </div>
-            </form>
-        }
+            
     </div>
     <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">關閉</button>
-        <button type="submit" data-dismiss="modal" class="btn btn-primary">儲存</button>
+        <button type="submit"  class="btn btn-primary">儲存</button>
+        
     </div>
+            
+        
 </div>
 
 
 <script type="text/javascript">
+    var selectedList;
     $("#Create-List-Button").click(function () {
+    });
+
+    $(document).on('click', '#TravelList li', function (e) {       
+        var str = $(this).attr('id');
+        var n = str.split("-");
+        selectedList = n[1];
+        console.log(selectedList);
+
+        $.ajax({
+            url: "@Url.Action("CreateNewList")",
+            type: "post",
+            data: $("form").serialize(), //if you need to post Model data, use this
+            success: function (result) {
+                $("#TravelList").html(result);
+            }
+        });
+
     });
 </script>

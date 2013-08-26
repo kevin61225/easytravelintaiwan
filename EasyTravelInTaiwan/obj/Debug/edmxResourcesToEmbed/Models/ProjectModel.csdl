@@ -20,9 +20,10 @@
       <End Role="place" EntitySet="places" />
       <End Role="placeimage" EntitySet="placeimages" />
     </AssociationSet>
-    <EntitySet Name="travellists" EntityType="projectModel.travellist" />
     <EntitySet Name="travellistplaces" EntityType="projectModel.travellistplace" />
-    <AssociationSet Name="travellist_ibfk_1" Association="projectModel.travellist_ibfk_1">
+    <EntitySet Name="foods" EntityType="projectModel.food" />
+    <EntitySet Name="travellists" EntityType="projectModel.travellist" />
+    <AssociationSet Name="travellist_ibfk_2" Association="projectModel.travellist_ibfk_2">
       <End Role="member" EntitySet="members" />
       <End Role="travellist" EntitySet="travellists" />
     </AssociationSet>
@@ -61,7 +62,7 @@
     <Property Name="UserAddress" Type="String" Nullable="false" MaxLength="49" Unicode="false" FixedLength="false" />
     <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="Role" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="travellists" Relationship="projectModel.travellist_ibfk_1" FromRole="member" ToRole="travellist" />
+    <NavigationProperty Name="travellists" Relationship="projectModel.travellist_ibfk_2" FromRole="member" ToRole="travellist" />
   </EntityType>
   <EntityType Name="oneinfodata">
     <Key>
@@ -153,16 +154,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="travellist">
-    <Key>
-      <PropertyRef Name="Tid" />
-    </Key>
-    <Property Type="Int32" Name="Tid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="Int32" Name="UserId" Nullable="false" />
-    <Property Type="String" Name="TName" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="member" Relationship="projectModel.travellist_ibfk_1" FromRole="travellist" ToRole="member" />
-    <NavigationProperty Name="travellistplaces" Relationship="projectModel.travellistplace_ibfk_1" FromRole="travellist" ToRole="travellistplace" />
-  </EntityType>
   <EntityType Name="travellistplace">
     <Key>
       <PropertyRef Name="Tid" />
@@ -172,8 +163,44 @@
     <Property Type="String" Name="Sno" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="travellist" Relationship="projectModel.travellistplace_ibfk_1" FromRole="travellistplace" ToRole="travellist" />
   </EntityType>
-  <Association Name="travellist_ibfk_1">
-    <End Type="projectModel.member" Role="member" Multiplicity="1" />
+  <EntityType Name="food">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="String" Name="id" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="type" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="title" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="catalogs_id" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="address" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="phone" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="business_hrs" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="price" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Description" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="route" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="tianmama" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ImageUrl" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="sc_id" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="post_id" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="link" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="Double" Name="x" />
+    <Property Type="Double" Name="y" />
+    <Property Type="String" Name="create_date" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="modify_date" MaxLength="65535" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="travellist">
+    <Key>
+      <PropertyRef Name="Tid" />
+    </Key>
+    <Property Type="Int32" Name="Tid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="UserId" Nullable="false" />
+    <Property Type="String" Name="TName" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="member" Relationship="projectModel.travellist_ibfk_2" FromRole="travellist" ToRole="member" />
+    <NavigationProperty Name="travellistplaces" Relationship="projectModel.travellistplace_ibfk_1" FromRole="travellist" ToRole="travellistplace" />
+  </EntityType>
+  <Association Name="travellist_ibfk_2">
+    <End Type="projectModel.member" Role="member" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Type="projectModel.travellist" Role="travellist" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="member">
@@ -185,7 +212,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="travellistplace_ibfk_1">
-    <End Type="projectModel.travellist" Role="travellist" Multiplicity="1" />
+    <End Type="projectModel.travellist" Role="travellist" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Type="projectModel.travellistplace" Role="travellistplace" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="travellist">

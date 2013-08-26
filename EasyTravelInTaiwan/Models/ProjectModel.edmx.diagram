@@ -4,20 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="347e6aeed0364d9fb497f3ea67008cbc" Name="圖表1" ZoomLevel="36">
+      <Diagram DiagramId="347e6aeed0364d9fb497f3ea67008cbc" Name="圖表1" ZoomLevel="71">
         <EntityTypeShape EntityType="projectModel.maplatlng" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="projectModel.member" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="projectModel.oneinfodata" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="projectModel.city" Width="1.5" PointX="4.8268262822305905" PointY="30.609033181615654" />
         <EntityTypeShape EntityType="projectModel.place" Width="1.5" PointX="10.807931787710604" PointY="3.8802077937313393" />
         <EntityTypeShape EntityType="projectModel.placeimage" Width="1.5" PointX="2.5372298576576773" PointY="20.638748476579202" />
-        <EntityTypeShape EntityType="projectModel.viewtype" Width="1.5" PointX="8.375" PointY="19.5" />
+        <EntityTypeShape EntityType="projectModel.viewtype" Width="1.5" PointX="8.5" PointY="19.875" />
         <AssociationConnector Association="projectModel.place_ibfk_1" />
         <AssociationConnector Association="projectModel.place_ibfk_2" />
         <AssociationConnector Association="projectModel.placeimage_ibfk_1" />
-        <EntityTypeShape EntityType="projectModel.travellist" Width="1.5" PointX="4.9072283641003205" PointY="26.832717177845872" />
         <EntityTypeShape EntityType="projectModel.travellistplace" Width="1.5" PointX="6.2334821793406654" PointY="19.146478199933878" />
-        <AssociationConnector Association="projectModel.travellist_ibfk_1" />
+        <EntityTypeShape EntityType="projectModel.food" Width="1.5" PointX="3.6732850017367324" PointY="16.007473520938063" />
+        <EntityTypeShape EntityType="projectModel.travellist" Width="1.5" PointX="6.875" PointY="16.75" />
+        <AssociationConnector Association="projectModel.travellist_ibfk_2" />
         <AssociationConnector Association="projectModel.travellistplace_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>

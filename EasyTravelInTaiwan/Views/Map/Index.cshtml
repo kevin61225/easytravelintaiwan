@@ -76,15 +76,20 @@
         <div id="map_canvas" class="map_canvas" aria-setsize="500"></div>
     </div>
     <div class="row">
-        <div class="span6">
-            @Html.Action("TravelListPartial", "Map")
+        <div id="TravelListPartialView" class="span6">
+            @using (Ajax.BeginForm("CreateNewList", "Map", new AjaxOptions() { UpdateTargetId = "TravelListPartialView", HttpMethod = "Post" }))
+            {
+                @Html.Action("TravelListPartial", "Map")
+            }
+            @*@{Html.RenderPartial("_travelListPartial");}*@
         </div>
         <div class="span6">
             <br />
             <br />
         </div>
-        <div class="span6">
+        <div id="TravelListPlacePartialView" class="span6">
             @Html.Action("TravelListPlacePartial", "Map")
+            @*@{Html.RenderPartial("_travelListPlacePartial");}*@
         </div>
     </div>
 </div>
@@ -113,8 +118,6 @@
     </form>
 }*@
 
-<input type="button" class="btn btn-success" id="clickBtn" value="ConverToJson" />
-
 <div id="info"></div>
 
 <script type="text/javascript">
@@ -123,31 +126,9 @@
         //localStorage.clear();
     });
 
-    $(window).on('beforeunload', function (e) {
-        return '如果直接離開的話，尚未儲存的資訊將會被清除。';
-    });
-
-
-    $("#clickBtn").click(function () {
-        var placeItems = [];
-        $("#InputsWrapper").children().each(function () {
-            var $this = $(this);
-            var str = $(this).attr('id');
-            var n = str.split("-");
-            var item = { id: gmarkers[n[1]].gId, name: $this.children().html() };
-            placeItems.push(item);
-            console.log(gmarkers[n[1]]);
-            console.log(JSON.stringify(placeItems));
-        });
-
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("PostPlace")",
-            success: function (data) { console.log(data) },
-            data: JSON.stringify(placeItems),
-            contentType: 'application/json; charset=utf-8'
-        });
-    });
+    //$(window).on('beforeunload', function (e) {
+    //    return '如果直接離開的話，尚未儲存的資訊將會被清除。';
+    //});
 
     var mainIcon = {
         url: 'Content/Icons/04.png',
@@ -247,20 +228,7 @@
         boxclick($(this).hasClass("active"), $(this).val());
     });
 
-    $(document).on('click', '#InputsWrapper li', function (e) {
-        //if (e.button == 1) {
-        var str = $(this).attr('id');
-        var n = str.split("-");
-        console.log(n[1]);
-        console.log(e);
-        google.maps.event.trigger(gmarkers[n[1]], "click");
-        //}
-        //else if (e.button == 2) {
-        //    var str = $(this).attr('id');
-        //    var n = str.split("-");
-        //    console.log(e.button);
-        //}
-    });
+
 
     //$(document).on('click', '#InputsWrapper li', function (e) {
     //    if (e.button == 2) {

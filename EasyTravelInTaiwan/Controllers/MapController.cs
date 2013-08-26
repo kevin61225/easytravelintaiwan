@@ -58,21 +58,20 @@ namespace EasyTravelInTaiwan.Controllers
         [Authorize(Roles = "Admin, Clerk, Customer")]
         public ActionResult Index()
         {
-            if (Session["UserId"] != null)
-            {
-                FormsAuthentication.SignOut();
-                Session.Clear();
-                return RedirectToAction("Index");
-            }
-
             if (User.Identity.IsAuthenticated)
             {
+                //if (Session["UserId"] == null)
+                //{
+                //    FormsAuthentication.SignOut();
+                //    Session.Clear();
+                //    return RedirectToAction("Index");
+                //}
                 FindUserIdByName(User.Identity.Name);
                 Session["Role"] = FindRoleIdByName(User);
-                if ((string)Session["Role"] == "Admin" || (string)Session["Role"] == "Clerk")
-                {
-                    return RedirectToAction("Index", "Author");
-                }
+                //if ((string)Session["Role"] == "Admin" || (string)Session["Role"] == "Clerk")
+                //{
+                //    return RedirectToAction("Index", "Author");
+                //}
             }
             return View();
         }
@@ -92,22 +91,22 @@ namespace EasyTravelInTaiwan.Controllers
         [ChildActionOnly]
         public ActionResult TravelListPartial()
         {
-            //int uid = 2;
             int uid = (int)Session["UserId"];
             List<travellist> travelList = db.travellists.Where(list => list.UserId == uid).ToList<travellist>();
             if (travelList == null)
             {
+                Session["TempTid"] = -1;
                 return HttpNotFound();
             }
+            Session["TempTid"] = travelList[0].Tid;
             return PartialView("_travelListPartial", travelList);
         }
 
         [ChildActionOnly]
         public ActionResult TravelListPlacePartial()
         {
-            //int uid = 2;
-            int uid = (int)Session["UserId"];
-            List<travellistplace> travelListPlace = db.travellistplaces.Where(list => list.Tid == uid).ToList<travellistplace>();
+            int tid = (int)Session["TempTid"];
+            List<travellistplace> travelListPlace = db.travellistplaces.Where(list => list.Tid == tid).ToList<travellistplace>();
             if (travelListPlace == null)
             {
                 return HttpNotFound();
@@ -191,10 +190,30 @@ namespace EasyTravelInTaiwan.Controllers
         }
 
         [HttpPost]
-        public JsonResult PostPlace(List<PlaceInfo> info)
+        public JsonResult PostPlace(List<travellistplace> info)
         {
+            //travellist test = new travellist();
+            //member testm = new member();
+            //test.Tid = 3;
+            //test.UserId = 19;
+            //test.TName = "test1";
+            //testm = db.members.Find(test.UserId);
             if (info != null)
             {
+                foreach(travellistplace item in info)
+                {
+                    //item.travellist = test;
+                    db.travellistplaces.Add(item);
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch
+                    {
+                        TempData["Error"] = "儲存錯誤";
+                        return Json(new { Status = 3, Message = "Saving Error in " + item.Sno });
+                    }
+                }
                 return Json(new { Status = 1, Message = "Success" });
             }
             return Json(new { Status = 2, Message = "info is null" });
@@ -207,6 +226,8 @@ namespace EasyTravelInTaiwan.Controllers
             newList.TName = TravelListName;
             newList.UserId = (int)Session["UserId"];
 
+            int uid = (int)Session["UserId"];
+
             try
             {
                 db.travellists.Add(newList);
@@ -217,7 +238,11 @@ namespace EasyTravelInTaiwan.Controllers
                 TempData["Error"] = "儲存錯誤";
             }
 
-            return RedirectToAction("TravelListPartial");
+            List<travellist> travelList = db.travellists.Where(list => list.UserId == newList.UserId).ToList<travellist>();
+            Session["TempTid"] = (int)travelList.Where(o => o.TName == TravelListName).Single().Tid;
+
+            //return RedirectToAction("Index");
+            return PartialView("_travelListPartial", travelList);
         }
 
     }
