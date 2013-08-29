@@ -1,39 +1,31 @@
 ﻿@model List<EasyTravelInTaiwan.Models.travellist>
-
-<div id="TravelListPlaceView"">
-
-    <table>
-        <tr>我的旅遊清單</tr>
-        <tr>
+<script src="~/scripts/bootstrap-select.js"></script>
+<div id="TravelListPlaceView">
+    <h3>我的旅遊清單</h3>
+    <div>
+        <select class="selectpicker">
+            @foreach (var travellist in Model)
+            {
+                <option value="List-@travellist.Tid">@travellist.TName</option>
+            }
+        </select>
+        <ul id="TravelList" class="nav nav-pills nav-stacked">
             @if (Model.Count() > 0)
             {
-                <ul id="TravelList" class="nav nav-pills nav-stacked">
-                    @foreach (var travellist in Model)
-                    {
-                        <li id="List-@travellist.Tid" class="span3">
-                            @*<a href="@Url.Action("RenderBookImage", new { id = image.sid })" title="@image.Name" class="thumbnail">
-                        <img src="@Url.Action("RenderBookImage", new { id = image.sid })" width="150" height="150" alt=""/>
-                    </a>*@
-                            <a href="#">@travellist.TName</a>
-                        </li>
-                    }
-                </ul>
+                foreach (var travellist in Model)
+                {
+                    <li id="List-@travellist.Tid">
+                        <a href="#">@travellist.TName</a>
+                    </li>
+                }
             }
             else
             { 
-                <ul id="TravelList" class="nav nav-pills nav-stacked">
-                    <li><a href="#">尚無旅遊清單</a></li>
-                </ul>
+                <li><a href="#">尚無旅遊清單</a></li>
             }
-
-        </tr>
-        <tr>
-            <td>
-                <a href="#CreateNewListModal" role="button" class="btn" data-toggle="modal">建立新的規劃</a>
-                @*<button  class="btn">建立新的規劃</button>*@
-            </td>
-        </tr>
-    </table>
+        </ul>
+        <a href="#CreateNewListModal" role="button" class="btn" data-toggle="modal">建立新的規劃</a>
+    </div>
 </div>
 
 <div id="CreateNewListModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

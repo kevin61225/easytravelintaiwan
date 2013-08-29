@@ -1,40 +1,21 @@
 ﻿@model List<EasyTravelInTaiwan.Models.travellistplace>
 
 <div id="TravelListPartialView">
-
-    <table>
-        <tr>詳細位置</tr>
-        <tr>
-            @if (Model.Count() > 0)
+    <div>詳細位置</div>
+    <div>
+        <ul class="nav nav-pills nav-stacked" id="InputsWrapper">
+            @foreach (EasyTravelInTaiwan.Models.maplatlng maplatlng in ViewBag.TravelListPlaces)
             {
-                <ul class="nav nav-pills nav-stacked" id="InputsWrapper">
-
-
-                    @foreach (EasyTravelInTaiwan.Models.maplatlng maplatlng in ViewBag.TravelListPlaces)
-                    {
-                        <li id="place.@maplatlng.sno">
-                            @*<a href="@Url.Action("RenderBookImage", new { id = image.sid })" title="@image.Name" class="thumbnail">
-                        <img src="@Url.Action("RenderBookImage", new { id = image.sid })" width="150" height="150" alt=""/>
-                    </a>*@
-                            <a href="#">@maplatlng.pName</a>
-                        </li>
-                    }
-
-                </ul>
+                <li id="place-@maplatlng.sno">
+                    <a href="#">@maplatlng.pName</a>
+                </li>
             }
-            else
-            { 
-                <ul class="nav nav-pills nav-stacked" id="InputsWrapper">
-                </ul>
-            }
-
-        </tr>
-        <tr>
-            <td>
-                <button id="Create-List-Button" class="btn">儲存</button>
-            </td>
-        </tr>
-    </table>
+        </ul>
+        
+    </div>
+    <div>
+        <button id="Create-List-Button" class="btn">儲存</button>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -49,6 +30,7 @@
         for (var i = 0; i < gmarkers.length; i++) {
             if (gmarkers[i].gId == n[1]) {
                 id = i;
+                console.log(id);
             }
         }
         google.maps.event.trigger(gmarkers[id], "click");
@@ -72,6 +54,7 @@
             for (var i = 0; i < gmarkers.length; i++) {
                 if (gmarkers[i].gId == n[1]) {
                     id = i;
+                    console.log(id);
                 }
             }
             var item = { Tid: selectedList, sno: gmarkers[id].gId };

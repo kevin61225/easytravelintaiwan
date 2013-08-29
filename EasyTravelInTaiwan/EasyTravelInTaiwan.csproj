@@ -588,6 +588,8 @@
     <Content Include="Content\bootstrap-mvc-validation.css" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap-select.css" />
+    <Content Include="Content\bootstrap-select.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Icons\01.png" />
@@ -643,6 +645,8 @@
     <Content Include="scripts\2012.1.214\telerik.treeview.min.js" />
     <Content Include="scripts\2012.1.214\telerik.upload.min.js" />
     <Content Include="scripts\2012.1.214\telerik.window.min.js" />
+    <Content Include="scripts\bootstrap-select.js" />
+    <Content Include="scripts\bootstrap-select.min.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
     <Content Include="scripts\ContextMenu.js" />
