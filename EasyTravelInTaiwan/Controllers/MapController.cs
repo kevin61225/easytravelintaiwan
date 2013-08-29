@@ -180,10 +180,18 @@ namespace EasyTravelInTaiwan.Controllers
             {
                 foreach (travellistplace item in info)
                 {
-                    if (!db.travellistplaces.Contains(item))
+                    travellistplace temp = new travellistplace();
+                    try
+                    {
+                        temp = db.travellistplaces.Where(o => o.Sno == item.Sno).Single();
+                    }
+                    catch
+                    {
+                        
+                    }
+                    if (!db.travellistplaces.ToList().Contains(temp))
                     {
                         item.Tid = tid;
-                        //item.travellist = test;
                         try
                         {
                             db.travellistplaces.Add(item);

@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Google Map";
 }
 
@@ -73,22 +72,23 @@
 </div>
 
 <div class="row">
-    <div class="span6">
+    <div class="span8">
         <div id="map_canvas" class="map_canvas" aria-setsize="500"></div>
     </div>
-    <div class="row">
-        @Html.Action("TravelListPartial", "Map")
-        @*@{Html.RenderPartial("_travelListPartial", Model.travellists);}*@ 
-        @*@{Html.RenderPartial("_travelListPartial", Model);}*@
-        @*@{Html.RenderAction("TravelListPartial");}*@ 
-        <div class="span6">
+    <div class="span4">
+        <div class="row">
+            @Html.Action("TravelListPartial", "Map")
             <br />
             <br />
-        </div>
-        <div id="TravelListPlacePartialView" class="span6">
             @Html.Action("TravelListPlacePartial", "Map")
+
+            @*@{Html.RenderPartial("_travelListPartial", Model.travellists);}*@
+            @*@{Html.RenderPartial("_travelListPartial", Model);}*@
+            @*@{Html.RenderAction("TravelListPartial");}*@
+            @*<div id="TravelListPlacePartialView" class="span6">*@
             @*@{Html.RenderPartial("_travelListPlacePartial");}*@
-            @*@{Html.RenderAction("TravelListPlacePartial");}*@ 
+            @*@{Html.RenderAction("TravelListPlacePartial");}*@
+            @*</div>*@
         </div>
     </div>
 </div>
@@ -360,7 +360,7 @@
 
         // add a marker click event
         google.maps.event.addListener(marker, 'click', function () {
-            infowindow.setContent(item.pName);
+            infowindow.setContent(item.pName + '<br/><a href="/Map/ViewPointDetails/' + item.sno + ' " target="_blank">點我看詳細內容</a>');
             infowindow.open(gmap, this);
         });
 

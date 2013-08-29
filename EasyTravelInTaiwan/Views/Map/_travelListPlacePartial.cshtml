@@ -1,6 +1,6 @@
 ﻿@model List<EasyTravelInTaiwan.Models.travellistplace>
 
-<div id="TravelListPartialView" class="span6">
+<div id="TravelListPartialView">
 
     <table>
         <tr>詳細位置</tr>
@@ -12,7 +12,7 @@
 
                     @foreach (EasyTravelInTaiwan.Models.maplatlng maplatlng in ViewBag.TravelListPlaces)
                     {
-                        <li id="place_@maplatlng.sno">
+                        <li id="place.@maplatlng.sno">
                             @*<a href="@Url.Action("RenderBookImage", new { id = image.sid })" title="@image.Name" class="thumbnail">
                         <img src="@Url.Action("RenderBookImage", new { id = image.sid })" width="150" height="150" alt=""/>
                     </a>*@
@@ -42,7 +42,7 @@
     $(document).on('click', '#InputsWrapper li', function (e) {
         //if (e.button == 1) {
         var str = $(this).attr('id');
-        var n = str.split("_");
+        var n = str.split(".");
         console.log(n[1]);
         console.log(e);
         var id;
@@ -52,6 +52,7 @@
             }
         }
         google.maps.event.trigger(gmarkers[id], "click");
+        gmarkers[id].setVisible(true);
         //}
         //else if (e.button == 2) {
         //    var str = $(this).attr('id');
@@ -66,7 +67,7 @@
         $("#InputsWrapper").children().each(function () {
             var $this = $(this);
             var str = $(this).attr('id');
-            var n = str.split("_");
+            var n = str.split(".");
             var id;
             for (var i = 0; i < gmarkers.length; i++) {
                 if (gmarkers[i].gId == n[1]) {
