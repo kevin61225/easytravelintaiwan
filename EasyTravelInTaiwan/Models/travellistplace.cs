@@ -14,6 +14,7 @@ namespace EasyTravelInTaiwan.Models
     
     public partial class travellistplace
     {
+        public int Pid { get; set; }
         public int Tid { get; set; }
         public string Sno { get; set; }
     

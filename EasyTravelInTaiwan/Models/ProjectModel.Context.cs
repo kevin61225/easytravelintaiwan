@@ -13,10 +13,10 @@ namespace EasyTravelInTaiwan.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class projectEntities : DbContext
+    public partial class ProjectEntities : DbContext
     {
-        public projectEntities()
-            : base("name=projectEntities")
+        public ProjectEntities()
+            : base("name=ProjectEntities")
         {
         }
     
@@ -25,14 +25,14 @@ namespace EasyTravelInTaiwan.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<city> cities { get; set; }
+        public DbSet<food> foods { get; set; }
         public DbSet<maplatlng> maplatlngs { get; set; }
         public DbSet<member> members { get; set; }
-        public DbSet<oneinfodata> oneinfodatas { get; set; }
-        public DbSet<city> cities { get; set; }
         public DbSet<place> places { get; set; }
         public DbSet<placeimage> placeimages { get; set; }
-        public DbSet<viewtype> viewtypes { get; set; }
         public DbSet<travellist> travellists { get; set; }
         public DbSet<travellistplace> travellistplaces { get; set; }
+        public DbSet<viewtype> viewtypes { get; set; }
     }
 }

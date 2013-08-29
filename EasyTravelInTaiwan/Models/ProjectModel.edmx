@@ -4,24 +4,26 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="projectModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="projectModelStoreContainer">
-          <EntitySet Name="city" EntityType="projectModel.Store.city" store:Type="Tables" Schema="project" />
-          <EntitySet Name="food" EntityType="projectModel.Store.food" store:Type="Tables" Schema="project" />
-          <EntitySet Name="maplatlng" EntityType="projectModel.Store.maplatlng" store:Type="Tables" Schema="project" />
-          <EntitySet Name="member" EntityType="projectModel.Store.member" store:Type="Tables" Schema="project" />
-          <EntitySet Name="oneinfodata" EntityType="projectModel.Store.oneinfodata" store:Type="Tables" Schema="project" />
-          <EntitySet Name="place" EntityType="projectModel.Store.place" store:Type="Tables" Schema="project" />
-          <EntitySet Name="placeimage" EntityType="projectModel.Store.placeimage" store:Type="Tables" Schema="project" />
-          <EntitySet Name="travellist" EntityType="projectModel.Store.travellist" store:Type="Tables" Schema="project" />
-          <EntitySet Name="travellistplace" EntityType="projectModel.Store.travellistplace" store:Type="Tables" store:Schema="project" store:Name="travellistplace">
-            <DefiningQuery>SELECT
-      `travellistplace`.`Tid`, 
-      `travellistplace`.`Sno`
-      FROM `travellistplace` AS `travellistplace`</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="viewtype" EntityType="projectModel.Store.viewtype" store:Type="Tables" Schema="project" />
-          <AssociationSet Name="travellistplace_ibfk_1" Association="projectModel.Store.travellistplace_ibfk_1">
+      <Schema Namespace="ProjectModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="ProjectModelStoreContainer">
+          <EntitySet Name="city" EntityType="ProjectModel.Store.city" store:Type="Tables" Schema="project" />
+          <EntitySet Name="food" EntityType="ProjectModel.Store.food" store:Type="Tables" Schema="project" />
+          <EntitySet Name="maplatlng" EntityType="ProjectModel.Store.maplatlng" store:Type="Tables" Schema="project" />
+          <EntitySet Name="member" EntityType="ProjectModel.Store.member" store:Type="Tables" Schema="project" />
+          <EntitySet Name="place" EntityType="ProjectModel.Store.place" store:Type="Tables" Schema="project" />
+          <EntitySet Name="placeimage" EntityType="ProjectModel.Store.placeimage" store:Type="Tables" Schema="project" />
+          <EntitySet Name="travellist" EntityType="ProjectModel.Store.travellist" store:Type="Tables" Schema="project" />
+          <EntitySet Name="travellistplace" EntityType="ProjectModel.Store.travellistplace" store:Type="Tables" Schema="project" />
+          <EntitySet Name="viewtype" EntityType="ProjectModel.Store.viewtype" store:Type="Tables" Schema="project" />
+          <AssociationSet Name="placeimage_ibfk_1" Association="ProjectModel.Store.placeimage_ibfk_1">
+            <End Role="place" EntitySet="place" />
+            <End Role="placeimage" EntitySet="placeimage" />
+          </AssociationSet>
+          <AssociationSet Name="travellist_ibfk_1" Association="ProjectModel.Store.travellist_ibfk_1">
+            <End Role="member" EntitySet="member" />
+            <End Role="travellist" EntitySet="travellist" />
+          </AssociationSet>
+          <AssociationSet Name="travellistplace_ibfk_1" Association="ProjectModel.Store.travellistplace_ibfk_1">
             <End Role="travellist" EntitySet="travellist" />
             <End Role="travellistplace" EntitySet="travellistplace" />
           </AssociationSet>
@@ -88,15 +90,6 @@
           <Property Name="Birthday" Type="date" Nullable="false" />
           <Property Name="Role" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="oneinfodata">
-          <Key>
-            <PropertyRef Name="sno" />
-          </Key>
-          <Property Name="sno" Type="varchar" Nullable="false" MaxLength="80" />
-          <Property Name="pName" Type="text" Nullable="false" />
-          <Property Name="summ" Type="text" Nullable="false" />
-          <Property Name="detail" Type="text" Nullable="false" />
-        </EntityType>
         <EntityType Name="place">
           <Key>
             <PropertyRef Name="Id" />
@@ -130,14 +123,11 @@
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="TName" Type="text" Nullable="false" />
         </EntityType>
-        <!--產生期間發現錯誤:
-      警告 6002: 資料表/檢視 'def.project.travellistplace' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
-      -->
         <EntityType Name="travellistplace">
           <Key>
-            <PropertyRef Name="Tid" />
-            <PropertyRef Name="Sno" />
+            <PropertyRef Name="Pid" />
           </Key>
+          <Property Name="Pid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Tid" Type="int" Nullable="false" />
           <Property Name="Sno" Type="text" Nullable="false" />
         </EntityType>
@@ -148,11 +138,39 @@
           <Property Name="Typenumber" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Typename" Type="text" Nullable="false" />
         </EntityType>
-        <Association Name="travellistplace_ibfk_1">
-          <End Role="travellist" Type="projectModel.Store.travellist" Multiplicity="1">
+        <Association Name="placeimage_ibfk_1">
+          <End Role="place" Type="ProjectModel.Store.place" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="travellistplace" Type="projectModel.Store.travellistplace" Multiplicity="*" />
+          <End Role="placeimage" Type="ProjectModel.Store.placeimage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="place">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="placeimage">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="travellist_ibfk_1">
+          <End Role="member" Type="ProjectModel.Store.member" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="travellist" Type="ProjectModel.Store.travellist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="travellist">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="travellistplace_ibfk_1">
+          <End Role="travellist" Type="ProjectModel.Store.travellist" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="travellistplace" Type="ProjectModel.Store.travellistplace" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="travellist">
               <PropertyRef Name="Tid" />
@@ -162,42 +180,65 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="projectModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="projectEntities" p1:LazyLoadingEnabled="true">
-          <EntitySet Name="maplatlngs" EntityType="projectModel.maplatlng" />
-          <EntitySet Name="members" EntityType="projectModel.member" />
-          <EntitySet Name="oneinfodatas" EntityType="projectModel.oneinfodata" />
-          <EntitySet Name="cities" EntityType="projectModel.city" />
-          <EntitySet Name="places" EntityType="projectModel.place" />
-          <EntitySet Name="placeimages" EntityType="projectModel.placeimage" />
-          <EntitySet Name="viewtypes" EntityType="projectModel.viewtype" />
-          <AssociationSet Name="place_ibfk_1" Association="projectModel.place_ibfk_1">
-            <End Role="city" EntitySet="cities" />
-            <End Role="place" EntitySet="places" />
-          </AssociationSet>
-          <AssociationSet Name="place_ibfk_2" Association="projectModel.place_ibfk_2">
-            <End Role="viewtype" EntitySet="viewtypes" />
-            <End Role="place" EntitySet="places" />
-          </AssociationSet>
-          <AssociationSet Name="placeimage_ibfk_1" Association="projectModel.placeimage_ibfk_1">
-            <End Role="place" EntitySet="places" />
-            <End Role="placeimage" EntitySet="placeimages" />
-          </AssociationSet>
-          <EntitySet Name="travellistplaces" EntityType="projectModel.travellistplace" />
-          <EntitySet Name="foods" EntityType="projectModel.food" />
-          <EntitySet Name="travellists" EntityType="projectModel.travellist" />
-          <AssociationSet Name="travellist_ibfk_2" Association="projectModel.travellist_ibfk_2">
+      <Schema Namespace="ProjectModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ProjectEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="cities" EntityType="ProjectModel.city" />
+          <EntitySet Name="foods" EntityType="ProjectModel.food" />
+          <EntitySet Name="maplatlngs" EntityType="ProjectModel.maplatlng" />
+          <EntitySet Name="members" EntityType="ProjectModel.member" />
+          <EntitySet Name="places" EntityType="ProjectModel.place" />
+          <EntitySet Name="placeimages" EntityType="ProjectModel.placeimage" />
+          <EntitySet Name="travellists" EntityType="ProjectModel.travellist" />
+          <EntitySet Name="travellistplaces" EntityType="ProjectModel.travellistplace" />
+          <EntitySet Name="viewtypes" EntityType="ProjectModel.viewtype" />
+          <AssociationSet Name="travellist_ibfk_1" Association="ProjectModel.travellist_ibfk_1">
             <End Role="member" EntitySet="members" />
             <End Role="travellist" EntitySet="travellists" />
           </AssociationSet>
-          <AssociationSet Name="travellistplace_ibfk_1" Association="projectModel.travellistplace_ibfk_1">
+          <AssociationSet Name="placeimage_ibfk_1" Association="ProjectModel.placeimage_ibfk_1">
+            <End Role="place" EntitySet="places" />
+            <End Role="placeimage" EntitySet="placeimages" />
+          </AssociationSet>
+          <AssociationSet Name="travellistplace_ibfk_1" Association="ProjectModel.travellistplace_ibfk_1">
             <End Role="travellist" EntitySet="travellists" />
             <End Role="travellistplace" EntitySet="travellistplaces" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="city">
+          <Key>
+            <PropertyRef Name="Citynumber" />
+          </Key>
+          <Property Name="Citynumber" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Cityname" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="food">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="title" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="catalogs_id" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="address" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="phone" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="business_hrs" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="price" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="route" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="tianmama" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="ImageUrl" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="sc_id" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="post_id" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="link" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="x" Type="Double" />
+          <Property Name="y" Type="Double" />
+          <Property Name="create_date" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="modify_date" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+        </EntityType>
         <EntityType Name="maplatlng">
           <Key>
             <PropertyRef Name="sno" />
@@ -228,146 +269,66 @@
           <Property Name="UserAddress" Type="String" Nullable="false" MaxLength="49" Unicode="false" FixedLength="false" />
           <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Role" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="travellists" Relationship="projectModel.travellist_ibfk_2" FromRole="member" ToRole="travellist" />
-        </EntityType>
-        <EntityType Name="oneinfodata">
-          <Key>
-            <PropertyRef Name="sno" />
-          </Key>
-          <Property Name="sno" Type="String" Nullable="false" MaxLength="80" Unicode="false" FixedLength="false" />
-          <Property Name="pName" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="summ" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="detail" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="city">
-          <Key>
-            <PropertyRef Name="Citynumber" />
-          </Key>
-          <Property Type="String" Name="Citynumber" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Cityname" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="places" Relationship="projectModel.place_ibfk_1" FromRole="city" ToRole="place" />
+          <NavigationProperty Name="travellists" Relationship="ProjectModel.travellist_ibfk_1" FromRole="member" ToRole="travellist" />
         </EntityType>
         <EntityType Name="place">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="String" Name="Id" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Citynumber" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="Typenumber" Nullable="false" />
-          <Property Type="String" Name="Description" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Telphone" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Address" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Url" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Carmethod" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Busmethod" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="city" Relationship="projectModel.place_ibfk_1" FromRole="place" ToRole="city" />
-          <NavigationProperty Name="viewtype" Relationship="projectModel.place_ibfk_2" FromRole="place" ToRole="viewtype" />
-          <NavigationProperty Name="placeimages" Relationship="projectModel.placeimage_ibfk_1" FromRole="place" ToRole="placeimage" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="Citynumber" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Typenumber" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="Telphone" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="Address" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="Url" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="Carmethod" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="Busmethod" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="placeimages" Relationship="ProjectModel.placeimage_ibfk_1" FromRole="place" ToRole="placeimage" />
         </EntityType>
         <EntityType Name="placeimage">
           <Key>
             <PropertyRef Name="sid" />
           </Key>
-          <Property Type="Int32" Name="sid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Id" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="Imagetype" Nullable="false" />
-          <Property Type="Binary" Name="Image" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="place" Relationship="projectModel.placeimage_ibfk_1" FromRole="placeimage" ToRole="place" />
-        </EntityType>
-        <EntityType Name="viewtype">
-          <Key>
-            <PropertyRef Name="Typenumber" />
-          </Key>
-          <Property Type="Int32" Name="Typenumber" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Typename" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="places" Relationship="projectModel.place_ibfk_2" FromRole="viewtype" ToRole="place" />
-        </EntityType>
-        <Association Name="place_ibfk_1">
-          <End Type="projectModel.city" Role="city" Multiplicity="1" />
-          <End Type="projectModel.place" Role="place" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="city">
-              <PropertyRef Name="Citynumber" />
-            </Principal>
-            <Dependent Role="place">
-              <PropertyRef Name="Citynumber" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="place_ibfk_2">
-          <End Type="projectModel.viewtype" Role="viewtype" Multiplicity="1" />
-          <End Type="projectModel.place" Role="place" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="viewtype">
-              <PropertyRef Name="Typenumber" />
-            </Principal>
-            <Dependent Role="place">
-              <PropertyRef Name="Typenumber" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="placeimage_ibfk_1">
-          <End Type="projectModel.place" Role="place" Multiplicity="1" />
-          <End Type="projectModel.placeimage" Role="placeimage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="place">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="placeimage">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="travellistplace">
-          <Key>
-            <PropertyRef Name="Tid" />
-            <PropertyRef Name="Sno" />
-          </Key>
-          <Property Type="Int32" Name="Tid" Nullable="false" />
-          <Property Type="String" Name="Sno" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="travellist" Relationship="projectModel.travellistplace_ibfk_1" FromRole="travellistplace" ToRole="travellist" />
-        </EntityType>
-        <EntityType Name="food">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="String" Name="id" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="type" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="title" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="catalogs_id" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="address" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="phone" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="business_hrs" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="price" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Description" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="route" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="tianmama" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ImageUrl" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="sc_id" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="post_id" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="link" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="Double" Name="x" />
-          <Property Type="Double" Name="y" />
-          <Property Type="String" Name="create_date" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="modify_date" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="sid" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="Imagetype" Type="Int32" Nullable="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="place" Relationship="ProjectModel.placeimage_ibfk_1" FromRole="placeimage" ToRole="place" />
         </EntityType>
         <EntityType Name="travellist">
           <Key>
             <PropertyRef Name="Tid" />
           </Key>
-          <Property Type="Int32" Name="Tid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="UserId" Nullable="false" />
-          <Property Type="String" Name="TName" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="member" Relationship="projectModel.travellist_ibfk_2" FromRole="travellist" ToRole="member" />
-          <NavigationProperty Name="travellistplaces" Relationship="projectModel.travellistplace_ibfk_1" FromRole="travellist" ToRole="travellistplace" />
+          <Property Name="Tid" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="TName" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="member" Relationship="ProjectModel.travellist_ibfk_1" FromRole="travellist" ToRole="member" />
+          <NavigationProperty Name="travellistplaces" Relationship="ProjectModel.travellistplace_ibfk_1" FromRole="travellist" ToRole="travellistplace" />
         </EntityType>
-        <Association Name="travellist_ibfk_2">
-          <End Type="projectModel.member" Role="member" Multiplicity="1">
+        <EntityType Name="travellistplace">
+          <Key>
+            <PropertyRef Name="Pid" />
+          </Key>
+          <Property Name="Pid" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Tid" Type="Int32" Nullable="false" />
+          <Property Name="Sno" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="travellist" Relationship="ProjectModel.travellistplace_ibfk_1" FromRole="travellistplace" ToRole="travellist" />
+        </EntityType>
+        <EntityType Name="viewtype">
+          <Key>
+            <PropertyRef Name="Typenumber" />
+          </Key>
+          <Property Name="Typenumber" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Typename" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <Association Name="travellist_ibfk_1">
+          <End Role="member" Type="ProjectModel.member" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="projectModel.travellist" Role="travellist" Multiplicity="*" />
+          <End Role="travellist" Type="ProjectModel.travellist" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="member">
               <PropertyRef Name="UserID" />
@@ -377,11 +338,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="travellistplace_ibfk_1">
-          <End Type="projectModel.travellist" Role="travellist" Multiplicity="1">
+        <Association Name="placeimage_ibfk_1">
+          <End Role="place" Type="ProjectModel.place" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="projectModel.travellistplace" Role="travellistplace" Multiplicity="*" />
+          <End Role="placeimage" Type="ProjectModel.placeimage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="place">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="placeimage">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="travellistplace_ibfk_1">
+          <End Role="travellist" Type="ProjectModel.travellist" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="travellistplace" Type="ProjectModel.travellistplace" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="travellist">
               <PropertyRef Name="Tid" />
@@ -396,9 +371,42 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="projectModelStoreContainer" CdmEntityContainer="projectEntities">
+        <EntityContainerMapping StorageEntityContainer="ProjectModelStoreContainer" CdmEntityContainer="ProjectEntities">
+          <EntitySetMapping Name="cities">
+            <EntityTypeMapping TypeName="ProjectModel.city">
+              <MappingFragment StoreEntitySet="city">
+                <ScalarProperty Name="Citynumber" ColumnName="Citynumber" />
+                <ScalarProperty Name="Cityname" ColumnName="Cityname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="foods">
+            <EntityTypeMapping TypeName="ProjectModel.food">
+              <MappingFragment StoreEntitySet="food">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="catalogs_id" ColumnName="catalogs_id" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="business_hrs" ColumnName="business_hrs" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="route" ColumnName="route" />
+                <ScalarProperty Name="tianmama" ColumnName="tianmama" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="sc_id" ColumnName="sc_id" />
+                <ScalarProperty Name="post_id" ColumnName="post_id" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="x" ColumnName="x" />
+                <ScalarProperty Name="y" ColumnName="y" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="maplatlngs">
-            <EntityTypeMapping TypeName="projectModel.maplatlng">
+            <EntityTypeMapping TypeName="ProjectModel.maplatlng">
               <MappingFragment StoreEntitySet="maplatlng">
                 <ScalarProperty Name="pt" ColumnName="pt" />
                 <ScalarProperty Name="sno" ColumnName="sno" />
@@ -415,7 +423,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="members">
-            <EntityTypeMapping TypeName="projectModel.member">
+            <EntityTypeMapping TypeName="ProjectModel.member">
               <MappingFragment StoreEntitySet="member">
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Account" ColumnName="Account" />
@@ -430,98 +438,56 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="oneinfodatas">
-            <EntityTypeMapping TypeName="projectModel.oneinfodata">
-              <MappingFragment StoreEntitySet="oneinfodata">
-                <ScalarProperty Name="sno" ColumnName="sno" />
-                <ScalarProperty Name="pName" ColumnName="pName" />
-                <ScalarProperty Name="summ" ColumnName="summ" />
-                <ScalarProperty Name="detail" ColumnName="detail" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="cities">
-            <EntityTypeMapping TypeName="projectModel.city">
-              <MappingFragment StoreEntitySet="city">
-                <ScalarProperty Name="Cityname" ColumnName="Cityname" />
-                <ScalarProperty Name="Citynumber" ColumnName="Citynumber" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="places">
-            <EntityTypeMapping TypeName="projectModel.place">
+            <EntityTypeMapping TypeName="ProjectModel.place">
               <MappingFragment StoreEntitySet="place">
-                <ScalarProperty Name="Busmethod" ColumnName="Busmethod" />
-                <ScalarProperty Name="Carmethod" ColumnName="Carmethod" />
-                <ScalarProperty Name="Url" ColumnName="Url" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Telphone" ColumnName="Telphone" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Typenumber" ColumnName="Typenumber" />
-                <ScalarProperty Name="Citynumber" ColumnName="Citynumber" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Citynumber" ColumnName="Citynumber" />
+                <ScalarProperty Name="Typenumber" ColumnName="Typenumber" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Telphone" ColumnName="Telphone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Carmethod" ColumnName="Carmethod" />
+                <ScalarProperty Name="Busmethod" ColumnName="Busmethod" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="placeimages">
-            <EntityTypeMapping TypeName="projectModel.placeimage">
+            <EntityTypeMapping TypeName="ProjectModel.placeimage">
               <MappingFragment StoreEntitySet="placeimage">
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Imagetype" ColumnName="Imagetype" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="sid" ColumnName="sid" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="viewtypes">
-            <EntityTypeMapping TypeName="projectModel.viewtype">
-              <MappingFragment StoreEntitySet="viewtype">
-                <ScalarProperty Name="Typename" ColumnName="Typename" />
-                <ScalarProperty Name="Typenumber" ColumnName="Typenumber" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="travellistplaces">
-            <EntityTypeMapping TypeName="projectModel.travellistplace">
-              <MappingFragment StoreEntitySet="travellistplace">
-                <ScalarProperty Name="Sno" ColumnName="Sno" />
-                <ScalarProperty Name="Tid" ColumnName="Tid" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="foods">
-            <EntityTypeMapping TypeName="projectModel.food">
-              <MappingFragment StoreEntitySet="food">
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="y" ColumnName="y" />
-                <ScalarProperty Name="x" ColumnName="x" />
-                <ScalarProperty Name="link" ColumnName="link" />
-                <ScalarProperty Name="post_id" ColumnName="post_id" />
-                <ScalarProperty Name="sc_id" ColumnName="sc_id" />
-                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
-                <ScalarProperty Name="tianmama" ColumnName="tianmama" />
-                <ScalarProperty Name="route" ColumnName="route" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="business_hrs" ColumnName="business_hrs" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="catalogs_id" ColumnName="catalogs_id" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Imagetype" ColumnName="Imagetype" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="travellists">
-            <EntityTypeMapping TypeName="projectModel.travellist">
+            <EntityTypeMapping TypeName="ProjectModel.travellist">
               <MappingFragment StoreEntitySet="travellist">
-                <ScalarProperty Name="TName" ColumnName="TName" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Tid" ColumnName="Tid" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="TName" ColumnName="TName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="travellistplaces">
+            <EntityTypeMapping TypeName="ProjectModel.travellistplace">
+              <MappingFragment StoreEntitySet="travellistplace">
+                <ScalarProperty Name="Pid" ColumnName="Pid" />
+                <ScalarProperty Name="Tid" ColumnName="Tid" />
+                <ScalarProperty Name="Sno" ColumnName="Sno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="viewtypes">
+            <EntityTypeMapping TypeName="ProjectModel.viewtype">
+              <MappingFragment StoreEntitySet="viewtype">
+                <ScalarProperty Name="Typenumber" ColumnName="Typenumber" />
+                <ScalarProperty Name="Typename" ColumnName="Typename" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -539,7 +505,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
       </DesignerInfoPropertySet>

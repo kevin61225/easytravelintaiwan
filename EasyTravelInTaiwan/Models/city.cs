@@ -14,14 +14,7 @@ namespace EasyTravelInTaiwan.Models
     
     public partial class city
     {
-        public city()
-        {
-            this.places = new HashSet<place>();
-        }
-    
         public string Citynumber { get; set; }
         public string Cityname { get; set; }
-    
-        public virtual ICollection<place> places { get; set; }
     }
 }

@@ -332,15 +332,15 @@
     <Compile Include="Models\city.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\food.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\HomeInputModel.cs" />
     <Compile Include="Models\maplatlng.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MapModel.cs" />
     <Compile Include="Models\member.cs">
-      <DependentUpon>ProjectModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\oneinfodata.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\place.cs">

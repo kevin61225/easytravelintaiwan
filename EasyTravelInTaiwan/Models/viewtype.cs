@@ -14,14 +14,7 @@ namespace EasyTravelInTaiwan.Models
     
     public partial class viewtype
     {
-        public viewtype()
-        {
-            this.places = new HashSet<place>();
-        }
-    
         public int Typenumber { get; set; }
         public string Typename { get; set; }
-    
-        public virtual ICollection<place> places { get; set; }
     }
 }

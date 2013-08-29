@@ -14,46 +14,7 @@ namespace EasyTravelInTaiwan.Controllers
     {
         //
         // GET: /Map/
-        projectEntities db = new projectEntities();
-
-        public string FindRoleIdByName(System.Security.Principal.IPrincipal User)
-        {
-            try
-            {
-                if (User.IsInRole("Customer"))
-                {
-                    return "Customer";
-                }
-                else if (User.IsInRole("Clerk"))
-                {
-                    return "Clerk";
-                }
-                else if (User.IsInRole("Admin"))
-                {
-                    return "Admin";
-                }
-            }
-            catch
-            {
-            }
-            return "null";
-        }
-
-        public void FindUserIdByName(string userAccount)
-        {
-            member user;
-            try
-            {
-                user = db.members.Where(o => o.Account == userAccount).Single();
-                Session["UserName"] = user.Name;
-                Session["UserId"] = user.UserID;
-            }
-            catch
-            {
-                return;
-            }
-            return;
-        }
+        ProjectEntities db = new ProjectEntities();
 
         [Authorize(Roles = "Admin, Clerk, Customer")]
         public ActionResult Index()
@@ -69,10 +30,7 @@ namespace EasyTravelInTaiwan.Controllers
                 //}
                 FindUserIdByName(User.Identity.Name);
                 Session["Role"] = FindRoleIdByName(User);
-                //if ((string)Session["Role"] == "Admin" || (string)Session["Role"] == "Clerk")
-                //{
-                //    return RedirectToAction("Index", "Author");
-                //}
+
             }
             return View();
         }
@@ -94,34 +52,15 @@ namespace EasyTravelInTaiwan.Controllers
         {
             int uid = (int)Session["UserId"];
             List<travellist> travelList = db.travellists.Where(list => list.UserId == uid).ToList<travellist>();
-            //if (TravelListName == null)
-            //{
-                if (travelList == null)
-                {
-                    Session["TempTid"] = -1;
-                    return HttpNotFound();
-            
-                }
-                Session["TempTid"] = travelList[0].Tid;
-            //}
-            //else
-            //{
-            //    travellist newList = new travellist();
-            //    newList.TName = TravelListName;
-            //    newList.UserId = (int)Session["UserId"];
 
-            //    try
-            //    {
-            //        db.travellists.Add(newList);
-            //        db.SaveChanges();
-            //    }
-            //    catch
-            //    {
-            //        TempData["Error"] = "儲存錯誤";
-            //    }
-            //    return RedirectToAction("Index", "Map");
-            //}
-            //return RedirectToAction("Index", "Map");
+            if (travelList == null)
+            {
+                Session["TempTid"] = -1;
+                return HttpNotFound();
+
+            }
+            Session["TempTid"] = travelList[0].Tid;
+
             return PartialView("_travelListPartial", travelList);
         }
 
@@ -129,11 +68,29 @@ namespace EasyTravelInTaiwan.Controllers
         public ActionResult TravelListPlacePartial()
         {
             int tid = (int)Session["TempTid"];
+            if (tid == -1)
+            {
+                return HttpNotFound();
+            }
             List<travellistplace> travelListPlace = db.travellistplaces.Where(list => list.Tid == tid).ToList<travellistplace>();
             if (travelListPlace == null)
             {
                 return HttpNotFound();
             }
+            List<maplatlng> placeInfo = new List<maplatlng>();
+            foreach (travellistplace place in travelListPlace)
+            {
+                maplatlng temp = new maplatlng();
+                try
+                {
+                    temp = db.maplatlngs.Where(o => o.sno == place.Sno).Single();
+                }
+                catch
+                {
+                }
+                placeInfo.Add(temp);
+            }
+            ViewBag.TravelListPlaces = placeInfo;
             return PartialView("_travelListPlacePartial", travelListPlace);
         }
 
@@ -187,6 +144,7 @@ namespace EasyTravelInTaiwan.Controllers
                 return HttpNotFound();
             }
             List<placeimage> imageList = place.placeimages.ToList();
+
             return View(imageList);
         }
 
@@ -212,53 +170,38 @@ namespace EasyTravelInTaiwan.Controllers
             return View(db.cities.ToList());
         }
 
+        // 將細項加入清單
         [HttpPost]
         public JsonResult PostPlace(List<travellistplace> info)
         {
-            travellist test = new travellist();
-            member testm = new member();
-            test.Tid = (int)Session["TempTid"];
-            test.UserId = (int)Session["UserId"];
-            test =  db.travellists.Find(test.Tid);
-            testm = db.members.Find(test.UserId);
             int tid = (int)Session["TempTid"];
+
             if (info != null)
             {
-                for (int i = 0; i < info.Count; i++)
+                foreach (travellistplace item in info)
                 {
-                    info[i].Tid = tid;
-                    db.travellistplaces.Add(info[i]);
+                    if (!db.travellistplaces.Contains(item))
+                    {
+                        item.Tid = tid;
+                        //item.travellist = test;
+                        try
+                        {
+                            db.travellistplaces.Add(item);
+                            db.SaveChanges();
+                        }
+                        catch
+                        {
+                            TempData["Error"] = "儲存錯誤";
+                            return Json(new { Status = 3, Message = "Saving Error in " + item.Sno });
+                        }
+                    }
                 }
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch
-                {
-                    TempData["Error"] = "儲存錯誤";
-                    return Json(new { Status = 3, Message = "Saving Error in "  });
-                }
-                    //foreach(travellistplace item in info)
-                    //{
-                    //    item.Tid = tid;
-                    //    //item.travellist = test;
-
-                    //    try
-                    //    {
-                    //        db.travellistplaces.Add(item);
-                    //        db.SaveChanges();
-                    //    }
-                    //    catch
-                    //    {
-                    //        TempData["Error"] = "儲存錯誤";
-                    //        return Json(new { Status = 3, Message = "Saving Error in " + item.Sno });
-                    //    }
-                    //}
-                    return Json(new { Status = 1, Message = "Success" });
+                return Json(new { Status = 1, Message = "Success" });
             }
             return Json(new { Status = 2, Message = "info is null" });
         }
 
+        // 新增清單
         [HttpPost]
         public ActionResult CreateNewList(string TravelListName)
         {
@@ -279,10 +222,50 @@ namespace EasyTravelInTaiwan.Controllers
             }
 
             List<travellist> travelList = db.travellists.Where(list => list.UserId == newList.UserId).ToList<travellist>();
-            Session["TempTid"] = travelList[(travelList.Count)-1].Tid;
-            //Session["TempTid"] = (int)travelList.Where(o => o.TName == TravelListName).Single().Tid;
-            //return PartialView("_travelListPartial", travelList);
+            Session["TempTid"] = travelList[(travelList.Count) - 1].Tid;
+
             return RedirectToAction("Index", "Map");
+        }
+
+
+
+        public string FindRoleIdByName(System.Security.Principal.IPrincipal User)
+        {
+            try
+            {
+                if (User.IsInRole("Customer"))
+                {
+                    return "Customer";
+                }
+                else if (User.IsInRole("Clerk"))
+                {
+                    return "Clerk";
+                }
+                else if (User.IsInRole("Admin"))
+                {
+                    return "Admin";
+                }
+            }
+            catch
+            {
+            }
+            return "null";
+        }
+
+        public void FindUserIdByName(string userAccount)
+        {
+            member user;
+            try
+            {
+                user = db.members.Where(o => o.Account == userAccount).Single();
+                Session["UserName"] = user.Name;
+                Session["UserId"] = user.UserID;
+            }
+            catch
+            {
+                return;
+            }
+            return;
         }
 
     }

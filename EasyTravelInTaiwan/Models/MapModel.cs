@@ -19,7 +19,7 @@ namespace EasyTravelInTaiwan.Models
 
         public void GetAll()
         {
-            using (var db = new projectEntities())
+            using (var db = new ProjectEntities())
             {
                 for (int i = 0; i < db.maplatlngs.Count(); i++)
                 {

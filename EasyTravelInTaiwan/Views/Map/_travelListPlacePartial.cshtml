@@ -8,15 +8,18 @@
             @if (Model.Count() > 0)
             {
                 <ul class="nav nav-pills nav-stacked" id="InputsWrapper">
-                    @foreach (var travellistplace in Model)
+
+
+                    @foreach (EasyTravelInTaiwan.Models.maplatlng maplatlng in ViewBag.TravelListPlaces)
                     {
-                        <li class="span3">
+                        <li id="place_@maplatlng.sno">
                             @*<a href="@Url.Action("RenderBookImage", new { id = image.sid })" title="@image.Name" class="thumbnail">
                         <img src="@Url.Action("RenderBookImage", new { id = image.sid })" width="150" height="150" alt=""/>
                     </a>*@
-                            <a href="#">@travellistplace.Sno</a>
+                            <a href="#">@maplatlng.pName</a>
                         </li>
                     }
+
                 </ul>
             }
             else
@@ -39,10 +42,16 @@
     $(document).on('click', '#InputsWrapper li', function (e) {
         //if (e.button == 1) {
         var str = $(this).attr('id');
-        var n = str.split("-");
+        var n = str.split("_");
         console.log(n[1]);
         console.log(e);
-        google.maps.event.trigger(gmarkers[n[1]], "click");
+        var id;
+        for (var i = 0; i < gmarkers.length; i++) {
+            if (gmarkers[i].gId == n[1]) {
+                id = i;
+            }
+        }
+        google.maps.event.trigger(gmarkers[id], "click");
         //}
         //else if (e.button == 2) {
         //    var str = $(this).attr('id');
@@ -57,10 +66,16 @@
         $("#InputsWrapper").children().each(function () {
             var $this = $(this);
             var str = $(this).attr('id');
-            var n = str.split("-");
-            var item = { Tid: selectedList, sno: gmarkers[n[1]].gId };
+            var n = str.split("_");
+            var id;
+            for (var i = 0; i < gmarkers.length; i++) {
+                if (gmarkers[i].gId == n[1]) {
+                    id = i;
+                }
+            }
+            var item = { Tid: selectedList, sno: gmarkers[id].gId };
             placeItems.push(item);
-            console.log(gmarkers[n[1]]);
+            console.log(gmarkers[id]);
             console.log(JSON.stringify(placeItems));
         });
 

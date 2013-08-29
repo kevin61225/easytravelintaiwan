@@ -1,22 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="projectModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="projectModelStoreContainer">
-    <EntitySet Name="city" EntityType="projectModel.Store.city" store:Type="Tables" Schema="project" />
-    <EntitySet Name="food" EntityType="projectModel.Store.food" store:Type="Tables" Schema="project" />
-    <EntitySet Name="maplatlng" EntityType="projectModel.Store.maplatlng" store:Type="Tables" Schema="project" />
-    <EntitySet Name="member" EntityType="projectModel.Store.member" store:Type="Tables" Schema="project" />
-    <EntitySet Name="oneinfodata" EntityType="projectModel.Store.oneinfodata" store:Type="Tables" Schema="project" />
-    <EntitySet Name="place" EntityType="projectModel.Store.place" store:Type="Tables" Schema="project" />
-    <EntitySet Name="placeimage" EntityType="projectModel.Store.placeimage" store:Type="Tables" Schema="project" />
-    <EntitySet Name="travellist" EntityType="projectModel.Store.travellist" store:Type="Tables" Schema="project" />
-    <EntitySet Name="travellistplace" EntityType="projectModel.Store.travellistplace" store:Type="Tables" store:Schema="project" store:Name="travellistplace">
-      <DefiningQuery>SELECT
-      `travellistplace`.`Tid`, 
-      `travellistplace`.`Sno`
-      FROM `travellistplace` AS `travellistplace`</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="viewtype" EntityType="projectModel.Store.viewtype" store:Type="Tables" Schema="project" />
-    <AssociationSet Name="travellistplace_ibfk_1" Association="projectModel.Store.travellistplace_ibfk_1">
+<Schema Namespace="ProjectModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ProjectModelStoreContainer">
+    <EntitySet Name="city" EntityType="ProjectModel.Store.city" store:Type="Tables" Schema="project" />
+    <EntitySet Name="food" EntityType="ProjectModel.Store.food" store:Type="Tables" Schema="project" />
+    <EntitySet Name="maplatlng" EntityType="ProjectModel.Store.maplatlng" store:Type="Tables" Schema="project" />
+    <EntitySet Name="member" EntityType="ProjectModel.Store.member" store:Type="Tables" Schema="project" />
+    <EntitySet Name="place" EntityType="ProjectModel.Store.place" store:Type="Tables" Schema="project" />
+    <EntitySet Name="placeimage" EntityType="ProjectModel.Store.placeimage" store:Type="Tables" Schema="project" />
+    <EntitySet Name="travellist" EntityType="ProjectModel.Store.travellist" store:Type="Tables" Schema="project" />
+    <EntitySet Name="travellistplace" EntityType="ProjectModel.Store.travellistplace" store:Type="Tables" Schema="project" />
+    <EntitySet Name="viewtype" EntityType="ProjectModel.Store.viewtype" store:Type="Tables" Schema="project" />
+    <AssociationSet Name="placeimage_ibfk_1" Association="ProjectModel.Store.placeimage_ibfk_1">
+      <End Role="place" EntitySet="place" />
+      <End Role="placeimage" EntitySet="placeimage" />
+    </AssociationSet>
+    <AssociationSet Name="travellist_ibfk_1" Association="ProjectModel.Store.travellist_ibfk_1">
+      <End Role="member" EntitySet="member" />
+      <End Role="travellist" EntitySet="travellist" />
+    </AssociationSet>
+    <AssociationSet Name="travellistplace_ibfk_1" Association="ProjectModel.Store.travellistplace_ibfk_1">
       <End Role="travellist" EntitySet="travellist" />
       <End Role="travellistplace" EntitySet="travellistplace" />
     </AssociationSet>
@@ -83,15 +85,6 @@
     <Property Name="Birthday" Type="date" Nullable="false" />
     <Property Name="Role" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="oneinfodata">
-    <Key>
-      <PropertyRef Name="sno" />
-    </Key>
-    <Property Name="sno" Type="varchar" Nullable="false" MaxLength="80" />
-    <Property Name="pName" Type="text" Nullable="false" />
-    <Property Name="summ" Type="text" Nullable="false" />
-    <Property Name="detail" Type="text" Nullable="false" />
-  </EntityType>
   <EntityType Name="place">
     <Key>
       <PropertyRef Name="Id" />
@@ -125,14 +118,11 @@
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="TName" Type="text" Nullable="false" />
   </EntityType>
-  <!--產生期間發現錯誤:
-      警告 6002: 資料表/檢視 'def.project.travellistplace' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
-      -->
   <EntityType Name="travellistplace">
     <Key>
-      <PropertyRef Name="Tid" />
-      <PropertyRef Name="Sno" />
+      <PropertyRef Name="Pid" />
     </Key>
+    <Property Name="Pid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Tid" Type="int" Nullable="false" />
     <Property Name="Sno" Type="text" Nullable="false" />
   </EntityType>
@@ -143,11 +133,39 @@
     <Property Name="Typenumber" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Typename" Type="text" Nullable="false" />
   </EntityType>
-  <Association Name="travellistplace_ibfk_1">
-    <End Role="travellist" Type="projectModel.Store.travellist" Multiplicity="1">
+  <Association Name="placeimage_ibfk_1">
+    <End Role="place" Type="ProjectModel.Store.place" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
-    <End Role="travellistplace" Type="projectModel.Store.travellistplace" Multiplicity="*" />
+    <End Role="placeimage" Type="ProjectModel.Store.placeimage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="place">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="placeimage">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="travellist_ibfk_1">
+    <End Role="member" Type="ProjectModel.Store.member" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="travellist" Type="ProjectModel.Store.travellist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="member">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="travellist">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="travellistplace_ibfk_1">
+    <End Role="travellist" Type="ProjectModel.Store.travellist" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="travellistplace" Type="ProjectModel.Store.travellistplace" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="travellist">
         <PropertyRef Name="Tid" />

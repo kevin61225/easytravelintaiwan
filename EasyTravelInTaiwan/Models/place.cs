@@ -30,8 +30,6 @@ namespace EasyTravelInTaiwan.Models
         public string Carmethod { get; set; }
         public string Busmethod { get; set; }
     
-        public virtual city city { get; set; }
-        public virtual viewtype viewtype { get; set; }
         public virtual ICollection<placeimage> placeimages { get; set; }
     }
 }

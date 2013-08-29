@@ -17,7 +17,7 @@ namespace EasyTravelInTaiwan.Controllers
     public class MemberController : Controller
     {
         //private dbproject1Entities db = new dbproject1Entities();
-        private projectEntities db = new projectEntities();
+        private ProjectEntities db = new ProjectEntities();
 
         //
         // GET: /Member/
