@@ -10,9 +10,17 @@
     <EntitySet Name="travellists" EntityType="ProjectModel.travellist" />
     <EntitySet Name="travellistplaces" EntityType="ProjectModel.travellistplace" />
     <EntitySet Name="viewtypes" EntityType="ProjectModel.viewtype" />
+    <AssociationSet Name="place_ibfk_1" Association="ProjectModel.place_ibfk_1">
+      <End Role="city" EntitySet="cities" />
+      <End Role="place" EntitySet="places" />
+    </AssociationSet>
     <AssociationSet Name="travellist_ibfk_1" Association="ProjectModel.travellist_ibfk_1">
       <End Role="member" EntitySet="members" />
       <End Role="travellist" EntitySet="travellists" />
+    </AssociationSet>
+    <AssociationSet Name="place_ibfk_2" Association="ProjectModel.place_ibfk_2">
+      <End Role="viewtype" EntitySet="viewtypes" />
+      <End Role="place" EntitySet="places" />
     </AssociationSet>
     <AssociationSet Name="placeimage_ibfk_1" Association="ProjectModel.placeimage_ibfk_1">
       <End Role="place" EntitySet="places" />
@@ -29,6 +37,7 @@
     </Key>
     <Property Name="Citynumber" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
     <Property Name="Cityname" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="places" Relationship="ProjectModel.place_ibfk_1" FromRole="city" ToRole="place" />
   </EntityType>
   <EntityType Name="food">
     <Key>
@@ -100,6 +109,8 @@
     <Property Name="Url" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
     <Property Name="Carmethod" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
     <Property Name="Busmethod" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="city" Relationship="ProjectModel.place_ibfk_1" FromRole="place" ToRole="city" />
+    <NavigationProperty Name="viewtype" Relationship="ProjectModel.place_ibfk_2" FromRole="place" ToRole="viewtype" />
     <NavigationProperty Name="placeimages" Relationship="ProjectModel.placeimage_ibfk_1" FromRole="place" ToRole="placeimage" />
   </EntityType>
   <EntityType Name="placeimage">
@@ -138,7 +149,22 @@
     </Key>
     <Property Name="Typenumber" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
     <Property Name="Typename" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="places" Relationship="ProjectModel.place_ibfk_2" FromRole="viewtype" ToRole="place" />
   </EntityType>
+  <Association Name="place_ibfk_1">
+    <End Role="city" Type="ProjectModel.city" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="place" Type="ProjectModel.place" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="city">
+        <PropertyRef Name="Citynumber" />
+      </Principal>
+      <Dependent Role="place">
+        <PropertyRef Name="Citynumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="travellist_ibfk_1">
     <End Role="member" Type="ProjectModel.member" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -150,6 +176,20 @@
       </Principal>
       <Dependent Role="travellist">
         <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="place_ibfk_2">
+    <End Role="viewtype" Type="ProjectModel.viewtype" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="place" Type="ProjectModel.place" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="viewtype">
+        <PropertyRef Name="Typenumber" />
+      </Principal>
+      <Dependent Role="place">
+        <PropertyRef Name="Typenumber" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

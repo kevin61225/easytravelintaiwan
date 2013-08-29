@@ -6,7 +6,7 @@
         <ul class="nav nav-pills nav-stacked" id="InputsWrapper">
             @foreach (EasyTravelInTaiwan.Models.maplatlng maplatlng in ViewBag.TravelListPlaces)
             {
-                <li id="place-@maplatlng.sno">
+                <li id="place.@maplatlng.sno">
                     <a href="#">@maplatlng.pName</a>
                 </li>
             }

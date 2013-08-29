@@ -59,7 +59,10 @@ namespace EasyTravelInTaiwan.Controllers
                 return HttpNotFound();
 
             }
-            Session["TempTid"] = travelList[0].Tid;
+            if (Session["TempTid"] == null)
+            {
+                Session["TempTid"] = travelList[0].Tid;
+            }
 
             return PartialView("_travelListPartial", travelList);
         }
@@ -235,6 +238,15 @@ namespace EasyTravelInTaiwan.Controllers
             return RedirectToAction("Index", "Map");
         }
 
+        // 切換清單
+        [HttpPost]
+        public ActionResult OnChangeTravelList(string selectedList)
+        {
+            Session["TempTid"] = Convert.ToInt32(selectedList);
+
+            return RedirectToAction("TravelListPlacePartial", "Map");
+            //return Json(new { Status = 1, Message = "Success" });
+        }
 
 
         public string FindRoleIdByName(System.Security.Principal.IPrincipal User)

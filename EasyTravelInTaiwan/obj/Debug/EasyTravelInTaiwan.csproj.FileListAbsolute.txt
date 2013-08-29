@@ -139,4 +139,3 @@ C:\Users\宗翰\Desktop\Project\EasyTravelInTaiwan\bin\zh-Hant\System.Web.WebPag
 C:\Users\宗翰\Desktop\Project\EasyTravelInTaiwan\bin\zh-Hant\System.Web.WebPages.Razor.resources.dll
 C:\Users\宗翰\Desktop\Project\EasyTravelInTaiwan\obj\Debug\EasyTravelInTaiwan.dll
 C:\Users\宗翰\Desktop\Project\EasyTravelInTaiwan\obj\Debug\EasyTravelInTaiwan.pdb
-C:\Users\宗翰\Desktop\Project\EasyTravelInTaiwan\obj\Debug\EasyTravelInTaiwan.csprojResolveAssemblyReference.cache

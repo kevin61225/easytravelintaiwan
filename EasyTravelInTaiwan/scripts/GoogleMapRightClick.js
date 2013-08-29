@@ -15,7 +15,7 @@
     directionsRendererOptions.preserveViewport = false;
     var directionsRenderer = new google.maps.DirectionsRenderer(directionsRendererOptions);
     var directionsService = new google.maps.DirectionsService();
-    var waypts = [];
+
     var tempWaypt = '';
     var markerIndex;
     var isCalculated = false;

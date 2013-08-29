@@ -3,13 +3,13 @@
 <div id="TravelListPlaceView">
     <h3>我的旅遊清單</h3>
     <div>
-        <select class="selectpicker">
+        <select id ="TravelListSelectPicker" class="selectpicker">
             @foreach (var travellist in Model)
             {
                 <option value="List-@travellist.Tid">@travellist.TName</option>
             }
         </select>
-        <ul id="TravelList" class="nav nav-pills nav-stacked">
+        @*<ul id="TravelList" class="nav nav-pills nav-stacked">
             @if (Model.Count() > 0)
             {
                 foreach (var travellist in Model)
@@ -23,7 +23,8 @@
             { 
                 <li><a href="#">尚無旅遊清單</a></li>
             }
-        </ul>
+        </ul>*@
+        <br />
         <a href="#CreateNewListModal" role="button" class="btn" data-toggle="modal">建立新的規劃</a>
     </div>
 </div>
@@ -63,18 +64,30 @@
         $.ajax({
             url: "@Url.Action("TravelListPartial")",
             type: "post",
-            data: $("form").serialize(), //if you need to post Model data, use this
+            data: $("TravelListSelect").serialize(), //if you need to post Model data, use this
             success: function (result) {
                 $("#TravelList").html(result);
             }
         });
     });
 
-    $(document).on('click', '#TravelList li', function (e) {
-        var str = $(this).attr('id');
+    $(document).on('change', '#TravelListSelectPicker', function (e) {
+        var $this = $(this);
+        var str = $(this).attr('value');
         var n = str.split("-");
-        //selectedList = n[1];
+        selectedList = n[1];
         console.log(selectedList);
-
+        $.ajax({
+            url: "@Url.Action("OnChangeTravelList", "Map")",
+            type: "POST",
+            data: JSON.stringify({ selectedList: selectedList }), //if you need to post Model data, use this
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                //console.log(data);
+                $("#TravelListPartialView").html(data);
+                waypts = [];
+                console.log($("#TravelListPartialView").html(data));
+            }
+        });
     });
 </script>
