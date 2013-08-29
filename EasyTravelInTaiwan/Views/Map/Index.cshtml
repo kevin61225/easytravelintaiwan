@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Google Map";
 }
 
@@ -36,7 +37,7 @@
 
 <link href="~/Content/ui.css" rel="stylesheet" />
 <link href="~/Content/ui.progress-bar.css" rel="stylesheet" />
-
+<script src="~/scripts/jquery.validate.unobtrusive.js"></script>
 <!--引入 Google API-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="~/scripts/jquery.blockUI.js"></script>
@@ -76,13 +77,10 @@
         <div id="map_canvas" class="map_canvas" aria-setsize="500"></div>
     </div>
     <div class="row">
-        <div id="TravelListPartialView" class="span6">
-            @using (Ajax.BeginForm("CreateNewList", "Map", new AjaxOptions() { UpdateTargetId = "TravelListPartialView", HttpMethod = "Post" }))
-            {
-                @Html.Action("TravelListPartial", "Map")
-            }
-            @*@{Html.RenderPartial("_travelListPartial");}*@
-        </div>
+        @Html.Action("TravelListPartial", "Map")
+        @*@{Html.RenderPartial("_travelListPartial", Model.travellists);}*@ 
+        @*@{Html.RenderPartial("_travelListPartial", Model);}*@
+        @*@{Html.RenderAction("TravelListPartial");}*@ 
         <div class="span6">
             <br />
             <br />
@@ -90,6 +88,7 @@
         <div id="TravelListPlacePartialView" class="span6">
             @Html.Action("TravelListPlacePartial", "Map")
             @*@{Html.RenderPartial("_travelListPlacePartial");}*@
+            @*@{Html.RenderAction("TravelListPlacePartial");}*@ 
         </div>
     </div>
 </div>

@@ -1,6 +1,6 @@
 ﻿@model List<EasyTravelInTaiwan.Models.travellist>
 
-<div>
+<div id="TravelListPlaceView" class="span6">
 
     <table>
         <tr>我的旅遊清單</tr>
@@ -42,47 +42,47 @@
         <h3 id="myModalLabel">建立新的規畫清單</h3>
     </div>
 
-          
-    <div class="modal-body">
-        
-                <div class="editor-label">
-                    @Html.Label("清單名稱")
-                </div>
-                <div class="editor-field">
-                    @Html.Editor("TravelListName")
-                    @*@Html.ValidationMessageFor(model => model.Account)*@
-                </div>
-            
-    </div>
-    <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">關閉</button>
-        <button type="submit"  class="btn btn-primary">儲存</button>
-        
-    </div>
-            
-        
+    @using (Ajax.BeginForm("CreateNewList", "Map", new AjaxOptions() { InsertionMode = InsertionMode.Replace, UpdateTargetId = "TravelListPartialView", HttpMethod = "POST" }))
+    {  
+        <div class="modal-body">
+
+            <div class="editor-label">
+                @Html.Label("清單名稱")
+            </div>
+            <div class="editor-field">
+                @Html.Editor("TravelListName")
+                @*@Html.ValidationMessageFor(model => model.Account)*@
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">關閉</button>
+            <button class="btn btn-primary">儲存</button>
+
+        </div>
+    }
+
 </div>
 
 
 <script type="text/javascript">
     var selectedList;
     $("#Create-List-Button").click(function () {
-    });
-
-    $(document).on('click', '#TravelList li', function (e) {       
-        var str = $(this).attr('id');
-        var n = str.split("-");
-        selectedList = n[1];
-        console.log(selectedList);
-
         $.ajax({
-            url: "@Url.Action("CreateNewList")",
+            url: "@Url.Action("TravelListPartial")",
             type: "post",
             data: $("form").serialize(), //if you need to post Model data, use this
             success: function (result) {
                 $("#TravelList").html(result);
             }
         });
+    });
+
+    $(document).on('click', '#TravelList li', function (e) {
+        var str = $(this).attr('id');
+        var n = str.split("-");
+        //selectedList = n[1];
+        console.log(selectedList);
 
     });
 </script>

@@ -21,10 +21,6 @@
       FROM `travellistplace` AS `travellistplace`</DefiningQuery>
           </EntitySet>
           <EntitySet Name="viewtype" EntityType="projectModel.Store.viewtype" store:Type="Tables" Schema="project" />
-          <AssociationSet Name="travellist_ibfk_2" Association="projectModel.Store.travellist_ibfk_2">
-            <End Role="member" EntitySet="member" />
-            <End Role="travellist" EntitySet="travellist" />
-          </AssociationSet>
           <AssociationSet Name="travellistplace_ibfk_1" Association="projectModel.Store.travellistplace_ibfk_1">
             <End Role="travellist" EntitySet="travellist" />
             <End Role="travellistplace" EntitySet="travellistplace" />
@@ -152,20 +148,6 @@
           <Property Name="Typenumber" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Typename" Type="text" Nullable="false" />
         </EntityType>
-        <Association Name="travellist_ibfk_2">
-          <End Role="member" Type="projectModel.Store.member" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="travellist" Type="projectModel.Store.travellist" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="member">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="travellist">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="travellistplace_ibfk_1">
           <End Role="travellist" Type="projectModel.Store.travellist" Multiplicity="1">
             <OnDelete Action="Cascade" />

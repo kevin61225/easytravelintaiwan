@@ -23,8 +23,9 @@ namespace EasyTravelInTaiwan.Controllers
         // GET: /Member/
 
         [Authorize(Roles = "Admin, Clerk, Customer")]
-        public ActionResult Index()
+        public ActionResult Index(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             member tempMember;
             try
             {
@@ -62,7 +63,7 @@ namespace EasyTravelInTaiwan.Controllers
             }
             TempData["success"] = "登入成功 ! 歡迎使用";
 
-            return RedirectToAction("Index", "Map");
+            return RedirectToLocal(returnUrl);
         }
 
         private bool AutoLogin(LoginModel model)
@@ -179,6 +180,7 @@ namespace EasyTravelInTaiwan.Controllers
 
         // GET: /Member/Login
 
+        [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -439,6 +441,18 @@ namespace EasyTravelInTaiwan.Controllers
             SmtpServer.Send(msg);
 
             return RedirectToAction("ForgetPassword", "Member");
+        }
+
+        private ActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         protected override void Dispose(bool disposing)

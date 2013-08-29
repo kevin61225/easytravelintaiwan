@@ -58,6 +58,7 @@ namespace EasyTravelInTaiwan.Controllers
         [Authorize(Roles = "Admin, Clerk, Customer")]
         public ActionResult Index()
         {
+
             if (User.Identity.IsAuthenticated)
             {
                 //if (Session["UserId"] == null)
@@ -88,21 +89,43 @@ namespace EasyTravelInTaiwan.Controllers
             return Json(mapMarkerList, JsonRequestBehavior.AllowGet);
         }
 
-        [ChildActionOnly]
+
         public ActionResult TravelListPartial()
         {
             int uid = (int)Session["UserId"];
             List<travellist> travelList = db.travellists.Where(list => list.UserId == uid).ToList<travellist>();
-            if (travelList == null)
-            {
-                Session["TempTid"] = -1;
-                return HttpNotFound();
-            }
-            Session["TempTid"] = travelList[0].Tid;
+            //if (TravelListName == null)
+            //{
+                if (travelList == null)
+                {
+                    Session["TempTid"] = -1;
+                    return HttpNotFound();
+            
+                }
+                Session["TempTid"] = travelList[0].Tid;
+            //}
+            //else
+            //{
+            //    travellist newList = new travellist();
+            //    newList.TName = TravelListName;
+            //    newList.UserId = (int)Session["UserId"];
+
+            //    try
+            //    {
+            //        db.travellists.Add(newList);
+            //        db.SaveChanges();
+            //    }
+            //    catch
+            //    {
+            //        TempData["Error"] = "儲存錯誤";
+            //    }
+            //    return RedirectToAction("Index", "Map");
+            //}
+            //return RedirectToAction("Index", "Map");
             return PartialView("_travelListPartial", travelList);
         }
 
-        [ChildActionOnly]
+
         public ActionResult TravelListPlacePartial()
         {
             int tid = (int)Session["TempTid"];
@@ -192,29 +215,46 @@ namespace EasyTravelInTaiwan.Controllers
         [HttpPost]
         public JsonResult PostPlace(List<travellistplace> info)
         {
-            //travellist test = new travellist();
-            //member testm = new member();
-            //test.Tid = 3;
-            //test.UserId = 19;
-            //test.TName = "test1";
-            //testm = db.members.Find(test.UserId);
+            travellist test = new travellist();
+            member testm = new member();
+            test.Tid = (int)Session["TempTid"];
+            test.UserId = (int)Session["UserId"];
+            test =  db.travellists.Find(test.Tid);
+            testm = db.members.Find(test.UserId);
+            int tid = (int)Session["TempTid"];
             if (info != null)
             {
-                foreach(travellistplace item in info)
+                for (int i = 0; i < info.Count; i++)
                 {
-                    //item.travellist = test;
-                    db.travellistplaces.Add(item);
-                    try
-                    {
-                        db.SaveChanges();
-                    }
-                    catch
-                    {
-                        TempData["Error"] = "儲存錯誤";
-                        return Json(new { Status = 3, Message = "Saving Error in " + item.Sno });
-                    }
+                    info[i].Tid = tid;
+                    db.travellistplaces.Add(info[i]);
                 }
-                return Json(new { Status = 1, Message = "Success" });
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch
+                {
+                    TempData["Error"] = "儲存錯誤";
+                    return Json(new { Status = 3, Message = "Saving Error in "  });
+                }
+                    //foreach(travellistplace item in info)
+                    //{
+                    //    item.Tid = tid;
+                    //    //item.travellist = test;
+
+                    //    try
+                    //    {
+                    //        db.travellistplaces.Add(item);
+                    //        db.SaveChanges();
+                    //    }
+                    //    catch
+                    //    {
+                    //        TempData["Error"] = "儲存錯誤";
+                    //        return Json(new { Status = 3, Message = "Saving Error in " + item.Sno });
+                    //    }
+                    //}
+                    return Json(new { Status = 1, Message = "Success" });
             }
             return Json(new { Status = 2, Message = "info is null" });
         }
@@ -239,10 +279,10 @@ namespace EasyTravelInTaiwan.Controllers
             }
 
             List<travellist> travelList = db.travellists.Where(list => list.UserId == newList.UserId).ToList<travellist>();
-            Session["TempTid"] = (int)travelList.Where(o => o.TName == TravelListName).Single().Tid;
-
-            //return RedirectToAction("Index");
-            return PartialView("_travelListPartial", travelList);
+            Session["TempTid"] = travelList[(travelList.Count)-1].Tid;
+            //Session["TempTid"] = (int)travelList.Where(o => o.TName == TravelListName).Single().Tid;
+            //return PartialView("_travelListPartial", travelList);
+            return RedirectToAction("Index", "Map");
         }
 
     }
