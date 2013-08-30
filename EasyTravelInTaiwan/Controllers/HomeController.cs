@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using EasyTravelInTaiwan.Models;
 using Models;
+using WebMatrix.WebData;
 
 namespace BootstrapMvcSample.Controllers
 {
@@ -33,6 +34,7 @@ namespace BootstrapMvcSample.Controllers
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
+            //WebSecurity.Logout();
             TempData["success"] = "已登出";
             Session.Clear();
             return RedirectToAction("Index", "Map");

@@ -10,6 +10,7 @@ using EasyTravelInTaiwan.Models;
 using System.Data.Entity.Validation;
 using System.Net;
 using System.Net.Mail;
+using WebMatrix.WebData;
 
 namespace EasyTravelInTaiwan.Controllers
 {
@@ -64,6 +65,15 @@ namespace EasyTravelInTaiwan.Controllers
             TempData["success"] = "登入成功 ! 歡迎使用";
 
             return RedirectToLocal(returnUrl);
+
+            //if (ModelState.IsValid && WebSecurity.Login(loginModel.UserName, loginModel.Password, persistCookie: loginModel.RememberMe))
+            //{
+            //    return RedirectToLocal(returnUrl);
+            //}
+
+            // 如果執行到這裡，發生某項失敗，則重新顯示表單
+            //ModelState.AddModelError("", "所提供的使用者名稱或密碼不正確。");
+            //return RedirectToAction("Index", "Map");
         }
 
         private bool AutoLogin(LoginModel model)

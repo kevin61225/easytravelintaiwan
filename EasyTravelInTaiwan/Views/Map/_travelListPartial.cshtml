@@ -1,6 +1,6 @@
 ﻿@model List<EasyTravelInTaiwan.Models.travellist>
 
-<div id="TravelListPartialView">
+
     <h3>我的旅遊清單</h3>
     <div>
         <select id="TravelListSelectPicker" class="selectpicker">
@@ -19,7 +19,7 @@
         <br />
         <a href="#CreateNewListModal" role="button" class="btn" data-toggle="modal">建立新的規劃</a>
     </div>
-</div>
+
 
 <div id="CreateNewListModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
@@ -27,9 +27,7 @@
         <h3 id="myModalLabel">建立新的規畫清單</h3>
     </div>
 
-    @*    @using (Ajax.BeginForm("CreateNewList", "Map", new AjaxOptions() { InsertionMode = InsertionMode.Replace, UpdateTargetId = "TravelListPartialView", HttpMethod = "POST" }))
-    {  
-        *@<div class="modal-body">
+    <div class="modal-body">
 
             <div class="editor-label">
                 @Html.Label("清單名稱")
@@ -44,7 +42,6 @@
         <button id="CloseBtn" class="btn" data-dismiss="modal" aria-hidden="true">關閉</button>
         <button id="Create-List-Button" data-dismiss="modal" class="btn btn-primary">儲存</button>
     </div>
-    @*    }*@
 
 </div>
 
@@ -67,16 +64,15 @@
             success: function (result) {
                 $("#TravelListPartialView").html(result);
                 $("#TravelListSelectPicker option").last().attr("selected", "selected").change();
-
-                //console.log($("#TravelListSelectPicker option").last());
-                //$("#TravelListSelectPicker").trigger("change");
             }
         });
     });
 
-    $(document).on('change', '#TravelListSelectPicker', function (e) {
-        var $this = $(this);
-        var str = $(this).attr('value');
+    //$(document).on('change', '#TravelListSelectPicker', function (e) {
+    $(document).on('click', '.dropdown-menu .inner >li', function (e) {
+        var $this = $(this).attr("rel");;
+        var selectedValue = $("#TravelListSelectPicker option:eq('" + $this + "')");
+        var str = selectedValue.attr('value');
         var n = str.split("-");
         selectedList = n[1];
         //console.log(selectedList);

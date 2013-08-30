@@ -7,6 +7,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using WebMatrix.WebData;
 
 namespace EasyTravelInTaiwan
 {
@@ -17,6 +18,8 @@ namespace EasyTravelInTaiwan
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+
+            //WebSecurity.InitializeDatabaseConnection("ProjectConnectionString", "UserProfile", "UserId", "UserName", true);
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

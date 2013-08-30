@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Models;
 using System.Web.Security;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EasyTravelInTaiwan.Models
 {
@@ -16,6 +17,15 @@ namespace EasyTravelInTaiwan.Models
         public AccountModels(string account, string password)
         {
         }
+    }
+
+    [Table("UserProfile")]
+    public class UserProfile
+    {
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int UserId { get; set; }
+        public string UserName { get; set; }
     }
 
     public class LoginModel
