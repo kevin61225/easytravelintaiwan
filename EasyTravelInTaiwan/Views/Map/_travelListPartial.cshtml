@@ -1,29 +1,22 @@
 ﻿@model List<EasyTravelInTaiwan.Models.travellist>
 <script src="~/scripts/bootstrap-select.js"></script>
-<div id="TravelListPlaceView">
+<div id="TravelListPartialView">
     <h3>我的旅遊清單</h3>
     <div>
-        <select id ="TravelListSelectPicker" class="selectpicker">
-            @foreach (var travellist in Model)
-            {
-                <option value="List-@travellist.Tid">@travellist.TName</option>
-            }
-        </select>
-        @*<ul id="TravelList" class="nav nav-pills nav-stacked">
-            @if (Model.Count() > 0)
+        <select id="TravelListSelectPicker" class="selectpicker">
+            @if (Model.Count > 0)
             {
                 foreach (var travellist in Model)
                 {
-                    <li id="List-@travellist.Tid">
-                        <a href="#">@travellist.TName</a>
-                    </li>
+                    <option value="List-@travellist.Tid">@travellist.TName</option>
                 }
             }
             else
-            { 
-                <li><a href="#">尚無旅遊清單</a></li>
+            {
+                <option value="none">空的</option>
             }
-        </ul>*@
+        </select>
+
         <br />
         <a href="#CreateNewListModal" role="button" class="btn" data-toggle="modal">建立新的規劃</a>
     </div>
@@ -35,9 +28,9 @@
         <h3 id="myModalLabel">建立新的規畫清單</h3>
     </div>
 
-    @using (Ajax.BeginForm("CreateNewList", "Map", new AjaxOptions() { InsertionMode = InsertionMode.Replace, UpdateTargetId = "TravelListPartialView", HttpMethod = "POST" }))
+@*    @using (Ajax.BeginForm("CreateNewList", "Map", new AjaxOptions() { InsertionMode = InsertionMode.Replace, UpdateTargetId = "TravelListPartialView", HttpMethod = "POST" }))
     {  
-        <div class="modal-body">
+        *@<div class="modal-body">
 
             <div class="editor-label">
                 @Html.Label("清單名稱")
@@ -49,24 +42,35 @@
 
         </div>
         <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">關閉</button>
-            <button class="btn btn-primary">儲存</button>
-
+            <button id="CloseBtn" class="btn" data-dismiss="modal" aria-hidden="true">關閉</button>
+            <button id="Create-List-Button" data-dismiss="modal" class="btn btn-primary">儲存</button>
         </div>
-    }
+@*    }*@
 
 </div>
 
 
 <script type="text/javascript">
     var selectedList;
+    $.ready()
+    {
+        $('#TravelListSelectPicker option[value="List-' + @Session["TempTid"] + '"]').attr("selected", "selected");
+    }
+
     $("#Create-List-Button").click(function () {
+        var listName = $("#TravelListName").val();
+        console.log(listName);
         $.ajax({
-            url: "@Url.Action("TravelListPartial")",
-            type: "post",
-            data: $("TravelListSelect").serialize(), //if you need to post Model data, use this
+            url: "@Url.Action("CreateNewList")",
+            type: "POST",
+            data: JSON.stringify({ travelListName: listName }), //if you need to post Model data, use this
+            contentType: 'application/json; charset=utf-8',
             success: function (result) {
-                $("#TravelList").html(result);
+                $("#TravelListPartialView").html(result);
+                $("#TravelListSelectPicker option").last().attr("selected", "selected").change();
+             
+                //console.log($("#TravelListSelectPicker option").last());
+                //$("#TravelListSelectPicker").trigger("change");
             }
         });
     });
@@ -76,17 +80,15 @@
         var str = $(this).attr('value');
         var n = str.split("-");
         selectedList = n[1];
-        console.log(selectedList);
+        //console.log(selectedList);
         $.ajax({
             url: "@Url.Action("OnChangeTravelList", "Map")",
             type: "POST",
             data: JSON.stringify({ selectedList: selectedList }), //if you need to post Model data, use this
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                //console.log(data);
-                $("#TravelListPartialView").html(data);
+                $("#TravelListPlacePartialView").html(data);
                 waypts = [];
-                console.log($("#TravelListPartialView").html(data));
             }
         });
     });

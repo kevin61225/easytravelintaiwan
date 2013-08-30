@@ -1,6 +1,6 @@
 ﻿@model List<EasyTravelInTaiwan.Models.travellistplace>
 
-<div id="TravelListPartialView">
+<div id="TravelListPlacePartialView">
     <div>詳細位置</div>
     <div>
         <ul class="nav nav-pills nav-stacked" id="InputsWrapper">
@@ -14,7 +14,7 @@
         
     </div>
     <div>
-        <button id="Create-List-Button" class="btn">儲存</button>
+        <button id="Save-List-Button" class="btn">儲存</button>
     </div>
 </div>
 
@@ -44,7 +44,7 @@
     });
 
 
-    $("#Create-List-Button").click(function () {
+    $("#Save-List-Button").click(function () {
         var placeItems = [];
         $("#InputsWrapper").children().each(function () {
             var $this = $(this);

@@ -47,27 +47,37 @@ namespace EasyTravelInTaiwan.Controllers
             return Json(mapMarkerList, JsonRequestBehavior.AllowGet);
         }
 
-
+        [Authorize]
         public ActionResult TravelListPartial()
         {
             int uid = (int)Session["UserId"];
             List<travellist> travelList = db.travellists.Where(list => list.UserId == uid).ToList<travellist>();
 
-            if (travelList == null)
-            {
-                Session["TempTid"] = -1;
-                return HttpNotFound();
-
-            }
             if (Session["TempTid"] == null)
             {
-                Session["TempTid"] = travelList[0].Tid;
+                try
+                {
+                    Session["TempTid"] = travelList[0].Tid;
+                }
+                catch
+                {
+                }
+            }
+
+            if (travelList.Count == 0)
+            {
+                Session["TempTid"] = -1;
+                ViewBag.SelectList = null;
+            }
+            else
+            {
+                ViewBag.SelectList = travelList.Where(o => o.Tid == (int)Session["TempTid"]).Single();
             }
 
             return PartialView("_travelListPartial", travelList);
         }
 
-
+        [Authorize]
         public ActionResult TravelListPlacePartial()
         {
             int tid = (int)Session["TempTid"];
@@ -190,7 +200,7 @@ namespace EasyTravelInTaiwan.Controllers
                     }
                     catch
                     {
-                        
+
                     }
                     if (!db.travellistplaces.ToList().Contains(temp))
                     {
@@ -214,10 +224,10 @@ namespace EasyTravelInTaiwan.Controllers
 
         // 新增清單
         [HttpPost]
-        public ActionResult CreateNewList(string TravelListName)
+        public ActionResult CreateNewList(string travelListName)
         {
             travellist newList = new travellist();
-            newList.TName = TravelListName;
+            newList.TName = travelListName;
             newList.UserId = (int)Session["UserId"];
 
             int uid = (int)Session["UserId"];
@@ -229,13 +239,14 @@ namespace EasyTravelInTaiwan.Controllers
             }
             catch
             {
-                TempData["Error"] = "儲存錯誤";
+                TempData["Error"] = "創建錯誤";
+                return RedirectToAction("Index", "Map");
             }
 
             List<travellist> travelList = db.travellists.Where(list => list.UserId == newList.UserId).ToList<travellist>();
             Session["TempTid"] = travelList[(travelList.Count) - 1].Tid;
 
-            return RedirectToAction("Index", "Map");
+            return RedirectToAction("TravelListPartial", "Map");
         }
 
         // 切換清單
