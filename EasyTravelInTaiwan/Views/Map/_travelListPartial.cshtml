@@ -8,7 +8,7 @@
             {
                 foreach (var travellist in Model)
                 {
-                    <option value="List-@travellist.Tid">@travellist.TName</option>
+                <option value="List-@travellist.Tid">@travellist.TName</option>
                 }
             }
             else
@@ -16,7 +16,6 @@
                 <option value="none">空的</option>
             }
         </select>
-
         <br />
         <a href="#CreateNewListModal" role="button" class="btn" data-toggle="modal">建立新的規劃</a>
     </div>
@@ -28,7 +27,7 @@
         <h3 id="myModalLabel">建立新的規畫清單</h3>
     </div>
 
-@*    @using (Ajax.BeginForm("CreateNewList", "Map", new AjaxOptions() { InsertionMode = InsertionMode.Replace, UpdateTargetId = "TravelListPartialView", HttpMethod = "POST" }))
+    @*    @using (Ajax.BeginForm("CreateNewList", "Map", new AjaxOptions() { InsertionMode = InsertionMode.Replace, UpdateTargetId = "TravelListPartialView", HttpMethod = "POST" }))
     {  
         *@<div class="modal-body">
 
@@ -41,11 +40,11 @@
             </div>
 
         </div>
-        <div class="modal-footer">
-            <button id="CloseBtn" class="btn" data-dismiss="modal" aria-hidden="true">關閉</button>
-            <button id="Create-List-Button" data-dismiss="modal" class="btn btn-primary">儲存</button>
-        </div>
-@*    }*@
+    <div class="modal-footer">
+        <button id="CloseBtn" class="btn" data-dismiss="modal" aria-hidden="true">關閉</button>
+        <button id="Create-List-Button" data-dismiss="modal" class="btn btn-primary">儲存</button>
+    </div>
+    @*    }*@
 
 </div>
 
@@ -68,7 +67,7 @@
             success: function (result) {
                 $("#TravelListPartialView").html(result);
                 $("#TravelListSelectPicker option").last().attr("selected", "selected").change();
-             
+
                 //console.log($("#TravelListSelectPicker option").last());
                 //$("#TravelListSelectPicker").trigger("change");
             }
