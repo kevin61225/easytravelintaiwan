@@ -672,6 +672,7 @@
     </Content>
     <None Include="Properties\PublishProfiles\project.pubxml" />
     <None Include="scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="scripts\InitializeComponent.js" />
     <Content Include="scripts\jquery-1.9.1.js" />
     <Content Include="scripts\jquery-1.9.1.min.js" />
     <Content Include="scripts\jquery-migrate-1.1.1.js" />
