@@ -25,7 +25,7 @@
             <option value="none">空的</option>
         }
     </select>
-@if (Model.Count > 0)
+    @if (Model.Count > 0)
     {
         <a href="#DeleteCurrentListModal" role="button" class="btn" data-toggle="modal" id="deleteButton">刪除</a>
     }
@@ -74,6 +74,7 @@
 
 <script type="text/javascript">
     var selectedList;
+ 
     $.ready()
     {
         $('#TravelListSelectPicker option[value="List-' + @Session["TempTid"] + '"]').attr("selected", "selected");
@@ -97,7 +98,6 @@
                 $("#TravelListSelectPicker option").last().attr("selected", "selected");
                 RefreshPlaceList();
                 window.setTimeout(function () { $("#CreateAlert").fadeOut(); }, 10000);
-                //.alert('close')
             }
         });
     });
@@ -111,15 +111,14 @@
             contentType: 'application/json; charset=utf-8',
             success: function (result) {
                 $("#TravelListPartialView").html(result);
-                $("#TravelListSelectPicker option").last().attr("selected", "selected").change();
+                //$("#TravelListSelectPicker option").last().attr("selected", "selected");
                 RefreshPlaceList();
             }
         });
     });
 
-    //$(document).on('change', '#TravelListSelectPicker', function (e) {
     $(document).on('click', '.dropdown-menu .inner >li', function (e) {
-        var $this = $(this).attr("rel");;
+        var $this = $(this).attr("rel");
         var selectedValue = $("#TravelListSelectPicker option:eq('" + $this + "')");
         var str = selectedValue.attr('value');
         var n = str.split("-");
@@ -139,9 +138,10 @@
 
         function RefreshPlaceList() {
             var str = $("#TravelListSelectPicker option").last().attr("value");
-            var n = str.split("-");
-            selectedList = n[1];
-            console.log(selectedList);
+            if (str != null) {
+                var n = str.split("-");
+                selectedList = n[1];
+            }
             $.ajax({
                 url: "@Url.Action("OnChangeTravelList", "Map")",
             type: "POST",

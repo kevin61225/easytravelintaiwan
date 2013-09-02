@@ -262,7 +262,7 @@ namespace EasyTravelInTaiwan.Controllers
             {
                 db.travellists.Remove(deleteItem);
                 db.SaveChanges();
-                Session["TempTid"] = null;
+                Session["TempTid"] = -1;
             }
             return RedirectToAction("TravelListPartial", "Map");
         }
@@ -271,7 +271,14 @@ namespace EasyTravelInTaiwan.Controllers
         [HttpPost]
         public ActionResult OnChangeTravelList(string selectedList)
         {
-            Session["TempTid"] = Convert.ToInt32(selectedList);
+            if (selectedList == null)
+            {
+                Session["TempTid"] = -1;
+            }
+            else
+            {
+                Session["TempTid"] = Convert.ToInt32(selectedList);
+            }
 
             return RedirectToAction("TravelListPlacePartial", "Map");
             //return Json(new { Status = 1, Message = "Success" });
