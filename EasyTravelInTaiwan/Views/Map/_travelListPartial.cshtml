@@ -112,6 +112,7 @@
             success: function (result) {
                 $("#TravelListPartialView").html(result);
                 $("#TravelListSelectPicker option").last().attr("selected", "selected").change();
+                RefreshPlaceList();
             }
         });
     });
@@ -148,6 +149,7 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 $("#TravelListPlacePartialView").html(data);
+                $('#TravelListSelectPicker').selectpicker('refresh');
                 waypts = [];
             }
         });
