@@ -1,21 +1,30 @@
 ﻿@model List<EasyTravelInTaiwan.Models.travellistplace>
 
+@*@Html.Partial("_alerts")*@
 
-    <div>詳細位置</div>
-    <div>
-        <ul class="nav nav-pills nav-stacked" id="InputsWrapper">
-            @foreach (EasyTravelInTaiwan.Models.maplatlng maplatlng in ViewBag.TravelListPlaces)
-            {
-                <li id="place.@maplatlng.sno">
-                    <a href="#">@maplatlng.pName</a>
-                </li>
-            }
-        </ul>
-        
+@if (TempData["SaveSuccess"] != null)
+{
+    <div id="SaveAlert" class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <strong>儲存成功 !!</strong>
     </div>
-    <div>
-        <button id="Save-List-Button" class="btn">儲存</button>
-    </div>
+}
+
+<div>詳細位置</div>
+<div>
+    <ul class="nav nav-pills nav-stacked" id="InputsWrapper">
+        @foreach (EasyTravelInTaiwan.Models.maplatlng maplatlng in ViewBag.TravelListPlaces)
+        {
+            <li id="place.@maplatlng.sno">
+                <a href="#">@maplatlng.pName</a>
+            </li>
+        }
+    </ul>
+
+</div>
+<div>
+    <button id="Save-List-Button" class="btn">儲存</button>
+</div>
 
 
 <script type="text/javascript">
@@ -42,7 +51,7 @@
         //    console.log(e.button);
         //}
     });
-
+    //window.setTimeout(function () { $(".alert").alert('close'); }, 5000);
 
     $("#Save-List-Button").click(function () {
         var placeItems = [];
@@ -59,16 +68,19 @@
             }
             var item = { Tid: selectedList, sno: gmarkers[id].gId };
             placeItems.push(item);
-            console.log(gmarkers[id]);
-            console.log(JSON.stringify(placeItems));
+            //console.log(gmarkers[id]);
+            //console.log(JSON.stringify(placeItems));
         });
 
         $.ajax({
             type: "POST",
             url: "@Url.Action("PostPlace")",
-            success: function (data) { console.log(data) },
             data: JSON.stringify(placeItems),
-            contentType: 'application/json; charset=utf-8'
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                //console.log(data);
+                window.setTimeout(function () { $("#SaveAlert").fadeOut().alert('close'); }, 10000);
+            },
         });
     });
 </script>

@@ -185,7 +185,7 @@ namespace EasyTravelInTaiwan.Controllers
 
         // 將細項加入清單
         [HttpPost]
-        public JsonResult PostPlace(List<travellistplace> info)
+        public ActionResult PostPlace(List<travellistplace> info)
         {
             int tid = (int)Session["TempTid"];
 
@@ -215,9 +215,12 @@ namespace EasyTravelInTaiwan.Controllers
                             TempData["Error"] = "儲存錯誤";
                             return Json(new { Status = 3, Message = "Saving Error in " + item.Sno });
                         }
+                        
                     }
                 }
-                return Json(new { Status = 1, Message = "Success" });
+                TempData["SaveSuccess"] = "儲存成功 !!";
+                return RedirectToAction("TravelListPlacePartial", "Map");
+                //return Json(new { Status = 1, Message = "Success" });
             }
             return Json(new { Status = 2, Message = "info is null" });
         }
@@ -245,6 +248,7 @@ namespace EasyTravelInTaiwan.Controllers
 
             List<travellist> travelList = db.travellists.Where(list => list.UserId == newList.UserId).ToList<travellist>();
             Session["TempTid"] = travelList[(travelList.Count) - 1].Tid;
+            TempData["CreateSuccess"] = "建立成功 !!";
 
             return RedirectToAction("TravelListPartial", "Map");
         }
