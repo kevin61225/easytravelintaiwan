@@ -103,6 +103,10 @@ namespace EasyTravelInTaiwan.Controllers
                 }
                 placeInfo.Add(temp);
             }
+            if (TempData["SaveSuccess"] != null)
+            {
+                TempData["SaveSuccess"] = "儲存成功 !!";
+            }
             ViewBag.TravelListPlaces = placeInfo;
             return PartialView("_travelListPlacePartial", travelListPlace);
         }
@@ -215,7 +219,7 @@ namespace EasyTravelInTaiwan.Controllers
                             TempData["Error"] = "儲存錯誤";
                             return Json(new { Status = 3, Message = "Saving Error in " + item.Sno });
                         }
-                        
+
                     }
                 }
                 TempData["SaveSuccess"] = "儲存成功 !!";
@@ -229,28 +233,36 @@ namespace EasyTravelInTaiwan.Controllers
         [HttpPost]
         public ActionResult CreateNewList(string travelListName)
         {
-            travellist newList = new travellist();
-            newList.TName = travelListName;
-            newList.UserId = (int)Session["UserId"];
-
-            int uid = (int)Session["UserId"];
-
             try
             {
-                db.travellists.Add(newList);
-                db.SaveChanges();
+                travellist temp = db.travellists.Where(o => o.TName == travelListName).Single();
+                TempData["CreateList"] = "該清單名稱已存在，請換名稱";
+                return RedirectToAction("TravelListPartial", "Map");
             }
             catch
             {
-                TempData["Error"] = "創建錯誤";
-                return RedirectToAction("Index", "Map");
+                travellist newList = new travellist();
+                newList.TName = travelListName;
+                newList.UserId = (int)Session["UserId"];
+
+                int uid = (int)Session["UserId"];
+
+                try
+                {
+                    db.travellists.Add(newList);
+                    db.SaveChanges();
+                }
+                catch
+                {
+                    TempData["CreateError"] = "儲存時發生問題，請重新整理頁面";
+                    return RedirectToAction("Index", "Map");
+                }
+
+                List<travellist> travelList = db.travellists.Where(list => list.UserId == newList.UserId).ToList<travellist>();
+                Session["TempTid"] = travelList[(travelList.Count) - 1].Tid;
+                TempData["CreateList"] = "建立成功 !!";
+                return RedirectToAction("TravelListPartial", "Map");
             }
-
-            List<travellist> travelList = db.travellists.Where(list => list.UserId == newList.UserId).ToList<travellist>();
-            Session["TempTid"] = travelList[(travelList.Count) - 1].Tid;
-            TempData["CreateSuccess"] = "建立成功 !!";
-
-            return RedirectToAction("TravelListPartial", "Map");
         }
 
         [HttpPost]
@@ -262,7 +274,7 @@ namespace EasyTravelInTaiwan.Controllers
             {
                 db.travellists.Remove(deleteItem);
                 db.SaveChanges();
-                Session["TempTid"] = -1;
+                Session["TempTid"] = null;
             }
             return RedirectToAction("TravelListPartial", "Map");
         }
@@ -271,14 +283,15 @@ namespace EasyTravelInTaiwan.Controllers
         [HttpPost]
         public ActionResult OnChangeTravelList(string selectedList)
         {
-            if (selectedList == null)
-            {
-                Session["TempTid"] = -1;
-            }
-            else
-            {
-                Session["TempTid"] = Convert.ToInt32(selectedList);
-            }
+            //if (selectedList == null)
+            //{
+            //    Session["TempTid"] = -1;
+            //}
+            //else
+            //{
+            //    Session["TempTid"] = Convert.ToInt32(selectedList);
+            //} 
+            Session["TempTid"] = Convert.ToInt32(selectedList);
 
             return RedirectToAction("TravelListPlacePartial", "Map");
             //return Json(new { Status = 1, Message = "Success" });
