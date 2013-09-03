@@ -279,6 +279,24 @@ namespace EasyTravelInTaiwan.Controllers
             return RedirectToAction("TravelListPartial", "Map");
         }
 
+        [HttpPost]
+        public ActionResult DeletePlace(string deletePlaceId)
+        {
+            deletePlaceId = deletePlaceId.Remove(0, deletePlaceId.IndexOf(".") + 1);
+            int id = (int)Session["TempTid"];
+            travellist currentList = db.travellists.Where(o => o.Tid == id).ToList().First();
+            
+            //List<travellistplace> deleteItems = db.travellistplaces.Where(m => m.Tid == (int)Session["TempTid"]).ToList();
+            travellistplace deleteItem = currentList.travellistplaces.Where(o => o.Sno == deletePlaceId).Single();
+            //
+            if (deleteItem != null)
+            {
+                db.travellistplaces.Remove(deleteItem);
+                db.SaveChanges();
+            }
+            return RedirectToAction("TravelListPlacePartial", "Map");
+        }
+
         // 切換清單
         [HttpPost]
         public ActionResult OnChangeTravelList(string selectedList)

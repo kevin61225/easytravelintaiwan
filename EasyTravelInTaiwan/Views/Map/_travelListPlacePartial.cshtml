@@ -16,7 +16,7 @@
         @foreach (EasyTravelInTaiwan.Models.maplatlng maplatlng in ViewBag.TravelListPlaces)
         {
             <li id="place.@maplatlng.sno">
-                <a href="#">@maplatlng.pName</a>
+                <a href="#">@maplatlng.pName<i class="icon-remove pull-right" id="placeRemove"></i></a>
             </li>
         }
     </ul>
@@ -33,8 +33,8 @@
         //if (e.button == 1) {
         var str = $(this).attr('id');
         var n = str.split(".");
-        console.log(n[1]);
-        console.log(e);
+        //console.log(n[1]);
+        //console.log(e);
         var id;
         for (var i = 0; i < gmarkers.length; i++) {
             if (gmarkers[i].gId == n[1]) {
@@ -53,6 +53,20 @@
     });
     //window.setTimeout(function () { $(".alert").alert('close'); }, 5000);
 
+    $(document).on('click', '#InputsWrapper li .icon-remove', function (e) {
+        var place = $(this).parent().parent().attr('id');
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("DeletePlace")",
+            data: JSON.stringify({ deletePlaceId: place }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $("#TravelListPlacePartialView").html(data);
+            },
+        });
+    });
+    
     $("#Save-List-Button").click(function () {
         var placeItems = [];
         $("#InputsWrapper").children().each(function () {
@@ -84,4 +98,6 @@
             },
         });
     });
+
+    
 </script>
