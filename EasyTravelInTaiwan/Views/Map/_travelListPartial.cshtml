@@ -77,6 +77,10 @@
 
 <script type="text/javascript">
     var selectedList;
+
+    $(document).ajaxStart($.blockUI);
+    $(document).ajaxStop($.unblockUI);
+
     $(document).ready(function () {
         $('#TravelListSelectPicker option[value="List-' + @Session["TempTid"] + '"]').attr("selected", "selected");
         $("#Create-List-Button").attr("disabled", true);
@@ -100,7 +104,6 @@
                     $("#TravelListSelectPicker option").last().attr("selected", "selected");
                     RefreshPlaceList();
                     window.setTimeout(function () { $("#CreateAlert").fadeOut(); }, 10000);
-                    //.alert('close')
                 }
             });
         });
@@ -116,6 +119,7 @@
                     $("#TravelListPartialView").html(result);
                     $("#TravelListSelectPicker option").last().attr("selected", "selected").change();
                     RefreshPlaceList();
+                    window.setTimeout(function () { $("#CreateAlert").fadeOut(); }, 10000);
                 }
             });
         });
@@ -126,7 +130,6 @@
             var str = selectedValue.attr('value');
             var n = str.split("-");
             selectedList = n[1];
-            //console.log(selectedList);
             $.ajax({
                 url: "@Url.Action("OnChangeTravelList", "Map")",
                 type: "POST",
@@ -137,7 +140,6 @@
                     waypts = [];
                     for (var i = 0; i < gmarkers.length; i++) {
                         if (gmarkers[i].isChecked) {
-                            console.log(i);
                             gmarkers[i].isChecked = false;
                         }
                     }
@@ -172,7 +174,6 @@
 
                     for (var i = 0; i < gmarkers.length; i++) {
                         if (gmarkers[i].isChecked) {
-                            console.log(i);
                             gmarkers[i].isChecked = false;
                         }
                     }

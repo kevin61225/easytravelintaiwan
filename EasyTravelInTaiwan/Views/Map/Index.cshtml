@@ -528,7 +528,8 @@
 
     };
 
-    $.blockUI({
+
+    $(document).ajaxStart($.blockUI({
         message: $('<div id="progress_bar" class="ui-progress-bar ui-container"><div class="ui-progress" style="width: 70%;"><span class="ui-label" style="display: none;">資料讀取中... <b class="value">70%</b></span></div></div>'),
         css: {
             top: ($(window).height() - 240) / 2 + 'px',
@@ -539,7 +540,8 @@
             border: '0px',
             opacity: .7
         }
-    });
+    }));
+
     $('#progress_bar .ui-progress .ui-label').hide();
     $('#progress_bar .ui-progress').css('width', '7%');
     var timer = 99;
@@ -555,6 +557,7 @@
             console.log("in");
         }, 2000);
     });
+
     $(document).ajaxStop($.unblockUI);
 
 </script>

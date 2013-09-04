@@ -272,6 +272,7 @@ namespace EasyTravelInTaiwan.Controllers
                 db.travellists.Remove(deleteItem);
                 db.SaveChanges();
                 Session["TempTid"] = null;
+                TempData["CreateList"] = "刪除清單成功 !!";
             }
             return RedirectToAction("TravelListPartial", "Map");
         }

@@ -23,12 +23,15 @@
 
 </div>
 <div>
-    <button id="Save-List-Button" class="btn">儲存</button>
+    <button id="Save-List-Button" class="btn" style="display: none;">儲存</button>
 </div>
 
 
 <script type="text/javascript">
     var selectedList;
+
+    $(document).ajaxStart($.blockUI);
+    $(document).ajaxStop($.unblockUI);
 
     $("#InputsWrapper li i").hover(
         function () {
@@ -72,7 +75,6 @@
             }
         }
 
-        console.log(place);
         var $removeLi = $(this).parent().parent();
 
         $.ajax({
@@ -91,8 +93,6 @@
     $('#Save-List-Button').click(function () {
 
         var placeItems = [];
-
-        console.log("click");
 
         $("#InputsWrapper").children().each(function () {
             var $this = $(this);
