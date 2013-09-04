@@ -40,7 +40,7 @@
     contextMenuOptions.menuItems = menuItems;
 
     contextMenu = new ContextMenu(gmap, contextMenuOptions);
-    
+
     //google.maps.event.addListener(distanceWidget.radiusWidget.circle, 'click', function () {
     //    console.log("circle clicked !!");
     //    console.log(distanceWidget.radiusWidget.circle);
@@ -111,6 +111,16 @@
                         stopover: true
                     });
                     $("#InputsWrapper").append('<li id="place.' + gmarkers[markerIndex].gId + '"><a href="#">' + tempWaypt + '<i class="icon-remove pull-right"></i></a></li>');
+                    $("#InputsWrapper li i").hover(
+                        function () {
+                            $(this).removeClass("icon-remove");
+                            $(this).addClass("icon-remove-circle");
+                        },
+                        function () {
+                            $(this).removeClass("icon-remove-circle");
+                            $(this).addClass("icon-remove");
+                        }
+                    );
 
                     gmarkers[markerIndex].isChecked = true;
                     x++; //text box increment

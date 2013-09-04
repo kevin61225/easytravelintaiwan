@@ -29,6 +29,22 @@
 
 <script type="text/javascript">
     var selectedList;
+
+    $("#InputsWrapper li i").hover(
+        function () {
+            $(this).removeClass("icon-remove");
+            $(this).addClass("icon-remove-circle");
+        },
+        function () {
+            $(this).removeClass("icon-remove-circle");
+            $(this).addClass("icon-remove");
+        }
+    );
+
+    $(document).on('change', '#InputWrapper ul', function (e) {
+        console.log('append !!');
+    });
+
     $(document).on('click', '#InputsWrapper li', function (e) {
         //if (e.button == 1) {
         var str = $(this).attr('id');
@@ -53,7 +69,7 @@
     });
     //window.setTimeout(function () { $(".alert").alert('close'); }, 5000);
 
-    $(document).on('click', '#InputsWrapper li .icon-remove', function (e) {
+    $(document).on('click', '#InputsWrapper li i', function (e) {
         var place = $(this).parent().parent().attr('id');
         var $removeLi = $(this).parent().parent();
 
@@ -72,7 +88,7 @@
             }
         });
     });
-    
+
 
     $("#Save-List-Button").click(function () {
         var placeItems = [];
@@ -106,5 +122,5 @@
         });
     });
 
-    
+
 </script>
