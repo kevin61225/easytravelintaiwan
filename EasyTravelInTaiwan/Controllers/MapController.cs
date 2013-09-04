@@ -103,10 +103,7 @@ namespace EasyTravelInTaiwan.Controllers
                 }
                 placeInfo.Add(temp);
             }
-            if (TempData["SaveSuccess"] != null)
-            {
-                TempData["SaveSuccess"] = "儲存成功 !!";
-            }
+
             ViewBag.TravelListPlaces = placeInfo;
             return PartialView("_travelListPlacePartial", travelListPlace);
         }
@@ -294,6 +291,7 @@ namespace EasyTravelInTaiwan.Controllers
                 {
                     db.travellistplaces.Remove(deleteItem);
                     db.SaveChanges();
+                    TempData["SaveSuccess"] = "刪除成功 !!";
                 }
             }
             catch

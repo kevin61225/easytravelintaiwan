@@ -111,16 +111,7 @@
                         stopover: true
                     });
                     $("#InputsWrapper").append('<li id="place.' + gmarkers[markerIndex].gId + '"><a href="#">' + tempWaypt + '<i class="icon-remove pull-right"></i></a></li>');
-                    $("#InputsWrapper li i").hover(
-                        function () {
-                            $(this).removeClass("icon-remove");
-                            $(this).addClass("icon-remove-circle");
-                        },
-                        function () {
-                            $(this).removeClass("icon-remove-circle");
-                            $(this).addClass("icon-remove");
-                        }
-                    );
+                    $("#Save-List-Button").click();
 
                     gmarkers[markerIndex].isChecked = true;
                     x++; //text box increment

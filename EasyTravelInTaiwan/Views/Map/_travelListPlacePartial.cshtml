@@ -41,21 +41,14 @@
         }
     );
 
-    $(document).on('change', '#InputWrapper ul', function (e) {
-        console.log('append !!');
-    });
-
-    $(document).on('click', '#InputsWrapper li', function (e) {
+    $('#InputsWrapper li').click(function () {
         //if (e.button == 1) {
         var str = $(this).attr('id');
         var n = str.split(".");
-        //console.log(n[1]);
-        //console.log(e);
         var id;
         for (var i = 0; i < gmarkers.length; i++) {
             if (gmarkers[i].gId == n[1]) {
                 id = i;
-                console.log(id);
             }
         }
         google.maps.event.trigger(gmarkers[id], "click");
@@ -67,10 +60,19 @@
         //    console.log(e.button);
         //}
     });
-    //window.setTimeout(function () { $(".alert").alert('close'); }, 5000);
 
-    $(document).on('click', '#InputsWrapper li i', function (e) {
+    $("#InputsWrapper li i").click(function (e) {
+
         var place = $(this).parent().parent().attr('id');
+        var n = place.split(".");
+
+        for (var i = 0; i < gmarkers.length; i++) {
+            if (gmarkers[i].gId == n[1]) {
+                gmarkers[i].isChecked = false;
+            }
+        }
+
+        console.log(place);
         var $removeLi = $(this).parent().parent();
 
         $.ajax({
@@ -79,19 +81,19 @@
             data: JSON.stringify({ deletePlaceId: place }),
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                if (data.Status == 2) {
-                    $removeLi.remove();
-                }
-                else {
+                if (data.Status != 2) {
                     $("#TravelListPlacePartialView").html(data);
                 }
             }
         });
     });
 
+    $('#Save-List-Button').click(function () {
 
-    $("#Save-List-Button").click(function () {
         var placeItems = [];
+
+        console.log("click");
+
         $("#InputsWrapper").children().each(function () {
             var $this = $(this);
             var str = $(this).attr('id');
@@ -100,13 +102,10 @@
             for (var i = 0; i < gmarkers.length; i++) {
                 if (gmarkers[i].gId == n[1]) {
                     id = i;
-                    console.log(id);
                 }
             }
             var item = { Tid: selectedList, sno: gmarkers[id].gId };
             placeItems.push(item);
-            //console.log(gmarkers[id]);
-            //console.log(JSON.stringify(placeItems));
         });
 
         $.ajax({
@@ -115,12 +114,10 @@
             data: JSON.stringify(placeItems),
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                //console.log(data);
                 $("#TravelListPlacePartialView").html(data);
                 window.setTimeout(function () { $("#SaveAlert").fadeOut(); }, 10000);
             },
         });
     });
-
 
 </script>

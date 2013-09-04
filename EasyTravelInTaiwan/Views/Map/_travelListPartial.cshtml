@@ -6,7 +6,7 @@
 
 <h3>我的旅遊清單</h3>
 <div>
-    
+
     @if (TempData["CreateList"] != null)
     {
         <div id="CreateAlert" class="alert alert-info">
@@ -77,11 +77,10 @@
 
 <script type="text/javascript">
     var selectedList;
-    $.ready()
-    {
+    $(document).ready(function () {
         $('#TravelListSelectPicker option[value="List-' + @Session["TempTid"] + '"]').attr("selected", "selected");
         $("#Create-List-Button").attr("disabled", true);
-    }
+    });
 
     $("#deleteButton").click(function () {
         var message = "您確定要刪除" + $("#TravelListSelectPicker").find(":selected").text();
@@ -93,52 +92,58 @@
         console.log(listName);
         $.ajax({
             url: "@Url.Action("CreateNewList")",
-            type: "POST",
-            data: JSON.stringify({ travelListName: listName }), //if you need to post Model data, use this
-            contentType: 'application/json; charset=utf-8',
-            success: function (result) {
-                $("#TravelListPartialView").html(result);
-                $("#TravelListSelectPicker option").last().attr("selected", "selected");
-                RefreshPlaceList();
-                window.setTimeout(function () { $("#CreateAlert").fadeOut(); }, 10000);
-                //.alert('close')
-            }
+                type: "POST",
+                data: JSON.stringify({ travelListName: listName }), //if you need to post Model data, use this
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    $("#TravelListPartialView").html(result);
+                    $("#TravelListSelectPicker option").last().attr("selected", "selected");
+                    RefreshPlaceList();
+                    window.setTimeout(function () { $("#CreateAlert").fadeOut(); }, 10000);
+                    //.alert('close')
+                }
+            });
         });
-    });
 
-    $("#Delete-List-Button").click(function () {
-        var currentListItemNumber = $("#TravelListSelectPicker").find(":selected").val();
-        $.ajax({
-            url: "@Url.Action("DeleteList")",
-            type: "POST",
-            data: JSON.stringify({ deleteListId: currentListItemNumber }),
-            contentType: 'application/json; charset=utf-8',
-            success: function (result) {
-                $("#TravelListPartialView").html(result);
-                $("#TravelListSelectPicker option").last().attr("selected", "selected").change();
-                RefreshPlaceList();
-            }
+        $("#Delete-List-Button").click(function () {
+            var currentListItemNumber = $("#TravelListSelectPicker").find(":selected").val();
+            $.ajax({
+                url: "@Url.Action("DeleteList")",
+                type: "POST",
+                data: JSON.stringify({ deleteListId: currentListItemNumber }),
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    $("#TravelListPartialView").html(result);
+                    $("#TravelListSelectPicker option").last().attr("selected", "selected").change();
+                    RefreshPlaceList();
+                }
+            });
         });
-    });
 
-    $(document).on('click', '.dropdown-menu .inner >li', function (e) {
-        var $this = $(this).attr("rel");;
-        var selectedValue = $("#TravelListSelectPicker option:eq('" + $this + "')");
-        var str = selectedValue.attr('value');
-        var n = str.split("-");
-        selectedList = n[1];
-        //console.log(selectedList);
-        $.ajax({
-            url: "@Url.Action("OnChangeTravelList", "Map")",
-            type: "POST",
-            data: JSON.stringify({ selectedList: selectedList }), //if you need to post Model data, use this
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                $("#TravelListPlacePartialView").html(data);
-                waypts = [];
-            }
+        $(document).on('click', '.dropdown-menu .inner >li', function (e) {
+            var $this = $(this).attr("rel");;
+            var selectedValue = $("#TravelListSelectPicker option:eq('" + $this + "')");
+            var str = selectedValue.attr('value');
+            var n = str.split("-");
+            selectedList = n[1];
+            //console.log(selectedList);
+            $.ajax({
+                url: "@Url.Action("OnChangeTravelList", "Map")",
+                type: "POST",
+                data: JSON.stringify({ selectedList: selectedList }), //if you need to post Model data, use this
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    $("#TravelListPlacePartialView").html(data);
+                    waypts = [];
+                    for (var i = 0; i < gmarkers.length; i++) {
+                        if (gmarkers[i].isChecked) {
+                            console.log(i);
+                            gmarkers[i].isChecked = false;
+                        }
+                    }
+                }
+            });
         });
-    });
 
         $(document).on('input', '#TravelListName', function (e) {
             var $this = $(this).val();
@@ -155,6 +160,7 @@
             var n = str.split("-");
             selectedList = n[1];
             console.log(selectedList);
+
             $.ajax({
                 url: "@Url.Action("OnChangeTravelList", "Map")",
                 type: "POST",
@@ -163,6 +169,13 @@
                 success: function (data) {
                     $("#TravelListPlacePartialView").html(data);
                     $('#TravelListSelectPicker').selectpicker('refresh');
+
+                    for (var i = 0; i < gmarkers.length; i++) {
+                        if (gmarkers[i].isChecked) {
+                            console.log(i);
+                            gmarkers[i].isChecked = false;
+                        }
+                    }
                     waypts = [];
                 }
             });

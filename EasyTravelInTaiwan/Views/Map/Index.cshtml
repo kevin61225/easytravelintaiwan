@@ -106,19 +106,6 @@
 </form>*@
 
 
-@*@using (Html.BeginForm("Index", "Map", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.ValidationSummary(true)
-
-    <form id="myForm">
-        <ul class="nav nav-pills nav-stacked" id="InputsWrapper">
-        </ul>
-        <p>
-            <input type="submit" value="Create" class="btn btn-success" onclick="UploadTravelList()" />
-        </p>
-    </form>
-}*@
-
 <div id="info"></div>
 
 <script type="text/javascript">
@@ -570,15 +557,4 @@
     });
     $(document).ajaxStop($.unblockUI);
 
-    function UploadTravelList() {
-        $.ajax({
-            type: 'POST',
-            url: '/Maps/Index',
-            data: $('#InputsWrapper').serialize(),
-            success: function (jsonResult) {
-                console.log(jsonResult);
-                //$('#searchResults').innerHtml(jsonResult);
-            }
-        });
-    }
 </script>
