@@ -55,7 +55,7 @@
 
     $(document).on('click', '#InputsWrapper li .icon-remove', function (e) {
         var place = $(this).parent().parent().attr('id');
-        $(this).parent().parent().attr('id').remove();
+        var $removeLi = $(this).parent().parent();
 
         $.ajax({
             type: "POST",
@@ -63,16 +63,16 @@
             data: JSON.stringify({ deletePlaceId: place }),
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                $("#TravelListPlacePartialView").html(data);
+                if (data.Status == 2) {
+                    $removeLi.remove();
+                }
+                else {
+                    $("#TravelListPlacePartialView").html(data);
+                }
             }
         });
     });
     
-    $(document).on('change', '#InputsWrapper ul', function (e) {
-        //var place = $(this).parent().parent().attr('id');
-        //$(this).parent().parent().attr('id').remove();
-        console.log("list changed !");
-    });
 
     $("#Save-List-Button").click(function () {
         var placeItems = [];

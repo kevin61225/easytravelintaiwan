@@ -298,6 +298,7 @@ namespace EasyTravelInTaiwan.Controllers
             }
             catch
             {
+                return Json(new { Status = 2, Message = "Error" });
             }
             //
             
