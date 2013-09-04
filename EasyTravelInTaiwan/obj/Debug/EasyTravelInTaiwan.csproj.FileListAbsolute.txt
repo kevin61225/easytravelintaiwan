@@ -182,3 +182,4 @@ D:\School\專題\easytravelintaiwan\EasyTravelInTaiwan\bin\zh-Hant\System.Web.We
 D:\School\專題\easytravelintaiwan\EasyTravelInTaiwan\bin\zh-Hant\System.Web.WebPages.Razor.resources.dll
 D:\School\專題\easytravelintaiwan\EasyTravelInTaiwan\obj\Debug\EasyTravelInTaiwan.dll
 D:\School\專題\easytravelintaiwan\EasyTravelInTaiwan\obj\Debug\EasyTravelInTaiwan.pdb
+D:\School\專題\easytravelintaiwan\EasyTravelInTaiwan\obj\Debug\EasyTravelInTaiwan.csprojResolveAssemblyReference.cache

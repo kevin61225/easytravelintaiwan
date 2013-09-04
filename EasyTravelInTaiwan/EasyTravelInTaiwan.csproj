@@ -323,8 +323,10 @@
     <Compile Include="Controllers\BootstrapBaseController.cs" />
     <Compile Include="Controllers\ExampleLayoutsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -336,6 +338,7 @@
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HomeInputModel.cs" />
+    <Compile Include="Models\Interface\IRepository.cs" />
     <Compile Include="Models\maplatlng.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
@@ -364,6 +367,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ProjectModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Repository\GenericRepository.cs" />
+    <Compile Include="Models\SearchModel.cs" />
+    <Compile Include="Models\SearchTypeAheadEntity.cs" />
+    <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Models\travellist.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
@@ -647,6 +654,7 @@
     <Content Include="scripts\2012.1.214\telerik.window.min.js" />
     <Content Include="scripts\bootstrap-select.js" />
     <Content Include="scripts\bootstrap-select.min.js" />
+    <Content Include="scripts\bootstrap-typeahead.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
     <Content Include="scripts\ContextMenu.js" />
@@ -749,6 +757,11 @@
     <Content Include="Views\Map\_imagePartial.cshtml" />
     <Content Include="Views\Map\_travelListPartial.cshtml" />
     <Content Include="Views\Map\_travelListPlacePartial.cshtml" />
+    <Content Include="Views\Index\Index.cshtml" />
+    <Content Include="Views\Index\_hotViewPartial.cshtml" />
+    <Content Include="Views\Index\_hotHotelPartial.cshtml" />
+    <Content Include="Views\Index\_hotFoodPartial.cshtml" />
+    <Content Include="Views\shared\_BasicSearchDropdownListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
