@@ -110,7 +110,7 @@
                         location: tempWaypt,
                         stopover: true
                     });
-                    $("#InputsWrapper").append('<li id="place.' + gmarkers[markerIndex].gId + '"><a href="#">' + tempWaypt + '</a></li>');
+                    $("#InputsWrapper").append('<li id="place.' + gmarkers[markerIndex].gId + '"><a href="#">' + tempWaypt + '<i class="icon-remove pull-right"></i></a></li>');
 
                     gmarkers[markerIndex].isChecked = true;
                     x++; //text box increment
