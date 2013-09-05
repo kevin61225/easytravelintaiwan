@@ -16,7 +16,8 @@ namespace BootstrapSupport
                 "~/Scripts/jquery.validate.js",
                 "~/scripts/jquery.validate.unobtrusive.js",
                 "~/Scripts/jquery.validate.unobtrusive-custom-for-bootstrap.js",
-                "~/Scripts/InitializeComponent.js"
+                "~/Scripts/InitializeComponent.js",
+                "~/Scripts/jquery.nicescroll.js"
                 ));
 
             bundles.Add(new StyleBundle("~/content/css").Include(
@@ -24,7 +25,8 @@ namespace BootstrapSupport
                 "~/Content/bootstrap-select.css",
                 "~/Content/body.css",
                 "~/Content/bootstrap-responsive.css",
-                "~/Content/bootstrap-mvc-validation.css"
+                "~/Content/bootstrap-mvc-validation.css",
+                "~/Content/nicescroll.css"
                 ));
         }
     }

@@ -619,6 +619,7 @@
     <Content Include="Content\images\FB-logo.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\nicescroll.css" />
     <Content Include="Content\ui.css" />
     <Content Include="Content\ui.progress-bar.css" />
     <Content Include="Global.asax" />
@@ -688,6 +689,7 @@
     <Content Include="scripts\jquery.ajax-progress.js" />
     <Content Include="scripts\jquery.blockUI.js" />
     <Content Include="scripts\jquery.geocomplete.js" />
+    <Content Include="scripts\jquery.nicescroll.js" />
     <Content Include="scripts\jquery.ui.core.js" />
     <Content Include="scripts\jquery.ui.progressbar.js" />
     <Content Include="scripts\jquery.ui.widget.js" />
@@ -762,6 +764,7 @@
     <Content Include="Views\Index\_hotHotelPartial.cshtml" />
     <Content Include="Views\Index\_hotFoodPartial.cshtml" />
     <Content Include="Views\shared\_BasicSearchDropdownListPartial.cshtml" />
+    <Content Include="Views\Map\_placeAlert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

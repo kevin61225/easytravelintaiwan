@@ -2,16 +2,10 @@
 
 @*@Html.Partial("_alerts")*@
 
-@if (TempData["SaveSuccess"] != null)
-{
-    <div id="SaveAlert" class="alert alert-success">
-        <button type="button" class="close" data-dismiss="alert">x</button>
-        <strong>@TempData["SaveSuccess"]</strong>
-    </div>
-}
+@Html.Partial("_placeAlert")
 
 <div>詳細位置</div>
-<div>
+<div class="box" id="box">
     <ul class="nav nav-pills nav-stacked" id="InputsWrapper">
         @foreach (EasyTravelInTaiwan.Models.maplatlng maplatlng in ViewBag.TravelListPlaces)
         {
@@ -20,7 +14,6 @@
             </li>
         }
     </ul>
-
 </div>
 <div>
     <button id="Save-List-Button" class="btn" style="display: none;">儲存</button>
@@ -64,6 +57,7 @@
         //}
     });
 
+    // remove place event
     $("#InputsWrapper li i").click(function (e) {
 
         var place = $(this).parent().parent().attr('id');
@@ -85,7 +79,13 @@
             success: function (data) {
                 if (data.Status != 2) {
                     $("#TravelListPlacePartialView").html(data);
+                    window.setTimeout(function () {
+                        $("#SaveAlert").fadeOut().alert('close');
+                        $("#box").attr("tabindex", 5000);
+                        $("#box").niceScroll({ autohidemode: true });
+                    }, 10000);
                 }
+                $("#box").niceScroll({ autohidemode: true });
             }
         });
     });
@@ -115,7 +115,15 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 $("#TravelListPlacePartialView").html(data);
-                window.setTimeout(function () { $("#SaveAlert").fadeOut(); }, 10000);
+                window.setTimeout(function () {
+                    $("#SaveAlert").fadeOut();
+                    window.setTimeout(function () {
+                        $("#SaveAlert").alert('close');
+                        $("#box").attr("tabindex", 5000);
+                        $("#box").niceScroll({ autohidemode: true });
+                    }, 2000);
+                }, 10000);
+                $("#box").niceScroll({ autohidemode: true });
             },
         });
     });

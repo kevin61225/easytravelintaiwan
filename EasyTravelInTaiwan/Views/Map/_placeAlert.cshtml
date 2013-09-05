@@ -1,0 +1,7 @@
+﻿@if (TempData["SaveSuccess"] != null)
+{
+    <div id="SaveAlert" class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <strong>@TempData["SaveSuccess"]</strong>
+    </div>
+}

@@ -5,4 +5,5 @@
 */
 $(function () {
     $('.selectpicker').selectpicker();
+    $("#box").niceScroll({ autohidemode: true })
 });
