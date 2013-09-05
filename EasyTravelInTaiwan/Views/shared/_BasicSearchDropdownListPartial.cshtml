@@ -1,7 +1,5 @@
 ﻿@model EasyTravelInTaiwan.Models.SearchViewModel
 
-
-
 <style>
     .dropList {
         width: 137px;
@@ -11,17 +9,16 @@
         width: 88px;
     }
     .position {
-    padding:0px 0px 0px 70px;
+        padding:0px 0px 0px 70px;
     }
 
 </style>
-
 
 @using (Html.BeginForm("SearchResult", "Search"))
 {
     <div class="row-fluid">
         <div class="span7 position">
-            @Html.TextBoxFor(model => model.searchWord, new { @class = "span7", @id = "Search", @data = "typeahead", @placeholder = "Search", autocomplete = "off" })
+            @Html.TextBoxFor(model => model.searchWord, new { @class = "span7", @id = "Search", @data = "typeahead", @placeholder = "輸入關鍵字", autocomplete = "off" })
             @Html.ValidationMessageFor(model => model.searchWord)
             @Html.DropDownListFor(model => model.searchType,
             new SelectList(new List<Object>{ 
@@ -31,46 +28,7 @@
                        new { value = 3 , text = "Publisher"}
                     }, "value", "text", 0), new { @class = "dropList" })
             @Html.ValidationMessageFor(model => model.searchType)
-            <button class="btn btn-primary pull-right botton">Search</button>
+            <button class="btn btn-primary pull-right botton">搜尋</button>
         </div>
     </div>
 }
-
-@*<div class="row-fluid">
-    <div class="span8">
-        <form class="form-search">
-            
-                        
-            <div class="btn-group">
-                <button class="btn" id="searchKey" onclick="return false">@ViewBag.searchType</button>
-                <button data-toggle="dropdown" class="btn dropdown-toggle">
-                    <span class="caret"></span>
-                </button>
-
-                <ul class="dropdown-menu">
-                    <li>
-                        <a onClick= "Click(0,'All Product');">All Product</a>
-                    </li>
-                    <li>
-                        <a onClick= "Click(1,'Title');">Title</a>
-                    </li>
-                    <li>
-                        <a onclick = "Click(2,'Author');">Author</a>
-                    </li>
-                    <li>
-                        <a onclick = "Click(3,'Publisher');">Publisher</a>
-                    </li>
-                    <script>
-                        function Click(id, value) {
-                            document.getElementById("searchKey").textContent = value;
-                            {@(ViewBag.searchID) = id;}
-                        }
-                    </script>
-                </ul>
-            </div>
-            
-            @Html.ActionLink("Search", "SearchResult", "Product", new { key = ViewBag.searchID,keyWord = "t"}, new { @onclick = "GetValue()", @class = "btn btn-primary" })
-        </form>
-    </div>
-</div>*@
-

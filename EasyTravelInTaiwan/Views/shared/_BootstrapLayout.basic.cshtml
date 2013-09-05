@@ -9,7 +9,7 @@
     <title>@ViewBag.Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="@Styles.Url("~/content/css")" rel="stylesheet"/>
-    <link href="#" rel="stylesheet" />
+    @*<link href="#" rel="stylesheet" />*@
     @RenderSection("head", required: false)
     @Html.Partial("_html5shiv")
     <script src="~/scripts/fbAuthJScript.js"></script>
@@ -24,13 +24,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
-                <a class="brand" href="#" title="change in _bootstrapLayout.basic.cshtml">EasyTravelInTaiwan</a>
+                <a class="brand" href="#" title="回首頁">EasyTravelInTaiwan</a>
                 <div class="nav-collapse collapse">
                     <ul class="nav">
                         @Html.Navigation()
                     </ul>
                     <div class="nav-collapse collapse">
-                        @*@Html.Partial("_alerts")*@
                         <div class="navbar-form pull-right">
                             @Html.ActionLink("回首頁", "GoHomePage", "Home", null, new { @class = "btn btn-primary" })
                             @if (!User.Identity.IsAuthenticated)
@@ -71,6 +70,7 @@
         </footer>
     </div>
     @Scripts.Render("~/js")
+    <script src="~/scripts/bootstrap-typeahead.js"></script>
     @RenderSection("Scripts", required: false)
     
     <!--Login Page -->
@@ -104,6 +104,14 @@
     // 讓 alert 自動消失 (五秒)
     $(".alert").addClass("in");
     window.setTimeout(function () { $("#MainAlert").fadeOut(); }, 10000);
+
+
+    $('#hotSpotTab a').hover(function (e) {
+        e.preventDefault();
+        console.log("hover");
+        $(this).tab('show');
+    });
+
 </script>
 
 

@@ -1,22 +1,16 @@
 $("#Search").typeahead({
     source: function (query, process) {
-        var bookList = [];
-        //bookArray = {};
-
+        var placeList = [];
         // This is going to make an HTTP post request to the controller
         return $.post('/Search/SearchPlace', { query: query }, function (data) {
-
             // Loop through and push to the array
-            $.each(data, function (i, book) {
-                //bookArray[book.entity] = book;
-                console.log(book);
-                bookList.push(book.entity);
+            $.each(data, function (i, place) {
+                placeList.push(place.entity);
             });
-
             // Process the details
-            process(bookList);
+            process(placeList);
         });
-    },
+    }
     /*
     updater: function (item) {
         //var selectedBook = bookArray[item].entity;

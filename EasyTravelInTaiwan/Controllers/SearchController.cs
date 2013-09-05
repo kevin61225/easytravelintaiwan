@@ -12,9 +12,7 @@ namespace EasyTravelInTaiwan.Controllers
         public ActionResult SearchPlace()
         {
             var entityList = new SearchModel();
-            //entityList.AddAuthorsSearch();
             entityList.AddPlaceSearch();
-            //entityList.AddPublishersSearch();
             return Json(entityList, JsonRequestBehavior.AllowGet);
         }
 
