@@ -64,20 +64,15 @@
     </div>
 </div>*@
 
-<form class="navbar-form pull-left">
-    <div class="span7 position">
-        <input id="inputGeo" type="text" placeholder="Enter a place" maxlength="100" autocomplete="off" />
-        @*<input id="searchBtn" type="button" value="Search" class="btn" />*@
+<form class="form-inline">
+        <input id="inputGeo" type="text" placeholder="輸入地點" maxlength="100" autocomplete="off" />
 
         <div id="placeFilter" class="btn-group filterClass" data-toggle="buttons-checkbox">
             <button type="button" class="btn btn-primary " value="07">食物</button>
             <button type="button" class="btn btn-primary " value="06">旅館</button>
             <button type="button" class="btn btn-primary " value="10">風景</button>
         </div>
-    </div>
 </form>
-<br />
-<br />
 <div class="row">
     <div class="span8">
         <div id="map_canvas" class="map_canvas" aria-setsize="500"></div>

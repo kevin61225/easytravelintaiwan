@@ -1,0 +1,56 @@
+﻿@using BootstrapSupport
+
+<style>
+    .something-else-semantic {
+        margin: auto;
+        width: 80%;
+    }
+
+    .bolck {
+        width: 224px;
+        height: 320px;
+    }
+
+    .a {
+        /*color:#000;*/
+        /*background-color:#fff;*/
+        display: block;
+        width: 160px;
+        height: 300px;
+        /*padding:0px 0px 0px 2px;*/
+    }
+</style>
+<div>
+    <br>
+    <div class="container">
+        <p>搜尋關鍵字: @ViewBag.keyWord ,  符合條件共 @ViewBag.FoundNum 筆結果 </p>
+        <div class="row-fluid">
+            <div class="span8">
+                <ul class="thumbnails">
+                    <br />
+                    <br />
+                    @foreach (EasyTravelInTaiwan.Models.place item in Model)
+                    {
+                        <li class="a">
+                            <div class="thumbnail">
+                                @*<img height="100" style="max-width: 100px" src="@Url.Action("RenderBookImage", "Map", new { id = item.Id })" />*@
+                                <a href="@Url.Action("ViewPointDetails", "Map", new { id = item.Id })" title="@item.Name">
+                                    <img src="@Url.Action("RenderBookImage", "Search", new { id = item.Id })" width="150" height="150" alt="@item.Name"/>
+                                </a>
+                                <div class="caption">
+                                    <h5>
+                                        @Html.ActionLink(item.Name, "ViewPointDetails", "Map", new { id = item.Id }, new { @class = "btn-link" })
+                                    </h5>
+                                    @*<p>
+                                        @Html.DisplayFor(modelItem => item.BookIntro)
+                                    </p>*@
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+

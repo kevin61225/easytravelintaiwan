@@ -9,7 +9,7 @@
         width: 88px;
     }
     .position {
-        padding:0px 0px 0px 70px;
+        padding:0px 0px 0px 0px;
     }
 
 </style>
@@ -17,18 +17,18 @@
 @using (Html.BeginForm("SearchResult", "Search"))
 {
     <div class="row-fluid">
-        <div class="span7 position">
+        <div class="span7 form-inline">
             @Html.TextBoxFor(model => model.searchWord, new { @class = "span7", @id = "Search", @data = "typeahead", @placeholder = "輸入關鍵字", autocomplete = "off" })
             @Html.ValidationMessageFor(model => model.searchWord)
             @Html.DropDownListFor(model => model.searchType,
             new SelectList(new List<Object>{ 
-                       new { value = 0 , text = "All Product"  },
-                       new { value = 1 , text = "Title" },
-                       new { value = 2 , text = "Author"},
-                       new { value = 3 , text = "Publisher"}
+                       new { value = 0 , text = "全部"  },
+                       new { value = 1 , text = "美食" },
+                       new { value = 2 , text = "景點"},
+                       new { value = 3 , text = "旅館"}
                     }, "value", "text", 0), new { @class = "dropList" })
             @Html.ValidationMessageFor(model => model.searchType)
-            <button class="btn btn-primary pull-right botton">搜尋</button>
+            <button class="btn btn-primary botton">搜尋</button>
         </div>
     </div>
 }

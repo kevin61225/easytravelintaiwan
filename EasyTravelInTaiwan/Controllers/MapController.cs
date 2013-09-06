@@ -121,6 +121,7 @@ namespace EasyTravelInTaiwan.Controllers
             {
                 return HttpNotFound();
             }
+            TempData["Title"] = place.Name;
             return View(place);
         }
 

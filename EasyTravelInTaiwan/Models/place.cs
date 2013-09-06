@@ -11,14 +11,29 @@ namespace EasyTravelInTaiwan.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class place
     {
         public place()
         {
             this.placeimages = new HashSet<placeimage>();
         }
-    
+
+        public place(place copiedPlace)
+        {
+            this.placeimages = new HashSet<placeimage>();
+            Id = copiedPlace.Id;
+            Name = copiedPlace.Name;
+            Citynumber = copiedPlace.Citynumber;
+            Typenumber = copiedPlace.Typenumber;
+            Description = copiedPlace.Description;
+            Telphone = copiedPlace.Telphone;
+            Address = copiedPlace.Address;
+            Url = copiedPlace.Url;
+            Carmethod = copiedPlace.Carmethod;
+            Busmethod = copiedPlace.Busmethod;
+        }
+
         public string Id { get; set; }
         public string Name { get; set; }
         public string Citynumber { get; set; }
@@ -29,7 +44,7 @@ namespace EasyTravelInTaiwan.Models
         public string Url { get; set; }
         public string Carmethod { get; set; }
         public string Busmethod { get; set; }
-    
+
         public virtual city city { get; set; }
         public virtual viewtype viewtype { get; set; }
         public virtual ICollection<placeimage> placeimages { get; set; }

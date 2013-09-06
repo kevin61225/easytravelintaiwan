@@ -369,6 +369,7 @@
     </Compile>
     <Compile Include="Models\Repository\GenericRepository.cs" />
     <Compile Include="Models\SearchModel.cs" />
+    <Compile Include="Models\SearchResultModel.cs" />
     <Compile Include="Models\SearchTypeAheadEntity.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Models\travellist.cs">
@@ -765,6 +766,10 @@
     <Content Include="Views\Index\_hotFoodPartial.cshtml" />
     <Content Include="Views\shared\_BasicSearchDropdownListPartial.cshtml" />
     <Content Include="Views\Map\_placeAlert.cshtml" />
+    <Content Include="Views\Search\SearchCategoryResult.cshtml" />
+    <Content Include="Views\Search\SearchLanguageResult.cshtml" />
+    <Content Include="Views\Search\SearchResult.cshtml" />
+    <Content Include="Views\Search\SearchResultPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

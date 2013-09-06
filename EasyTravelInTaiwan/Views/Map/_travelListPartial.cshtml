@@ -2,8 +2,6 @@
 
 @*@Html.Partial("_alerts")*@
 
-
-
 <h3>我的旅遊清單</h3>
 <div>
 
@@ -14,24 +12,25 @@
             <strong>@TempData["CreateList"]</strong>
         </div>
     }
-
-    <select id="TravelListSelectPicker" class="selectpicker">
+    <div class="form-inline">
+        <select id="TravelListSelectPicker" class="selectpicker">
+            @if (Model.Count > 0)
+            {
+                foreach (var travellist in Model)
+                {
+                <option value="List-@travellist.Tid">@travellist.TName</option>
+                }
+            }
+            else
+            { 
+                <option value="none">空的</option>
+            }
+        </select>
         @if (Model.Count > 0)
         {
-            foreach (var travellist in Model)
-            {
-            <option value="List-@travellist.Tid">@travellist.TName</option>
-            }
+            <a href="#DeleteCurrentListModal" role="button" class="btn" data-toggle="modal" id="deleteButton">刪除</a>
         }
-        else
-        { 
-            <option value="none">空的</option>
-        }
-    </select>
-    @if (Model.Count > 0)
-    {
-        <a href="#DeleteCurrentListModal" role="button" class="btn" data-toggle="modal" id="deleteButton">刪除</a>
-    }
+    </div>
     <br />
     <a href="#CreateNewListModal" role="button" class="btn" data-toggle="modal">建立新的規劃</a>
 </div>
@@ -96,22 +95,22 @@
         //console.log(listName);
         $.ajax({
             url: "@Url.Action("CreateNewList")",
-                type: "POST",
-                data: JSON.stringify({ travelListName: listName }), //if you need to post Model data, use this
-                contentType: 'application/json; charset=utf-8',
-                success: function (result) {
-                    $("#TravelListPartialView").html(result);
-                    $("#TravelListSelectPicker option").last().attr("selected", "selected");
-                    RefreshPlaceList();
-                    window.setTimeout(function () { $("#CreateAlert").fadeOut(); }, 10000);
-                }
-            });
+            type: "POST",
+            data: JSON.stringify({ travelListName: listName }), //if you need to post Model data, use this
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                $("#TravelListPartialView").html(result);
+                $("#TravelListSelectPicker option").last().attr("selected", "selected");
+                RefreshPlaceList();
+                window.setTimeout(function () { $("#CreateAlert").fadeOut(); }, 10000);
+            }
         });
+    });
 
-        $("#Delete-List-Button").click(function () {
-            var currentListItemNumber = $("#TravelListSelectPicker").find(":selected").val();
-            $.ajax({
-                url: "@Url.Action("DeleteList")",
+    $("#Delete-List-Button").click(function () {
+        var currentListItemNumber = $("#TravelListSelectPicker").find(":selected").val();
+        $.ajax({
+            url: "@Url.Action("DeleteList")",
                 type: "POST",
                 data: JSON.stringify({ deleteListId: currentListItemNumber }),
                 contentType: 'application/json; charset=utf-8',
@@ -147,24 +146,24 @@
             });
         });
 
-        $(document).on('input', '#TravelListName', function (e) {
-            var $this = $(this).val();
-            if ($this != '') {
-                $("#Create-List-Button").attr("disabled", false);
-            }
-            else {
-                $("#Create-List-Button").attr("disabled", true);
-            }
-        });
+            $(document).on('input', '#TravelListName', function (e) {
+                var $this = $(this).val();
+                if ($this != '') {
+                    $("#Create-List-Button").attr("disabled", false);
+                }
+                else {
+                    $("#Create-List-Button").attr("disabled", true);
+                }
+            });
 
-        function RefreshPlaceList() {
-            var str = $("#TravelListSelectPicker option").last().attr("value");
-            var n = str.split("-");
-            selectedList = n[1];
-            console.log(selectedList);
+            function RefreshPlaceList() {
+                var str = $("#TravelListSelectPicker option").last().attr("value");
+                var n = str.split("-");
+                selectedList = n[1];
+                console.log(selectedList);
 
-            $.ajax({
-                url: "@Url.Action("OnChangeTravelList", "Map")",
+                $.ajax({
+                    url: "@Url.Action("OnChangeTravelList", "Map")",
                 type: "POST",
                 data: JSON.stringify({ selectedList: selectedList }), //if you need to post Model data, use this
                 contentType: 'application/json; charset=utf-8',
