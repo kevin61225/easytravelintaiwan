@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using EasyTravelInTaiwan.Models;
 using EasyTravelInTaiwan.Models.Repository;
+using BootstrapSupport.HtmlHelpers;
 //using EasyTravelInTaiwan.Service;
 
 namespace EasyTravelInTaiwan.Controllers
@@ -18,13 +19,6 @@ namespace EasyTravelInTaiwan.Controllers
             return Json(entityList, JsonRequestBehavior.AllowGet);
         }
 
-        //public void SearchResult()                  //測試用
-        //{
-        //    GenericRepository<place> test = new GenericRepository<place>();
-        //    //test.Get(o => o.ProductID == 3).Quantity += 200;
-        //    //test.Update(test.Get(o => o.ProductID == 3));
-        //}
-
         public void CartTest(int key = 0)
         {
             ViewBag.searchSelect = key;
@@ -37,8 +31,10 @@ namespace EasyTravelInTaiwan.Controllers
             return View();
         }
 
-        public ActionResult SearchResultPartial(SearchViewModel searchViewModel)
+        public ActionResult SearchResultPartial(SearchViewModel searchViewModel, int page = 1)
         {
+            var pageSize = 15;
+
             SearchResultModel model = new SearchResultModel();
             if (searchViewModel.searchWord == null)
             {
@@ -64,13 +60,17 @@ namespace EasyTravelInTaiwan.Controllers
                     //    break;
                 }
             }
+
             ViewBag.keyWord = searchViewModel.searchWord;
+            ViewBag.key = searchViewModel.searchType;
             ViewBag.FoundNum = model.Count();
-            return PartialView("SearchResultPartial", model);
+
+            return PartialView("SearchResultPartial", model.ToPagedList(page, pageSize));
         }
 
-        public FileContentResult RenderBookImage(int id)
+        public ActionResult RenderBookImage(int id)
         {
+            
             string temp = id.ToString();
             try
             {
@@ -79,10 +79,9 @@ namespace EasyTravelInTaiwan.Controllers
             }
             catch
             {
-                byte[] img = null;
-                return File(img, "image/jpeg");
+                return new FilePathResult("~/Content/images/ImageNotFound.jpg", "image/jpg");
             }
-            
+                
         }
         public ActionResult SearchDropdownList()
         {

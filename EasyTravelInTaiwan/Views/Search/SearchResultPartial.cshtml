@@ -1,4 +1,6 @@
 ﻿@using BootstrapSupport
+@using BootstrapSupport.HtmlHelpers
+@model BootstrapSupport.HtmlHelpers.IPagedList<EasyTravelInTaiwan.Models.place>
 
 <style>
     .something-else-semantic {
@@ -11,46 +13,58 @@
         height: 320px;
     }
 
-    .a {
+    .searchItemBorder {
         /*color:#000;*/
         /*background-color:#fff;*/
         display: block;
-        width: 160px;
-        height: 300px;
+        /*width: 160px;
+        height: 300px;*/
+        /*border-style:solid;
+        border-width:1px;*/
         /*padding:0px 0px 0px 2px;*/
     }
+    li:hover {
+        background-color: #ccc;
+        padding:0px 0px 0px 25px;
+    }
+
 </style>
 <div>
     <br>
     <div class="container">
-        <p>搜尋關鍵字: @ViewBag.keyWord ,  符合條件共 @ViewBag.FoundNum 筆結果 </p>
-        <div class="row-fluid">
-            <div class="span8">
-                <ul class="thumbnails">
-                    <br />
-                    <br />
-                    @foreach (EasyTravelInTaiwan.Models.place item in Model)
-                    {
-                        <li class="a">
-                            <div class="thumbnail">
-                                @*<img height="100" style="max-width: 100px" src="@Url.Action("RenderBookImage", "Map", new { id = item.Id })" />*@
-                                <a href="@Url.Action("ViewPointDetails", "Map", new { id = item.Id })" title="@item.Name">
-                                    <img src="@Url.Action("RenderBookImage", "Search", new { id = item.Id })" width="150" height="150" alt="@item.Name"/>
-                                </a>
-                                <div class="caption">
-                                    <h5>
-                                        @Html.ActionLink(item.Name, "ViewPointDetails", "Map", new { id = item.Id }, new { @class = "btn-link" })
-                                    </h5>
-                                    @*<p>
-                                        @Html.DisplayFor(modelItem => item.BookIntro)
-                                    </p>*@
-                                </div>
+        <p>搜尋關鍵字: <font color="red">@ViewBag.keyWord</font>  ,  符合條件共 <font color="red">@ViewBag.FoundNum</font> 筆結果 </p>
+        <hr />
+        @*<div class="row-fluid">*@
+        @*<div class="span8">*@
+        <ul>
+            @foreach (EasyTravelInTaiwan.Models.place item in Model)
+            {                
+                <li class="searchItemBorder">
+                    <div class="caption">
+                        <h5>
+                            @Html.ActionLink(item.Name, "ViewPointDetails", "Map", new { id = item.Id }, new { @class = "btn-link" })
+                        </h5>
+                    </div>
+                    <div class="row">
+                        <div class="span3">
+                        <a href="@Url.Action("ViewPointDetails", "Map", new { id = item.Id })" title="@item.Name">                         
+                            <img src="@Url.Action("RenderBookImage", "Search", new { id = item.Id })" width="150" height="150" alt="@item.Name"/>            
+                        </a>
                             </div>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </div>
+                        <div class="span8">
+                            @Html.Raw(item.Description)
+                        </div>
+                    </div>
+                    <hr />
+                </li>
+            }
+        </ul>
+        @*</div>*@
+        @*</div>*@
+        @Html.Pager(Model.PageIndex,
+            Model.TotalPages,
+            x => Url.Action("SearchResult", new { searchWord = ViewBag.keyWord, searchType = ViewBag.key, page = x }),
+            "pagination-centered")
     </div>
 </div>
 

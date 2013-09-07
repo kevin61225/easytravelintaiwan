@@ -1,13 +1,12 @@
 ﻿@using BootstrapSupport
 
 @{
-    ViewBag.Title = "搜尋結果 - Easy Travel In Taiwan";
+    ViewBag.Title = "搜尋結果 - " + @ViewBag.keyWord + " - Easy Travel In Taiwan";
 }
 
-@*@{ Html.RenderAction("SearchResultPartial", "Product", new { searchType = ViewBag.key, searchWord = ViewBag.keyWord }); }*@
 <div id="SearchTextbox">
     @Html.Action("SearchDropdownList", "Search")
 </div>
 <div id="SearchResult">
-    @Html.Action("SearchResultPartial", "Search", new { searchType = ViewBag.key, searchWord = ViewBag.keyWord })
+    @Html.Action("SearchResultPartial", "Search", new { searchType = ViewBag.key, searchWord = ViewBag.keyWord})
 </div>

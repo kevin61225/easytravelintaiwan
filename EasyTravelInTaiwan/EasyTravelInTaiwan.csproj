@@ -616,6 +616,7 @@
     <Content Include="Content\Icons\loader-indic.gif" />
     <Content Include="Content\Icons\loader-snake.gif" />
     <Content Include="Content\Icons\loader-snake1.gif" />
+    <Content Include="Content\images\ImageNotFound.jpg" />
     <Content Include="Content\images\bg-tile.png" />
     <Content Include="Content\images\FB-logo.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
