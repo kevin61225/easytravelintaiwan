@@ -72,6 +72,7 @@ namespace EasyTravelInTaiwan.Controllers
         {
             
             string temp = id.ToString();
+
             try
             {
                 byte[] img = db.placeimages.Where(o => o.Id == temp).First().Image;
@@ -79,7 +80,7 @@ namespace EasyTravelInTaiwan.Controllers
             }
             catch
             {
-                return new FilePathResult("~/Content/images/ImageNotFound.jpg", "image/jpg");
+                return new FilePathResult("/Content/images/ImageNotFound.jpg", "image/jpg");
             }
                 
         }

@@ -1,38 +1,49 @@
 ﻿@{
     ViewBag.Title = "Easy Travel In Taiwan";
 }
+<style>
+    .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        border-top: 1px solid #ddd;
+       
+        max-height: 500px;
+        max-width: 800px;
+        padding: 10px;
+    }
+
+    .nav-tabs {
+        font-family: "微軟正黑體";
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+
+    .nav {
+        border-bottom: none;
+    }
+
+    
+    .searchItemBorder {
+        display: block;
+    }
+</style>
 
 @Html.Action("SearchDropdownList", "Search")
 
-  <ul id="hotSpotTab" class="nav nav-tabs">
-    <li class="active"><a href="#tab1" data-toggle="tab">熱門景點</a></li>
-    <li><a href="#tab2" data-toggle="tab">熱門美食</a></li>
-    <li><a href="#tab3" data-toggle="tab">熱門旅館</a></li>
-  </ul>
-  <div class="tab-content">
-    <div class="tab-pane active" id="tab1">
-      @Html.Partial("_hotViewPartial")
+<ul id="hotSpotTab" class="nav nav-tabs">
+    <li class="active"><a href="#ViewTab" data-toggle="tab">熱門景點</a></li>
+    <li><a href="#FoodTab2" data-toggle="tab">熱門美食</a></li>
+    <li><a href="#HotelTab3" data-toggle="tab">熱門旅館</a></li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane active" id="ViewTab">
+        @Html.Action("HotViewPartial")
     </div>
-    <div class="tab-pane" id="tab2">
-      @Html.Partial("_hotFoodPartial")
+    <div class="tab-pane" id="FoodTab2">
+        @Html.Action("HotFoodPartial")
     </div>
-      <div class="tab-pane" id="tab3">
-      @Html.Partial("_hotHotelPartial")
+    <div class="tab-pane" id="HotelTab3">
+        @Html.Action("HotHotelPartial")
     </div>
-  </div>
-
-<script type="text/javascript">
-
-
-    //$(document).ready(function (e) {
-
-    //    $('#hotSpotTab a').hover(function (e) {
-    //        //e.preventDefault();
-    //        console.log("hover");
-    //        $(this).tab('show');
-    //    });
-
-    //});
-
-
-</script>
+</div>

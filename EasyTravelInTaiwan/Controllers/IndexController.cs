@@ -17,7 +17,34 @@ namespace EasyTravelInTaiwan.Controllers
             return View();
         }
 
+        public ActionResult HotFoodPartial()
+        {
 
+            SearchResultModel model = new SearchResultModel();
 
+            model.TopRatingFoodByAmount(5);
+
+            return PartialView("_hotFoodPartial", model);
+        }
+
+        public ActionResult HotHotelPartial()
+        {
+
+            SearchResultModel model = new SearchResultModel();
+
+            model.TopRatingFoodByAmount(5);
+
+            return PartialView("_hotHotelPartial", model);
+        }
+
+        public ActionResult HotViewPartial()
+        {
+
+            SearchResultModel model = new SearchResultModel();
+
+            model.TopRatingFoodByAmount(5);
+
+            return PartialView("_hotViewPartial", model);
+        }
     }
 }

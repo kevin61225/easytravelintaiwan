@@ -1,1 +1,19 @@
 ﻿<p>I'm View</p>
+
+<ul id="HotView">
+    @foreach (EasyTravelInTaiwan.Models.place item in Model)
+    {                
+        <li class="searchItemBorder">
+            <div class="row">
+                <div class="span2" style="max-width:150px">
+                    <a href="@Url.Action("ViewPointDetails", "Map", new { id = item.Id })" title="@item.Name">
+                        <img src="@Url.Action("RenderBookImage", "Search", new { id = item.Id })" width="150" height="150" alt="@item.Name"/>
+                    </a>
+                </div>
+                <div class="span8" style="max-width:550px">
+                    @Html.Raw(item.Description)
+                </div>
+            </div>
+        </li>
+    }
+</ul>

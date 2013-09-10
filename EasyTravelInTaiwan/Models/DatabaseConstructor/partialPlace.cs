@@ -21,5 +21,10 @@ namespace EasyTravelInTaiwan.Models
             Carmethod = copiedPlace.Carmethod;
             Busmethod = copiedPlace.Busmethod;
         }
+
+        public string ShortDescription
+        {
+            get { return (Description.Length > 100) ? Description.Substring(0, 100) + "  ..." : Description; }
+        }
     }
 }

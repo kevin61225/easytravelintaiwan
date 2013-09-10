@@ -5,20 +5,27 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
 {
     public class SearchResultModel  :List<place>
     {
-        //public void TopRatingByAmount(int resultCount)
-        //{
-        //    using (var db = new ProjectEntities())
-        //    {
-        //        var query = (from ratingItems in db.ratings
-        //                     group ratingItems by ratingItems.ProductID into ratingItemsGrp
-        //                     orderby ratingItemsGrp.Average(o => o.Score) descending
-        //                     select ratingItemsGrp.Key).Take(resultCount).ToList();
-        //        foreach (var item in query)
-        //        {
-        //            Add(new book(db.products.Find(item).book));
-        //        }
-        //    }
-        //}
+        public void TopRatingFoodByAmount(int resultCount)
+        {
+            using (var db = new ProjectEntities())
+            {
+                var query = (from ratingItems in db.ratings
+                             group ratingItems by ratingItems.Sno into ratingItemsGrp
+                             orderby ratingItemsGrp.Sum(o => o.Point) descending
+                             select ratingItemsGrp.Key).Take(resultCount).ToList();
+                foreach (var item in query)
+                {
+                    try
+                    {
+                        Add(new place(db.places.Where(o => o.Id == item).Single()));
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+        }
+
         //public void TopSellByAmount(int resultCount)
         //{
         //    using (var db = new ProjectEntities())

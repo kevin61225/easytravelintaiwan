@@ -368,6 +368,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ProjectModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\rating.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Repository\GenericRepository.cs" />
     <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Models\SearchResultModel.cs" />

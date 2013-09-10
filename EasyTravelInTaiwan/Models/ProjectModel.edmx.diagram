@@ -6,7 +6,6 @@
     <edmx:Diagrams>
       <Diagram DiagramId="fd3bdcf6264c461aae7195b8821fabf8" Name="圖表1">
         <EntityTypeShape EntityType="ProjectModel.city" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.food" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectModel.maplatlng" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectModel.member" Width="1.5" PointX="2.75" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectModel.place" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
@@ -19,6 +18,9 @@
         <AssociationConnector Association="ProjectModel.place_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectModel.placeimage_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectModel.travellistplace_ibfk_1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ProjectModel.rating" Width="1.5" PointX="5.92514158316196" PointY="21.287562633532826" />
+        <AssociationConnector Association="ProjectModel.rating_ibfk_1" />
+        <EntityTypeShape EntityType="ProjectModel.food" Width="1.5" PointX="5.0095909093551292" PointY="19.251649105572909" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
