@@ -13,60 +13,60 @@
     </ul>
 </h3>
 <hr />
-
+<div id="AverageRatingPartial">
+    @Html.Action("PlaceRatePartial", "Rating", new { sno = Model.Id} )
+</div>
 <div>
     <div>
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.viewtype)
+            <p>類型</p>
         </div>
         <div class="display-field">
             @Html.DisplayFor(model => model.viewtype.Typename)
         </div>
-
+        <br />
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.Description)
+            <p>敘述</p>
         </div>
         <div class="display-field">
             @{
                 @Html.Raw(Model.Description)
             }
-
         </div>
-
+        <br />
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.Telphone)
+            <p>連絡電話</p>
         </div>
         <div class="display-field">
             @Html.DisplayFor(model => model.Telphone)
         </div>
-
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.Address)
+            <p>地址</p>
         </div>
         <div class="display-field">
             @Html.DisplayFor(model => model.Address)
         </div>
-
+        <br />
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.Url)
+            <p>網站連結</p>
         </div>
         <div class="display-field">
-            @Html.DisplayFor(model => model.Url)
+            <a target="_blank" href="@Html.DisplayFor(model => model.Url)">@Html.DisplayFor(model => model.Url)</a>
         </div>
-
+        <br />
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.Carmethod)
+            <p>乘車資訊</p>
         </div>
         <div class="display-field">
             @Html.Raw(Model.Carmethod)
         </div>
-
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.Busmethod)
+            <p>其他方法</p>
         </div>
         <div class="display-field">
             @Html.Raw(Model.Busmethod)
         </div>
+        <br />
     </div>
     <div>
         <div class="display-label">
@@ -80,7 +80,9 @@
     </div>
 </div>
 
+<div class="hide">
 <p>
     @Html.ActionLink("Edit", "ViewPointEdit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "ViewPointList")
 </p>
+    </div>

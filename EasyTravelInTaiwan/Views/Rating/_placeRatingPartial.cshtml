@@ -1,0 +1,11 @@
+﻿綜合評價
+<p>
+    @if (ViewBag.RateSum != -1)
+    {
+        @ViewBag.RateSum;
+    }
+    else
+    {
+        @Html.DisplayName("尚無評分");
+    }
+</p>
