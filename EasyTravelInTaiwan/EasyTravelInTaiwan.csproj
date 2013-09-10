@@ -334,6 +334,7 @@
     <Compile Include="Models\city.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DatabaseConstructor\partialPlace.cs" />
     <Compile Include="Models\food.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>

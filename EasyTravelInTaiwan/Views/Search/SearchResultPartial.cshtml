@@ -23,7 +23,7 @@
         border-width:1px;*/
         /*padding:0px 0px 0px 2px;*/
     }
-    li:hover {
+    #results li:hover {
         background-color: #ccc;
         padding:0px 0px 0px 25px;
     }
@@ -36,7 +36,7 @@
         <hr />
         @*<div class="row-fluid">*@
         @*<div class="span8">*@
-        <ul>
+        <ul id="results">
             @foreach (EasyTravelInTaiwan.Models.place item in Model)
             {                
                 <li class="searchItemBorder">
