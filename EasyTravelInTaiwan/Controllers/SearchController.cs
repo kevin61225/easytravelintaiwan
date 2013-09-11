@@ -68,19 +68,19 @@ namespace EasyTravelInTaiwan.Controllers
             return PartialView("SearchResultPartial", model.ToPagedList(page, pageSize));
         }
 
-        public ActionResult RenderBookImage(int id)
+        public ActionResult RenderBookImage(string id)
         {
             
             string temp = id.ToString();
-
+            place place = db.places.Where(o => o.Id == id).Single();
             try
             {
-                byte[] img = db.placeimages.Where(o => o.Id == temp).First().Image;
+                byte[] img = place.placeimages.First().Image;
                 return File(img, "image/jpeg");
             }
             catch
             {
-                return new FilePathResult("/Content/images/ImageNotFound.jpg", "image/jpg");
+                return new FilePathResult("Content/images/ImageNotFound.jpg", "image/jpg");
             }
                 
         }

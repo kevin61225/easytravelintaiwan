@@ -1,10 +1,12 @@
 ﻿@model EasyTravelInTaiwan.Models.place
 
 @{
-    ViewBag.Title = TempData["Title"] +"- Easy Travel In Taiwan";
+    ViewBag.Title = TempData["Title"] + "- Easy Travel In Taiwan";
     Layout = "~/Views/shared/_BootstrapLayout.basic.cshtml";
 }
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
 
 <h3>
     <ul class="breadcrumb">
@@ -13,8 +15,11 @@
     </ul>
 </h3>
 <hr />
+<div id="slideShow" class="span5 pull-right ">
+    @Html.Partial("_imageSlidePartial", Model.placeimages)
+</div>
 <div id="AverageRatingPartial">
-    @Html.Action("PlaceRatePartial", "Rating", new { sno = Model.Id} )
+    @Html.Action("PlaceRatePartial", "Rating", new { sno = Model.Id })
 </div>
 <div>
     <div>
@@ -81,8 +86,8 @@
 </div>
 
 <div class="hide">
-<p>
-    @Html.ActionLink("Edit", "ViewPointEdit", new { id = Model.Id }) |
+    <p>
+        @Html.ActionLink("Edit", "ViewPointEdit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "ViewPointList")
-</p>
-    </div>
+    </p>
+</div>

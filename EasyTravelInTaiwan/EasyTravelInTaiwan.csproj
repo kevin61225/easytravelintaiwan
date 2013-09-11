@@ -624,7 +624,6 @@
     <Content Include="Content\images\ImageNotFound.jpg" />
     <Content Include="Content\images\bg-tile.png" />
     <Content Include="Content\images\FB-logo.png" />
-    <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\nicescroll.css" />
     <Content Include="Content\ui.css" />
@@ -660,6 +659,7 @@
     <Content Include="scripts\2012.1.214\telerik.treeview.min.js" />
     <Content Include="scripts\2012.1.214\telerik.upload.min.js" />
     <Content Include="scripts\2012.1.214\telerik.window.min.js" />
+    <Content Include="scripts\bootstrap-carousel.js" />
     <Content Include="scripts\bootstrap-select.js" />
     <Content Include="scripts\bootstrap-select.min.js" />
     <Content Include="scripts\bootstrap-typeahead.js" />
@@ -778,6 +778,7 @@
     <Content Include="Views\Search\SearchResultPartial.cshtml" />
     <Content Include="Views\Rating\Index.cshtml" />
     <Content Include="Views\Rating\_placeRatingPartial.cshtml" />
+    <Content Include="Views\Map\_imageSlidePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
