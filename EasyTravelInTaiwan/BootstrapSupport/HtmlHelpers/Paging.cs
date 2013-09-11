@@ -53,7 +53,7 @@ namespace BootstrapSupport.HtmlHelpers
             int pageStart = 1;
             int pageEnd = totalPages;
             int halfPagerSize = maxPagesCount / 2;
-            int cp = currentPage + 1;
+            int cp = currentPage + 1;   // current page 從0到totalpage - 1
             if (totalPages > maxPagesCount)  // 大於7頁
             {
                 // page 在全頁數的前三個
@@ -80,18 +80,49 @@ namespace BootstrapSupport.HtmlHelpers
 
             var ul = new TagBuilder("ul");
 
-            //var firstLi = new TagBuilder("li");
-            //var innerSpan = new TagBuilder("span");
-            //var innerA = new TagBuilder("a");
+            var firstLi = new TagBuilder("li");
+            {
+                var innerSpan = new TagBuilder("span");
+                var innerA = new TagBuilder("a");
+                var icon = new TagBuilder("i");
+                icon.AddCssClass("icon-backward");
 
-            //var iconFirst = new TagBuilder("i");
-            //iconFirst.AddCssClass("icon-backward");
+                if (cp != 1)
+                {
+                    innerA.MergeAttribute("href", pageUrl(1));
+                    innerA.InnerHtml += icon.ToString();
+                    firstLi.InnerHtml += innerA;
+                    ul.InnerHtml += firstLi;
+                }
+                else
+                {
+                    innerSpan.InnerHtml += icon;
+                    firstLi.InnerHtml += innerSpan;
+                    ul.InnerHtml += firstLi;
+                }
+            }
 
-            //firstLi.InnerHtml += iconFirst;
-            //ul.InnerHtml += firstLi;
+            var previousLi = new TagBuilder("li");
+            {
+                var innerSpan = new TagBuilder("span");
+                var innerA = new TagBuilder("a");
+                var icon = new TagBuilder("i");
+                icon.AddCssClass("icon-chevron-left");
 
-            //var previous = new TagBuilder("li");
-            //ul.InnerHtml += previous;
+                if (cp != 1)
+                {
+                    innerA.MergeAttribute("href", pageUrl(cp - 1));
+                    innerA.InnerHtml += icon.ToString();
+                    previousLi.InnerHtml += innerA;
+                    ul.InnerHtml += previousLi;
+                }
+                else
+                {
+                    innerSpan.InnerHtml += icon;
+                    previousLi.InnerHtml += innerSpan;
+                    ul.InnerHtml += previousLi;
+                }
+            }
 
             for (var i = pageStart; i < pageEnd + 1; i++)
             {
@@ -108,11 +139,49 @@ namespace BootstrapSupport.HtmlHelpers
                 ul.InnerHtml += li;
             }
 
-            var next = new TagBuilder("li");
-            ul.InnerHtml += next;
+            var nextLi = new TagBuilder("li");
+            {
+                var innerSpan = new TagBuilder("span");
+                var innerA = new TagBuilder("a");
+                var icon = new TagBuilder("i");
+                icon.AddCssClass("icon-chevron-right");
 
-            var last = new TagBuilder("li");
-            ul.InnerHtml += last;
+                if (cp != totalPages)
+                {
+                    innerA.MergeAttribute("href", pageUrl(cp + 1));
+                    innerA.InnerHtml += icon.ToString();
+                    nextLi.InnerHtml += innerA;
+                    ul.InnerHtml += nextLi;
+                }
+                else
+                {
+                    innerSpan.InnerHtml += icon;
+                    nextLi.InnerHtml += innerSpan;
+                    ul.InnerHtml += nextLi;
+                }
+            }
+
+            var lastLi = new TagBuilder("li");
+            {
+                var innerSpan = new TagBuilder("span");
+                var innerA = new TagBuilder("a");
+                var icon = new TagBuilder("i");
+                icon.AddCssClass("icon-forward");
+
+                if (cp != totalPages)
+                {
+                    innerA.MergeAttribute("href", pageUrl(totalPages));
+                    innerA.InnerHtml += icon.ToString();
+                    lastLi.InnerHtml += innerA;
+                    ul.InnerHtml += lastLi;
+                }
+                else
+                {
+                    innerSpan.InnerHtml += icon;
+                    lastLi.InnerHtml += innerSpan;
+                    ul.InnerHtml += lastLi;
+                }
+            }
 
             div.InnerHtml = ul.ToString();
 
