@@ -42,12 +42,37 @@ namespace BootstrapSupport.HtmlHelpers
         /// <param name="additionalPagerCssClass">Additional classes for the navigation div (e.g. "pagination-right pagination-mini")</param>
         /// <returns></returns>
         public static MvcHtmlString Pager(this HtmlHelper helper,
-            int currentPage, int totalPages, 
-            Func<int, string> pageUrl, 
+            int currentPage, int totalPages,
+            Func<int, string> pageUrl,
             string additionalPagerCssClass = "")
         {
             if (totalPages <= 1)
                 return MvcHtmlString.Empty;
+
+            int maxPagesCount = 7;
+            int pageStart = 1;
+            int pageEnd = totalPages;
+            int halfPagerSize = maxPagesCount / 2;
+            int cp = currentPage + 1;
+            if (totalPages > maxPagesCount)  // 大於7頁
+            {
+                // page 在全頁數的前三個
+                if (cp <= halfPagerSize)
+                {
+                    pageEnd = maxPagesCount;
+                }
+                // page 在全頁數的後三個
+                else if (cp >= totalPages - halfPagerSize)
+                {
+                    pageStart = totalPages - maxPagesCount + 1;
+                }
+                // page 在全頁數的中間部分
+                else
+                {
+                    pageStart = cp - halfPagerSize;
+                    pageEnd = cp + halfPagerSize;
+                }
+            }
 
             var div = new TagBuilder("div");
             div.AddCssClass("pagination");
@@ -55,7 +80,20 @@ namespace BootstrapSupport.HtmlHelpers
 
             var ul = new TagBuilder("ul");
 
-            for (var i = 1; i < totalPages + 1; i++)
+            //var firstLi = new TagBuilder("li");
+            //var innerSpan = new TagBuilder("span");
+            //var innerA = new TagBuilder("a");
+
+            //var iconFirst = new TagBuilder("i");
+            //iconFirst.AddCssClass("icon-backward");
+
+            //firstLi.InnerHtml += iconFirst;
+            //ul.InnerHtml += firstLi;
+
+            //var previous = new TagBuilder("li");
+            //ul.InnerHtml += previous;
+
+            for (var i = pageStart; i < pageEnd + 1; i++)
             {
                 var li = new TagBuilder("li");
                 if (i == (currentPage + 1))
@@ -66,9 +104,15 @@ namespace BootstrapSupport.HtmlHelpers
                 a.SetInnerText(i.ToString());
 
                 li.InnerHtml = a.ToString();
-                
+
                 ul.InnerHtml += li;
             }
+
+            var next = new TagBuilder("li");
+            ul.InnerHtml += next;
+
+            var last = new TagBuilder("li");
+            ul.InnerHtml += last;
 
             div.InnerHtml = ul.ToString();
 
@@ -127,9 +171,9 @@ namespace BootstrapSupport.HtmlHelpers
 
         public static IEnumerable<T> GetPage<T>(this IEnumerable<T> source, int pageIndex, int pageSize)
         {
-            return source.Skip(pageIndex*pageSize).Take(pageSize);
+            return source.Skip(pageIndex * pageSize).Take(pageSize);
         }
-        
+
         // You can create your own paging extension that delegates to your
         // persistence layer such as NHibernate or Entity Framework.
         // This is an example how an `IPagedList<T>` can be created from 
@@ -152,5 +196,5 @@ namespace BootstrapSupport.HtmlHelpers
             return list;
         }
         */
-    }   
+    }
 }
