@@ -11,6 +11,8 @@ using System.Data.Entity.Validation;
 using System.Net;
 using System.Net.Mail;
 using WebMatrix.WebData;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace EasyTravelInTaiwan.Controllers
 {
@@ -26,6 +28,7 @@ namespace EasyTravelInTaiwan.Controllers
         [Authorize(Roles = "Admin, Clerk, Customer")]
         public ActionResult Index(string returnUrl)
         {
+           
             ViewBag.ReturnUrl = returnUrl;
             member tempMember;
             try
@@ -79,9 +82,10 @@ namespace EasyTravelInTaiwan.Controllers
         private bool AutoLogin(LoginModel model)
         {
             member user;
+            string decodedPw = Encrypt(model.Password, true);
             try
             {
-                user = db.members.Where(o => o.Account == model.UserName).Where(o => o.Password == model.Password).Single();
+                user = db.members.Where(o => o.Account == model.UserName).Where(o => o.Password == decodedPw).Single();
             }
             catch
             {
@@ -91,7 +95,6 @@ namespace EasyTravelInTaiwan.Controllers
 
             // 登入時清空所有 Session 資料
             Session.RemoveAll();
-
             string userData = CheckRole(user.Role);
 
             string strUsername = user.Account;
@@ -164,6 +167,7 @@ namespace EasyTravelInTaiwan.Controllers
             if (ModelState.IsValid)
             {
                 member.Role = 2;
+                member.Password = Encrypt(member.Password, true);
                 db.members.Add(member);
                 try
                 {
@@ -206,6 +210,7 @@ namespace EasyTravelInTaiwan.Controllers
         {
             try
             {
+                member.Password = Encrypt(member.Password, true);
                 member.Role = 2;
                 db.members.Add(member);
                 db.SaveChanges();
@@ -417,11 +422,12 @@ namespace EasyTravelInTaiwan.Controllers
 
             for (int i = 0; i < memberList.Count; i++)
             {
+                string pw = memberList[i].Password;
                 MailMessage msg = new MailMessage();
                 msg.From = new MailAddress("taipetechbookstore@gmail.com");
                 msg.To.Add(user_email_address);
                 msg.Subject = "TaipeiTech BookStore - Forget Your Password ?";
-                msg.Body = "Hello !! Here is your Password: " + memberList[i].Password + "\n\n by TaipeiTech Bookstore";
+                msg.Body = "Hello !! Here is your Password: " + Decrypt(pw, true) + "\n\n by TaipeiTech Bookstore";
                 msg.Priority = MailPriority.High;
 
                 //SmtpClient client = new SmtpClient();
@@ -461,9 +467,66 @@ namespace EasyTravelInTaiwan.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Index");
             }
         }
+
+        public static string Encrypt(string toEncrypt, bool useHashing)
+        {
+
+            byte[] keyArray;
+            byte[] toEncryptArray = UTF8Encoding.UTF8.GetBytes(toEncrypt);
+
+            string key = "MySeCrEtKeY";
+
+            if (useHashing)
+            {
+                MD5CryptoServiceProvider hashmd5 = new MD5CryptoServiceProvider();
+                keyArray = hashmd5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+                hashmd5.Clear();
+            }
+            else
+                keyArray = UTF8Encoding.UTF8.GetBytes(key);
+
+            TripleDESCryptoServiceProvider tdes = new TripleDESCryptoServiceProvider();
+            tdes.Key = keyArray;
+            tdes.Mode = CipherMode.ECB;
+            tdes.Padding = PaddingMode.PKCS7;
+
+            ICryptoTransform cTransform = tdes.CreateEncryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+            tdes.Clear();
+            return Convert.ToBase64String(resultArray, 0, resultArray.Length);
+        }
+
+        public static string Decrypt(string cipherString, bool useHashing)
+        {
+            byte[] keyArray;
+            byte[] toEncryptArray = Convert.FromBase64String(cipherString);
+
+            string key = " MySeCrEtKeY";
+
+            if (useHashing)
+            {
+                MD5CryptoServiceProvider hashmd5 = new MD5CryptoServiceProvider();
+                keyArray = hashmd5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+                hashmd5.Clear();
+            }
+            else
+                keyArray = UTF8Encoding.UTF8.GetBytes(key);
+
+            TripleDESCryptoServiceProvider tdes = new TripleDESCryptoServiceProvider();
+            tdes.Key = keyArray;
+            tdes.Mode = CipherMode.ECB;
+            tdes.Padding = PaddingMode.PKCS7;
+
+            ICryptoTransform cTransform = tdes.CreateDecryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+
+            tdes.Clear();
+            return UTF8Encoding.UTF8.GetString(resultArray);
+        }
+
 
         protected override void Dispose(bool disposing)
         {

@@ -31,7 +31,7 @@
                     </ul>
                     <div class="nav-collapse collapse">
                         <div class="navbar-form pull-right">
-                            @Html.ActionLink("回首頁", "GoHomePage", "Home", null, new { @class = "btn btn-primary" })
+                            @*@Html.ActionLink("回首頁", "GoHomePage", "Home", null, new { @class = "btn btn-primary" })*@
                             @if (!User.Identity.IsAuthenticated)
                             {
                                 <button class="btn btn-primary" type="button" onclick="FacebookLogin()">
@@ -46,8 +46,8 @@
                                     <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="~/Member/Index"><i class="icon-pencil"></i>會員資料</a></li>
-                                        <li><a href="~/ShoppingCart/Index"><i class="icon-shopping-cart"></i>購物車</a></li>
-                                        <li><a href="~/OrderList/OrderIndex"><i class="icon-list-alt"></i>訂單查詢</a></li>
+@*                                        <li><a href="~/ShoppingCart/Index"><i class="icon-shopping-cart"></i>購物車</a></li>
+                                        <li><a href="~/OrderList/OrderIndex"><i class="icon-list-alt"></i>訂單查詢</a></li>*@
                                         <li><a href="~/Book/IndexTrace"><i class="icon-list-alt"></i>追蹤清單</a></li>
                                         <li><a href="~/Rating/Index"><i class="icon-list-alt"></i>評分列表</a></li>
                                     </ul>
