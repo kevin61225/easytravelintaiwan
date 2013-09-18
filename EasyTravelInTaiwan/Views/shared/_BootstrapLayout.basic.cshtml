@@ -15,6 +15,7 @@
     <script src="~/scripts/fbAuthJScript.js"></script>
     @* favicons and touch icons go here *@
 </head>
+
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
@@ -77,10 +78,12 @@
     <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="myModalLabel">會員</h3>
+            <h3 id="myModalLabel">登入</h3>
         </div>
         <div class="modal-body">
-            <ul class="nav nav-tabs" id="signInTab">
+            <br />
+            @Html.Action("HomeSignInPartial", "Member")
+            @*<ul class="nav nav-tabs" id="signInTab">
                 <li class="active"><a href="#logIn" data-toggle="tab">登入</a></li>
                 <li><a href="#signUp" data-toggle="tab">註冊</a></li>
             </ul>
@@ -94,7 +97,7 @@
                 <div class="tab-pane" id="signUp" style="max-height: 300px">
                     @Html.Action("HomeSignUpPartial", "Member")
                 </div>
-            </div>
+            </div>*@
         </div>
     </div>
 </body>

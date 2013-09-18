@@ -22,13 +22,13 @@
                 @Html.ValidationMessageFor(model => model.Password)
             </div>
             <br />
-            <div class="editor-field">
+            <div class="editor-field form-inline">
                 @Html.CheckBoxFor(model => model.RememberMe)
                 @Html.LabelFor(model => model.RememberMe, new { @class = "checkbox" })
                 @Html.ValidationMessageFor(model => model.RememberMe)
             </div>
             <br />
-            @Html.ActionLink("忘記帳號密碼?", "ForgetPassword", "Member")
+            @*@Html.ActionLink("忘記帳號密碼?", "ForgetPassword", "Member")*@
         <br />
             <br />
             <button type="submit" class="btn btn-primary">登入</button>

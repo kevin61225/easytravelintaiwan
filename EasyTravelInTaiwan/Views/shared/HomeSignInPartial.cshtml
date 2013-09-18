@@ -14,7 +14,7 @@
         @Html.ValidationMessageFor(model => model.Password)
     </div>     
     <br />
-    <div class="editor-field">
+    <div class="editor-field form-inline">
         @Html.CheckBoxFor(model => model.RememberMe)
         @Html.LabelFor(model => model.RememberMe, new { @class = "checkbox" })
         @Html.ValidationMessageFor(model => model.RememberMe)
@@ -24,4 +24,5 @@
     <br/>
     <br />
     <button type="submit" class="btn btn-primary">登入</button>
+    @Html.ActionLink("註冊會員", "Register", "Member", null, new { @class = "btn btn-primary" })
 }

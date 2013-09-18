@@ -55,14 +55,6 @@
                 @Html.ValidationMessageFor(model => model.Email)
             </div>
             <br />
-            <div class="editor-label">
-                @Html.LabelFor(model => model.PhoneNumber)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.PhoneNumber)
-                @Html.ValidationMessageFor(model => model.PhoneNumber)
-            </div>
-            <br />
             <div class="editor-field">
                 <label class="radio inline">
                     @Html.RadioButtonFor(model => model.Sex, "Male")
@@ -76,20 +68,17 @@
             </div>
             <br />
             <div class="editor-label">
-                @Html.LabelFor(model => model.UserAddress)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.UserAddress)
-                @Html.ValidationMessageFor(model => model.UserAddress)
-            </div>
-            <br />
-            <div class="editor-label">
                 @Html.LabelFor(model => model.Birthday)
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.Birthday)
                 @Html.ValidationMessageFor(model => model.Birthday)
             </div>
+            @foreach (EasyTravelInTaiwan.Models.ViewTypeCheckbox item in Model.ViewTypeList)
+            {
+                Html.Display(item.viewtype.Typename);
+                //Html.CheckBox(item.isCheck);
+            }
             <br />
             <br />
             <br />

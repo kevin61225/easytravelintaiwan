@@ -28,7 +28,7 @@ namespace EasyTravelInTaiwan.Controllers
         [Authorize(Roles = "Admin, Clerk, Customer")]
         public ActionResult Index(string returnUrl)
         {
-           
+
             ViewBag.ReturnUrl = returnUrl;
             member tempMember;
             try
@@ -189,7 +189,17 @@ namespace EasyTravelInTaiwan.Controllers
 
         public ActionResult Register()
         {
-            return View();
+            List<viewtype> types = db.viewtypes.ToList();
+            List<ViewTypeCheckbox> list = new List<ViewTypeCheckbox>();
+            RegisterModel model = new RegisterModel();
+            for(int i = 0; i < types.Count; i++)
+            {
+                ViewTypeCheckbox temp = new ViewTypeCheckbox();
+                temp.viewtype = types[i];
+                list.Add(temp);
+            }
+            model.ViewTypeList = list;
+            return View(model);
         }
 
         // GET: /Member/Login

@@ -67,15 +67,11 @@ namespace EasyTravelInTaiwan.Models
         [Required(ErrorMessage = "請輸入電子郵件位址")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "請輸入手機號碼")]
-        [StringLength(10, ErrorMessage = "請勿超過10個字")]
-        public string PhoneNumber { get; set; }
-
         [Required(ErrorMessage = "請選擇性別")]
         public string Sex { get; set; }
 
-        [Required(ErrorMessage = "請輸入住址")]
-        public string UserAddress { get; set; }
+        [Required(ErrorMessage = "請選擇至少三項")]
+        public List<ViewTypeCheckbox> ViewTypeList { get; set; }
 
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "輸入格式錯誤(ex: 2012-09-06)")]
@@ -83,6 +79,13 @@ namespace EasyTravelInTaiwan.Models
 
         public int Role { get; set; }
     }
+
+    public class ViewTypeCheckbox 
+    {
+        public viewtype viewtype { get; set; }
+        public bool isCheck { get; set; }
+    }
+    
 
     public class ForgetPassword
     {
