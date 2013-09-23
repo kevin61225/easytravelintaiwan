@@ -35,7 +35,8 @@ namespace EasyTravelInTaiwan.Controllers
             return View();
         }
 
-        public ActionResult Test()
+
+        public ActionResult Direction()
         {
             return View();
         }
@@ -105,6 +106,7 @@ namespace EasyTravelInTaiwan.Controllers
             }
 
             ViewBag.TravelListPlaces = placeInfo;
+            ViewBag.TravelListLength = placeInfo.Count();
             return PartialView("_travelListPlacePartial", travelListPlace);
         }
 

@@ -16,8 +16,8 @@ namespace EasyTravelInTaiwan.Models
     {
         public member()
         {
-            this.travellists = new HashSet<travellist>();
             this.ratings = new HashSet<rating>();
+            this.travellists = new HashSet<travellist>();
         }
     
         public int UserID { get; set; }
@@ -30,8 +30,9 @@ namespace EasyTravelInTaiwan.Models
         public string UserAddress { get; set; }
         public System.DateTime Birthday { get; set; }
         public int Role { get; set; }
+        public string favorite { get; set; }
     
-        public virtual ICollection<travellist> travellists { get; set; }
         public virtual ICollection<rating> ratings { get; set; }
+        public virtual ICollection<travellist> travellists { get; set; }
     }
 }

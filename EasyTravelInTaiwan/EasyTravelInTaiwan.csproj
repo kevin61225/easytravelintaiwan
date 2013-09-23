@@ -336,6 +336,7 @@
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DatabaseConstructor\partialPlace.cs" />
+    <Compile Include="Models\DatabaseConstructor\partialMember.cs" />
     <Compile Include="Models\food.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
@@ -779,6 +780,7 @@
     <Content Include="Views\Rating\Index.cshtml" />
     <Content Include="Views\Rating\_placeRatingPartial.cshtml" />
     <Content Include="Views\Map\_imageSlidePartial.cshtml" />
+    <Content Include="Views\Map\Direction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

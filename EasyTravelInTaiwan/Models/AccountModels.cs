@@ -49,32 +49,40 @@ namespace EasyTravelInTaiwan.Models
 
         [Required(ErrorMessage = "請輸入登入帳號")]
         [StringLength(20, ErrorMessage = "請勿超過20個字")]
+        [Display(Name = "帳號名稱")]
         public string Account { get; set; }
 
         [Required(ErrorMessage = "請輸入登入密碼")]
         [StringLength(20, ErrorMessage = "請勿超過20個字")]
+        [Display(Name = "密碼")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "請再輸入一次登入密碼")]
+        [Display(Name = "確認密碼")]
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "與登入密碼不符")]
         public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = "請輸入您的姓名")]
+        [Display(Name = "使用者名稱")]
         public string Name { get; set; }
 
         [DataType(DataType.EmailAddress)]
+        [Display(Name = "電子郵件信箱")]
         [Required(ErrorMessage = "請輸入電子郵件位址")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "請選擇性別")]
+        [Display(Name = "性別")]
         public string Sex { get; set; }
 
         [Required(ErrorMessage = "請選擇至少三項")]
+        [Display(Name = "個人喜好")]
         public List<ViewTypeCheckbox> ViewTypeList { get; set; }
 
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "輸入格式錯誤(ex: 2012-09-06)")]
+        [Display(Name = "出生年月日")]
         public System.DateTime Birthday { get; set; }
 
         public int Role { get; set; }

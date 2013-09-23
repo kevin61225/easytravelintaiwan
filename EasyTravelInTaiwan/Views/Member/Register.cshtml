@@ -1,7 +1,7 @@
 ﻿@model EasyTravelInTaiwan.Models.RegisterModel
 
 @{
-    ViewBag.Title = "註冊";
+    ViewBag.Title = "Easy Travel In Taiwan - 註冊";
     Layout = "~/Views/shared/_BootstrapLayout.empty.cshtml";
 }
 
@@ -16,7 +16,7 @@
         <legend>請填寫以下資料</legend>
         <div class='form-horizontal well'>
             <div class="editor-label">
-                @Html.LabelFor(model => model.Account)
+                @Html.DisplayNameFor(model => model.Account)
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.Account)
@@ -24,7 +24,7 @@
             </div>
             <br />
             <div class="editor-label">
-                @Html.LabelFor(model => model.Password)
+                @Html.DisplayNameFor(model => model.Password)
             </div>
             <div class="editor-field">
                 @Html.PasswordFor(model => model.Password)
@@ -32,7 +32,7 @@
             </div>
             <br />
             <div class="editor-label">
-                @Html.LabelFor(model => model.ConfirmPassword)
+                @Html.DisplayNameFor(model => model.ConfirmPassword)
             </div>
             <div class="editor-field">
                 @Html.PasswordFor(model => model.ConfirmPassword)
@@ -40,7 +40,7 @@
             </div>
             <br />
             <div class="editor-label">
-                @Html.LabelFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Name)
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.Name)
@@ -48,13 +48,16 @@
             </div>
             <br />
             <div class="editor-label">
-                @Html.LabelFor(model => model.Email)
+                @Html.DisplayNameFor(model => model.Email)
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.Email)
                 @Html.ValidationMessageFor(model => model.Email)
             </div>
             <br />
+            <div class="editor-label">
+                @Html.DisplayNameFor(model => model.Sex)
+            </div>
             <div class="editor-field">
                 <label class="radio inline">
                     @Html.RadioButtonFor(model => model.Sex, "Male")
@@ -68,16 +71,23 @@
             </div>
             <br />
             <div class="editor-label">
-                @Html.LabelFor(model => model.Birthday)
+                @Html.DisplayNameFor(model => model.Birthday)
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.Birthday)
                 @Html.ValidationMessageFor(model => model.Birthday)
             </div>
-            @foreach (EasyTravelInTaiwan.Models.ViewTypeCheckbox item in Model.ViewTypeList)
+            <br />
+            <div class="editor-label">
+                @Html.DisplayNameFor(model => model.ViewTypeList)
+            </div>
+            @for (var i = 0; i < Model.ViewTypeList.Count; i++)
             {
-                Html.Display(item.viewtype.Typename);
-                //Html.CheckBox(item.isCheck);
+                <div class="editor-field form-inline">
+                    @Html.DisplayFor(model => model.ViewTypeList[i].viewtype.Typename, new { @class = "checkbox" })
+                    @Html.HiddenFor(model => model.ViewTypeList[i].viewtype.Typenumber)
+                    @Html.CheckBoxFor(model => model.ViewTypeList[i].isCheck)
+                </div>
             }
             <br />
             <br />
@@ -86,8 +96,6 @@
                 <input type="submit" value="創建帳號" class="btn btn-success" />
                 @Html.ActionLink("回首頁", "Index", "Home", null, new { @class = "btn btn-primary" })
             </p>
-            <br />
-            <br />
             <br />
         </div>
     </fieldset>

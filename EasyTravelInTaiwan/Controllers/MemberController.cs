@@ -216,13 +216,15 @@ namespace EasyTravelInTaiwan.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Register(member member)
+        public ActionResult Register(RegisterModel member)
         {
+            //return RedirectToAction("Login", "Member");
+            member registMember = new member(member);
+
             try
             {
-                member.Password = Encrypt(member.Password, true);
-                member.Role = 2;
-                db.members.Add(member);
+                registMember.Password = Encrypt(member.Password, true);
+                db.members.Add(registMember);
                 db.SaveChanges();
             }
             catch
@@ -230,7 +232,7 @@ namespace EasyTravelInTaiwan.Controllers
                 TempData["Error"] = "帳號已存在，請更換";
                 return RedirectToAction("Register", "Member");
             }
-            SendEmailForRegist(member);
+            SendEmailForRegist(registMember);
             TempData["success"] = "註冊成功，已寄信至您的電子郵件信箱。並請您重新登入 !! ";
             return RedirectToAction("Login", "Member");
         }

@@ -18,23 +18,7 @@ namespace EasyTravelInTaiwan.Models
         {
             this.placeimages = new HashSet<placeimage>();
         }
-
-        //public place(place copy)
-        //{
-        //    this.placeimages = new HashSet<placeimage>();
-
-        //    Id = copy.Id;
-        //    Name = copy.Name;
-        //    Citynumber = copy.Citynumber;
-        //    Typenumber = copy.Typenumber;
-        //    Description = copy.Description;
-        //    Telphone = copy.Telphone;
-        //    Address = copy.Address;
-        //    Url = copy.Url;
-        //    Carmethod = copy.Carmethod;
-        //    Busmethod = copy.Busmethod;
-        //}
-
+    
         public string Id { get; set; }
         public string Name { get; set; }
         public string Citynumber { get; set; }

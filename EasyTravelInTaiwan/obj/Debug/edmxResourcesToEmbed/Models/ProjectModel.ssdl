@@ -27,11 +27,11 @@
       <End Role="member" EntitySet="member" />
       <End Role="rating" EntitySet="rating" />
     </AssociationSet>
-    <AssociationSet Name="travellist_ibfk_2" Association="ProjectModel.Store.travellist_ibfk_2">
+    <AssociationSet Name="travellist_ibfk_1" Association="ProjectModel.Store.travellist_ibfk_1">
       <End Role="member" EntitySet="member" />
       <End Role="travellist" EntitySet="travellist" />
     </AssociationSet>
-    <AssociationSet Name="travellistplace_ibfk_2" Association="ProjectModel.Store.travellistplace_ibfk_2">
+    <AssociationSet Name="travellistplace_ibfk_1" Association="ProjectModel.Store.travellistplace_ibfk_1">
       <End Role="travellist" EntitySet="travellist" />
       <End Role="travellistplace" EntitySet="travellistplace" />
     </AssociationSet>
@@ -97,6 +97,7 @@
     <Property Name="UserAddress" Type="varchar" Nullable="false" MaxLength="49" />
     <Property Name="Birthday" Type="date" Nullable="false" />
     <Property Name="Role" Type="int" Nullable="false" />
+    <Property Name="favorite" Type="text" Nullable="false" />
   </EntityType>
   <EntityType Name="place">
     <Key>
@@ -157,7 +158,9 @@
     <Property Name="Typename" Type="text" Nullable="false" />
   </EntityType>
   <Association Name="place_ibfk_1">
-    <End Role="city" Type="ProjectModel.Store.city" Multiplicity="1" />
+    <End Role="city" Type="ProjectModel.Store.city" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="place" Type="ProjectModel.Store.place" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="city">
@@ -169,7 +172,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="place_ibfk_2">
-    <End Role="viewtype" Type="ProjectModel.Store.viewtype" Multiplicity="1" />
+    <End Role="viewtype" Type="ProjectModel.Store.viewtype" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="place" Type="ProjectModel.Store.place" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="viewtype">
@@ -181,7 +186,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="placeimage_ibfk_1">
-    <End Role="place" Type="ProjectModel.Store.place" Multiplicity="1" />
+    <End Role="place" Type="ProjectModel.Store.place" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="placeimage" Type="ProjectModel.Store.placeimage" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="place">
@@ -206,7 +213,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="travellist_ibfk_2">
+  <Association Name="travellist_ibfk_1">
     <End Role="member" Type="ProjectModel.Store.member" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -220,7 +227,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="travellistplace_ibfk_2">
+  <Association Name="travellistplace_ibfk_1">
     <End Role="travellist" Type="ProjectModel.Store.travellist" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>

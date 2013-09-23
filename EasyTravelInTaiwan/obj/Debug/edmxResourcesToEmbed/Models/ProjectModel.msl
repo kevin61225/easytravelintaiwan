@@ -9,6 +9,31 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="foods">
+      <EntityTypeMapping TypeName="ProjectModel.food">
+        <MappingFragment StoreEntitySet="food">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="catalogs_id" ColumnName="catalogs_id" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="business_hrs" ColumnName="business_hrs" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="route" ColumnName="route" />
+          <ScalarProperty Name="tianmama" ColumnName="tianmama" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="sc_id" ColumnName="sc_id" />
+          <ScalarProperty Name="post_id" ColumnName="post_id" />
+          <ScalarProperty Name="link" ColumnName="link" />
+          <ScalarProperty Name="x" ColumnName="x" />
+          <ScalarProperty Name="y" ColumnName="y" />
+          <ScalarProperty Name="create_date" ColumnName="create_date" />
+          <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="maplatlngs">
       <EntityTypeMapping TypeName="ProjectModel.maplatlng">
         <MappingFragment StoreEntitySet="maplatlng">
@@ -39,6 +64,7 @@
           <ScalarProperty Name="UserAddress" ColumnName="UserAddress" />
           <ScalarProperty Name="Birthday" ColumnName="Birthday" />
           <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="favorite" ColumnName="favorite" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -69,6 +95,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ratings">
+      <EntityTypeMapping TypeName="ProjectModel.rating">
+        <MappingFragment StoreEntitySet="rating">
+          <ScalarProperty Name="RId" ColumnName="RId" />
+          <ScalarProperty Name="Sno" ColumnName="Sno" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Point" ColumnName="Point" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="travellists">
       <EntityTypeMapping TypeName="ProjectModel.travellist">
         <MappingFragment StoreEntitySet="travellist">
@@ -92,42 +129,6 @@
         <MappingFragment StoreEntitySet="viewtype">
           <ScalarProperty Name="Typenumber" ColumnName="Typenumber" />
           <ScalarProperty Name="Typename" ColumnName="Typename" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="ratings">
-      <EntityTypeMapping TypeName="ProjectModel.rating">
-        <MappingFragment StoreEntitySet="rating">
-          <ScalarProperty Name="Comment" ColumnName="Comment" />
-          <ScalarProperty Name="Point" ColumnName="Point" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="Sno" ColumnName="Sno" />
-          <ScalarProperty Name="RId" ColumnName="RId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="foods">
-      <EntityTypeMapping TypeName="ProjectModel.food">
-        <MappingFragment StoreEntitySet="food">
-          <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-          <ScalarProperty Name="create_date" ColumnName="create_date" />
-          <ScalarProperty Name="y" ColumnName="y" />
-          <ScalarProperty Name="x" ColumnName="x" />
-          <ScalarProperty Name="link" ColumnName="link" />
-          <ScalarProperty Name="post_id" ColumnName="post_id" />
-          <ScalarProperty Name="sc_id" ColumnName="sc_id" />
-          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
-          <ScalarProperty Name="tianmama" ColumnName="tianmama" />
-          <ScalarProperty Name="route" ColumnName="route" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="price" ColumnName="price" />
-          <ScalarProperty Name="business_hrs" ColumnName="business_hrs" />
-          <ScalarProperty Name="phone" ColumnName="phone" />
-          <ScalarProperty Name="address" ColumnName="address" />
-          <ScalarProperty Name="catalogs_id" ColumnName="catalogs_id" />
-          <ScalarProperty Name="title" ColumnName="title" />
-          <ScalarProperty Name="type" ColumnName="type" />
-          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
