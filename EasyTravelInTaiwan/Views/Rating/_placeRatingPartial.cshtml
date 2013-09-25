@@ -9,3 +9,15 @@
         @Html.DisplayName("尚無評分");
     }
 </p>
+
+你的評分
+<p>
+    @if (ViewBag.userRate != -1)
+    {
+        @ViewBag.userRate;
+    }
+    else
+    {
+        @Html.DisplayName("尚無評分");
+    }
+</p>
