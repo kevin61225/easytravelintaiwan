@@ -612,6 +612,7 @@
     <Content Include="Content\Icons\04.png" />
     <Content Include="Content\Icons\20.png" />
     <Content Include="Content\Icons\ajax-loader.gif" />
+    <Content Include="Content\Icons\delete.gif" />
     <Content Include="Content\Icons\hotel11.png" />
     <Content Include="Content\Icons\hotel12.png" />
     <Content Include="Content\Icons\hotel13.png" />
@@ -622,10 +623,12 @@
     <Content Include="Content\Icons\loader-indic.gif" />
     <Content Include="Content\Icons\loader-snake.gif" />
     <Content Include="Content\Icons\loader-snake1.gif" />
+    <Content Include="Content\Icons\star.gif" />
     <Content Include="Content\images\ImageNotFound.jpg" />
     <Content Include="Content\images\bg-tile.png" />
     <Content Include="Content\images\FB-logo.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\jquery.rating.css" />
     <Content Include="Content\nicescroll.css" />
     <Content Include="Content\ui.css" />
     <Content Include="Content\ui.progress-bar.css" />
@@ -696,8 +699,11 @@
     <Content Include="scripts\jquery-migrate-1.1.1.min.js" />
     <Content Include="scripts\jquery.ajax-progress.js" />
     <Content Include="scripts\jquery.blockUI.js" />
+    <Content Include="scripts\jquery.form.js" />
     <Content Include="scripts\jquery.geocomplete.js" />
     <Content Include="scripts\jquery.nicescroll.js" />
+    <Content Include="scripts\jquery.rating.js" />
+    <Content Include="scripts\jquery.rating.pack.js" />
     <Content Include="scripts\jquery.ui.core.js" />
     <Content Include="scripts\jquery.ui.progressbar.js" />
     <Content Include="scripts\jquery.ui.widget.js" />

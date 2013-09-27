@@ -1,4 +1,9 @@
-﻿綜合評價
+﻿<link href="~/Content/jquery.rating.css" rel="stylesheet" />
+<script src="~/scripts/jquery.rating.js"></script>
+<script src="~/scripts/jquery.rating.pack.js"></script>
+<script src="~/scripts/jquery.form.js"></script>
+
+綜合評價
 <p>
     @if (ViewBag.RateSum != -1)
     {
@@ -21,3 +26,29 @@
         @Html.DisplayName("尚無評分");
     }
 </p>
+
+    <input name="star1" type="radio" class="star {half:true}" value="0" title="Very Bad"/>
+    <input name="star1" type="radio" class="star {half:true}" value="1" title="Bad"/>
+    <input name="star1" type="radio" class="star {half:true}" value="2" title="OK"/>
+    <input name="star1" type="radio" class="star {half:true}" value="3" title="Good"/>
+    <input name="star1" type="radio" class="star {half:true}" value="4" title="Very Good"/>
+<br />
+<br />
+@*<span id="hover-test" style="margin:0 0 0 20px;">Hover tips will appear in here</span>*@
+
+<script type="text/javascript">
+
+    //$(function () {
+    //    $("input.wow")
+    //});
+
+    $('.hover-star').rating({    
+        focus: function (value, link) {
+            var tip = $('#hover-test'); tip[0].data = tip[0].data || tip.html(); tip.html(link.title || 'value: ' + value);
+        },
+        blur: function (value, link) {
+            var tip = $('#hover-test');
+            $('#hover-test').html(tip[0].data || '');
+        }
+    })
+</script>

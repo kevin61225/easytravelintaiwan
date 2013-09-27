@@ -1,13 +1,13 @@
 ﻿@{
     ViewBag.Title = "Easy Travel In Taiwan";
 }
+
 <style>
     .tab-content {
         border-left: 1px solid #ddd;
         border-right: 1px solid #ddd;
         border-bottom: 1px solid #ddd;
         border-top: 1px solid #ddd;
-       
         max-height: 500px;
         max-width: 800px;
         padding: 10px;
@@ -23,7 +23,7 @@
         border-bottom: none;
     }
 
-    
+
     .searchItemBorder {
         display: block;
     }
@@ -31,19 +31,29 @@
 
 @Html.Action("SearchDropdownList", "Search")
 
-<ul id="hotSpotTab" class="nav nav-tabs">
-    <li class="active"><a href="#ViewTab" data-toggle="tab">熱門景點</a></li>
-    <li><a href="#FoodTab2" data-toggle="tab">熱門美食</a></li>
-    <li><a href="#HotelTab3" data-toggle="tab">熱門旅館</a></li>
-</ul>
-<div class="tab-content">
-    <div class="tab-pane active" id="ViewTab">
-        @Html.Action("HotViewPartial")
+<div class="row">
+    <div class="span8">
+        <ul id="hotSpotTab" class="nav nav-tabs">
+            <li class="active"><a href="#ViewTab" data-toggle="tab">熱門景點</a></li>
+            <li><a href="#FoodTab2" data-toggle="tab">熱門美食</a></li>
+            <li><a href="#HotelTab3" data-toggle="tab">熱門旅館</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="ViewTab">
+                @Html.Action("HotViewPartial")
+            </div>
+            <div class="tab-pane" id="FoodTab2">
+                @Html.Action("HotFoodPartial")
+            </div>
+            <div class="tab-pane" id="HotelTab3">
+                @Html.Action("HotHotelPartial")
+            </div>
+        </div>
     </div>
-    <div class="tab-pane" id="FoodTab2">
-        @Html.Action("HotFoodPartial")
-    </div>
-    <div class="tab-pane" id="HotelTab3">
-        @Html.Action("HotHotelPartial")
+    <div class="span2">
+        <div>
+            <div id="fb-root"></div>
+            <div class="fb-like-box" data-href="https://www.facebook.com/FacebookDevelopers" data-width="292" data-show-faces="true" data-header="true" data-stream="true" data-show-border="true"></div>
+        </div>
     </div>
 </div>

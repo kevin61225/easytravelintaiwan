@@ -39,7 +39,7 @@ namespace EasyTravelInTaiwan.Models
         [Display(Name = "密碼")]
         public string Password { get; set; }
 
-        [Display(Name = "記住我?")]
+        [Display(Name = "記住帳號")]
         public bool RememberMe { get; set; }
     }
 

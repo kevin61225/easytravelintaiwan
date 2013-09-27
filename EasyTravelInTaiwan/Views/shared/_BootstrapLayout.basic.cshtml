@@ -35,9 +35,9 @@
                             @*@Html.ActionLink("回首頁", "GoHomePage", "Home", null, new { @class = "btn btn-primary" })*@
                             @if (!User.Identity.IsAuthenticated)
                             {
-                                <button class="btn btn-primary" type="button" onclick="FacebookLogin()">
+@*<button class="btn btn-primary" type="button" onclick="FacebookLogin()">
                                     <img alt="140x140" src="~/Content/images/FB-logo.png" width="20" height="20" />
-                                </button>
+                                </button>*@
                                 <a href="#myModal" role="button" class="btn btn-primary" data-toggle="modal">登入</a>
                             }
                             else
@@ -47,7 +47,7 @@
                                     <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="~/Member/Index"><i class="icon-pencil"></i>會員資料</a></li>
-@*                                        <li><a href="~/ShoppingCart/Index"><i class="icon-shopping-cart"></i>購物車</a></li>
+                                        @*                                        <li><a href="~/ShoppingCart/Index"><i class="icon-shopping-cart"></i>購物車</a></li>
                                         <li><a href="~/OrderList/OrderIndex"><i class="icon-list-alt"></i>訂單查詢</a></li>*@
                                         <li><a href="~/Book/IndexTrace"><i class="icon-list-alt"></i>追蹤清單</a></li>
                                         <li><a href="~/Rating/Index"><i class="icon-list-alt"></i>評分列表</a></li>
@@ -67,15 +67,15 @@
         @RenderBody()
         <hr>
         <footer>
-            <p>&copy; Company @System.DateTime.Now.ToString("yyyy")</p>
+            <p>&copy; Company Easy Travel In Taiwan @System.DateTime.Now.ToString("yyyy")</p>
         </footer>
     </div>
     @Scripts.Render("~/js")
     <script src="~/scripts/bootstrap-typeahead.js"></script>
     @RenderSection("Scripts", required: false)
-    
+
     <!--Login Page -->
-    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="siz">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <h3 id="myModalLabel">登入</h3>
@@ -103,11 +103,31 @@
 </body>
 </html>
 
+<style type="text/css">
+    #myModal {
+        width: 300px;
+        /*margin-top: -300px ;*/
+        margin-left: -150px ;
+    }
+
+    #myModal .modal-body {
+        max-height: 525px;
+    }
+</style>
+
 <script type="text/javascript">
     // 讓 alert 自動消失 (五秒)
     $(".alert").addClass("in");
     window.setTimeout(function () { $("#MainAlert").fadeOut(); }, 10000);
 
+    $('#myModal').on('show', function () {
+
+        $(this).find('.modal').css({
+            width: '100px',
+            height: '100px',
+            'max-height': '100%'
+        });
+    });
 
     $('#hotSpotTab a').hover(function (e) {
         e.preventDefault();
@@ -116,9 +136,18 @@
     });
 
     //var $ = jQuery.noConflict();
-    $(document).ready(function ()
-    { $('#myCarousel').carousel({ interval: 3000, cycle: true }); });
+    $(document).ready(function () {
+        $('#myCarousel').carousel({ interval: 3000, cycle: true });
+        FacebookInit();
+    });
 
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1&appId=544818928892863";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
 </script>
 
 
