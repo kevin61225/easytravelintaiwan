@@ -124,7 +124,7 @@
         });
 
         $(document).on('click', '.dropdown-menu .inner >li', function (e) {
-            var $this = $(this).attr("rel");;
+            var $this = $(this).attr("rel");
             var selectedValue = $("#TravelListSelectPicker option:eq('" + $this + "')");
             var str = selectedValue.attr('value');
             var n = str.split("-");

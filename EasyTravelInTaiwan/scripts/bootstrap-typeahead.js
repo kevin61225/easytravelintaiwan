@@ -1,9 +1,11 @@
 $("#Search").typeahead({
     source: function (query, process) {
         var placeList = [];
+        var typeValue = $("#searchType").val();
         // This is going to make an HTTP post request to the controller
-        return $.post('/Search/SearchPlace', { query: query }, function (data) {
+        return $.post('/Search/SearchPlace', { query: query, type: typeValue }, function (data) {
             // Loop through and push to the array
+
             $.each(data, function (i, place) {
                 placeList.push(place.entity);
             });

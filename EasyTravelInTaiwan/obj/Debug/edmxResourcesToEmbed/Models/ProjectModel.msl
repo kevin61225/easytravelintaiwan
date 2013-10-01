@@ -1,6 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ProjectModelStoreContainer" CdmEntityContainer="ProjectEntities">
+    <EntitySetMapping Name="accommodations">
+      <EntityTypeMapping TypeName="ProjectModel.accommodation">
+        <MappingFragment StoreEntitySet="accommodation">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="catalogs_id" ColumnName="catalogs_id" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="business_hrs" ColumnName="business_hrs" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="route" ColumnName="route" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="sc_id" ColumnName="sc_id" />
+          <ScalarProperty Name="post_id" ColumnName="post_id" />
+          <ScalarProperty Name="link" ColumnName="link" />
+          <ScalarProperty Name="x" ColumnName="x" />
+          <ScalarProperty Name="y" ColumnName="y" />
+          <ScalarProperty Name="create_date" ColumnName="create_date" />
+          <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="cities">
       <EntityTypeMapping TypeName="ProjectModel.city">
         <MappingFragment StoreEntitySet="city">
@@ -31,6 +55,27 @@
           <ScalarProperty Name="y" ColumnName="y" />
           <ScalarProperty Name="create_date" ColumnName="create_date" />
           <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="hotels">
+      <EntityTypeMapping TypeName="ProjectModel.hotel">
+        <MappingFragment StoreEntitySet="hotel">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Citynumber" ColumnName="Citynumber" />
+          <ScalarProperty Name="Typenumber" ColumnName="Typenumber" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Telphone" ColumnName="Telphone" />
+          <ScalarProperty Name="FaxNumber" ColumnName="FaxNumber" />
+          <ScalarProperty Name="Rooms" ColumnName="Rooms" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="star" ColumnName="star" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="Lng" ColumnName="Lng" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -71,6 +116,8 @@
     <EntitySetMapping Name="places">
       <EntityTypeMapping TypeName="ProjectModel.place">
         <MappingFragment StoreEntitySet="place">
+          <ScalarProperty Name="Lng" ColumnName="Lng" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Citynumber" ColumnName="Citynumber" />
@@ -98,6 +145,7 @@
     <EntitySetMapping Name="ratings">
       <EntityTypeMapping TypeName="ProjectModel.rating">
         <MappingFragment StoreEntitySet="rating">
+          <ScalarProperty Name="pt" ColumnName="pt" />
           <ScalarProperty Name="RId" ColumnName="RId" />
           <ScalarProperty Name="Sno" ColumnName="Sno" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -124,11 +172,37 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="views">
+      <EntityTypeMapping TypeName="ProjectModel.view">
+        <MappingFragment StoreEntitySet="view">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="Lng" ColumnName="Lng" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Viewtype" ColumnName="Viewtype" />
+          <ScalarProperty Name="Pt" ColumnName="Pt" />
+          <ScalarProperty Name="IconType" ColumnName="IconType" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="viewtypes">
       <EntityTypeMapping TypeName="ProjectModel.viewtype">
         <MappingFragment StoreEntitySet="viewtype">
           <ScalarProperty Name="Typenumber" ColumnName="Typenumber" />
           <ScalarProperty Name="Typename" ColumnName="Typename" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="hotelimages">
+      <EntityTypeMapping TypeName="ProjectModel.hotelimage">
+        <MappingFragment StoreEntitySet="hotelimage">
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="sid" ColumnName="sid" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
 {
-    public class SearchResultModel  :List<place>
+    public class SearchResultModel  :List<view>
     {
         public void TopRatingFoodByAmount(int resultCount)
         {
@@ -17,7 +17,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
                 {
                     try
                     {
-                        Add(new place(db.places.Where(o => o.Id == item).Single()));
+                        //Add(new view(db.views.Where(o => o.Id == item).Single()));
                     }
                     catch
                     {
@@ -57,47 +57,154 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
         //        }
         //    }
         //}
+
         public void GetAllPlaces()
         {
             using (var db = new ProjectEntities())
             {
-                var query = from places in db.places
-                            select places;
+                var query = from views in db.views
+                            select views;
                 foreach (var item in query)
                 {
-                    Add(new place(item));
+                    Add(GetView(item));
                 }
             }
+        }
+
+        public void GetAllHotels()
+        {
+            using (var db = new ProjectEntities())
+            {
+                var query = from hotels in db.views
+                            where hotels.Pt == "06"
+                            select hotels;
+                foreach (var item in query)
+                {
+                    Add(GetView(item));
+                }
+            }
+        }
+
+        public void GetAllFoods()
+        {
+            using (var db = new ProjectEntities())
+            {
+                var query = from foods in db.views
+                            where foods.Pt == "07"
+                            select foods;
+                foreach (var item in query)
+                {
+                    Add(GetView(item));
+                }
+            }
+        }
+
+        public void GetAllViews()
+        {
+            using (var db = new ProjectEntities())
+            {
+                var query = from views in db.views
+                            where views.Pt == "10"
+                            select views;
+                foreach (var item in query)
+                {
+                    Add(GetView(item));
+                }
+            }
+        }
+        public view GetView(view input)
+        {
+            view temp = new view();
+            temp.Id = input.Id;
+            temp.Name = input.Name;
+            temp.Lat = input.Lat;
+            temp.Lng = input.Lng;
+            temp.Address = input.Address;
+            temp.City = input.City;
+            temp.Viewtype = input.Viewtype;
+            temp.Pt = input.Pt;
+            temp.IconType = input.IconType;
+            temp.Description = input.Description;
+            return temp;
         }
 
         public void ByTitle(string keyWord)
         {
             using (var db = new ProjectEntities())
             {
-                var query = from places in db.places
+                var query = from places in db.views
                             where places.Name.Contains(keyWord)
                             select places;
                 foreach (var item in query)
                 {
-                    Add(new place(item));
+                    Add(GetView(item));
                 }
             }
         }
 
 
-        //public void ByFood(string keyWord)              
-        //{
-        //    using (var db = new ProjectEntities())
-        //        {
-        //            var query = from books in db.books
-        //                        where books.Title.Contains(keyWord)
-        //                        select books;
-        //            foreach (var item in query)
-        //            {
-        //                Add(new book(item));
-        //            }
-        //        }
-        //}
+        public void ByFood(string keyWord)
+        {
+            using (var db = new ProjectEntities())
+            {
+                var query = from foods in db.views
+                            where foods.Name.Contains(keyWord) && foods.Pt == "07"
+                            select foods;
+                foreach (var item in query)
+                {
+                    Add(GetView(item));
+                }
+            }
+        }
+
+        public void ByView(string keyWord)
+        {
+            using (var db = new ProjectEntities())
+            {
+                var query = from views in db.views
+                            where views.Name.Contains(keyWord) && views.Pt == "10"
+                            select views;
+                foreach (var item in query)
+                {
+                    Add(GetView(item));
+                }
+            }
+        }
+
+        public void ByHotel(string keyWord)
+        {
+            using (var db = new ProjectEntities())
+            {
+                var query = from hotels in db.views
+                            where hotels.Name.Contains(keyWord) && hotels.Pt == "06"
+                            select hotels;
+                foreach (var item in query)
+                {
+                    Add(GetView(item));
+                }
+            }
+        }
+
+        static public string FilterType(int type)
+        {
+            string output = string.Empty;
+            switch (type)
+            {
+                case 0:
+                    output = "全部";
+                    break;
+                case 1:
+                    output = "美食";
+                    break;
+                case 2:
+                    output = "景點";
+                    break;
+                case 3:
+                    output = "旅館";
+                    break;
+            }
+            return output;
+        }
 
         //public void ByView(string keyWord)
         //{

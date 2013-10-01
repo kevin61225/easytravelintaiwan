@@ -12,15 +12,14 @@ namespace EasyTravelInTaiwan.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class rating
+    public partial class hotelimage
     {
-        public int RId { get; set; }
-        public string Sno { get; set; }
-        public int UserId { get; set; }
-        public int Point { get; set; }
-        public string Comment { get; set; }
-        public int pt { get; set; }
+
+        public int sid { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public byte[] Image { get; set; }
     
-        public virtual member member { get; set; }
+        public virtual hotel hotel { get; set; }
     }
 }

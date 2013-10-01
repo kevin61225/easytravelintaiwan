@@ -118,13 +118,38 @@ namespace EasyTravelInTaiwan.Controllers
 
         public ActionResult ViewPointDetails(string id)
         {
-            place place = db.places.Find(id);
+            view place = db.views.Find(id);
+            PlaceDetail detail = new PlaceDetail();
+            switch (place.Pt)
+            {
+                case "06":
+                    try
+                    {
+                        hotel hotel = db.hotels.Where(o => o.Id == place.Id).Single();
+                        detail = new HotelDetail(hotel);
+                    }
+                    catch
+                    {
+                        accommodation acco = db.accommodations.Where(o => o.id == place.Id).Single();
+                        detail = new AccommodationDetail(acco);
+                    }
+                    break;
+                case "07":
+                    food food = db.foods.Where(o => o.id == place.Id).Single();
+                    detail = new FoodDetail(food);
+                    break;
+                case "10":
+                    place viewplace = db.places.Where(o => o.Id == place.Id).Single();
+                    detail = new ViewDetail(viewplace);
+                    break;
+            }
+
             if (place == null)
             {
                 return HttpNotFound();
             }
             TempData["Title"] = place.Name;
-            return View(place);
+            return View(detail);
         }
 
         public ActionResult ViewPointEdit(string id)

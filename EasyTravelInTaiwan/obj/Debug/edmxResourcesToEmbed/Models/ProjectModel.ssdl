@@ -1,8 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="ProjectModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="ProjectModelStoreContainer">
+    <EntitySet Name="accommodation" EntityType="ProjectModel.Store.accommodation" store:Type="Tables" Schema="project" />
     <EntitySet Name="city" EntityType="ProjectModel.Store.city" store:Type="Tables" Schema="project" />
     <EntitySet Name="food" EntityType="ProjectModel.Store.food" store:Type="Tables" Schema="project" />
+    <EntitySet Name="hotel" EntityType="ProjectModel.Store.hotel" store:Type="Tables" Schema="project" />
+    <EntitySet Name="hotelimage" EntityType="ProjectModel.Store.hotelimage" store:Type="Tables" Schema="project" />
     <EntitySet Name="maplatlng" EntityType="ProjectModel.Store.maplatlng" store:Type="Tables" Schema="project" />
     <EntitySet Name="member" EntityType="ProjectModel.Store.member" store:Type="Tables" Schema="project" />
     <EntitySet Name="place" EntityType="ProjectModel.Store.place" store:Type="Tables" Schema="project" />
@@ -10,7 +13,12 @@
     <EntitySet Name="rating" EntityType="ProjectModel.Store.rating" store:Type="Tables" Schema="project" />
     <EntitySet Name="travellist" EntityType="ProjectModel.Store.travellist" store:Type="Tables" Schema="project" />
     <EntitySet Name="travellistplace" EntityType="ProjectModel.Store.travellistplace" store:Type="Tables" Schema="project" />
+    <EntitySet Name="view" EntityType="ProjectModel.Store.view" store:Type="Tables" Schema="project" />
     <EntitySet Name="viewtype" EntityType="ProjectModel.Store.viewtype" store:Type="Tables" Schema="project" />
+    <AssociationSet Name="hotelimage_ibfk_2" Association="ProjectModel.Store.hotelimage_ibfk_2">
+      <End Role="hotel" EntitySet="hotel" />
+      <End Role="hotelimage" EntitySet="hotelimage" />
+    </AssociationSet>
     <AssociationSet Name="place_ibfk_1" Association="ProjectModel.Store.place_ibfk_1">
       <End Role="city" EntitySet="city" />
       <End Role="place" EntitySet="place" />
@@ -27,15 +35,42 @@
       <End Role="member" EntitySet="member" />
       <End Role="rating" EntitySet="rating" />
     </AssociationSet>
-    <AssociationSet Name="travellist_ibfk_1" Association="ProjectModel.Store.travellist_ibfk_1">
+    <AssociationSet Name="travellist_ibfk_2" Association="ProjectModel.Store.travellist_ibfk_2">
       <End Role="member" EntitySet="member" />
       <End Role="travellist" EntitySet="travellist" />
     </AssociationSet>
-    <AssociationSet Name="travellistplace_ibfk_1" Association="ProjectModel.Store.travellistplace_ibfk_1">
+    <AssociationSet Name="travellistplace_ibfk_2" Association="ProjectModel.Store.travellistplace_ibfk_2">
       <End Role="travellist" EntitySet="travellist" />
       <End Role="travellistplace" EntitySet="travellistplace" />
     </AssociationSet>
+    <AssociationSet Name="view_ibfk_3" Association="ProjectModel.Store.view_ibfk_3">
+      <End Role="viewtype" EntitySet="viewtype" />
+      <End Role="view" EntitySet="view" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="accommodation">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="type" Type="text" Nullable="false" />
+    <Property Name="title" Type="text" />
+    <Property Name="catalogs_id" Type="text" />
+    <Property Name="address" Type="text" />
+    <Property Name="phone" Type="text" />
+    <Property Name="business_hrs" Type="text" />
+    <Property Name="price" Type="text" />
+    <Property Name="Description" Type="text" />
+    <Property Name="route" Type="text" />
+    <Property Name="ImageUrl" Type="text" />
+    <Property Name="sc_id" Type="text" />
+    <Property Name="post_id" Type="text" />
+    <Property Name="link" Type="text" />
+    <Property Name="x" Type="double" />
+    <Property Name="y" Type="double" />
+    <Property Name="create_date" Type="text" />
+    <Property Name="modify_date" Type="text" />
+  </EntityType>
   <EntityType Name="city">
     <Key>
       <PropertyRef Name="Citynumber" />
@@ -66,6 +101,35 @@
     <Property Name="y" Type="double" />
     <Property Name="create_date" Type="text" />
     <Property Name="modify_date" Type="text" />
+  </EntityType>
+  <EntityType Name="hotel">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Name" Type="text" Nullable="false" />
+    <Property Name="Citynumber" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="Typenumber" Type="int" Nullable="false" />
+    <Property Name="Description" Type="text" />
+    <Property Name="Address" Type="text" Nullable="false" />
+    <Property Name="Url" Type="text" />
+    <Property Name="Telphone" Type="varchar" MaxLength="50" />
+    <Property Name="FaxNumber" Type="varchar" MaxLength="20" />
+    <Property Name="Rooms" Type="int" />
+    <Property Name="Price" Type="text" />
+    <Property Name="Email" Type="text" />
+    <Property Name="star" Type="int" />
+    <Property Name="Lat" Type="text" />
+    <Property Name="Lng" Type="text" />
+  </EntityType>
+  <EntityType Name="hotelimage">
+    <Key>
+      <PropertyRef Name="sid" />
+    </Key>
+    <Property Name="sid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Id" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Name" Type="text" Nullable="false" />
+    <Property Name="Image" Type="longblob" />
   </EntityType>
   <EntityType Name="maplatlng">
     <Key>
@@ -113,6 +177,8 @@
     <Property Name="Url" Type="text" />
     <Property Name="Carmethod" Type="text" />
     <Property Name="Busmethod" Type="text" />
+    <Property Name="Lat" Type="text" />
+    <Property Name="Lng" Type="text" />
   </EntityType>
   <EntityType Name="placeimage">
     <Key>
@@ -133,6 +199,7 @@
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="Point" Type="int" Nullable="false" />
     <Property Name="Comment" Type="text" Nullable="false" />
+    <Property Name="pt" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="travellist">
     <Key>
@@ -150,6 +217,21 @@
     <Property Name="Tid" Type="int" Nullable="false" />
     <Property Name="Sno" Type="text" Nullable="false" />
   </EntityType>
+  <EntityType Name="view">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Name" Type="text" Nullable="false" />
+    <Property Name="Lat" Type="text" Nullable="false" />
+    <Property Name="Lng" Type="text" Nullable="false" />
+    <Property Name="Address" Type="text" Nullable="false" />
+    <Property Name="City" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="Viewtype" Type="int" Nullable="false" />
+    <Property Name="Pt" Type="varchar" Nullable="false" MaxLength="4" />
+    <Property Name="IconType" Type="varchar" Nullable="false" MaxLength="4" />
+    <Property Name="Description" Type="text" />
+  </EntityType>
   <EntityType Name="viewtype">
     <Key>
       <PropertyRef Name="Typenumber" />
@@ -157,6 +239,20 @@
     <Property Name="Typenumber" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Typename" Type="text" Nullable="false" />
   </EntityType>
+  <Association Name="hotelimage_ibfk_2">
+    <End Role="hotel" Type="ProjectModel.Store.hotel" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="hotelimage" Type="ProjectModel.Store.hotelimage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hotel">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="hotelimage">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="place_ibfk_1">
     <End Role="city" Type="ProjectModel.Store.city" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -213,7 +309,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="travellist_ibfk_1">
+  <Association Name="travellist_ibfk_2">
     <End Role="member" Type="ProjectModel.Store.member" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -227,7 +323,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="travellistplace_ibfk_1">
+  <Association Name="travellistplace_ibfk_2">
     <End Role="travellist" Type="ProjectModel.Store.travellist" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -238,6 +334,20 @@
       </Principal>
       <Dependent Role="travellistplace">
         <PropertyRef Name="Tid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="view_ibfk_3">
+    <End Role="viewtype" Type="ProjectModel.Store.viewtype" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="view" Type="ProjectModel.Store.view" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="viewtype">
+        <PropertyRef Name="Typenumber" />
+      </Principal>
+      <Dependent Role="view">
+        <PropertyRef Name="Viewtype" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

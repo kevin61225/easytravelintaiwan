@@ -12,15 +12,19 @@ namespace EasyTravelInTaiwan.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class rating
+    public partial class view
     {
-        public int RId { get; set; }
-        public string Sno { get; set; }
-        public int UserId { get; set; }
-        public int Point { get; set; }
-        public string Comment { get; set; }
-        public int pt { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Lat { get; set; }
+        public string Lng { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public int Viewtype { get; set; }
+        public string Pt { get; set; }
+        public string IconType { get; set; }
+        public string Description { get; set; }
     
-        public virtual member member { get; set; }
+        public virtual viewtype viewtype1 { get; set; }
     }
 }

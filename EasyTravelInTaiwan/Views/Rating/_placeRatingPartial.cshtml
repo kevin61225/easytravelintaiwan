@@ -27,28 +27,33 @@
     }
 </p>
 
-    <input name="star1" type="radio" class="star {half:true}" value="0" title="Very Bad"/>
-    <input name="star1" type="radio" class="star {half:true}" value="1" title="Bad"/>
-    <input name="star1" type="radio" class="star {half:true}" value="2" title="OK"/>
-    <input name="star1" type="radio" class="star {half:true}" value="3" title="Good"/>
-    <input name="star1" type="radio" class="star {half:true}" value="4" title="Very Good"/>
+<input name="star1" type="radio" class="auto-submit-star star {half:true}" value="1" title="Very Bad" />
+<input name="star1" type="radio" class="auto-submit-star star {half:true}" value="2" title="Bad" />
+<input name="star1" type="radio" class="auto-submit-star star {half:true}" value="3" title="OK" />
+<input name="star1" type="radio" class="auto-submit-star star {half:true}" value="4" title="Good" />
+<input name="star1" type="radio" class="auto-submit-star star {half:true}" value="5" title="Very Good" />
+@*<input type="button" value="Submit &raquo;" onClick="$(this).next().html($(this.form).serialize() || '(nothing submitted)');"/>*@
+
+
 <br />
 <br />
 @*<span id="hover-test" style="margin:0 0 0 20px;">Hover tips will appear in here</span>*@
 
 <script type="text/javascript">
 
-    //$(function () {
-    //    $("input.wow")
-    //});
+    $('.auto-submit-star').rating({
+        callback: function (value, link) {
+            // 'this' is the hidden form element holding the current value
+            // 'value' is the value selected
+            // 'element' points to the link element that received the click.
+            alert("The value selected was '" + value + "'\n\nWith this callback function I can automatically submit the form with this code:\nthis.form.submit();");
 
-    $('.hover-star').rating({    
-        focus: function (value, link) {
-            var tip = $('#hover-test'); tip[0].data = tip[0].data || tip.html(); tip.html(link.title || 'value: ' + value);
-        },
-        blur: function (value, link) {
-            var tip = $('#hover-test');
-            $('#hover-test').html(tip[0].data || '');
+            // To submit the form automatically:
+            //this.form.submit();
+
+            // To submit the form via ajax:
+            //$(this.form).ajaxSubmit();
         }
-    })
+    });
+
 </script>

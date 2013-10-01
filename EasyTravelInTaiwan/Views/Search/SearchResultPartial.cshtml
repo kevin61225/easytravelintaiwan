@@ -1,6 +1,6 @@
 ﻿@using BootstrapSupport
 @using BootstrapSupport.HtmlHelpers
-@model BootstrapSupport.HtmlHelpers.IPagedList<EasyTravelInTaiwan.Models.place>
+@model BootstrapSupport.HtmlHelpers.IPagedList<EasyTravelInTaiwan.Models.view>
 
 <style>
     .something-else-semantic {
@@ -32,12 +32,12 @@
 <div>
     <br>
     <div class="container">
-        <p>搜尋關鍵字: <font color="red"><em><strong>@ViewBag.keyWord</strong></em></font>  ,  符合條件共 <font color="red">@ViewBag.FoundNum</font> 筆結果 </p>
+        <p>搜尋關鍵字: <font color="red"><em><strong>@ViewBag.keyWord</strong></em></font>  ,  分類: <font color="red"><strong>@ViewBag.Filters</strong></font> , 符合條件共 <font color="red">@ViewBag.FoundNum</font> 筆結果 </p>
         <hr />
         @*<div class="row-fluid">*@
         @*<div class="span8">*@
         <ul id="results">
-            @foreach (EasyTravelInTaiwan.Models.place item in Model)
+            @foreach (EasyTravelInTaiwan.Models.view item in Model)
             {                
                 <li class="searchItemBorder">
                     <div class="caption">
@@ -52,7 +52,7 @@
                         </a>
                             </div>
                         <div class="span8">
-                            @Html.Raw(item.ShortDescription)
+                            @Html.Raw(item.Description)
                         </div>
                     </div>
                     <hr />

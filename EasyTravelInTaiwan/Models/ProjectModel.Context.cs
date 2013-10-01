@@ -25,8 +25,10 @@ namespace EasyTravelInTaiwan.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<accommodation> accommodations { get; set; }
         public DbSet<city> cities { get; set; }
         public DbSet<food> foods { get; set; }
+        public DbSet<hotel> hotels { get; set; }
         public DbSet<maplatlng> maplatlngs { get; set; }
         public DbSet<member> members { get; set; }
         public DbSet<place> places { get; set; }
@@ -34,6 +36,8 @@ namespace EasyTravelInTaiwan.Models
         public DbSet<rating> ratings { get; set; }
         public DbSet<travellist> travellists { get; set; }
         public DbSet<travellistplace> travellistplaces { get; set; }
+        public DbSet<view> views { get; set; }
         public DbSet<viewtype> viewtypes { get; set; }
+        public DbSet<hotelimage> hotelimages { get; set; }
     }
 }

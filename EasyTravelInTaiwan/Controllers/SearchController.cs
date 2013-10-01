@@ -12,10 +12,26 @@ namespace EasyTravelInTaiwan.Controllers
     {
         ProjectEntities db = new ProjectEntities();
 
-        public ActionResult SearchPlace()
+        public ActionResult SearchPlace(int type)
         {
             var entityList = new SearchModel();
-            entityList.AddPlaceSearch();
+            
+            switch (type)
+            {
+                case 0:
+                    // 搜全部
+                    entityList.AddPlaceSearch();
+                    break;
+                case 1:
+                    entityList.AddFoodSearch();
+                    break;
+                case 2:
+                    entityList.AddViewSearch();
+                    break;
+                case 3:
+                    entityList.AddHotelSearch();
+                    break;
+            }
             return Json(entityList, JsonRequestBehavior.AllowGet);
         }
 
@@ -36,33 +52,32 @@ namespace EasyTravelInTaiwan.Controllers
             var pageSize = 15;
 
             SearchResultModel model = new SearchResultModel();
-            if (searchViewModel.searchWord == null)
-            {
-                model.GetAllPlaces();
-            }
-            else
-            {
+
                 switch (searchViewModel.searchType)
                 {
                     case 0:
+                        if (searchViewModel.searchWord == null) model.GetAllPlaces(); 
                         model.ByTitle(searchViewModel.searchWord);
                         //model.ByAuthor(searchViewModel.searchWord);
                         //model.ByPublisher(searchViewModel.searchWord);
                         break;
-                    //case 1:
-                    //    model.ByTitle(searchViewModel.searchWord);
-                    //    break;
-                    //case 2:
-                    //    model.ByAuthor(searchViewModel.searchWord);
-                    //    break;
-                    //case 3:
-                    //    model.ByPublisher(searchViewModel.searchWord);
-                    //    break;
+                    case 1:
+                        if (searchViewModel.searchWord == null) model.GetAllFoods(); 
+                        model.ByFood(searchViewModel.searchWord);
+                        break;
+                    case 2:
+                        if (searchViewModel.searchWord == null)  model.GetAllViews();                      
+                        model.ByView(searchViewModel.searchWord);
+                        break;
+                    case 3:
+                        if (searchViewModel.searchWord == null) model.GetAllHotels();
+                        model.ByHotel(searchViewModel.searchWord);
+                        break;
                 }
-            }
 
             ViewBag.keyWord = searchViewModel.searchWord;
             ViewBag.key = searchViewModel.searchType;
+            ViewBag.Filters = SearchResultModel.FilterType(searchViewModel.searchType);
             ViewBag.FoundNum = model.Count();
 
             return PartialView("SearchResultPartial", model.ToPagedList(page, pageSize));
@@ -72,9 +87,10 @@ namespace EasyTravelInTaiwan.Controllers
         {
             
             string temp = id.ToString();
-            place place = db.places.Where(o => o.Id == id).Single();
+            
             try
             {
+                place place = db.places.Where(o => o.Id == id).Single();
                 byte[] img = place.placeimages.First().Image;
                 return File(img, "image/jpeg");
             }

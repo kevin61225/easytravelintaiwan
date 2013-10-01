@@ -1,4 +1,4 @@
-﻿@model EasyTravelInTaiwan.Models.place
+﻿@model EasyTravelInTaiwan.Models.PlaceDetail
 
 @{
     ViewBag.Title = TempData["Title"] + "- Easy Travel In Taiwan";
@@ -10,13 +10,13 @@
 
 <h3>
     <ul class="breadcrumb">
-        <li><a href="@Url.Action("CityViews", new { id = Model.Citynumber })">@Html.DisplayFor(model => model.city.Cityname)</a> <span class="divider">/</span></li>
+        <li><a href="@Url.Action("CityViews", new { id = Model.Citynumber })">@Html.DisplayFor(model => model.Citynumber)</a> <span class="divider">/</span></li>
         <li class="active">@Html.DisplayFor(model => model.Name)</li>
     </ul>
 </h3>
 <hr />
 <div id="slideShow" class="span5 pull-right ">
-    @Html.Partial("_imageSlidePartial", Model.placeimages)
+    @Html.Partial("_imageSlidePartial", Model.viewimages)
 </div>
 <div id="AverageRatingPartial">
     @Html.Action("PlaceRatePartial", "Rating", new { sno = Model.Id })
@@ -27,7 +27,7 @@
             <p>類型</p>
         </div>
         <div class="display-field">
-            @Html.DisplayFor(model => model.viewtype.Typename)
+            @Html.DisplayFor(model => model.type)
         </div>
         <br />
         <div class="display-label">
@@ -79,7 +79,7 @@
         </div>*@
         <div class="display-field">
             <div>
-                @Html.Partial("_imagePartial", Model.placeimages)
+                @Html.Partial("_imagePartial", Model.viewimages)
             </div>
         </div>
     </div>

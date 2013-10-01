@@ -12,7 +12,6 @@
     @*<link href="#" rel="stylesheet" />*@
     @RenderSection("head", required: false)
     @Html.Partial("_html5shiv")
-    <script src="~/scripts/fbAuthJScript.js"></script>
     @* favicons and touch icons go here *@
 </head>
 
@@ -70,8 +69,11 @@
             <p>&copy; Company Easy Travel In Taiwan @System.DateTime.Now.ToString("yyyy")</p>
         </footer>
     </div>
+        <script src="~/scripts/fbAuthJScript.js"></script>
     @Scripts.Render("~/js")
     <script src="~/scripts/bootstrap-typeahead.js"></script>
+
+    <script src="~/scripts/jquery.rating.js"></script>
     @RenderSection("Scripts", required: false)
 
     <!--Login Page -->
@@ -107,12 +109,12 @@
     #myModal {
         width: 300px;
         /*margin-top: -300px ;*/
-        margin-left: -150px ;
+        margin-left: -150px;
     }
 
-    #myModal .modal-body {
-        max-height: 525px;
-    }
+        #myModal .modal-body {
+            max-height: 525px;
+        }
 </style>
 
 <script type="text/javascript">
@@ -140,7 +142,7 @@
         $('#myCarousel').carousel({ interval: 3000, cycle: true });
         FacebookInit();
     });
-
+    
     (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;

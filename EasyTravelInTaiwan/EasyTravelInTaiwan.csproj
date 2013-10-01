@@ -331,16 +331,26 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\accommodation.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\city.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DatabaseConstructor\paritialView.cs" />
     <Compile Include="Models\DatabaseConstructor\partialPlace.cs" />
     <Compile Include="Models\DatabaseConstructor\partialMember.cs" />
     <Compile Include="Models\food.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HomeInputModel.cs" />
+    <Compile Include="Models\hotel.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\hotelimage.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Interface\IRepository.cs" />
     <Compile Include="Models\maplatlng.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
@@ -352,6 +362,7 @@
     <Compile Include="Models\place.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PlaceDetail.cs" />
     <Compile Include="Models\placeimage.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
@@ -384,6 +395,10 @@
     <Compile Include="Models\travellistplace.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\view.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewImage.cs" />
     <Compile Include="Models\viewtype.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
@@ -1026,6 +1041,7 @@
     <Content Include="App_GlobalResources\EditorLocalization.bg-BG.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>EditorLocalization.bg-BG.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <PropertyGroup>

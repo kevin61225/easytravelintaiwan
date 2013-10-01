@@ -16,12 +16,14 @@ namespace EasyTravelInTaiwan.Models
     {
         public viewtype()
         {
-            this.places = new HashSet<place>();
+            this.views = new HashSet<view>();
+            this.place = new HashSet<place>();
         }
     
         public int Typenumber { get; set; }
         public string Typename { get; set; }
     
-        public virtual ICollection<place> places { get; set; }
+        public virtual ICollection<view> views { get; set; }
+        public virtual ICollection<place> place { get; set; }
     }
 }

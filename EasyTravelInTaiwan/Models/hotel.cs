@@ -12,11 +12,11 @@ namespace EasyTravelInTaiwan.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class place
+    public partial class hotel
     {
-        public place()
+        public hotel()
         {
-            this.placeimages = new HashSet<placeimage>();
+            this.hotelimages = new HashSet<hotelimage>();
         }
     
         public string Id { get; set; }
@@ -24,16 +24,17 @@ namespace EasyTravelInTaiwan.Models
         public string Citynumber { get; set; }
         public int Typenumber { get; set; }
         public string Description { get; set; }
-        public string Telphone { get; set; }
         public string Address { get; set; }
         public string Url { get; set; }
-        public string Carmethod { get; set; }
-        public string Busmethod { get; set; }
+        public string Telphone { get; set; }
+        public string FaxNumber { get; set; }
+        public Nullable<int> Rooms { get; set; }
+        public string Price { get; set; }
+        public string Email { get; set; }
+        public Nullable<int> star { get; set; }
         public string Lat { get; set; }
         public string Lng { get; set; }
     
-        public virtual ICollection<placeimage> placeimages { get; set; }
-        public virtual city city { get; set; }
-        public virtual viewtype viewtype { get; set; }
+        public virtual ICollection<hotelimage> hotelimages { get; set; }
     }
 }
