@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using BootstrapSupport.HtmlHelpers;
 using System.Web.Services.Description;
 using System.Web.Security;
+using System.IO;
 
 namespace EasyTravelInTaiwan.Controllers
 {
@@ -19,7 +20,6 @@ namespace EasyTravelInTaiwan.Controllers
         [Authorize(Roles = "Admin, Clerk, Customer")]
         public ActionResult Index()
         {
-
             if (User.Identity.IsAuthenticated)
             {
                 //if (Session["UserId"] == null)
@@ -126,21 +126,21 @@ namespace EasyTravelInTaiwan.Controllers
                     try
                     {
                         hotel hotel = db.hotels.Where(o => o.Id == place.Id).Single();
-                        detail = new HotelDetail(hotel);
+                        detail = new HotelDetail(hotel, place.Pt);
                     }
                     catch
                     {
                         accommodation acco = db.accommodations.Where(o => o.id == place.Id).Single();
-                        detail = new AccommodationDetail(acco);
+                        detail = new AccommodationDetail(acco, place.Pt);
                     }
                     break;
                 case "07":
                     food food = db.foods.Where(o => o.id == place.Id).Single();
-                    detail = new FoodDetail(food);
+                    detail = new FoodDetail(food, place.Pt);
                     break;
                 case "10":
                     place viewplace = db.places.Where(o => o.Id == place.Id).Single();
-                    detail = new ViewDetail(viewplace);
+                    detail = new ViewDetail(viewplace, place.Pt);
                     break;
             }
 
@@ -149,6 +149,7 @@ namespace EasyTravelInTaiwan.Controllers
                 return HttpNotFound();
             }
             TempData["Title"] = place.Name;
+            Session["Pt"] = place.Pt;
             return View(detail);
         }
 
@@ -172,10 +173,20 @@ namespace EasyTravelInTaiwan.Controllers
             return View(maplatlng.ToPagedList(page, pageSize));
         }
 
-        public FileContentResult RenderBookImage(int id)
+        public ActionResult ImageSlidePartial(ViewImage images)
         {
-            byte[] img = db.placeimages.Find(id).Image;
-            return File(img, "image/jpeg");
+            return PartialView("_imageSlidePartial", images);
+        }
+
+        public FileResult RenderBookImage(string id, string pt, int sid)
+        {
+            string s = string.Format("{0}/{1}", Server.MapPath("~/Content/Images"), "ImageNotFound.jpg");
+           // FileStreamResult file = new FileStreamResult(new FileStream(s, FileMode.Open), "image/jpeg");
+
+            byte[] img = ViewImage.GetImageById(db, id, pt, sid);
+
+            if (img != null) return File(img, "image/jpeg");
+            return new FileStreamResult(new FileStream(s, FileMode.Open), "image/jpeg");
         }
 
         public ActionResult ShowImage(string id)

@@ -64,14 +64,15 @@
     </div>
 </div>*@
 
+   
 <form class="form-inline">
-        <input id="inputGeo" type="text" placeholder="輸入地點" maxlength="100" autocomplete="off" />
-
-        <div id="placeFilter" class="btn-group filterClass" data-toggle="buttons-checkbox">
-            <button type="button" class="btn btn-primary " value="07">食物</button>
-            <button type="button" class="btn btn-primary " value="06">旅館</button>
-            <button type="button" class="btn btn-primary " value="10">風景</button>
-        </div>
+    <input id="inputGeo" type="text" placeholder="輸入地區、地址" maxlength="100" autocomplete="off" />
+    <input autocomplete="off" class="span7" data="typeahead" id="SearchView" name="searchWord" placeholder="輸入店家、景點、旅館名稱" type="text" value="">
+    <div id="placeFilter" class="btn-group filterClass" data-toggle="buttons-checkbox">
+        <button type="button" class="btn btn-primary " value="07">食物</button>
+        <button type="button" class="btn btn-primary " value="06">旅館</button>
+        <button type="button" class="btn btn-primary " value="10">風景</button>
+    </div>
 </form>
 <div class="row">
     <div class="span8">
@@ -228,18 +229,15 @@
     var contextMenu;
     var unloading = false;
 
-    $.ready()
-    {
-        if (localStorage['json_array'] == null) {
+    $(document).ready(function () {
             $.ajax({
                 type: 'POST',
                 url: '/Map/GetMap',
                 dataType: 'json',
                 cache: true,
                 success: function (data) {
-                    localStorage['json_array'] = JSON.stringify(data);
                     initialize(data);
-                    //DisableBlockUI();
+                    $.unblockUI();
                 },
                 error: function () {
                     console.log('Load Error Occur !');
@@ -253,22 +251,40 @@
                     }
                 }
             });
-        }
-        else {
 
-            var data = JSON.parse(localStorage['json_array']);
-            initialize(data);
-            $.unblockUI();
-        }
-    }
+        //$("#SearchView").blur(function () {
+        //    alert("Handler for .blur() called.");
+        //});
+        $("#SearchView").keyup(function (e) {
+            if (e.keyCode == 13) {
+                //$(this).trigger("enterKey");
+                //var str = $(this).attr('id');
+                //var n = str.split(".");
+                var name = $("#SearchView").val();
+                console.log(name);
+                for (var i = 0; i < gmarkers.length; i++) {
+                    if (gmarkers[i].title == name) {
+                        id = i;
+                    }
+                }
+                google.maps.event.trigger(gmarkers[id], "click");
+                gmarkers[id].setVisible(true);
+            }
+        });
+    });
+
     function initialize(mapData) {
+
+        var imageBounds = new google.maps.LatLngBounds(new google.maps.LatLng(22.046803, 120.697474), new google.maps.LatLng(22.05, 120.797474));
+        var historicalOverlay;
+        historicalOverlay = new google.maps.GroundOverlay('/Content/images/PleaseZoomIn.png', imageBounds);
+        historicalOverlay.setMap(gmap);
 
         ////google.maps.event.addListener(gmarker, 'dblclick', function () {
         ////    // When a user double clicks on the icon fit to the map to the bounds
         ////    gmap.fitBounds(distanceWidget.get('bounds'));
         ////    console.log("dbclick!!");
         ////});
-
         $.each(mapData, function (i, item) {
             setupLocationMarker(item);
         });
@@ -281,6 +297,21 @@
         //    distanceWidget.set('position', gmarker.getPosition());
         //    displayInfo(distanceWidget);
         //});
+        
+        google.maps.event.addListener(gmap, "zoom_changed", function () {
+            var zoom = this.getZoom();
+            if (zoom < 17) {
+                //hide("06");
+                //hide("07");
+                //hide("10");
+                console.log("Please zoom in");
+            }
+            else {
+                //$(".filterClass .btn").hasClass("active") {
+                //    boxclick($(this).hasClass("active"), $(this).val());
+                //}
+            }
+        });
 
         google.maps.event.addListener(distanceWidget, 'distance_changed', function () {
             displayInfo(distanceWidget);
@@ -296,10 +327,9 @@
     function setupLocationMarker(item) {
 
         var markerIcon;
-
-        switch (item.pt) {
+        switch (item.Pt) {
             case "06": //住宿
-                switch (item.m_layer2) {
+                switch (item.IconType) {
                     case "11":
                         markerIcon = hotelIcon11;
                         break;
@@ -331,20 +361,20 @@
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng(item.Lat, item.Lng),
             map: gmap,
-            title: item.pName,
+            title: item.Name,
             icon: markerIcon,
             visible: false,
             isChecked: false,
             gIndex: gmarkers.length,
-            gId: item.sno
+            gId: item.Id
         });
-        marker.category = item.pt;
+        marker.category = item.Pt;
 
         gmarkers.push(marker);
 
         // add a marker click event
         google.maps.event.addListener(marker, 'click', function () {
-            infowindow.setContent(item.pName + '<br/><a href="/Map/ViewPointDetails/' + item.sno + ' " target="_blank">點我看詳細內容</a>');
+            infowindow.setContent(item.Name + '<br/><a href="/Map/ViewPointDetails/' + item.Id + ' " target="_blank">點我看詳細內容</a>');
             infowindow.open(gmap, this);
         });
 
@@ -522,36 +552,17 @@
 
     };
 
-
-    $(document).ajaxStart($.blockUI({
-        message: $('<div id="progress_bar" class="ui-progress-bar ui-container"><div class="ui-progress" style="width: 70%;"><span class="ui-label" style="display: none;">資料讀取中... <b class="value">70%</b></span></div></div>'),
-        css: {
-            top: ($(window).height() - 240) / 2 + 'px',
-            left: ($(window).width() - 240) / 2 + 'px',
-            width: '240px',
-            color: '#fff',
-            background: 'none',
-            border: '0px',
-            opacity: .7
-        }
-    }));
-
-    $('#progress_bar .ui-progress .ui-label').hide();
-    $('#progress_bar .ui-progress').css('width', '7%');
-    var timer = 99;
-    $('#progress_bar .ui-progress').animateProgress(timer, function () {
-        setTimeout(function () {
-            if (timer >= 100) {
-                timer = 10;
-            }
-            $(this).animateProgress(timer, function () {
-                //$('#main_content').slideDown();
-            });
-            timer += 10;
-            console.log("in");
-        }, 2000);
-    });
-
-    $(document).ajaxStop($.unblockUI);
+    //$(document).ajaxStart($.blockUI({
+    //    message: $('<div id="progress_bar" class="ui-progress-bar ui-container"><div class="ui-progress" style="width: 90%;"><span class="ui-label" style="display: none;">資料讀取中... <b class="value">70%</b></span></div></div>'),
+    //    css: {
+    //        top: ($(window).height() - 240) / 2 + 'px',
+    //        left: ($(window).width() - 240) / 2 + 'px',
+    //        width: '240px',
+    //        color: '#fff',
+    //        background: 'none',
+    //        border: '0px',
+    //        opacity: .7
+    //    }
+    //}));
 
 </script>

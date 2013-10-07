@@ -3,13 +3,14 @@ using System.Collections.Generic;
 
 namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
 {
-    public class SearchResultModel  :List<view>
+    public class SearchResultModel  :List<ResultView>
     {
         public void TopRatingFoodByAmount(int resultCount)
         {
             using (var db = new ProjectEntities())
             {
                 var query = (from ratingItems in db.ratings
+                             where ratingItems.pt == "07"
                              group ratingItems by ratingItems.Sno into ratingItemsGrp
                              orderby ratingItemsGrp.Sum(o => o.Point) descending
                              select ratingItemsGrp.Key).Take(resultCount).ToList();
@@ -17,7 +18,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
                 {
                     try
                     {
-                        //Add(new view(db.views.Where(o => o.Id == item).Single()));
+                        Add(GetView(db.views.Where(o => o.Id == item).Single()));
                     }
                     catch
                     {
@@ -25,6 +26,51 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
                 }
             }
         }
+
+        public void TopRatingHotelByAmount(int resultCount)
+        {
+            using (var db = new ProjectEntities())
+            {
+                var query = (from ratingItems in db.ratings
+                             where ratingItems.pt == "06"
+                             group ratingItems by ratingItems.Sno into ratingItemsGrp
+                             orderby ratingItemsGrp.Sum(o => o.Point) descending
+                             select ratingItemsGrp.Key).Take(resultCount).ToList();
+                foreach (var item in query)
+                {
+                    try
+                    {
+                        Add(GetView(db.views.Where(o => o.Id == item).Single()));
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+        }
+
+        public void TopRatingViewByAmount(int resultCount)
+        {
+            using (var db = new ProjectEntities())
+            {
+                var query = (from ratingItems in db.ratings
+                             where ratingItems.pt == "10"
+                             group ratingItems by ratingItems.Sno into ratingItemsGrp
+                             orderby ratingItemsGrp.Sum(o => o.Point) descending
+                             select ratingItemsGrp.Key).Take(resultCount).ToList();
+                foreach (var item in query)
+                {
+                    try
+                    {
+                        Add(GetView(db.views.Where(o => o.Id == item).Single()));
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+        }
+
 
         //public void TopSellByAmount(int resultCount)
         //{
@@ -112,9 +158,9 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
                 }
             }
         }
-        public view GetView(view input)
+        public ResultView GetView(view input)
         {
-            view temp = new view();
+            ResultView temp = new ResultView();
             temp.Id = input.Id;
             temp.Name = input.Name;
             temp.Lat = input.Lat;
@@ -124,8 +170,15 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
             temp.Viewtype = input.Viewtype;
             temp.Pt = input.Pt;
             temp.IconType = input.IconType;
-            temp.Description = input.Description;
+            temp.Description = ShortDescription(input.Description);
+
             return temp;
+        }
+
+        public string ShortDescription(string input)
+        {
+            if (input == null) return string.Empty;
+            return (input.Length > 100) ? input.Substring(0, 100) + "  ..." : input; 
         }
 
         public void ByTitle(string keyWord)
@@ -236,5 +289,10 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
         //    }
         //}
 
+    }
+
+    public class ResultView : view
+    {
+        public ViewImage image { get; set; }
     }
 }

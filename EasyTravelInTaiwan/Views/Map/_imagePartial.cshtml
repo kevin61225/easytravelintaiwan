@@ -18,8 +18,8 @@
             @foreach (var image in Model)
             {
                 <li class="span3">
-                    <a href="@Url.Action("RenderBookImage", new { id = image.sid })" title="@image.Name" class="thumbnail">
-                        <img src="@Url.Action("RenderBookImage", new { id = image.sid })" width="150" height="150" alt=""/>
+                    <a href="@Url.Action("RenderBookImage", new { id = image.Id, pt = image.pt, sid = image.sid })" title="@image.Name" class="thumbnail">
+                        <img src="@Url.Action("RenderBookImage", new { id = image.Id, pt = image.pt, sid = image.sid })" width="150" height="150" alt=""/>
                     </a>
                 </li>
             }

@@ -14,7 +14,6 @@ namespace EasyTravelInTaiwan.Models
     
     public partial class hotelimage
     {
-
         public int sid { get; set; }
         public string Id { get; set; }
         public string Name { get; set; }

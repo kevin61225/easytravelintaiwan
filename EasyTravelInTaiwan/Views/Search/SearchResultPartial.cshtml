@@ -1,6 +1,6 @@
 ﻿@using BootstrapSupport
 @using BootstrapSupport.HtmlHelpers
-@model BootstrapSupport.HtmlHelpers.IPagedList<EasyTravelInTaiwan.Models.view>
+@model BootstrapSupport.HtmlHelpers.IPagedList<EasyTravelInTaiwan.Models.ResultView>
 
 <style>
     .something-else-semantic {
@@ -37,7 +37,7 @@
         @*<div class="row-fluid">*@
         @*<div class="span8">*@
         <ul id="results">
-            @foreach (EasyTravelInTaiwan.Models.view item in Model)
+            @foreach (EasyTravelInTaiwan.Models.ResultView item in Model)
             {                
                 <li class="searchItemBorder">
                     <div class="caption">
@@ -48,11 +48,12 @@
                     <div class="row">
                         <div class="span3">
                         <a href="@Url.Action("ViewPointDetails", "Map", new { id = item.Id })" title="@item.Name">                         
-                            <img src="@Url.Action("RenderBookImage", "Search", new { id = item.Id })" width="150" height="150" alt="@item.Name"/>            
+                            <img src="@Url.Action("RenderBookImage", "Search", new { id = item.Id, pt = item.Pt })" width="150" height="150" alt="@item.Name"/>            
                         </a>
                             </div>
                         <div class="span8">
                             @Html.Raw(item.Description)
+                            <a href="@Url.Action("ViewPointDetails", "Map", new { id = item.Id })" title="@item.Name">點我看詳細內容</a>
                         </div>
                     </div>
                     <hr />

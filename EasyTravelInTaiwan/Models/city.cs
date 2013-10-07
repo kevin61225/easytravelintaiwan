@@ -16,12 +16,12 @@ namespace EasyTravelInTaiwan.Models
     {
         public city()
         {
-            this.place = new HashSet<place>();
+            this.places = new HashSet<place>();
         }
     
         public string Citynumber { get; set; }
         public string Cityname { get; set; }
     
-        public virtual ICollection<place> place { get; set; }
+        public virtual ICollection<place> places { get; set; }
     }
 }

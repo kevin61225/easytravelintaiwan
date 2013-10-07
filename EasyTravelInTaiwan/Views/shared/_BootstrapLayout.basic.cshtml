@@ -8,6 +8,7 @@
     <meta charset="utf-8">
     <title>@ViewBag.Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="SHORTCUT ICON" href="~/EzIcon.ico" />
     <link href="@Styles.Url("~/content/css")" rel="stylesheet"/>
     @*<link href="#" rel="stylesheet" />*@
     @RenderSection("head", required: false)
@@ -69,15 +70,16 @@
             <p>&copy; Company Easy Travel In Taiwan @System.DateTime.Now.ToString("yyyy")</p>
         </footer>
     </div>
-        <script src="~/scripts/fbAuthJScript.js"></script>
+    <script src="~/scripts/fbAuthJScript.js"></script>
+
     @Scripts.Render("~/js")
     <script src="~/scripts/bootstrap-typeahead.js"></script>
-
+        <script src="~/scripts/jquery.blockUI.js"></script>
     <script src="~/scripts/jquery.rating.js"></script>
     @RenderSection("Scripts", required: false)
 
     <!--Login Page -->
-    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="siz">
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <h3 id="myModalLabel">登入</h3>
@@ -123,7 +125,6 @@
     window.setTimeout(function () { $("#MainAlert").fadeOut(); }, 10000);
 
     $('#myModal').on('show', function () {
-
         $(this).find('.modal').css({
             width: '100px',
             height: '100px',
@@ -137,12 +138,18 @@
         $(this).tab('show');
     });
 
+
+    $('#MainAlert').click(function () {
+        $.growlUI('已經登出');
+    });
+
     //var $ = jQuery.noConflict();
     $(document).ready(function () {
-        $('#myCarousel').carousel({ interval: 3000, cycle: true });
+        //$('#myCarousel').carousel({ interval: 3000, cycle: true });
         FacebookInit();
+
     });
-    
+
     (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;

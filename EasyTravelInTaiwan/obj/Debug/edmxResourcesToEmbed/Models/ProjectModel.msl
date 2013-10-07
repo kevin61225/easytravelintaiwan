@@ -79,6 +79,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="hotelimages">
+      <EntityTypeMapping TypeName="ProjectModel.hotelimage">
+        <MappingFragment StoreEntitySet="hotelimage">
+          <ScalarProperty Name="sid" ColumnName="sid" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="maplatlngs">
       <EntityTypeMapping TypeName="ProjectModel.maplatlng">
         <MappingFragment StoreEntitySet="maplatlng">
@@ -116,8 +126,6 @@
     <EntitySetMapping Name="places">
       <EntityTypeMapping TypeName="ProjectModel.place">
         <MappingFragment StoreEntitySet="place">
-          <ScalarProperty Name="Lng" ColumnName="Lng" />
-          <ScalarProperty Name="Lat" ColumnName="Lat" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Citynumber" ColumnName="Citynumber" />
@@ -128,6 +136,8 @@
           <ScalarProperty Name="Url" ColumnName="Url" />
           <ScalarProperty Name="Carmethod" ColumnName="Carmethod" />
           <ScalarProperty Name="Busmethod" ColumnName="Busmethod" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="Lng" ColumnName="Lng" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -145,12 +155,12 @@
     <EntitySetMapping Name="ratings">
       <EntityTypeMapping TypeName="ProjectModel.rating">
         <MappingFragment StoreEntitySet="rating">
-          <ScalarProperty Name="pt" ColumnName="pt" />
           <ScalarProperty Name="RId" ColumnName="RId" />
           <ScalarProperty Name="Sno" ColumnName="Sno" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="Point" ColumnName="Point" />
           <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="pt" ColumnName="pt" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -193,16 +203,6 @@
         <MappingFragment StoreEntitySet="viewtype">
           <ScalarProperty Name="Typenumber" ColumnName="Typenumber" />
           <ScalarProperty Name="Typename" ColumnName="Typename" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="hotelimages">
-      <EntityTypeMapping TypeName="ProjectModel.hotelimage">
-        <MappingFragment StoreEntitySet="hotelimage">
-          <ScalarProperty Name="Image" ColumnName="Image" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="sid" ColumnName="sid" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -32,7 +32,7 @@ namespace EasyTravelInTaiwan.Controllers
 
             SearchResultModel model = new SearchResultModel();
 
-            model.TopRatingFoodByAmount(5);
+            model.TopRatingHotelByAmount(5);
 
             return PartialView("_hotHotelPartial", model);
         }
@@ -42,7 +42,7 @@ namespace EasyTravelInTaiwan.Controllers
 
             SearchResultModel model = new SearchResultModel();
 
-            model.TopRatingFoodByAmount(5);
+            model.TopRatingViewByAmount(5);
 
             return PartialView("_hotViewPartial", model);
         }

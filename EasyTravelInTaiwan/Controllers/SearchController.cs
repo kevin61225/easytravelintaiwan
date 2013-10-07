@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using EasyTravelInTaiwan.Models;
 using EasyTravelInTaiwan.Models.Repository;
 using BootstrapSupport.HtmlHelpers;
+using System.IO;
 //using EasyTravelInTaiwan.Service;
 
 namespace EasyTravelInTaiwan.Controllers
@@ -15,7 +16,7 @@ namespace EasyTravelInTaiwan.Controllers
         public ActionResult SearchPlace(int type)
         {
             var entityList = new SearchModel();
-            
+
             switch (type)
             {
                 case 0:
@@ -53,27 +54,27 @@ namespace EasyTravelInTaiwan.Controllers
 
             SearchResultModel model = new SearchResultModel();
 
-                switch (searchViewModel.searchType)
-                {
-                    case 0:
-                        if (searchViewModel.searchWord == null) model.GetAllPlaces(); 
-                        model.ByTitle(searchViewModel.searchWord);
-                        //model.ByAuthor(searchViewModel.searchWord);
-                        //model.ByPublisher(searchViewModel.searchWord);
-                        break;
-                    case 1:
-                        if (searchViewModel.searchWord == null) model.GetAllFoods(); 
-                        model.ByFood(searchViewModel.searchWord);
-                        break;
-                    case 2:
-                        if (searchViewModel.searchWord == null)  model.GetAllViews();                      
-                        model.ByView(searchViewModel.searchWord);
-                        break;
-                    case 3:
-                        if (searchViewModel.searchWord == null) model.GetAllHotels();
-                        model.ByHotel(searchViewModel.searchWord);
-                        break;
-                }
+            switch (searchViewModel.searchType)
+            {
+                case 0:
+                    if (searchViewModel.searchWord == null) model.GetAllPlaces();
+                    model.ByTitle(searchViewModel.searchWord);
+                    //model.ByAuthor(searchViewModel.searchWord);
+                    //model.ByPublisher(searchViewModel.searchWord);
+                    break;
+                case 1:
+                    if (searchViewModel.searchWord == null) model.GetAllFoods();
+                    model.ByFood(searchViewModel.searchWord);
+                    break;
+                case 2:
+                    if (searchViewModel.searchWord == null) model.GetAllViews();
+                    model.ByView(searchViewModel.searchWord);
+                    break;
+                case 3:
+                    if (searchViewModel.searchWord == null) model.GetAllHotels();
+                    model.ByHotel(searchViewModel.searchWord);
+                    break;
+            }
 
             ViewBag.keyWord = searchViewModel.searchWord;
             ViewBag.key = searchViewModel.searchType;
@@ -83,23 +84,16 @@ namespace EasyTravelInTaiwan.Controllers
             return PartialView("SearchResultPartial", model.ToPagedList(page, pageSize));
         }
 
-        public ActionResult RenderBookImage(string id)
+        public FileResult RenderBookImage(string id, string pt)
         {
-            
-            string temp = id.ToString();
-            
-            try
-            {
-                place place = db.places.Where(o => o.Id == id).Single();
-                byte[] img = place.placeimages.First().Image;
-                return File(img, "image/jpeg");
-            }
-            catch
-            {
-                return new FilePathResult("Content/images/ImageNotFound.jpg", "image/jpg");
-            }
-                
+            string s = string.Format("{0}/{1}", Server.MapPath("~/Content/Images"), "ImageNotFound.jpg");
+            //FileStreamResult file = new FileStreamResult(new FileStream(s, FileMode.Open), "image/jpeg");
+
+            byte[] img = ViewImage.GetImageById(db, id, pt);
+            if (img != null) return File(img, "image/jpeg");
+            return new FileStreamResult(new FileStream(s, FileMode.Open), "image/jpeg"); ;
         }
+
         public ActionResult SearchDropdownList()
         {
             SearchViewModel searchViewModel = new SearchViewModel();

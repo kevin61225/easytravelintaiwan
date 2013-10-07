@@ -16,12 +16,14 @@
 </h3>
 <hr />
 <div id="slideShow" class="span5 pull-right ">
-    @Html.Partial("_imageSlidePartial", Model.viewimages)
+    @Html.Partial("_imageSlidePartial",  Model.viewimages )
 </div>
 <div id="AverageRatingPartial">
     @Html.Action("PlaceRatePartial", "Rating", new { sno = Model.Id })
 </div>
 <div>
+    @Html.Hidden("Pt", (string)Session["Pt"])
+    @Html.Hidden("Sno", (string)Session["Sno"])
     <div>
         <div class="display-label">
             <p>類型</p>

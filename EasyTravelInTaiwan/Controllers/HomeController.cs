@@ -37,7 +37,7 @@ namespace BootstrapMvcSample.Controllers
             //WebSecurity.Logout();
             TempData["success"] = "已登出";
             Session.Clear();
-            return RedirectToAction("Index", "Map");
+            return RedirectToAction("Index", "Index");
         }
 
         public ActionResult LogIn(string account, string password)

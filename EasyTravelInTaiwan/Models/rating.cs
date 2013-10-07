@@ -19,7 +19,7 @@ namespace EasyTravelInTaiwan.Models
         public int UserId { get; set; }
         public int Point { get; set; }
         public string Comment { get; set; }
-        public int pt { get; set; }
+        public string pt { get; set; }
     
         public virtual member member { get; set; }
     }

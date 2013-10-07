@@ -19,7 +19,7 @@ namespace EasyTravelInTaiwan.Models
         public string Name { get; set; }
         public int Imagetype { get; set; }
         public byte[] Image { get; set; }
-
+    
         public virtual place place { get; set; }
     }
 }

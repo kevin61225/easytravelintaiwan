@@ -32,8 +32,8 @@ namespace EasyTravelInTaiwan.Models
         public string Lat { get; set; }
         public string Lng { get; set; }
     
-        public virtual ICollection<placeimage> placeimages { get; set; }
         public virtual city city { get; set; }
         public virtual viewtype viewtype { get; set; }
+        public virtual ICollection<placeimage> placeimages { get; set; }
     }
 }

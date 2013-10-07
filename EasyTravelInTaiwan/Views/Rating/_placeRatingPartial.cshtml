@@ -1,13 +1,11 @@
 ﻿<link href="~/Content/jquery.rating.css" rel="stylesheet" />
 <script src="~/scripts/jquery.rating.js"></script>
-<script src="~/scripts/jquery.rating.pack.js"></script>
-<script src="~/scripts/jquery.form.js"></script>
 
 綜合評價
 <p>
-    @if (ViewBag.RateSum != -1)
+    @if (ViewBag.RateAverage != -1)
     {
-        @ViewBag.RateSum;
+        @ViewBag.RateAverage;
     }
     else
     {
@@ -17,14 +15,7 @@
 
 你的評分
 <p>
-    @if (ViewBag.userRate != -1)
-    {
-        @ViewBag.userRate;
-    }
-    else
-    {
-        @Html.DisplayName("尚無評分");
-    }
+    <input id="UserRate" name="Pt" type="hidden" value="@ViewBag.UserRate">
 </p>
 
 <input name="star1" type="radio" class="auto-submit-star star {half:true}" value="1" title="Very Bad" />
@@ -32,28 +23,45 @@
 <input name="star1" type="radio" class="auto-submit-star star {half:true}" value="3" title="OK" />
 <input name="star1" type="radio" class="auto-submit-star star {half:true}" value="4" title="Good" />
 <input name="star1" type="radio" class="auto-submit-star star {half:true}" value="5" title="Very Good" />
-@*<input type="button" value="Submit &raquo;" onClick="$(this).next().html($(this.form).serialize() || '(nothing submitted)');"/>*@
 
 
 <br />
 <br />
-@*<span id="hover-test" style="margin:0 0 0 20px;">Hover tips will appear in here</span>*@
 
 <script type="text/javascript">
 
+    $(document).ready(function () {
+        var $rate = $('#UserRate').val();
+        $('input[type=radio]').rating('select', $rate);
+    });
+
     $('.auto-submit-star').rating({
         callback: function (value, link) {
-            // 'this' is the hidden form element holding the current value
-            // 'value' is the value selected
-            // 'element' points to the link element that received the click.
-            alert("The value selected was '" + value + "'\n\nWith this callback function I can automatically submit the form with this code:\nthis.form.submit();");
-
-            // To submit the form automatically:
-            //this.form.submit();
-
-            // To submit the form via ajax:
-            //$(this.form).ajaxSubmit();
+            var $pt = $("#Pt").attr("value");
+            var $sno = $("#Sno").attr("value");
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("PostRating")",
+                data: JSON.stringify({ rate: value, pt: $pt, sno: $sno }),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    console.log("Done");
+                    if (data.Status != 2) {
+                        $("#AverageRatingPartial").html(data);
+                        //window.setTimeout(function () {
+                        //    $("#SaveAlert").fadeOut().alert('close');
+                        //    $("#box").attr("tabindex", 5000);
+                        //    $("#box").niceScroll({ autohidemode: true });
+                        //}, 10000);
+                    }
+                    else {
+                        alert(data.Message);
+                        window.location.replace("/Member/Login?ReturnUrl=%2fMap%2fViewPointDetails%2f" + data.Sno);
+                    }
+                }
+            });
         }
     });
+
 
 </script>

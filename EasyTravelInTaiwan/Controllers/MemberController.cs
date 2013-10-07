@@ -28,7 +28,6 @@ namespace EasyTravelInTaiwan.Controllers
         [Authorize(Roles = "Admin, Clerk, Customer")]
         public ActionResult Index(string returnUrl)
         {
-
             ViewBag.ReturnUrl = returnUrl;
             member tempMember;
             try
@@ -62,7 +61,7 @@ namespace EasyTravelInTaiwan.Controllers
                 // if login fail then redirect to sign in page
                 if (!AutoLogin(loginModel))
                 {
-                    return RedirectToAction("Login", "Member");
+                    return RedirectToAction("Login", "Member", new { returnUrl = returnUrl });
                 }
             }
             TempData["success"] = "登入成功 ! 歡迎使用";
@@ -112,6 +111,9 @@ namespace EasyTravelInTaiwan.Controllers
 
             // Create the cookie.
             Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
+
+            Session["UserName"] = user.Name;
+            Session["UserId"] = user.UserID;
 
             return true;
         }
@@ -220,7 +222,7 @@ namespace EasyTravelInTaiwan.Controllers
         {
             //return RedirectToAction("Login", "Member");
             member registMember = new member(member);
-
+            partialUser kernel = new partialUser();
             try
             {
                 registMember.Password = Encrypt(member.Password, true);
@@ -232,6 +234,8 @@ namespace EasyTravelInTaiwan.Controllers
                 TempData["Error"] = "帳號已存在，請更換";
                 return RedirectToAction("Register", "Member");
             }
+            kernel.LoadUserData();
+            kernel.RunSeparate();
             SendEmailForRegist(registMember);
             TempData["success"] = "註冊成功，已寄信至您的電子郵件信箱。並請您重新登入 !! ";
             return RedirectToAction("Login", "Member");

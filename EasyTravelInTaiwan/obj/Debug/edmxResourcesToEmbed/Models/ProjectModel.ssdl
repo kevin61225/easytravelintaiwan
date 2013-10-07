@@ -43,7 +43,7 @@
       <End Role="travellist" EntitySet="travellist" />
       <End Role="travellistplace" EntitySet="travellistplace" />
     </AssociationSet>
-    <AssociationSet Name="view_ibfk_3" Association="ProjectModel.Store.view_ibfk_3">
+    <AssociationSet Name="view_ibfk_2" Association="ProjectModel.Store.view_ibfk_2">
       <End Role="viewtype" EntitySet="viewtype" />
       <End Role="view" EntitySet="view" />
     </AssociationSet>
@@ -199,7 +199,7 @@
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="Point" Type="int" Nullable="false" />
     <Property Name="Comment" Type="text" Nullable="false" />
-    <Property Name="pt" Type="int" Nullable="false" />
+    <Property Name="pt" Type="varchar" Nullable="false" MaxLength="4" />
   </EntityType>
   <EntityType Name="travellist">
     <Key>
@@ -337,10 +337,8 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="view_ibfk_3">
-    <End Role="viewtype" Type="ProjectModel.Store.viewtype" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
+  <Association Name="view_ibfk_2">
+    <End Role="viewtype" Type="ProjectModel.Store.viewtype" Multiplicity="1" />
     <End Role="view" Type="ProjectModel.Store.view" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="viewtype">

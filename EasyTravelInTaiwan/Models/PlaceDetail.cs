@@ -17,7 +17,7 @@ namespace EasyTravelInTaiwan.Models
         public virtual string Url { get; set; }
         public virtual string Carmethod { get; set; }
         public virtual string Busmethod { get; set; }
-
+        public virtual string pt { get; set; }
         public virtual ICollection<placeimage> placeimages { get; set; }
 
         public virtual string FaxNumber { get; set; }
@@ -52,7 +52,7 @@ namespace EasyTravelInTaiwan.Models
 
     public class ViewDetail : PlaceDetail
     {
-        public ViewDetail(place view)
+        public ViewDetail(place view, string pt)
         {
             Id = view.Id;
             Name = view.Name;
@@ -65,13 +65,13 @@ namespace EasyTravelInTaiwan.Models
             Carmethod = view.Carmethod;
             Busmethod = view.Busmethod;
 
-            this.viewimages = ViewImage.TransformToViewCollection(view.placeimages);
+            this.viewimages = ViewImage.TransformToViewCollection(view.placeimages, pt);
         }
     }
 
     public class HotelDetail : PlaceDetail
     {
-        public HotelDetail(hotel hotel)
+        public HotelDetail(hotel hotel, string pt)
         {
             Id = hotel.Id;
             Name = hotel.Name;
@@ -89,13 +89,13 @@ namespace EasyTravelInTaiwan.Models
             Lat = hotel.Lat;
             Lng = hotel.Lng;
 
-            this.viewimages = ViewImage.TransformToViewCollection(hotel.hotelimages);
+            this.viewimages = ViewImage.TransformToViewCollection(hotel.hotelimages, pt);
         }
     }
 
     public class AccommodationDetail : PlaceDetail
     {
-        public AccommodationDetail(accommodation acco)
+        public AccommodationDetail(accommodation acco, string pt)
         {
             Id = acco.id;
             type = acco.type;
@@ -122,7 +122,7 @@ namespace EasyTravelInTaiwan.Models
 
     public class FoodDetail : PlaceDetail
     {
-        public FoodDetail(food food)
+        public FoodDetail(food food, string pt)
         {
             Id = food.id;
             type = food.type;
