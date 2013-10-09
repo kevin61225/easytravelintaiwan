@@ -1,0 +1,25 @@
+﻿@foreach (EasyTravelInTaiwan.Models.ResultView item in Model)
+{                
+    <li class="searchItemBorder">
+        <div class="row">
+            <div class="column">
+                <div class="span2" style="max-width: 150px">
+                    <a href="@Url.Action("ViewPointDetails", "Map", new { id = item.Id })" title="@item.Name">
+                        <img src="@Url.Action("RenderBookImage", "Search", new { id = item.Id })" width="150" height="150" alt="@item.Name"/>
+                    </a>
+                </div>
+
+                <div class="span6" style="max-width: 520px">
+                    <div>
+                        <p>位於： @item.cityName</p>
+                        <p>屬於： @item.viewTypeName</p>
+                        <p>地址:：@item.Address</p>
+                    </div>
+                    <p>簡介：</p>@Html.Raw(item.Description)
+                    <a href="@Url.Action("ViewPointDetails", "Map", new { id = item.Id })" title="@item.Name">點我看詳細內容</a>
+                </div>
+            </div>
+        </div>
+    </li>
+    <br />
+}

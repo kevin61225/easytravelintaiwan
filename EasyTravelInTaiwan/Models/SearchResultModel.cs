@@ -171,8 +171,27 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
             temp.Pt = input.Pt;
             temp.IconType = input.IconType;
             temp.Description = ShortDescription(input.Description);
-
+            temp.cityName = GetCityNameById(temp.City);
+            temp.viewTypeName = GetViewTypeNameById(temp.Viewtype);
             return temp;
+        }
+
+        static public string GetCityNameById(string cityId)
+        {
+            string output = string.Empty;
+            using(var db = new ProjectEntities())
+            {
+                return output = db.cities.Where(o => o.Citynumber == cityId).Single().Cityname;
+            }
+        }
+
+        static public string GetViewTypeNameById(int typeId)
+        {
+            string output = string.Empty;
+            using (var db = new ProjectEntities())
+            {
+                return output = db.viewtypes.Where(o => o.Typenumber == typeId).Single().Typename;
+            }
         }
 
         public string ShortDescription(string input)
@@ -293,6 +312,8 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
 
     public class ResultView : view
     {
+        public string viewTypeName { get; set; }
+        public string cityName { get; set; }
         public ViewImage image { get; set; }
     }
 }

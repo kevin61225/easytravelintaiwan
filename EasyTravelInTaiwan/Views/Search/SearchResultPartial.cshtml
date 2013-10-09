@@ -23,16 +23,16 @@
         border-width:1px;*/
         /*padding:0px 0px 0px 2px;*/
     }
+
     #results li:hover {
         background-color: #ccc;
-        padding:0px 0px 0px 25px;
+        padding: 0px 0px 0px 25px;
     }
-
 </style>
 <div>
     <br>
     <div class="container">
-        <p>搜尋關鍵字: <font color="red"><em><strong>@ViewBag.keyWord</strong></em></font>  ,  分類: <font color="red"><strong>@ViewBag.Filters</strong></font> , 符合條件共 <font color="red">@ViewBag.FoundNum</font> 筆結果 </p>
+        <p>搜尋關鍵字: <font color="red"><em><strong>@ViewBag.keyWord</strong></em></font>,  分類: <font color="red"><strong>@ViewBag.Filters</strong></font>, 符合條件共 <font color="red">@ViewBag.FoundNum</font>筆結果 </p>
         <hr />
         @*<div class="row-fluid">*@
         @*<div class="span8">*@
@@ -47,12 +47,17 @@
                     </div>
                     <div class="row">
                         <div class="span3">
-                        <a href="@Url.Action("ViewPointDetails", "Map", new { id = item.Id })" title="@item.Name">                         
-                            <img src="@Url.Action("RenderBookImage", "Search", new { id = item.Id, pt = item.Pt })" width="150" height="150" alt="@item.Name"/>            
-                        </a>
-                            </div>
+                            <a href="@Url.Action("ViewPointDetails", "Map", new { id = item.Id })" title="@item.Name">
+                                <img src="@Url.Action("RenderBookImage", "Search", new { id = item.Id, pt = item.Pt })" width="150" height="150" alt="@item.Name"/>
+                            </a>
+                        </div>
                         <div class="span8">
-                            @Html.Raw(item.Description)
+                            <div>
+                                <p>位於： @item.cityName</p>
+                                <p>屬於： @item.viewTypeName</p>
+                                <p>地址:：@item.Address</p>
+                            </div>
+                            簡介：@Html.Raw(item.Description)
                             <a href="@Url.Action("ViewPointDetails", "Map", new { id = item.Id })" title="@item.Name">點我看詳細內容</a>
                         </div>
                     </div>

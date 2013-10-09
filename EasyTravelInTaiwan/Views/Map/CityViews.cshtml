@@ -1,13 +1,17 @@
-﻿@model IEnumerable<EasyTravelInTaiwan.Models.place>
+﻿@model IEnumerable<EasyTravelInTaiwan.Models.view>
 
 @{
+    ViewBag.Title = ViewBag.ListTitle + "- Easy Travel In Taiwan";
     Layout = "~/Views/shared/_BootstrapLayout.basic.cshtml";
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>@ViewBag.ListTitle</h2>
 <table>
     @foreach (EasyTravelInTaiwan.Models.viewtype type in ViewBag.TypeList)
     {
+        <tr>
+            <td><br /></td>
+        </tr>
         <tr>
             <td>@type.Typename</td>
         </tr>
@@ -15,9 +19,9 @@
             @{
                 int i = 0;
             }
-            @foreach (EasyTravelInTaiwan.Models.place place in Model)
+            @foreach (EasyTravelInTaiwan.Models.view place in Model)
             {
-                if (place.Typenumber == type.Typenumber)
+                if (place.Viewtype == type.Typenumber)
                 {
                     i++;
                     <td class="span4">
@@ -28,6 +32,7 @@
                         @Html.Raw("</tr><tr>")
                     }
                 }
+
             }
         </tr>
     }

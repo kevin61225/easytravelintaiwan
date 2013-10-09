@@ -11,7 +11,9 @@ namespace EasyTravelInTaiwan.Models
         public virtual string Description { get; set; }
         public virtual string Name { get; set; }
         public virtual string Citynumber { get; set; }
+        public virtual string CityName { get; set; }
         public virtual int Typenumber { get; set; }
+        public virtual string TypeName { get; set; }
         public virtual string Telphone { get; set; }
         public virtual string Address { get; set; }
         public virtual string Url { get; set; }
@@ -57,7 +59,9 @@ namespace EasyTravelInTaiwan.Models
             Id = view.Id;
             Name = view.Name;
             Citynumber = view.Citynumber;
+            CityName = SearchResultModel.GetCityNameById(Citynumber);
             Typenumber = view.Typenumber;
+            TypeName = SearchResultModel.GetViewTypeNameById(Typenumber);
             Description = view.Description;
             Telphone = view.Telphone;
             Address = view.Address;
@@ -76,7 +80,9 @@ namespace EasyTravelInTaiwan.Models
             Id = hotel.Id;
             Name = hotel.Name;
             Citynumber = hotel.Citynumber;
+            CityName = SearchResultModel.GetCityNameById(Citynumber);
             Typenumber = hotel.Typenumber;
+            TypeName = SearchResultModel.GetViewTypeNameById(Typenumber);
             Description = hotel.Description;
             Address = hotel.Address;
             Url = hotel.Url;
@@ -109,6 +115,8 @@ namespace EasyTravelInTaiwan.Models
             route = acco.route;
             ImageUrl = acco.ImageUrl;
             sc_id = acco.sc_id;
+            Citynumber = sc_id;
+            CityName = SearchResultModel.GetCityNameById(sc_id);
             post_id = acco.post_id;
             link = acco.link;
             x = acco.x;
@@ -137,6 +145,8 @@ namespace EasyTravelInTaiwan.Models
             tianmama = food.tianmama;
             ImageUrl = food.ImageUrl;
             sc_id = food.sc_id;
+            Citynumber = sc_id;
+            CityName = SearchResultModel.GetCityNameById(sc_id);
             post_id = food.post_id;
             link = food.link;
             x = food.x;

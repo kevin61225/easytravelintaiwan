@@ -10,7 +10,7 @@
 
 <h3>
     <ul class="breadcrumb">
-        <li><a href="@Url.Action("CityViews", new { id = Model.Citynumber })">@Html.DisplayFor(model => model.Citynumber)</a> <span class="divider">/</span></li>
+        <li><a href="@Url.Action("CityViews", new { id = Model.Citynumber })">@Html.DisplayFor(model => model.CityName)</a> <span class="divider">/</span></li>
         <li class="active">@Html.DisplayFor(model => model.Name)</li>
     </ul>
 </h3>
@@ -29,7 +29,7 @@
             <p>類型</p>
         </div>
         <div class="display-field">
-            @Html.DisplayFor(model => model.type)
+            @Html.DisplayFor(model => model.TypeName)
         </div>
         <br />
         <div class="display-label">

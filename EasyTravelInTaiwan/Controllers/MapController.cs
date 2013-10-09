@@ -181,7 +181,7 @@ namespace EasyTravelInTaiwan.Controllers
         public FileResult RenderBookImage(string id, string pt, int sid)
         {
             string s = string.Format("{0}/{1}", Server.MapPath("~/Content/Images"), "ImageNotFound.jpg");
-           // FileStreamResult file = new FileStreamResult(new FileStream(s, FileMode.Open), "image/jpeg");
+            // FileStreamResult file = new FileStreamResult(new FileStream(s, FileMode.Open), "image/jpeg");
 
             byte[] img = ViewImage.GetImageById(db, id, pt, sid);
 
@@ -203,18 +203,18 @@ namespace EasyTravelInTaiwan.Controllers
 
         public ActionResult CityViews(string id)
         {
-            List<place> placeInCity = db.places.Where(o => o.Citynumber == id).ToList();
+            List<view> placeInCity = db.views.Where(o => o.City == id).Where(o => o.Name != "").ToList();
             List<viewtype> TypeList = new List<viewtype>();
             foreach (viewtype type in db.viewtypes)
             {
-                int count = placeInCity.Where(o => o.Typenumber == type.Typenumber).Count();
+                int count = placeInCity.Where(o => o.Viewtype == type.Typenumber).Where(o => o.Name != null).Count();
                 if (count != 0)
                 {
                     TypeList.Add(type);
                 }
             }
             ViewBag.TypeList = TypeList;
-            ViewBag.Title = db.cities.Find(id).Cityname;
+            ViewBag.ListTitle = db.cities.Find(id).Cityname;
             return View(placeInCity);
         }
 
@@ -322,7 +322,7 @@ namespace EasyTravelInTaiwan.Controllers
             deletePlaceId = deletePlaceId.Remove(0, deletePlaceId.IndexOf(".") + 1);
             int id = (int)Session["TempTid"];
             travellist currentList = db.travellists.Where(o => o.Tid == id).ToList().First();
-            
+
             //List<travellistplace> deleteItems = db.travellistplaces.Where(m => m.Tid == (int)Session["TempTid"]).ToList();
             try
             {
@@ -339,7 +339,7 @@ namespace EasyTravelInTaiwan.Controllers
                 return Json(new { Status = 2, Message = "Error" });
             }
             //
-            
+
             return RedirectToAction("TravelListPlacePartial", "Map");
         }
 

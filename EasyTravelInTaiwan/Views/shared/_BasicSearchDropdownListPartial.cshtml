@@ -17,7 +17,7 @@
 @using (Html.BeginForm("SearchResult", "Search"))
 {
     <div class="row-fluid">
-        <div class="span7 form-inline">
+        <div class="form-inline">
             @Html.TextBoxFor(model => model.searchWord, new { @class = "span7", @id = "Search", @data = "typeahead", @placeholder = "輸入關鍵字", autocomplete = "off" })
             @Html.ValidationMessageFor(model => model.searchWord)
             @Html.DropDownListFor(model => model.searchType,
@@ -26,7 +26,7 @@
                        new { value = 1 , text = "美食" },
                        new { value = 2 , text = "景點"},
                        new { value = 3 , text = "旅館"}
-                    }, "value", "text", 0), new { @class = "dropList" })
+                    }, "value", "text", 0), new { @class = "selectpicker" })
             @Html.ValidationMessageFor(model => model.searchType)
             <button class="btn btn-primary botton">搜尋</button>
         </div>

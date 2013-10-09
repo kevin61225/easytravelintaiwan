@@ -326,6 +326,7 @@
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\RankController.cs" />
     <Compile Include="Controllers\RatingController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
@@ -382,6 +383,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ProjectModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\RankResultOptions.cs" />
     <Compile Include="Models\rating.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
@@ -805,6 +807,9 @@
     <Content Include="Views\Rating\_placeRatingPartial.cshtml" />
     <Content Include="Views\Map\_imageSlidePartial.cshtml" />
     <Content Include="Views\Map\Direction.cshtml" />
+    <Content Include="Views\Rank\Index.cshtml" />
+    <Content Include="Views\Rank\_rankFilterPartial.cshtml" />
+    <Content Include="Views\Rank\_rankResultPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

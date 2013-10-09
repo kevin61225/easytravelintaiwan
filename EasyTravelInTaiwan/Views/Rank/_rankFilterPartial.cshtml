@@ -1,0 +1,19 @@
+﻿@model EasyTravelInTaiwan.Models.RankResultOptions
+
+<div>
+    <div class="form-inline">
+        分類方式:  
+        <select id="CityListSelectPicker" class="selectpicker">
+                @foreach (var type in Model.Cities)
+                {
+                    <option value="List-@type.Value">@type.Text</option>
+                }
+        </select>
+        <select id="AreaListSelectPicker" class="selectpicker">
+                @foreach (var type in Model.ViewTypes)
+                {
+                    <option value="List-@type.Value">@type.Text</option>
+                }
+        </select>
+    </div>
+</div>
