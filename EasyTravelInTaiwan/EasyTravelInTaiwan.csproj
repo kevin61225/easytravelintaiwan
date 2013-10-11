@@ -392,6 +392,8 @@
     <Compile Include="Models\SearchResultModel.cs" />
     <Compile Include="Models\SearchTypeAheadEntity.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
+    <Compile Include="Models\SetCalculation.cs" />
+    <Compile Include="Models\Suggestor.cs" />
     <Compile Include="Models\travellist.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>

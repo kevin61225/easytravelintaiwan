@@ -14,6 +14,11 @@ namespace EasyTravelInTaiwan.Models
     
     public partial class view
     {
+        public view()
+        {
+            this.rating = new HashSet<rating>();
+        }
+    
         public string Id { get; set; }
         public string Name { get; set; }
         public string Lat { get; set; }
@@ -26,5 +31,6 @@ namespace EasyTravelInTaiwan.Models
         public string Description { get; set; }
     
         public virtual viewtype viewtype1 { get; set; }
+        public virtual ICollection<rating> rating { get; set; }
     }
 }

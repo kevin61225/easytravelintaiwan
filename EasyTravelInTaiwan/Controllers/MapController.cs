@@ -427,5 +427,13 @@ namespace EasyTravelInTaiwan.Controllers
             return;
         }
 
+        [Authorize]
+        public ActionResult SuggestPlace()
+        {
+            int userId = (int)Session["UserId"];
+            Suggestor suggestor = new Suggestor();
+            List<view> suggest = suggestor.GetSuggestPlaceSno(userId);
+            return View();
+        }
     }
 }

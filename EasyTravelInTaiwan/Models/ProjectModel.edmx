@@ -20,7 +20,7 @@
           <EntitySet Name="travellistplace" EntityType="ProjectModel.Store.travellistplace" store:Type="Tables" Schema="project" />
           <EntitySet Name="view" EntityType="ProjectModel.Store.view" store:Type="Tables" Schema="project" />
           <EntitySet Name="viewtype" EntityType="ProjectModel.Store.viewtype" store:Type="Tables" Schema="project" />
-          <AssociationSet Name="hotelimage_ibfk_2" Association="ProjectModel.Store.hotelimage_ibfk_2">
+          <AssociationSet Name="hotelimage_ibfk_1" Association="ProjectModel.Store.hotelimage_ibfk_1">
             <End Role="hotel" EntitySet="hotel" />
             <End Role="hotelimage" EntitySet="hotelimage" />
           </AssociationSet>
@@ -40,7 +40,11 @@
             <End Role="member" EntitySet="member" />
             <End Role="rating" EntitySet="rating" />
           </AssociationSet>
-          <AssociationSet Name="travellist_ibfk_2" Association="ProjectModel.Store.travellist_ibfk_2">
+          <AssociationSet Name="rating_ibfk_2" Association="ProjectModel.Store.rating_ibfk_2">
+            <End Role="view" EntitySet="view" />
+            <End Role="rating" EntitySet="rating" />
+          </AssociationSet>
+          <AssociationSet Name="travellist_ibfk_1" Association="ProjectModel.Store.travellist_ibfk_1">
             <End Role="member" EntitySet="member" />
             <End Role="travellist" EntitySet="travellist" />
           </AssociationSet>
@@ -201,7 +205,7 @@
             <PropertyRef Name="RId" />
           </Key>
           <Property Name="RId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Sno" Type="text" Nullable="false" />
+          <Property Name="Sno" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="Point" Type="int" Nullable="false" />
           <Property Name="Comment" Type="text" Nullable="false" />
@@ -219,8 +223,8 @@
           <Key>
             <PropertyRef Name="Pid" />
           </Key>
-          <Property Name="Pid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Tid" Type="int" Nullable="false" />
+          <Property Name="Pid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Sno" Type="text" Nullable="false" />
         </EntityType>
         <EntityType Name="view">
@@ -245,10 +249,8 @@
           <Property Name="Typenumber" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Typename" Type="text" Nullable="false" />
         </EntityType>
-        <Association Name="hotelimage_ibfk_2">
-          <End Role="hotel" Type="ProjectModel.Store.hotel" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="hotelimage_ibfk_1">
+          <End Role="hotel" Type="ProjectModel.Store.hotel" Multiplicity="1" />
           <End Role="hotelimage" Type="ProjectModel.Store.hotelimage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="hotel">
@@ -302,9 +304,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="rating_ibfk_1">
-          <End Role="member" Type="ProjectModel.Store.member" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="member" Type="ProjectModel.Store.member" Multiplicity="1" />
           <End Role="rating" Type="ProjectModel.Store.rating" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="member">
@@ -315,10 +315,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="travellist_ibfk_2">
-          <End Role="member" Type="ProjectModel.Store.member" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="rating_ibfk_2">
+          <End Role="view" Type="ProjectModel.Store.view" Multiplicity="1" />
+          <End Role="rating" Type="ProjectModel.Store.rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="view">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="rating">
+              <PropertyRef Name="Sno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="travellist_ibfk_1">
+          <End Role="member" Type="ProjectModel.Store.member" Multiplicity="1" />
           <End Role="travellist" Type="ProjectModel.Store.travellist" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="member">
@@ -405,6 +415,10 @@
           <AssociationSet Name="view_ibfk_2" Association="ProjectModel.view_ibfk_2">
             <End Role="viewtype" EntitySet="viewtypes" />
             <End Role="view" EntitySet="views" />
+          </AssociationSet>
+          <AssociationSet Name="rating_ibfk_2" Association="ProjectModel.rating_ibfk_2">
+            <End Role="view" EntitySet="views" />
+            <End Role="rating" EntitySet="ratings" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="accommodation">
@@ -570,6 +584,7 @@
           <Property Name="Comment" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
           <Property Name="pt" Type="String" Nullable="false" MaxLength="4" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="member" Relationship="ProjectModel.rating_ibfk_1" FromRole="rating" ToRole="member" />
+          <NavigationProperty Name="view" Relationship="ProjectModel.rating_ibfk_2" FromRole="rating" ToRole="view" />
         </EntityType>
         <EntityType Name="travellist">
           <Key>
@@ -605,6 +620,7 @@
           <Property Name="IconType" Type="String" Nullable="false" MaxLength="4" Unicode="false" FixedLength="false" />
           <Property Name="Description" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="viewtype1" Relationship="ProjectModel.view_ibfk_2" FromRole="view" ToRole="viewtype" />
+          <NavigationProperty Name="rating" Relationship="ProjectModel.rating_ibfk_2" FromRole="view" ToRole="rating" />
         </EntityType>
         <EntityType Name="viewtype">
           <Key>
@@ -722,6 +738,18 @@
             </Principal>
             <Dependent Role="view">
               <PropertyRef Name="Viewtype" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rating_ibfk_2">
+          <End Type="ProjectModel.view" Role="view" Multiplicity="1" />
+          <End Type="ProjectModel.rating" Role="rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="view">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="rating">
+              <PropertyRef Name="Sno" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

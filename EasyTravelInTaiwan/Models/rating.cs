@@ -22,5 +22,6 @@ namespace EasyTravelInTaiwan.Models
         public string pt { get; set; }
     
         public virtual member member { get; set; }
+        public virtual view view { get; set; }
     }
 }
