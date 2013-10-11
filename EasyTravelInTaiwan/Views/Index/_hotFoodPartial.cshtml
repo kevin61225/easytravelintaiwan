@@ -12,7 +12,7 @@
                     
                     <div class="span8" style="max-width: 520px">
                         @Html.Raw(item.Description)
-                        <a href="@Url.Action("ViewPointDetails", "Map", new { id = item.Id })" title="@item.Name">點我看詳細內容</a>
+                        <a href="@Url.Action("ViewPointDetails", "Map", new { id = item.Id, pt = item.Pt })" title="@item.Name">點我看詳細內容</a>
                     </div>
                 </div>
             </div>

@@ -35,15 +35,41 @@ namespace EasyTravelInTaiwan.Controllers
             return View();
         }
 
-
-        public ActionResult Direction()
+        public ActionResult Direction(int tid)
         {
-            return View();
+            List<travellistplace> travelListPlace = db.travellistplaces.Where(list => list.Tid == tid).ToList<travellistplace>();
+            List<view> viewList = new List<view>();
+            foreach (travellistplace item in travelListPlace)
+            {
+                view tempView = db.views.Where(o => o.Id == item.Sno).Single();
+                viewList.Add(tempView);
+            }
+            ViewBag.WaypointId = tid;
+            return View(viewList);
+        }
+
+        [HttpPost]
+        public JsonResult GetDirection(string tid)
+        {
+            //int Tid = int.Parse(tid);
+            //List<travellistplace> travelListPlace = db.travellistplaces.Where(list => list.Tid == Tid).ToList<travellistplace>();
+            //List<view> viewList = new List<view>();
+            //foreach (travellistplace item in travelListPlace)
+            //{
+            //    view tempView = db.views.Where(o => o.Id == item.Sno).Single();
+            //    viewList.Add(tempView);
+            //}
+            var mapMarkerList = new MapRepository();
+            mapMarkerList.GetByTid(tid);
+
+
+            return Json(mapMarkerList, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetMap()
         {
             var mapMarkerList = new MapRepository();
+            mapMarkerList.GetAll();
 
             return Json(mapMarkerList, JsonRequestBehavior.AllowGet);
         }
@@ -91,13 +117,13 @@ namespace EasyTravelInTaiwan.Controllers
             {
                 return HttpNotFound();
             }
-            List<maplatlng> placeInfo = new List<maplatlng>();
+            List<view> placeInfo = new List<view>();
             foreach (travellistplace place in travelListPlace)
             {
-                maplatlng temp = new maplatlng();
+                view temp = new view();
                 try
                 {
-                    temp = db.maplatlngs.Where(o => o.sno == place.Sno).Single();
+                    temp = db.views.Where(o => o.Id == place.Sno).Single();
                 }
                 catch
                 {
@@ -131,12 +157,12 @@ namespace EasyTravelInTaiwan.Controllers
                     catch
                     {
                         accommodation acco = db.accommodations.Where(o => o.id == place.Id).Single();
-                        detail = new AccommodationDetail(acco, place.Pt);
+                        detail = new AccommodationDetail(acco, place.Pt, place.Viewtype);
                     }
                     break;
                 case "07":
                     food food = db.foods.Where(o => o.id == place.Id).Single();
-                    detail = new FoodDetail(food, place.Pt);
+                    detail = new FoodDetail(food, place.Pt, place.Viewtype);
                     break;
                 case "10":
                     place viewplace = db.places.Where(o => o.Id == place.Id).Single();

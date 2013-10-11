@@ -101,14 +101,15 @@ namespace EasyTravelInTaiwan.Models
 
     public class AccommodationDetail : PlaceDetail
     {
-        public AccommodationDetail(accommodation acco, string pt)
+        public AccommodationDetail(accommodation acco, string pt, int typeId)
         {
             Id = acco.id;
             type = acco.type;
             Name = acco.title;
+            TypeName = SearchResultModel.GetViewTypeNameById(typeId);
             catalogs_id = acco.catalogs_id;
             Address = acco.address;
-            phone = acco.phone;
+            Telphone = acco.phone;
             business_hrs = acco.business_hrs;
             price = acco.price;
             Description = acco.Description;
@@ -130,11 +131,12 @@ namespace EasyTravelInTaiwan.Models
 
     public class FoodDetail : PlaceDetail
     {
-        public FoodDetail(food food, string pt)
+        public FoodDetail(food food, string pt, int typeId)
         {
             Id = food.id;
             type = food.type;
-            title = food.title;
+            Name = food.title;
+            TypeName = SearchResultModel.GetViewTypeNameById(typeId);
             catalogs_id = food.catalogs_id;
             Address = food.address;
             phone = food.phone;

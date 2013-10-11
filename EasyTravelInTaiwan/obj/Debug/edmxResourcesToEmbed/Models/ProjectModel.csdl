@@ -167,6 +167,7 @@
     <Property Name="favorite" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
     <NavigationProperty Name="ratings" Relationship="ProjectModel.rating_ibfk_1" FromRole="member" ToRole="rating" />
     <NavigationProperty Name="travellists" Relationship="ProjectModel.travellist_ibfk_2" FromRole="member" ToRole="travellist" />
+    <Property Type="Int32" Name="GId" Nullable="false" />
   </EntityType>
   <EntityType Name="place">
     <Key>

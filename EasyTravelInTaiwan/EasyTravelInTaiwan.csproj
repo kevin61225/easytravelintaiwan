@@ -690,6 +690,7 @@
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
     <Content Include="scripts\ContextMenu.js" />
+    <Content Include="scripts\Directions.js" />
     <Content Include="scripts\fbAuthJScript.js" />
     <Content Include="scripts\GoogleMapRightClick.js" />
     <Content Include="scripts\html5shiv.js" />

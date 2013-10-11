@@ -162,6 +162,7 @@
     <Property Name="Birthday" Type="date" Nullable="false" />
     <Property Name="Role" Type="int" Nullable="false" />
     <Property Name="favorite" Type="text" Nullable="false" />
+    <Property Name="GId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="place">
     <Key>

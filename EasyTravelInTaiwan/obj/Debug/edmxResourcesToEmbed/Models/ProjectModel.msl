@@ -109,6 +109,7 @@
     <EntitySetMapping Name="members">
       <EntityTypeMapping TypeName="ProjectModel.member">
         <MappingFragment StoreEntitySet="member">
+          <ScalarProperty Name="GId" ColumnName="GId" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="Account" ColumnName="Account" />
           <ScalarProperty Name="Password" ColumnName="Password" />

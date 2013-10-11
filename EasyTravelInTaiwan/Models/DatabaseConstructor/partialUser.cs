@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -17,6 +18,8 @@ namespace EasyTravelInTaiwan.Models
         }
 
         #region 演算法
+
+
         public void RunSeparate()
         {
             List<member> group = users;
@@ -36,7 +39,7 @@ namespace EasyTravelInTaiwan.Models
                     for (int j = i + 1; j < group.Count; j++)
                     {
                         // compare to every group
-                        double s = group[i].GetNearestSimilarity(group[j].users);
+                        double s = group[i].AverageLinkage(group[j].users);
                         if (s > maxS)
                         {
                             ci = i;
@@ -67,11 +70,16 @@ namespace EasyTravelInTaiwan.Models
                 }
                 else
                 {   //這裡是跑完的意思
-                    noChange++;
-                    if (noChange == 10) //固定不動
+                    for (int i = 0; i < group.Count; i++)
                     {
-                        break;
+                        foreach (var item in group[i].users)
+                        {
+                            item.GId = i;
+                            db.Entry(item).State = EntityState.Modified;
+                            db.SaveChanges();
+                        }
                     }
+                    break;
                 }
             }
         }
@@ -116,6 +124,21 @@ namespace EasyTravelInTaiwan.Models
                 }
             }
             return maxS;
+        }
+
+        public double AverageLinkage(List<member> otherNode)
+        {
+            double totalSimilar = 0;
+            for (int i = 0; i < users.Count; i++)   // compare to inside node
+            {
+                for (int j = 0; j < otherNode.Count; j++)
+                {
+                    // compare eyerything outside
+                    double similar = users[i].SimilarTo(otherNode[j]);    // current similarity
+                    totalSimilar += similar;
+                }
+            }
+            return totalSimilar / (users.Count * otherNode.Count);
         }
 
         public int[] AND(member other)

@@ -48,11 +48,6 @@
                     console.log("Done");
                     if (data.Status != 2) {
                         $("#AverageRatingPartial").html(data);
-                        //window.setTimeout(function () {
-                        //    $("#SaveAlert").fadeOut().alert('close');
-                        //    $("#box").attr("tabindex", 5000);
-                        //    $("#box").niceScroll({ autohidemode: true });
-                        //}, 10000);
                     }
                     else {
                         alert(data.Message);
@@ -62,6 +57,4 @@
             });
         }
     });
-
-
 </script>

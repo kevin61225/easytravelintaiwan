@@ -3,9 +3,15 @@
 }
 
 <style type="text/css">
+    html, body, #container {
+         height: 100%; 
+         width: 100%;
+    }
     .map_canvas {
-        height: 400px;
-        width: 90%;
+        height: 572px;
+        width: 66%;
+        float: left;
+        position: relative;
     }
 
     /*	start styles for the ContextMenu	*/
@@ -64,7 +70,7 @@
     </div>
 </div>*@
 
-   
+
 <form class="form-inline">
     <input id="inputGeo" type="text" placeholder="輸入地區、地址" maxlength="100" autocomplete="off" />
     <input autocomplete="off" class="span7" data="typeahead" id="SearchView" name="searchWord" placeholder="輸入店家、景點、旅館名稱" type="text" value="">
@@ -74,11 +80,10 @@
         <button type="button" class="btn btn-primary " value="10">風景</button>
     </div>
 </form>
-<div class="row">
-    <div class="span8">
-        <div id="map_canvas" class="map_canvas" aria-setsize="500"></div>
-    </div>
-    <div class="span4">
+
+<div class="row" style="height: auto;">
+    <div id="map_canvas" class="map_canvas"></div>
+    <div style="float: right; width: 30%; height: 100%; position: relative;">
         <div class="row">
             <div id="TravelListPartialView">
                 @Html.Action("TravelListPartial", "Map")
@@ -91,6 +96,7 @@
         </div>
     </div>
 </div>
+
 <br />
 
 @*<form id="status">
@@ -229,28 +235,43 @@
     var contextMenu;
     var unloading = false;
 
+    $(document).ajaxStart($.blockUI({
+        message: "資料讀取中... "
+        //,
+        //css: {
+        //    top: ($(window).height() - 240) / 2 + 'px',
+        //    left: ($(window).width() - 240) / 2 + 'px',
+        //    width: '240px',
+        //    color: '#fff',
+        //    background: 'none',
+        //    border: '0px',
+        //    opacity: .7
+        //}
+    }));
+
     $(document).ready(function () {
-            $.ajax({
-                type: 'POST',
-                url: '/Map/GetMap',
-                dataType: 'json',
-                cache: true,
-                success: function (data) {
-                    initialize(data);
-                    $.unblockUI();
-                },
-                error: function () {
-                    console.log('Load Error Occur !');
-                },
-                progress: function (e) {
-                    if (e.lengthComputable) {
-                        var pct = (e.loaded / e.total) * 100;
-                        console.log(parseInt((e.loaded / e.total * 100), 10));
-                    } else {
-                        console.warn('Content Length not reported!');
-                    }
+
+        $.ajax({
+            type: 'POST',
+            url: '/Map/GetMap',
+            dataType: 'json',
+            cache: true,
+            success: function (data) {
+                initialize(data);
+                $.unblockUI();
+            },
+            error: function () {
+                console.log('Load Error Occur !');
+            },
+            progress: function (e) {
+                if (e.lengthComputable) {
+                    var pct = (e.loaded / e.total) * 100;
+                    console.log(parseInt((e.loaded / e.total * 100), 10));
+                } else {
+                    console.warn('Content Length not reported!');
                 }
-            });
+            }
+        });
 
         //$("#SearchView").blur(function () {
         //    alert("Handler for .blur() called.");
@@ -297,7 +318,7 @@
         //    distanceWidget.set('position', gmarker.getPosition());
         //    displayInfo(distanceWidget);
         //});
-        
+
         google.maps.event.addListener(gmap, "zoom_changed", function () {
             var zoom = this.getZoom();
             if (zoom < 17) {
@@ -374,7 +395,7 @@
 
         // add a marker click event
         google.maps.event.addListener(marker, 'click', function () {
-            infowindow.setContent(item.Name + '<br/><a href="/Map/ViewPointDetails/' + item.Id + ' " target="_blank">點我看詳細內容</a>');
+            infowindow.setContent('<p>' + item.Name + '</p><p>地址：' + item.Address + '</p><p>類型：' + item.Viewtype + '</p><a href="/Map/ViewPointDetails/' + item.Id + ' " target="_blank">點我看詳細內容</a>');
             infowindow.open(gmap, this);
         });
 

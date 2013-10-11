@@ -34,7 +34,7 @@
     <br />
     <a href="#CreateNewListModal" role="button" class="btn" data-toggle="modal">建立新的規劃</a>
 </div>
-
+@Html.Hidden("Tid", (int)Session["TempTid"])
 
 <div id="CreateNewListModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">

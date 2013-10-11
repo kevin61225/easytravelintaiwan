@@ -31,6 +31,7 @@ namespace EasyTravelInTaiwan.Models
         public System.DateTime Birthday { get; set; }
         public int Role { get; set; }
         public string favorite { get; set; }
+        public int GId { get; set; }
     
         public virtual ICollection<rating> ratings { get; set; }
         public virtual ICollection<travellist> travellists { get; set; }

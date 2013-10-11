@@ -7,10 +7,10 @@
 <div>詳細位置</div>
 <div class="box" id="box">
     <ul class="nav nav-pills nav-stacked" id="InputsWrapper">
-        @foreach (EasyTravelInTaiwan.Models.maplatlng maplatlng in ViewBag.TravelListPlaces)
+        @foreach (EasyTravelInTaiwan.Models.view maplatlng in ViewBag.TravelListPlaces)
         {
-            <li id="place.@maplatlng.sno">
-                <a href="#">@maplatlng.pName<i class="icon-remove pull-right"></i></a>
+            <li id="place.@maplatlng.Id">
+                <a href="#">@maplatlng.Name<i class="icon-remove pull-right"></i></a>
             </li>
         }
     </ul>
@@ -19,7 +19,8 @@
     <button id="Save-List-Button" class="btn" style="display: none;">儲存</button>
     @if ((int)ViewBag.TravelListLength > 1)
     {
-        @Html.ActionLink("進行規劃", "Direction", null, new { @class="btn" });
+        <br />
+        @Html.ActionLink("進行規劃", "Direction", new { tid = Model[0].Tid }, new { @class = "btn", target = "_blank" });
         @*<button id="CalcDirection-Button" class="btn">進行規劃</button>*@
     }
 </div>
@@ -30,6 +31,11 @@
 
     $(document).ajaxStart($.blockUI);
     $(document).ajaxStop($.unblockUI);
+
+    $(document).ready(function () {
+        $("#box").attr("tabindex", 5000);
+        $("#box").niceScroll({ autohidemode: true });
+    });
 
     $("#CalcDirection-Button");
     $("#InputsWrapper li i").hover(
@@ -127,11 +133,10 @@
                         $("#SaveAlert").alert('close');
                         $("#box").attr("tabindex", 5000);
                         $("#box").niceScroll({ autohidemode: true });
-                    }, 2000);
+                    }, 1000);
                 }, 10000);
                 $("#box").niceScroll({ autohidemode: true });
             },
         });
     });
-
 </script>

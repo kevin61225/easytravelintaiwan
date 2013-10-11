@@ -1,79 +1,271 @@
-﻿@{
+﻿@model List<EasyTravelInTaiwan.Models.view>
+
+@{
     ViewBag.Title = "Easy Travel In Taiwan - 路線規劃";
 }
 
 <style>
     #map_canvas {
-        height: 400px;
-        width: 90%;
+        height: 500px;
+        width: 100%;
     }
 </style>
 
 <!--引入 Google API-->
 <script src="https://maps.googleapis.com/maps/api/js?v=3.9&sensor=false"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="~/scripts/Directions.js"></script>
 
-<div id="map_canvas" class="cus_canvas"></div>
+<div class="hidden" id="Waypoints">
+    <ul>
+        @foreach (EasyTravelInTaiwan.Models.view maplatlng in Model)
+        {
+            <li id="place.@maplatlng.Id">
+                <a href="#">@maplatlng.Name<i class="icon-remove pull-right"></i></a>
+            </li>
+        }
+    </ul>
+</div>
+@Html.Hidden("WaypointId", (string)Session["Pt"])
+
+<div id="map_canvas" class="map_canvas"></div>
+<div id="directionsPanel" style="float:right;width:100%;">
 
 <script type="text/javascript">
+    var mainIcon = {
+        url: '/Content/Icons/04.png',
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 38)
+    };
 
-    var directionsService = new google.maps.DirectionsService();
+    var foodIcon = {
+        url: '/Content/Icons/02.png',
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 38)
+    };
+
+    var hotelIcon = {
+        url: '/Content/Icons/01.png',
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 38)
+    };
+
+    var hotelIcon11 = {
+        url: '/Content/Icons/hotel11.png',
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 38)
+    }
+
+    var hotelIcon12 = {
+        url: '/Content/Icons/hotel12.png',
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 38)
+    }
+
+    var hotelIcon13 = {
+        url: '/Content/Icons/hotel13.png',
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 38)
+    }
+
+    var hotelIcon14 = {
+        url: '/Content/Icons/hotel14.png',
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 38)
+    }
+
+    var viewIcon = {
+        url: '/Content/Icons/03.png',
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 38)
+    };
+
+    var $waypointId;
+    var directionsService; //= new google.maps.DirectionsService();
     var map;
-    var start = "台中市西區五權路50號";
-    var end = "台中市體育場";
-    var waypoints = "台中市南區復興路四段50號,台中市西區公館路50號";
+    //var start = "台中市西區五權路50號";
+    //var end = "台中市體育場";
+    var start = "";
+    var end = "";
+    //var waypoints = "台中市南區復興路四段50號,台中市西區公館路50號";
+    var waypts = [];
+    var wayppts = [];
+    var gmarkers = [];
+    var infowindow = new google.maps.InfoWindow();
+    var directionsDisplay;
 
     //初始化
     function initialize() {
-        //規畫路徑呈現選項
-        var rendererOptions = {
-            suppressMarkers: true,
-            draggable: true
-        };
+        $waypointId = $("#WaypointId").attr("value");
 
-        directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
-        var startPoint = new google.maps.LatLng(24.136845, 120.685009);
-        var myOptions = {
-            zoom: 14,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            center: startPoint
-        }
-        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-        directionsDisplay.setMap(map);
-    }
+        $.ajax({
+            url: "@Url.Action("GetDirection")",
+            type: "POST",
+            data: JSON.stringify({ tid: $waypointId }), //if you need to post Model data, use this
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                var startPoint = new google.maps.LatLng(result[0].Lat, result[0].Lng);
+                var myOptions = {
+                    zoom: 14,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    center: startPoint
+                }
+                map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
-    //規畫路徑
-    function calcRoute() {
-        if (!waypoints) return;
+                $.each(result, function (i, item) {
+                    setupLocationMarker(item);
+                });
 
-        var arrPoint = waypoints.split(",");
+                for (var i = 0; i < result.length; i++) {
+                    waypts.push({
+                        location: result[i].Address,
+                        stopover: true
+                    });
+                }
 
-        //經過地點
-        var waypts = [];
-        for (var i = 0; i < arrPoint.length; i++) {
-            waypts.push({
-                location: arrPoint[i],
-                stopover: true
-            });
-        }
+                //規畫路徑呈現選項
+                var rendererOptions = {
+                    suppressMarkers: true,
+                    draggable: true
+                };
 
-        //規畫路徑請求
-        var request = {
-            origin: start,
-            destination: end,
-            waypoints: waypts,
-            optimizeWaypoints: true,
-            travelMode: google.maps.DirectionsTravelMode.DRIVING
-        };
+                directionsDisplay = new DirectionsDisplay(map, document.getElementById("directionsPanel"));
+                directionsService = new DirectionsRoute(directionsDisplay);
+                //directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+                //directionsDisplay.setMap(map);
 
-        directionsService.route(request, function (response, status) {
-            //規畫路徑回傳結果
-            if (status == google.maps.DirectionsStatus.OK) {
-                directionsDisplay.setDirections(response);
+                google.maps.event.addListener(directionsDisplay, "directions_changed", function () {
+                    console.log("changed");
+                });
+
+                calcRoute();
             }
         });
     }
 
+    function setupLocationMarker(item) {
+
+        var markerIcon;
+        switch (item.Pt) {
+            case "06": //住宿
+                switch (item.IconType) {
+                    case "11":
+                        markerIcon = hotelIcon11;
+                        break;
+                    case "12":
+                        markerIcon = hotelIcon12;
+                        break;
+                    case "13":
+                        markerIcon = hotelIcon13;
+                        break;
+                    case "14":
+                        markerIcon = hotelIcon14;
+                        break;
+                }
+                //markerIcon = hotelIcon;
+                break;
+            case "07":
+                markerIcon = foodIcon;
+                break;
+            case "10":
+                markerIcon = viewIcon;
+                break;
+            case "20":
+                markerIcon = gasIcon;
+                break;
+            default:
+                break;
+        }
+
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(item.Lat, item.Lng),
+            map: map,
+            title: item.Name,
+            icon: markerIcon,
+            visible: true,
+            isChecked: false,
+            gIndex: gmarkers.length,
+            gId: item.Id
+        });
+        marker.category = item.Pt;
+
+        gmarkers.push(marker);
+
+        // add a marker click event
+        google.maps.event.addListener(marker, 'click', function () {
+            infowindow.setContent('<p>' + item.Name + '</p><p>地址：' + item.Address + '</p><p>類型：' + item.Viewtype + '</p><a href="/Map/ViewPointDetails/' + item.Id + ' " target="_blank">點我看詳細內容</a>');
+            infowindow.open(map, this);
+        });
+
+        google.maps.event.addListener(marker, 'rightclick', function () {
+            google.maps.event.trigger(map, 'rightclick', this);
+        });
+    }
+
     google.maps.event.addDomListener(window, 'load', initialize);
-    google.maps.event.addDomListener(window, 'load', calcRoute);
+
+    // Add a new waypoint at the specified location, and recalculate path.
+    function placeMarker(location) {
+        console.log(wayppts);
+        wayppts.push("point" + waypts.length);
+        newLocation = location;
+        directionsDisplay.add_marker_(location);
+        createDestinationTable();
+        newLocation = null;
+        calcRoute();
+    }
+
+    // Create list of destinations for editing.
+    function createDestinationTable() {
+        var size = wayppts.length;
+        // Use the destinations in the text boxes.
+        var locations = new Array();
+        for (var x = 0; x < size && !(newLocation != null && x == size - 1) ; x++)
+            locations.push(waypts[x].location);
+
+        // Create table of destinations.
+        var htmlString = "<table id='tableWaypoints' cellspacing='0' cellpadding='2'>";
+        for (var x = 0; x < size; x++) {
+            (newLocation != null && x == size - 1) ? loc = newLocation : loc = locations[x];
+            htmlString += "<tr id='" + x + "'>";
+            htmlString += "<td><b>" + String.fromCharCode(65 + x) + ": </b></td>";
+            htmlString += "<td><input type='text' id='point" + x + "' size=30 onchange='calcRoute();' value='" + loc + "'></td>";
+            htmlString += "</tr>";
+        }
+        htmlString += "</table>";
+        //document.getElementById("waypointsPanel").innerHTML = htmlString;
+
+        // Since the points were reorded, we need to make the new waypoints array in order.
+        wayppts = new Array();
+        for (var i = 0; i < size; i++)
+            wayppts.push("point" + i)
+    }
+
+    // Calculate directions between a set of waypoints.
+    function calcRoute() {
+        // Remove empty destinations.
+        for (var x = 0; x < wayppts.length; x++)
+            console.log(wayppts[x]);
+            if (wayppts[x] == "") {
+                wayppts.splice(x, 1);
+                x--;
+            }
+
+        createDestinationTable();
+        // Get list of addresses from indexing array.
+        var all_points = new Array();
+        for (var x in waypts) {
+            all_points.push({
+                //location: document.getElementById(waypts[x]).value,
+                location: waypts[x].location,
+                stopover: true
+            });
+        }
+
+        // Get which method of travel is to be used.
+        var selectedMode = "DRIVING"
+        // Calculate directions and display results.
+        directionsService.route(all_points, selectedMode, false, false, false, "mi");
+    }
+
 </script>

@@ -14,7 +14,21 @@ namespace EasyTravelInTaiwan.Models
     {
         public MapRepository()
         {
-            GetAll();
+        }
+
+        public void GetByTid(string tid)
+        {
+            int Tid = int.Parse(tid);
+            using (var db = new ProjectEntities())
+            {
+                List<travellistplace> travelListPlace = db.travellistplaces.Where(list => list.Tid == Tid).ToList<travellistplace>();
+                List<view> viewList = new List<view>();
+                foreach (travellistplace item in travelListPlace)
+                {
+                    view tempView = db.views.Where(o => o.Id == item.Sno).Single();
+                    Add(new MapMarkers(tempView));
+                }
+            }
         }
 
         public void GetAll()
@@ -41,7 +55,7 @@ namespace EasyTravelInTaiwan.Models
             Lng = input.Lng;
             Address = input.Address;
             City = input.City;
-            Viewtype = input.Viewtype;
+            Viewtype = SearchResultModel.GetViewTypeNameById(input.Viewtype);
             Pt = input.Pt;
             IconType = input.IconType;
             Description = input.Description;
@@ -53,7 +67,7 @@ namespace EasyTravelInTaiwan.Models
         public string Lng { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
-        public int Viewtype { get; set; }
+        public string Viewtype { get; set; }
         public string Pt { get; set; }
         public string IconType { get; set; }
         public string Description { get; set; }
