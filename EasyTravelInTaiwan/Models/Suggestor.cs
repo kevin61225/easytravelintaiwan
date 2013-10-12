@@ -21,10 +21,17 @@ namespace EasyTravelInTaiwan.Models
             }
             int[] suggestTags = GetSuggestTags(current, sameGroup);
             List<rating> ratings = new List<rating>();
+
+            List<rating> dbRatingData = db.ratings.ToList();
+
             foreach (int tag in suggestTags)
             {
-                ratings.AddRange(db.ratings.Where(o => o.view.Viewtype == tag));
+                ratings.AddRange(dbRatingData.Where(o => o.view.Viewtype == tag));
             }
+            //foreach (int tag in suggestTags)
+            //{
+            //    ratings.AddRange(db.ratings.Where(o => o.view.Viewtype == tag));
+            //}
 
             var query = (from ratingItems in ratings
                          group ratingItems by ratingItems.Sno into ratingItemsGrp

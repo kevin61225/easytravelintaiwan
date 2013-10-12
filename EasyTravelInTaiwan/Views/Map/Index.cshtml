@@ -3,13 +3,37 @@
 }
 
 <style type="text/css">
-    html, body, #container {
-         height: 100%; 
-         width: 100%;
+    .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        border-top: 1px solid #ddd;
+        height: 541px;
+        padding: 10px;
     }
+
+    .nav-tabs {
+        font-family: "微軟正黑體";
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+
+    .nav {
+        border-bottom: none;
+    }
+
+
+    .searchItemBorder {
+        display: block;
+    }
+
+    html, body, #container {
+        height: 100%;
+        width: 100%;
+    }
+
     .map_canvas {
-        height: 572px;
-        width: 66%;
+        height: 600px;
         float: left;
         position: relative;
     }
@@ -82,18 +106,32 @@
 </form>
 
 <div class="row" style="height: auto;">
-    <div id="map_canvas" class="map_canvas"></div>
-    <div style="float: right; width: 30%; height: 100%; position: relative;">
-        <div class="row">
-            <div id="TravelListPartialView">
-                @Html.Action("TravelListPartial", "Map")
+    <div id="map_canvas" class="map_canvas span8"></div>
+    <div class="span4" style="float: right; position: relative">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#TravelTab" data-toggle="tab">旅遊清單</a></li>
+            <li><a href="#SuggestTab" data-toggle="tab">推薦清單</a></li>
+            <li><a href="#HistoryTab" data-toggle="tab">歷史紀錄</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="TravelTab">
+                <div id="TravelListPartialView">
+                    @Html.Action("TravelListPartial", "Map")
+                </div>
+                <br />
+                <br />
+                <div id="TravelListPlacePartialView">
+                    @Html.Action("TravelListPlacePartial", "Map")
+                </div>
             </div>
-            <br />
-            <br />
-            <div id="TravelListPlacePartialView">
-                @Html.Action("TravelListPlacePartial", "Map")
+            <div class="tab-pane" id="SuggestTab">
+                @Html.Action("SuggestPlacePartial", "Map")
+            </div>
+            <div class="tab-pane" id="HistoryTab">
+                @Html.Action("HistoryPartial", "Map")
             </div>
         </div>
+
     </div>
 </div>
 

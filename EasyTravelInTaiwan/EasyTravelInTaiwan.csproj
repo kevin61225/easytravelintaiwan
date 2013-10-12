@@ -819,6 +819,8 @@
     <Content Include="Views\Member\Favorite.cshtml" />
     <Content Include="Views\Member\Favorite\_favoriteTreeViewPartial.cshtml" />
     <Content Include="Views\Member\Favorite\_favoriteResultPartial.cshtml" />
+    <Content Include="Views\Map\_suggestPlacePartial.cshtml" />
+    <Content Include="Views\Map\_historyPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

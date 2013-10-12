@@ -424,7 +424,7 @@ namespace EasyTravelInTaiwan.Controllers
             return "null";
         }
 
-        public void FindUserIdByName(string userAccount)
+        private void FindUserIdByName(string userAccount)
         {
             member user;
             try
@@ -441,12 +441,18 @@ namespace EasyTravelInTaiwan.Controllers
         }
 
         [Authorize]
-        public ActionResult SuggestPlace()
+        public ActionResult SuggestPlacePartial()
         {
             int userId = (int)Session["UserId"];
             Suggestor suggestor = new Suggestor();
-            List<view> suggest = suggestor.GetSuggestPlaceSno(userId);
-            return View();
+            List<view> suggestions = suggestor.GetSuggestPlaceSno(userId);
+            return PartialView("_suggestPlacePartial", suggestions);
+        }
+
+        [Authorize]
+        public ActionResult HistoryPartial()
+        {
+            return PartialView("_historyPartial");
         }
     }
 }
