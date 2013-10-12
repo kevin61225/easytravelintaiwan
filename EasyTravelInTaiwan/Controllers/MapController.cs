@@ -51,17 +51,8 @@ namespace EasyTravelInTaiwan.Controllers
         [HttpPost]
         public JsonResult GetDirection(string tid)
         {
-            //int Tid = int.Parse(tid);
-            //List<travellistplace> travelListPlace = db.travellistplaces.Where(list => list.Tid == Tid).ToList<travellistplace>();
-            //List<view> viewList = new List<view>();
-            //foreach (travellistplace item in travelListPlace)
-            //{
-            //    view tempView = db.views.Where(o => o.Id == item.Sno).Single();
-            //    viewList.Add(tempView);
-            //}
             var mapMarkerList = new MapRepository();
             mapMarkerList.GetByTid(tid);
-
 
             return Json(mapMarkerList, JsonRequestBehavior.AllowGet);
         }
@@ -247,6 +238,28 @@ namespace EasyTravelInTaiwan.Controllers
         public ActionResult CityList()
         {
             return View(db.cities.ToList());
+        }
+
+        public ActionResult SortPlace(int tid)
+        {
+            List<travellistplace> travelListPlace = db.travellistplaces.Where(list => list.Tid == tid).ToList<travellistplace>();
+            List<view> placeInfo = new List<view>();
+            foreach (travellistplace place in travelListPlace)
+            {
+                view temp = new view();
+                try
+                {
+                    temp = db.views.Where(o => o.Id == place.Sno).Single();
+                }
+                catch
+                {
+                }
+                placeInfo.Add(temp);
+            }
+
+            ViewBag.TravelListPlaces = placeInfo;
+            ViewBag.TravelListLength = placeInfo.Count();
+            return PartialView("_sortPlacePartial", travelListPlace);
         }
 
         // 將細項加入清單

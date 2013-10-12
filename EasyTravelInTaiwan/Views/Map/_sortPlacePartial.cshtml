@@ -1,0 +1,11 @@
+﻿<p>＊按住地點後可移動排序＊</p>
+<ol id="SortedList" class="nav nav-pills nav-stacked simple_with_animation vertical">
+    @foreach (EasyTravelInTaiwan.Models.view maplatlng in ViewBag.TravelListPlaces)
+    {
+        <li id="place.@maplatlng.Id">
+            <a href="#">@maplatlng.Name</a>
+        </li>
+    }
+</ol>
+
+

@@ -169,11 +169,6 @@
         anchor: new google.maps.Point(17, 38)
     };
 
-    //$("#searchBtn").click(function () {
-    //    $("#inputGeo").trigger("geocode");
-    //});
-
-
     //// Hide the label at start
     //$('#progress_bar .ui-progress .ui-label').hide();
     //// Set initial value
@@ -181,7 +176,6 @@
     //// Simulate some progress
     //$('#progress_bar .ui-progress').animateProgress(50, function () {
     //});
-
 
     $("#inputGeo").geocomplete({
         map: ".map_canvas",
@@ -273,9 +267,6 @@
             }
         });
 
-        //$("#SearchView").blur(function () {
-        //    alert("Handler for .blur() called.");
-        //});
         $("#SearchView").keyup(function (e) {
             if (e.keyCode == 13) {
                 //$(this).trigger("enterKey");

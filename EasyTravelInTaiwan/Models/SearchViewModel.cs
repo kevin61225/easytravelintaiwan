@@ -11,4 +11,11 @@ namespace EasyTravelInTaiwan.Models
         public string searchWord { get; set; }
         public int searchType { get; set; }
     }
+
+    public class FavoritePlaces
+    {
+        public string CityName { get; set; }
+        public string CityId { get; set; }
+        public List<viewtype> viewtypes { get; set; }
+    }
 }

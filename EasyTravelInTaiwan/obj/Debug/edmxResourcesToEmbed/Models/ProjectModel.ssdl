@@ -15,7 +15,7 @@
     <EntitySet Name="travellistplace" EntityType="ProjectModel.Store.travellistplace" store:Type="Tables" Schema="project" />
     <EntitySet Name="view" EntityType="ProjectModel.Store.view" store:Type="Tables" Schema="project" />
     <EntitySet Name="viewtype" EntityType="ProjectModel.Store.viewtype" store:Type="Tables" Schema="project" />
-    <AssociationSet Name="hotelimage_ibfk_2" Association="ProjectModel.Store.hotelimage_ibfk_2">
+    <AssociationSet Name="hotelimage_ibfk_1" Association="ProjectModel.Store.hotelimage_ibfk_1">
       <End Role="hotel" EntitySet="hotel" />
       <End Role="hotelimage" EntitySet="hotelimage" />
     </AssociationSet>
@@ -35,7 +35,11 @@
       <End Role="member" EntitySet="member" />
       <End Role="rating" EntitySet="rating" />
     </AssociationSet>
-    <AssociationSet Name="travellist_ibfk_2" Association="ProjectModel.Store.travellist_ibfk_2">
+    <AssociationSet Name="rating_ibfk_2" Association="ProjectModel.Store.rating_ibfk_2">
+      <End Role="view" EntitySet="view" />
+      <End Role="rating" EntitySet="rating" />
+    </AssociationSet>
+    <AssociationSet Name="travellist_ibfk_1" Association="ProjectModel.Store.travellist_ibfk_1">
       <End Role="member" EntitySet="member" />
       <End Role="travellist" EntitySet="travellist" />
     </AssociationSet>
@@ -196,7 +200,7 @@
       <PropertyRef Name="RId" />
     </Key>
     <Property Name="RId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Sno" Type="text" Nullable="false" />
+    <Property Name="Sno" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="Point" Type="int" Nullable="false" />
     <Property Name="Comment" Type="text" Nullable="false" />
@@ -214,8 +218,8 @@
     <Key>
       <PropertyRef Name="Pid" />
     </Key>
-    <Property Name="Pid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Tid" Type="int" Nullable="false" />
+    <Property Name="Pid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Sno" Type="text" Nullable="false" />
   </EntityType>
   <EntityType Name="view">
@@ -240,10 +244,8 @@
     <Property Name="Typenumber" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Typename" Type="text" Nullable="false" />
   </EntityType>
-  <Association Name="hotelimage_ibfk_2">
-    <End Role="hotel" Type="ProjectModel.Store.hotel" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
+  <Association Name="hotelimage_ibfk_1">
+    <End Role="hotel" Type="ProjectModel.Store.hotel" Multiplicity="1" />
     <End Role="hotelimage" Type="ProjectModel.Store.hotelimage" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="hotel">
@@ -297,9 +299,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="rating_ibfk_1">
-    <End Role="member" Type="ProjectModel.Store.member" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
+    <End Role="member" Type="ProjectModel.Store.member" Multiplicity="1" />
     <End Role="rating" Type="ProjectModel.Store.rating" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="member">
@@ -310,10 +310,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="travellist_ibfk_2">
-    <End Role="member" Type="ProjectModel.Store.member" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
+  <Association Name="rating_ibfk_2">
+    <End Role="view" Type="ProjectModel.Store.view" Multiplicity="1" />
+    <End Role="rating" Type="ProjectModel.Store.rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="view">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="rating">
+        <PropertyRef Name="Sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="travellist_ibfk_1">
+    <End Role="member" Type="ProjectModel.Store.member" Multiplicity="1" />
     <End Role="travellist" Type="ProjectModel.Store.travellist" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="member">

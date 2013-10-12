@@ -1,0 +1,42 @@
+﻿@using BootstrapSupport
+@using BootstrapSupport.HtmlHelpers
+@model BootstrapSupport.HtmlHelpers.IPagedList<EasyTravelInTaiwan.Models.ResultView>
+@*@model IPagedList<EasyTravelInTaiwan.Models.ResultView>*@
+
+<div>
+    <ul id="results">
+        @foreach (EasyTravelInTaiwan.Models.ResultView item in Model)
+        {                
+            <li class="searchItemBorder">
+                <div class="caption">
+                    <h5>
+                        @Html.ActionLink(item.Name, "ViewPointDetails", "Map", new { id = item.Id }, new { @class = "btn-link" })
+                    </h5>
+                </div>
+                <div class="row">
+                    <div class="span3">
+                        <a href="@Url.Action("ViewPointDetails", "Map", new { id = item.Id })" title="@item.Name">
+                            <img src="@Url.Action("RenderBookImage", "Search", new { id = item.Id, pt = item.Pt })" width="150" height="150" alt="@item.Name"/>
+                        </a>
+                    </div>
+                    <div class="span8">
+                        <div>
+                            <p>位於： @item.cityName</p>
+                            <p>屬於： @item.viewTypeName</p>
+                            <p>地址:：@item.Address</p>
+                        </div>
+                        簡介：@Html.Raw(item.Description)
+                        <a href="@Url.Action("ViewPointDetails", "Map", new { id = item.Id })" title="@item.Name">點我看詳細內容</a>
+                    </div>
+                </div>
+                <hr />
+            </li>
+        }
+    </ul>
+    @Html.Pager(Model.PageIndex,
+            Model.TotalPages,
+            x => Url.Action("FavoriteResultPartial", "Member", new  {  city = 1,  type = 1,  uId = 19, page = x }),
+            "pagination-centered")
+
+    @*@Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount, new AjaxOptions { UpdateTargetId = "FavortieResultPartial"}).Options(o => o.Action("FavoriteResultPartial"))*@
+</div>

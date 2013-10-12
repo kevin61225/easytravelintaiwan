@@ -67,10 +67,12 @@
         </ul>
         @*</div>*@
         @*</div>*@
-        @Html.Pager(Model.PageIndex,
+        <div id="Pager">
+            @Html.Pager(Model.PageIndex,
             Model.TotalPages,
             x => Url.Action("SearchResult", new { searchWord = ViewBag.keyWord, searchType = ViewBag.key, page = x }),
             "pagination-centered")
+        </div>
     </div>
 </div>
 

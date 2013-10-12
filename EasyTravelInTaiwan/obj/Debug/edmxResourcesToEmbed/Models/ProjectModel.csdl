@@ -47,6 +47,10 @@
       <End Role="viewtype" EntitySet="viewtypes" />
       <End Role="view" EntitySet="views" />
     </AssociationSet>
+    <AssociationSet Name="rating_ibfk_2" Association="ProjectModel.rating_ibfk_2">
+      <End Role="view" EntitySet="views" />
+      <End Role="rating" EntitySet="ratings" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="accommodation">
     <Key>
@@ -211,6 +215,7 @@
     <Property Name="Comment" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
     <Property Name="pt" Type="String" Nullable="false" MaxLength="4" Unicode="false" FixedLength="false" />
     <NavigationProperty Name="member" Relationship="ProjectModel.rating_ibfk_1" FromRole="rating" ToRole="member" />
+    <NavigationProperty Name="view" Relationship="ProjectModel.rating_ibfk_2" FromRole="rating" ToRole="view" />
   </EntityType>
   <EntityType Name="travellist">
     <Key>
@@ -246,6 +251,7 @@
     <Property Name="IconType" Type="String" Nullable="false" MaxLength="4" Unicode="false" FixedLength="false" />
     <Property Name="Description" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
     <NavigationProperty Name="viewtype1" Relationship="ProjectModel.view_ibfk_2" FromRole="view" ToRole="viewtype" />
+    <NavigationProperty Name="rating" Relationship="ProjectModel.rating_ibfk_2" FromRole="view" ToRole="rating" />
   </EntityType>
   <EntityType Name="viewtype">
     <Key>
@@ -363,6 +369,18 @@
       </Principal>
       <Dependent Role="view">
         <PropertyRef Name="Viewtype" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="rating_ibfk_2">
+    <End Type="ProjectModel.view" Role="view" Multiplicity="1" />
+    <End Type="ProjectModel.rating" Role="rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="view">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="rating">
+        <PropertyRef Name="Sno" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

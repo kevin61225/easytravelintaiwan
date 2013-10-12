@@ -407,6 +407,7 @@
     <Compile Include="Models\viewtype.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SearchFavoriteModel.cs" />
     <Compile Include="NavigationRoutes\INavigationRouteFilter.cs" />
     <Compile Include="NavigationRoutes\NamedRoute.cs" />
     <Compile Include="NavigationRoutes\NavigationExtensions.cs" />
@@ -720,6 +721,7 @@
     <Content Include="scripts\jquery-1.9.1.min.js" />
     <Content Include="scripts\jquery-migrate-1.1.1.js" />
     <Content Include="scripts\jquery-migrate-1.1.1.min.js" />
+    <Content Include="scripts\jquery-sortable.js" />
     <Content Include="scripts\jquery.ajax-progress.js" />
     <Content Include="scripts\jquery.blockUI.js" />
     <Content Include="scripts\jquery.form.js" />
@@ -813,6 +815,10 @@
     <Content Include="Views\Rank\Index.cshtml" />
     <Content Include="Views\Rank\_rankFilterPartial.cshtml" />
     <Content Include="Views\Rank\_rankResultPartial.cshtml" />
+    <Content Include="Views\Map\_sortPlacePartial.cshtml" />
+    <Content Include="Views\Member\Favorite.cshtml" />
+    <Content Include="Views\Member\Favorite\_favoriteTreeViewPartial.cshtml" />
+    <Content Include="Views\Member\Favorite\_favoriteResultPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

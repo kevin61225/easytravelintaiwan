@@ -12,6 +12,7 @@ using System.Net;
 using System.Net.Mail;
 using WebMatrix.WebData;
 using System.Text;
+using BootstrapSupport.HtmlHelpers;
 using System.Security.Cryptography;
 
 namespace EasyTravelInTaiwan.Controllers
@@ -49,6 +50,32 @@ namespace EasyTravelInTaiwan.Controllers
         public ActionResult IndexForManager()
         {
             return View(db.members.ToList());
+        }
+
+        public ActionResult Favorite(string User)
+        {
+            return View();
+        }
+
+        public ActionResult FavoriteTreeList()
+        {
+            SearchFavoriteModel model = new SearchFavoriteModel();
+            return PartialView("Favorite/_favoriteTreeViewPartial");
+        }
+
+        public ActionResult FavoriteResultPartial(int city, int type, int uId, int page = 1)
+        {
+            var pageSize = 15;
+
+            SearchResultModel model = new SearchResultModel();
+
+            model.GetPersonalFavorite(city, type, uId);
+
+            ViewBag.City = city;
+            ViewBag.Type = type;
+            ViewBag.FoundNum = model.Count();
+
+            return PartialView("Favorite/_favoriteResultPartial", model.ToPagedList(page, pageSize));
         }
 
         [AllowAnonymous]

@@ -11,7 +11,9 @@
     <link rel="SHORTCUT ICON" href="~/EzIcon.ico" />
     <link href="@Styles.Url("~/content/css")" rel="stylesheet"/>
     <style type="text/css">
-            html, body, #Container { height: 100%; }
+        html, body, #Container {
+            height: 100%;
+        }
     </style>
     @*<link href="#" rel="stylesheet" />*@
     @RenderSection("head", required: false)
@@ -35,7 +37,6 @@
                     </ul>
                     <div class="nav-collapse collapse">
                         <div class="navbar-form pull-right">
-                            @*@Html.ActionLink("回首頁", "GoHomePage", "Home", null, new { @class = "btn btn-primary" })*@
                             @if (!User.Identity.IsAuthenticated)
                             {
 @*<button class="btn btn-primary" type="button" onclick="FacebookLogin()">
@@ -50,9 +51,8 @@
                                     <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="~/Member/Index"><i class="icon-pencil"></i>會員資料</a></li>
-                                        @*                                        <li><a href="~/ShoppingCart/Index"><i class="icon-shopping-cart"></i>購物車</a></li>
-                                        <li><a href="~/OrderList/OrderIndex"><i class="icon-list-alt"></i>訂單查詢</a></li>*@
-                                        <li><a href="~/Book/IndexTrace"><i class="icon-list-alt"></i>追蹤清單</a></li>
+                                        <li><a href="~/Member/Favorite"><i class="icon-list-alt"></i>我的收藏</a></li>
+                                        @*<li><a href="~/Book/IndexTrace"><i class="icon-list-alt"></i>我的收藏</a></li>*@
                                         <li><a href="~/Rating/Index"><i class="icon-list-alt"></i>評分列表</a></li>
                                     </ul>
                                 </div>
@@ -76,13 +76,15 @@
     <script src="~/scripts/fbAuthJScript.js"></script>
 
     @Scripts.Render("~/js")
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="~/scripts/jquery-sortable.js"></script>
     <script src="~/scripts/bootstrap-typeahead.js"></script>
-        <script src="~/scripts/jquery.blockUI.js"></script>
+    <script src="~/scripts/jquery.blockUI.js"></script>
     <script src="~/scripts/jquery.rating.js"></script>
     @RenderSection("Scripts", required: false)
 
     <!--Login Page -->
-    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <h3 id="myModalLabel">登入</h3>
@@ -146,6 +148,48 @@
         $.growlUI('已經登出');
     });
 
+    $('.tree-toggle').click(function () {
+        $(this).parent().children('ul.tree').toggle(200);
+    });
+
+    var adjustment
+    $("ol.simple_with_animation").sortable({
+        group: 'simple_with_animation',
+        pullPlaceholder: false,
+        // animation on drop
+        onDrop: function (item, targetContainer, _super) {
+            var clonedItem = $('<li/>').css({ height: 0 })
+            item.before(clonedItem)
+            clonedItem.animate({ 'height': item.height() })
+
+            item.animate(clonedItem.position(), function () {
+                clonedItem.detach()
+                _super(item)
+            })
+            RefreshDirections();
+        },
+
+        // set item relative to cursor position
+        onDragStart: function ($item, container, _super) {
+            var offset = $item.offset(),
+            pointer = container.rootGroup.pointer
+
+            adjustment = {
+                left: pointer.left - offset.left,
+                top: pointer.top - offset.top
+            }
+
+            _super($item, container)
+        },
+        onDrag: function ($item, position) {
+            $item.css({
+                left: position.left - adjustment.left,
+                top: position.top - adjustment.top
+            })
+            
+        }
+    });
+
     //var $ = jQuery.noConflict();
     $(document).ready(function () {
         //$('#myCarousel').carousel({ interval: 3000, cycle: true });
@@ -161,6 +205,9 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 </script>
+
+
+
 
 
 
