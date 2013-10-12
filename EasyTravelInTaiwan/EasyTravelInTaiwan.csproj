@@ -824,6 +824,8 @@
     <Content Include="Views\Map\_historyPartial.cshtml" />
     <Content Include="Views\Map\_myFavorPartial.cshtml" />
     <Content Include="Views\Map\_othersSuggestPlacePartial.cshtml" />
+    <Content Include="Views\Member\Friends\_friendsResultPartial.cshtml" />
+    <Content Include="Views\Member\Friends\_friendsTreeViewPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
