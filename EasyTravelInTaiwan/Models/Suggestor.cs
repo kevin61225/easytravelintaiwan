@@ -8,10 +8,11 @@ namespace EasyTravelInTaiwan.Models
     public class Suggestor
     {
         private ProjectEntities db = new ProjectEntities();
-        public List<view> GetSuggestPlaceSno(int id)
+
+        public List<view> GetOtherSuggestPlaceSno(int userId)
         {
             List<member> mems = db.members.ToList();
-            member current = db.members.Where(o => o.UserID == id).Single();
+            member current = db.members.Where(o => o.UserID == userId).Single();
 
             List<member> sameGroup = mems.Where(o => o.GId == current.GId).ToList();
             current.SeperateTags();
@@ -37,9 +38,35 @@ namespace EasyTravelInTaiwan.Models
                          group ratingItems by ratingItems.Sno into ratingItemsGrp
                          orderby ratingItemsGrp.Sum(o => o.Point) descending
                          select ratingItemsGrp.Key).ToList();
-            view vie = new view();
             List<rating> hasBeen = current.ratings.ToList();
             query.RemoveAll(o => hasBeen.Where(p => p.Sno == o).Count() != 0);
+            List<view> result = new List<view>();
+            query.ForEach(delegate(String sno)
+            {
+                result.Add(db.views.Find(sno));
+            });
+            return result;
+        }
+
+        public List<view> GetMyFavorPlaceSno(int userId)
+        {
+            member current = db.members.Where(o => o.UserID == userId).Single();
+            current.SeperateTags();
+
+            List<rating> ratings = new List<rating>();
+
+            List<rating> dbRatingData = db.ratings.ToList();
+
+            foreach (int tag in current._tags)
+            {
+                ratings.AddRange(dbRatingData.Where(o => o.view.Viewtype == tag));
+            }
+
+            var query = (from ratingItems in ratings
+                         group ratingItems by ratingItems.Sno into ratingItemsGrp
+                         orderby ratingItemsGrp.Sum(o => o.Point) descending
+                         select ratingItemsGrp.Key).ToList();
+
             List<view> result = new List<view>();
             query.ForEach(delegate(String sno)
             {
@@ -64,5 +91,7 @@ namespace EasyTravelInTaiwan.Models
             }
             return set;
         }
+
+        
     }
 }

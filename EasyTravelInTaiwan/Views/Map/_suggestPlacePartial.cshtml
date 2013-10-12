@@ -1,22 +1,4 @@
-﻿@model List<EasyTravelInTaiwan.Models.view>
-<ul class="nav nav-pills nav-stacked" id="SuggestWrapper">
-    @foreach (EasyTravelInTaiwan.Models.view place in Model)
-    {
-        <li id="place.@place.Id"><a href="#">@place.Name</a></li>
-    }
-</ul>
-<script type="text/javascript">
-    $('#SuggestWrapper li').click(function () {
-        //if (e.button == 1) {
-        var str = $(this).attr('id');
-        var n = str.split(".");
-        var id;
-        for (var i = 0; i < gmarkers.length; i++) {
-            if (gmarkers[i].gId == n[1]) {
-                id = i;
-            }
-        }
-        google.maps.event.trigger(gmarkers[id], "click");
-        gmarkers[id].setVisible(true);
-    });
-</script>
+﻿<h4>我所喜歡的</h4>
+@Html.Action("MyFavorPartial", "Map")
+<h4>他人推薦的</h4>
+@Html.Action("OthersSuggestPlacePartial", "Map")

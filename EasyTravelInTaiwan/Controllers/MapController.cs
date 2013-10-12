@@ -443,10 +443,25 @@ namespace EasyTravelInTaiwan.Controllers
         [Authorize]
         public ActionResult SuggestPlacePartial()
         {
+            return PartialView("_suggestPlacePartial");
+        }
+
+        [Authorize]
+        public ActionResult OthersSuggestPlacePartial()
+        {
             int userId = (int)Session["UserId"];
             Suggestor suggestor = new Suggestor();
-            List<view> suggestions = suggestor.GetSuggestPlaceSno(userId);
-            return PartialView("_suggestPlacePartial", suggestions);
+            List<view> suggestions = suggestor.GetOtherSuggestPlaceSno(userId);
+            return PartialView("_othersSuggestPlacePartial", suggestions);
+        }
+
+        [Authorize]
+        public ActionResult MyFavorPartial()
+        {
+            int userId = (int)Session["UserId"];
+            Suggestor suggestor = new Suggestor();
+            List<view> suggestions = suggestor.GetMyFavorPlaceSno(userId);
+            return PartialView("_myFavorPartial", suggestions);
         }
 
         [Authorize]
