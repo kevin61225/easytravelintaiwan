@@ -1,0 +1,8 @@
+﻿<div class="row">
+    <div id="FriendsTreeList" style="float: left; width: 30%;">
+        @Html.Action("FriendsTreeList", "Member", new { uid = ViewBag.UserId })
+    </div>
+    <div id="FriendsResultPartial" style="float: right; width: 70%;">
+        @{Html.RenderAction("FriendsResultPartial", "Member", new { uId = ViewBag.UserId, page = 1 });}
+    </div>
+</div>

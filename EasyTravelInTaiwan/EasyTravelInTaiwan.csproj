@@ -388,6 +388,7 @@
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Repository\GenericRepository.cs" />
+    <Compile Include="Models\SearchFriendsModel.cs" />
     <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Models\SearchResultModel.cs" />
     <Compile Include="Models\SearchTypeAheadEntity.cs" />

@@ -1,25 +1,26 @@
 ﻿@model EasyTravelInTaiwan.Models.SearchFavoriteModel
 <div class="row">
-  <div class="span3">
-    <div class="well">
-        <div>
-            <ul class="nav nav-list">
-                @foreach (EasyTravelInTaiwan.Models.FavoritePlaces item in Model)
-                {
-                    int i = 0;
-                    <li><label class="tree-toggle nav-header">@item.CityName (@item.CitySum)</label>
-                        <ul id="TypeList" class="nav nav-list tree" style="display: none;">
-                        @foreach (EasyTravelInTaiwan.Models.viewtype type in item.Viewtypes)
-                        {                        
-                            <li id="type.@type.Typenumber.@item.CityId.@Model.UserId"><a href="#">@type.Typename (@item.ViewTypeSum[i])</a></li>
-                            i++;
-                        }
-                        </ul>
-                    </li>
-                    <li class="divider"></li>
-                }        
-            </ul>
+    <div class="span3 fixPosition">
+        <div class="well">
+            <div>
+                <ul class="nav nav-list">
+                    @foreach (EasyTravelInTaiwan.Models.FavoritePlaces item in Model)
+                    {
+                        int i = 0;
+                        <li>
+                            <label class="tree-toggle nav-header">@item.CityName (@item.CitySum)</label>
+                            <ul id="TypeList" class="nav nav-list tree" style="display: none;">
+                                @foreach (EasyTravelInTaiwan.Models.viewtype type in item.Viewtypes)
+                                {                        
+                                    <li id="type.@type.Typenumber.@item.CityId.@Model.UserId"><a href="#">@type.Typename (@item.ViewTypeSum[i])</a></li>
+                                    i++;
+                                }
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                    }
+                </ul>
+            </div>
         </div>
     </div>
-</div>
 </div>

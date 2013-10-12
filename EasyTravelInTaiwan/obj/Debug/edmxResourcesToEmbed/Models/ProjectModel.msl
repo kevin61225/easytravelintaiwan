@@ -207,5 +207,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <AssociationSetMapping Name="friends" TypeName="ProjectModel.friends" StoreEntitySet="friends">
+      <EndProperty Name="member1">
+        <ScalarProperty Name="UserID" ColumnName="Uid" />
+      </EndProperty>
+      <EndProperty Name="member">
+        <ScalarProperty Name="UserID" ColumnName="Fid" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

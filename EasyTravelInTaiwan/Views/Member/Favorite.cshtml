@@ -1,12 +1,8 @@
-﻿@{
-    ViewBag.Title = "我的收藏 - Easy Travel In Taiwan";
-}
-
-<div class="row">
-    <div id="FavoriteTreeList" style="float:left; width: 30%;">
+﻿<div class="row">
+    <div id="FavoriteTreeList" style="float: left; width: 30%;">
         @Html.Action("FavoriteTreeList", "Member", new { uid = ViewBag.UserId })
     </div>
-    <div id="FavortieResultPartial" style="float:right; width: 70%;">
+    <div id="FavortieResultPartial" style="float: right; width: 70%;">
         @{Html.RenderAction("FavoriteResultPartial", "Member", new { type = 1, city = "A", uId = ViewBag.UserId, page = 1 });}
     </div>
 </div>

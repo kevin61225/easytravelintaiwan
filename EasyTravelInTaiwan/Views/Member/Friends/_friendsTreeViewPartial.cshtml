@@ -1,0 +1,25 @@
+﻿@model EasyTravelInTaiwan.Models.SearchFriendsModel
+<div class="row">
+    @Html.Hidden("UId", Session["NowUid"])
+    <div class="span3 fixPosition">
+        <div class="well">
+            <div>
+                <ul class="nav nav-list">
+                    <li>
+                        <ul id="FriendsList" class="nav nav-list tree">
+                            <li><a href="#">好友名單 (@ViewBag.FriendCount)</a></li>
+                        </ul>
+                    </li>
+                    <li class="divider"></li>
+                </ul>
+                <ul class="nav nav-list">
+                    <li>
+                        <ul id="RecommendFriendsList" class="nav nav-list tree">
+                            <li><a href="#">推薦好友 (@ViewBag.RecommendFriendCount)</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,6 +9,12 @@
           <EntitySet Name="accommodation" EntityType="ProjectModel.Store.accommodation" store:Type="Tables" Schema="project" />
           <EntitySet Name="city" EntityType="ProjectModel.Store.city" store:Type="Tables" Schema="project" />
           <EntitySet Name="food" EntityType="ProjectModel.Store.food" store:Type="Tables" Schema="project" />
+          <EntitySet Name="friends" EntityType="ProjectModel.Store.friends" store:Type="Tables" store:Schema="project" store:Name="friends">
+            <DefiningQuery>SELECT
+      `friends`.`Fid`, 
+      `friends`.`Uid`
+      FROM `friends` AS `friends`</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="hotel" EntityType="ProjectModel.Store.hotel" store:Type="Tables" Schema="project" />
           <EntitySet Name="hotelimage" EntityType="ProjectModel.Store.hotelimage" store:Type="Tables" Schema="project" />
           <EntitySet Name="maplatlng" EntityType="ProjectModel.Store.maplatlng" store:Type="Tables" Schema="project" />
@@ -20,7 +26,15 @@
           <EntitySet Name="travellistplace" EntityType="ProjectModel.Store.travellistplace" store:Type="Tables" Schema="project" />
           <EntitySet Name="view" EntityType="ProjectModel.Store.view" store:Type="Tables" Schema="project" />
           <EntitySet Name="viewtype" EntityType="ProjectModel.Store.viewtype" store:Type="Tables" Schema="project" />
-          <AssociationSet Name="hotelimage_ibfk_1" Association="ProjectModel.Store.hotelimage_ibfk_1">
+          <AssociationSet Name="friends_ibfk_1" Association="ProjectModel.Store.friends_ibfk_1">
+            <End Role="member" EntitySet="member" />
+            <End Role="friends" EntitySet="friends" />
+          </AssociationSet>
+          <AssociationSet Name="friends_ibfk_2" Association="ProjectModel.Store.friends_ibfk_2">
+            <End Role="member" EntitySet="member" />
+            <End Role="friends" EntitySet="friends" />
+          </AssociationSet>
+          <AssociationSet Name="hotelimage_ibfk_2" Association="ProjectModel.Store.hotelimage_ibfk_2">
             <End Role="hotel" EntitySet="hotel" />
             <End Role="hotelimage" EntitySet="hotelimage" />
           </AssociationSet>
@@ -38,10 +52,6 @@
           </AssociationSet>
           <AssociationSet Name="rating_ibfk_1" Association="ProjectModel.Store.rating_ibfk_1">
             <End Role="member" EntitySet="member" />
-            <End Role="rating" EntitySet="rating" />
-          </AssociationSet>
-          <AssociationSet Name="rating_ibfk_2" Association="ProjectModel.Store.rating_ibfk_2">
-            <End Role="view" EntitySet="view" />
             <End Role="rating" EntitySet="rating" />
           </AssociationSet>
           <AssociationSet Name="travellist_ibfk_1" Association="ProjectModel.Store.travellist_ibfk_1">
@@ -110,6 +120,17 @@
           <Property Name="y" Type="double" />
           <Property Name="create_date" Type="text" />
           <Property Name="modify_date" Type="text" />
+        </EntityType>
+        <!--產生期間發現錯誤:
+      警告 6002: 資料表/檢視 'def.project.friends' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
+      -->
+        <EntityType Name="friends">
+          <Key>
+            <PropertyRef Name="Fid" />
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Fid" Type="int" Nullable="false" />
+          <Property Name="Uid" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="hotel">
           <Key>
@@ -205,7 +226,7 @@
             <PropertyRef Name="RId" />
           </Key>
           <Property Name="RId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Sno" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Sno" Type="text" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="Point" Type="int" Nullable="false" />
           <Property Name="Comment" Type="text" Nullable="false" />
@@ -223,8 +244,8 @@
           <Key>
             <PropertyRef Name="Pid" />
           </Key>
-          <Property Name="Tid" Type="int" Nullable="false" />
           <Property Name="Pid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Tid" Type="int" Nullable="false" />
           <Property Name="Sno" Type="text" Nullable="false" />
         </EntityType>
         <EntityType Name="view">
@@ -249,8 +270,34 @@
           <Property Name="Typenumber" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Typename" Type="text" Nullable="false" />
         </EntityType>
-        <Association Name="hotelimage_ibfk_1">
-          <End Role="hotel" Type="ProjectModel.Store.hotel" Multiplicity="1" />
+        <Association Name="friends_ibfk_1">
+          <End Role="member" Type="ProjectModel.Store.member" Multiplicity="1" />
+          <End Role="friends" Type="ProjectModel.Store.friends" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="friends">
+              <PropertyRef Name="Fid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="friends_ibfk_2">
+          <End Role="member" Type="ProjectModel.Store.member" Multiplicity="1" />
+          <End Role="friends" Type="ProjectModel.Store.friends" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="friends">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="hotelimage_ibfk_2">
+          <End Role="hotel" Type="ProjectModel.Store.hotel" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="hotelimage" Type="ProjectModel.Store.hotelimage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="hotel">
@@ -312,18 +359,6 @@
             </Principal>
             <Dependent Role="rating">
               <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="rating_ibfk_2">
-          <End Role="view" Type="ProjectModel.Store.view" Multiplicity="1" />
-          <End Role="rating" Type="ProjectModel.Store.rating" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="view">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="rating">
-              <PropertyRef Name="Sno" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -419,6 +454,10 @@
           <AssociationSet Name="rating_ibfk_2" Association="ProjectModel.rating_ibfk_2">
             <End Role="view" EntitySet="views" />
             <End Role="rating" EntitySet="ratings" />
+          </AssociationSet>
+          <AssociationSet Name="friends" Association="ProjectModel.friends">
+            <End Role="member" EntitySet="members" />
+            <End Role="member1" EntitySet="members" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="accommodation">
@@ -541,6 +580,8 @@
           <NavigationProperty Name="ratings" Relationship="ProjectModel.rating_ibfk_1" FromRole="member" ToRole="rating" />
           <NavigationProperty Name="travellists" Relationship="ProjectModel.travellist_ibfk_2" FromRole="member" ToRole="travellist" />
           <Property Type="Int32" Name="GId" Nullable="false" />
+          <NavigationProperty Name="member1" Relationship="ProjectModel.friends" FromRole="member" ToRole="member1" />
+          <NavigationProperty Name="members" Relationship="ProjectModel.friends" FromRole="member1" ToRole="member" />
         </EntityType>
         <EntityType Name="place">
           <Key>
@@ -752,6 +793,10 @@
               <PropertyRef Name="Sno" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <Association Name="friends">
+          <End Type="ProjectModel.member" Role="member" Multiplicity="*" />
+          <End Type="ProjectModel.member" Role="member1" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -965,6 +1010,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="friends" TypeName="ProjectModel.friends" StoreEntitySet="friends">
+            <EndProperty Name="member1">
+              <ScalarProperty Name="UserID" ColumnName="Uid" />
+            </EndProperty>
+            <EndProperty Name="member">
+              <ScalarProperty Name="UserID" ColumnName="Fid" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -979,7 +1032,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
       </DesignerInfoPropertySet>

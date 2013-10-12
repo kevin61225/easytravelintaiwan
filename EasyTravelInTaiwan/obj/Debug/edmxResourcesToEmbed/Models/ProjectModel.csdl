@@ -51,6 +51,10 @@
       <End Role="view" EntitySet="views" />
       <End Role="rating" EntitySet="ratings" />
     </AssociationSet>
+    <AssociationSet Name="friends" Association="ProjectModel.friends">
+      <End Role="member" EntitySet="members" />
+      <End Role="member1" EntitySet="members" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="accommodation">
     <Key>
@@ -172,6 +176,8 @@
     <NavigationProperty Name="ratings" Relationship="ProjectModel.rating_ibfk_1" FromRole="member" ToRole="rating" />
     <NavigationProperty Name="travellists" Relationship="ProjectModel.travellist_ibfk_2" FromRole="member" ToRole="travellist" />
     <Property Type="Int32" Name="GId" Nullable="false" />
+    <NavigationProperty Name="member1" Relationship="ProjectModel.friends" FromRole="member" ToRole="member1" />
+    <NavigationProperty Name="members" Relationship="ProjectModel.friends" FromRole="member1" ToRole="member" />
   </EntityType>
   <EntityType Name="place">
     <Key>
@@ -383,5 +389,9 @@
         <PropertyRef Name="Sno" />
       </Dependent>
     </ReferentialConstraint>
+  </Association>
+  <Association Name="friends">
+    <End Type="ProjectModel.member" Role="member" Multiplicity="*" />
+    <End Type="ProjectModel.member" Role="member1" Multiplicity="*" />
   </Association>
 </Schema>

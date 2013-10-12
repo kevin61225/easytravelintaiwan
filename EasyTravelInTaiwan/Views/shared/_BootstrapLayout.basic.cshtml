@@ -51,9 +51,9 @@
                                     <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="~/Member/Index"><i class="icon-pencil"></i> 會員資料</a></li>
-                                        <li><a href="~/Member/Favorite?User=@Session["UserId"]"><i class="icon-list-alt"></i> 我的收藏</a></li>
+                                        <li><a href="~/Member/Home?User=@Session["UserId"]"><i class="icon-list-alt"></i> 我的首頁</a></li>
                                         @*<li><a href="~/Book/IndexTrace"><i class="icon-list-alt"></i>我的收藏</a></li>*@
-                                        <li><a href="~/Rating/Index"><i class="icon-list-alt"></i> 評分列表</a></li>
+                                        @*<li><a href="~/Rating/Index"><i class="icon-list-alt"></i> 評分列表</a></li>*@
                                     </ul>
                                 </div>
                                 <button id="LogoutBtn" class="btn btn-primary" type="button" onclick="Logout()">登出</button>
@@ -143,6 +143,31 @@
         $(this).tab('show');
     });
 
+    $('#FriendsList').click(function () {
+        var id = $('#UId').val();
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("FriendsResultPartial", "Member")",
+            data: JSON.stringify({ uId: id, type: "FriendsList", page: 1 }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $("#FriendsResultPartial").html(data);
+            }
+         });
+    });
+
+    $('#RecommendFriendsList').click(function () {
+        var id = $('#UId').val();
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("FriendsResultPartial", "Member")",
+            data: JSON.stringify({ uId: id, type: "RecommendFriendsList", page: 1 }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $("#FriendsResultPartial").html(data);
+            }
+         });
+    });
 
     $('#MainAlert').click(function () {
         $.growlUI('已經登出');

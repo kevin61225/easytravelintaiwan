@@ -94,13 +94,5 @@ namespace EasyTravelInTaiwan.Models
             int output = input.Sum();
             return output;
         }
-
-        public void GetAllInfo(int UserId)
-        {
-            using (var db = new ProjectEntities())
-            {
-
-            }
-        }
     }
 }

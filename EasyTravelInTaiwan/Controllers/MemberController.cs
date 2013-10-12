@@ -52,10 +52,58 @@ namespace EasyTravelInTaiwan.Controllers
             return View(db.members.ToList());
         }
 
+        public ActionResult Home(string User)
+        {
+            int userId = int.Parse(User);
+            ViewBag.UserId = User;
+            ViewBag.UserName = db.members.Where(o => o.UserID == userId).Single().Name;
+            return View();
+        }
+
+        #region Friends Partial
+        public ActionResult Friends(string User)
+        {
+            ViewBag.UserId = User;
+            return PartialView("Friends");
+        }
+
+        public ActionResult FriendsTreeList(string Uid)
+        {
+            int uid = int.Parse(Uid);
+            SearchFriendsModel model = new SearchFriendsModel();
+            model.SearchFriends(uid);
+            ViewBag.FriendCount = model.Count();
+            model.Clear();
+            model.RecommendFriends(uid);
+            ViewBag.RecommendFriendCount = model.Count();
+            Session["NowUid"] = Uid;
+            return PartialView("Friends/_friendsTreeViewPartial", model);
+        }
+
+        public ActionResult FriendsResultPartial(int uId, string type, int page = 1)
+        {
+            var pageSize = 15;
+
+            SearchFriendsModel model = new SearchFriendsModel();
+            if (type == "RecommendFriendsList")
+            {
+                model.RecommendFriends(uId);
+            }
+            else
+            {
+                model.SearchFriends(uId);
+            }
+            return PartialView("Friends/_friendsResultPartial", model.ToPagedList(page, pageSize));
+        }
+
+        #endregion
+
+        #region Favorit Partial
+
         public ActionResult Favorite(string User)
         {
-            @ViewBag.UserId = User;
-            return View();
+            ViewBag.UserId = User;
+            return PartialView("Favorite");
         }
 
         public ActionResult FavoriteTreeList(string Uid)
@@ -79,6 +127,8 @@ namespace EasyTravelInTaiwan.Controllers
 
             return PartialView("Favorite/_favoriteResultPartial", model.ToPagedList(page, pageSize));
         }
+
+        #endregion
 
         [AllowAnonymous]
         [HttpPost]
@@ -223,7 +273,7 @@ namespace EasyTravelInTaiwan.Controllers
             List<viewtype> types = db.viewtypes.ToList();
             List<ViewTypeCheckbox> list = new List<ViewTypeCheckbox>();
             RegisterModel model = new RegisterModel();
-            for(int i = 0; i < types.Count; i++)
+            for (int i = 0; i < types.Count; i++)
             {
                 ViewTypeCheckbox temp = new ViewTypeCheckbox();
                 temp.viewtype = types[i];

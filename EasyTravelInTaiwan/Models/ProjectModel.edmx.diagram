@@ -28,6 +28,7 @@
         <AssociationConnector Association="ProjectModel.travellistplace_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectModel.view_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectModel.rating_ibfk_2" />
+        <AssociationConnector Association="ProjectModel.friends" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,0 +1,34 @@
+﻿@using BootstrapSupport
+@using BootstrapSupport.HtmlHelpers
+@model BootstrapSupport.HtmlHelpers.IPagedList<EasyTravelInTaiwan.Models.member>
+@*@model IPagedList<EasyTravelInTaiwan.Models.ResultView>*@
+
+<div>
+    <ul id="results">
+        @foreach (EasyTravelInTaiwan.Models.member item in Model)
+        {                
+            <li class="searchItemBorder">
+                <div class="caption">
+                    <h5>
+                        @Html.ActionLink(item.Name, "Home", "Member", new { User = item.UserID }, new { @class = "btn-link" })
+                    </h5>
+                </div>
+@*                <div class="row">
+                                        <div class="span3">
+                        <a href="@Url.Action("ViewPointDetails", "Map", new { id = item.Id })" title="
+                            tem.Name">
+                            <img src="@Url.Action("RenderBookImage", "Search", new { id = item.Id, pt = item.Pt })" width="150" height="150" alt="@item.Name"/>
+                        </a>
+                    </div>
+                </div>*@
+                <hr />
+            </li>
+        }
+    </ul>
+    @Html.Pager(Model.PageIndex,
+            Model.TotalPages,
+            x => Url.Action("FavoriteResultPartial", "Member", new { city = 1, type = 1, uId = 19, page = x }),
+            "pagination-centered")
+
+    @*@Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount, new AjaxOptions { UpdateTargetId = "FavortieResultPartial"}).Options(o => o.Action("FavoriteResultPartial"))*@
+</div>
