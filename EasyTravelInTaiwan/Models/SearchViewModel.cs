@@ -16,6 +16,8 @@ namespace EasyTravelInTaiwan.Models
     {
         public string CityName { get; set; }
         public string CityId { get; set; }
-        public List<viewtype> viewtypes { get; set; }
+        public int CitySum { get; set; }
+        public List<int> ViewTypeSum { get; set; }
+        public List<viewtype> Viewtypes { get; set; }
     }
 }

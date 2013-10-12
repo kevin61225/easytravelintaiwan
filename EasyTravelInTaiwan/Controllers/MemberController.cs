@@ -54,22 +54,24 @@ namespace EasyTravelInTaiwan.Controllers
 
         public ActionResult Favorite(string User)
         {
+            @ViewBag.UserId = User;
             return View();
         }
 
-        public ActionResult FavoriteTreeList()
+        public ActionResult FavoriteTreeList(string Uid)
         {
-            SearchFavoriteModel model = new SearchFavoriteModel();
-            return PartialView("Favorite/_favoriteTreeViewPartial");
+            int uid = int.Parse(Uid);
+            SearchFavoriteModel model = new SearchFavoriteModel(uid);
+            return PartialView("Favorite/_favoriteTreeViewPartial", model);
         }
 
-        public ActionResult FavoriteResultPartial(int city, int type, int uId, int page = 1)
+        public ActionResult FavoriteResultPartial(int type, string city, int uId, int page = 1)
         {
             var pageSize = 15;
 
             SearchResultModel model = new SearchResultModel();
 
-            model.GetPersonalFavorite(city, type, uId);
+            model.GetPersonalFavorite(type, city, uId);
 
             ViewBag.City = city;
             ViewBag.Type = type;

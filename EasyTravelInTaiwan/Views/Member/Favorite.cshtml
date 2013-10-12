@@ -4,27 +4,10 @@
 
 <div class="row">
     <div id="FavoriteTreeList" style="float:left; width: 30%;">
-        @Html.Action("FavoriteTreeList", "Member")
+        @Html.Action("FavoriteTreeList", "Member", new { uid = ViewBag.UserId })
     </div>
     <div id="FavortieResultPartial" style="float:right; width: 70%;">
-        @{Html.RenderAction("FavoriteResultPartial", "Member", new { city = 1, type = 1, uId = 19, page = 1 });}
+        @{Html.RenderAction("FavoriteResultPartial", "Member", new { type = 1, city = "A", uId = ViewBag.UserId, page = 1 });}
     </div>
 </div>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-
-        $("#Pager").click(function () {
-            $.ajax({
-                type: "POST",
-                url: "@Url.Action("DeletePlace")",
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                if (data.Status != 2) {
-                    $("#FavortieResultPartial").html(data);
-                }
-            }
-            });
-        });
-    });
-</script>

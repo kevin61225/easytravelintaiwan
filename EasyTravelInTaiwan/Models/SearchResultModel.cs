@@ -159,16 +159,18 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
             }
         }
 
-        public void GetPersonalFavorite(int city, int type, int uId)
+        public void GetPersonalFavorite(int type, string city, int uId)
         {
             using (var db = new ProjectEntities())
             {
-                List<travellistplace> places = db.travellistplaces.Where(o => o.travellist.UserId == uId).Distinct().ToList();
-                List<view> views = new List<view>();
+                List<view> views = SearchFavoriteModel.GetViewsByTravellistplace(uId);
 
-                foreach (travellistplace item in places)
+                foreach (view item in views)
                 {
-                    Add(GetView(db.views.Where(x => x.Id == item.Sno).Single()));
+                    if (item.Viewtype == type && item.City == city)
+                    {
+                        Add(GetView(item));
+                    }
                 }
             }
         }
