@@ -235,7 +235,8 @@ namespace EasyTravelInTaiwan.Controllers
                 return RedirectToAction("Register", "Member");
             }
             kernel.LoadUserData();
-            kernel.RunSeparate();
+            //kernel.RunSeparate();
+            kernel.SetGroupIdBySingle(member.Account);
             SendEmailForRegist(registMember);
             TempData["success"] = "註冊成功，已寄信至您的電子郵件信箱。並請您重新登入 !! ";
             return RedirectToAction("Login", "Member");

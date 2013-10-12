@@ -18,8 +18,13 @@ namespace EasyTravelInTaiwan.Models
         }
 
         #region 演算法
-
-
+        /// <summary>
+        /// Complete Linkage
+        /// </summary>
+        /// <remarks>
+        /// Reset all member's group id
+        /// Need a lot of time to run it
+        /// </remarks>
         public void RunSeparate()
         {
             List<member> group = users;
@@ -28,8 +33,6 @@ namespace EasyTravelInTaiwan.Models
                 item.SeperateTags();
                 item.RunInit();
             }
-            int noChange = 0;
-            //while (group.Count > 20)
             while(true)
             {
                 int ci = 0, cj = 1;
@@ -53,16 +56,8 @@ namespace EasyTravelInTaiwan.Models
                 newGroup.users.AddRange(group[ci].users);
                 newGroup.users.AddRange(group[cj].users);
 
-                //if (group[ci].TagString == null)
-                //{
-                //}
-
-                //if (group[cj].TagString == null)
-                //{
-                //}
-
                 // i 一定會大於 j
-                if (maxS > 0.3)//相似度
+                if (maxS >= 0.5)//相似度
                 {
                     group.RemoveAt(ci);
                     group.RemoveAt(cj - 1);
@@ -84,6 +79,35 @@ namespace EasyTravelInTaiwan.Models
             }
         }
         #endregion
+
+        /// <summary>
+        /// Single Linkage
+        /// </summary>
+        /// <param name="account">Set Account Group id</param>
+        public void SetGroupIdBySingle(string account)
+        {
+            member current = db.members.Where(o => o.Account == account).First();
+            users.Remove(current);
+
+            current.SeperateTags();
+            double biggestSimilar = 0.0;
+            int b_index = 0;
+            for (int i = 0; i < users.Count(); i++)
+			{
+			    users[i].SeperateTags();
+                double cur = current.SimilarTo(users[i]);
+                if (cur > biggestSimilar)
+                {
+                    biggestSimilar = cur;
+                    b_index = i;
+                }
+			}
+            current.GId = users[b_index].GId;
+
+            db.Entry(current).State = System.Data.EntityState.Modified;
+
+            db.SaveChanges();
+        }
     }
 
     public partial class member
