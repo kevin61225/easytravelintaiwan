@@ -16,10 +16,10 @@ namespace EasyTravelInTaiwan.Models
     {
         public member()
         {
+            this.friends = new HashSet<friend>();
+            this.friends1 = new HashSet<friend>();
             this.ratings = new HashSet<rating>();
             this.travellists = new HashSet<travellist>();
-            this.member1 = new HashSet<member>();
-            this.members = new HashSet<member>();
         }
     
         public int UserID { get; set; }
@@ -35,9 +35,9 @@ namespace EasyTravelInTaiwan.Models
         public string favorite { get; set; }
         public int GId { get; set; }
     
+        public virtual ICollection<friend> friends { get; set; }
+        public virtual ICollection<friend> friends1 { get; set; }
         public virtual ICollection<rating> ratings { get; set; }
         public virtual ICollection<travellist> travellists { get; set; }
-        public virtual ICollection<member> member1 { get; set; }
-        public virtual ICollection<member> members { get; set; }
     }
 }

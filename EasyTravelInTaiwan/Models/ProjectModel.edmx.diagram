@@ -4,31 +4,32 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a8ba9fe60f1a4bf0b7574cee946bfd05" Name="圖表1" ZoomLevel="55">
-        <EntityTypeShape EntityType="ProjectModel.accommodation" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.city" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.food" Width="1.5" PointX="7.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.hotel" Width="1.5" PointX="5.75" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.hotelimage" Width="1.5" PointX="8" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.maplatlng" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.member" Width="1.5" PointX="7.75" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.place" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.placeimage" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.rating" Width="1.5" PointX="10" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.travellist" Width="1.5" PointX="10" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.travellistplace" Width="1.5" PointX="12.25" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.view" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.viewtype" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+      <Diagram DiagramId="c433baaa13944028bd8a9063f2d16c17" Name="圖表1" ZoomLevel="80">
+        <EntityTypeShape EntityType="ProjectModel.accommodation" Width="1.5" PointX="5.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.city" Width="1.5" PointX="7.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.food" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.friend" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.hotel" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.hotelimage" Width="1.5" PointX="3" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.member" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.place" Width="1.5" PointX="10" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.placeimage" Width="1.5" PointX="12.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.rating" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.travellist" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.travellistplace" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.view" Width="1.5" PointX="10" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.viewtype" Width="1.5" PointX="7.75" PointY="4.125" IsExpanded="true" />
         <AssociationConnector Association="ProjectModel.place_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectModel.friends_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectModel.friends_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectModel.hotelimage_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectModel.rating_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="ProjectModel.travellist_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectModel.travellist_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectModel.place_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectModel.placeimage_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectModel.travellistplace_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectModel.view_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectModel.rating_ibfk_2" />
-        <AssociationConnector Association="ProjectModel.friends" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

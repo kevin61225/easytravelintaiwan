@@ -182,13 +182,13 @@ namespace EasyTravelInTaiwan.Controllers
             return View(place);
         }
 
-        public ActionResult MapLatLng(int page = 1)
-        {
-            var pageSize = 100;
-            IEnumerable<maplatlng> maplatlng = db.maplatlngs.OrderBy(o => o.Lng); ;
-            ViewData.Model = maplatlng;
-            return View(maplatlng.ToPagedList(page, pageSize));
-        }
+        //public ActionResult MapLatLng(int page = 1)
+        //{
+        //    var pageSize = 100;
+        //    IEnumerable<maplatlng> maplatlng = db.maplatlngs.OrderBy(o => o.Lng); ;
+        //    ViewData.Model = maplatlng;
+        //    return View(maplatlng.ToPagedList(page, pageSize));
+        //}
 
         public ActionResult ImageSlidePartial(ViewImage images)
         {

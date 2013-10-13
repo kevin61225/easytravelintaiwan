@@ -4,15 +4,9 @@
     <EntitySet Name="accommodation" EntityType="ProjectModel.Store.accommodation" store:Type="Tables" Schema="project" />
     <EntitySet Name="city" EntityType="ProjectModel.Store.city" store:Type="Tables" Schema="project" />
     <EntitySet Name="food" EntityType="ProjectModel.Store.food" store:Type="Tables" Schema="project" />
-    <EntitySet Name="friends" EntityType="ProjectModel.Store.friends" store:Type="Tables" store:Schema="project" store:Name="friends">
-      <DefiningQuery>SELECT
-      `friends`.`Fid`, 
-      `friends`.`Uid`
-      FROM `friends` AS `friends`</DefiningQuery>
-    </EntitySet>
+    <EntitySet Name="friends" EntityType="ProjectModel.Store.friends" store:Type="Tables" Schema="project" />
     <EntitySet Name="hotel" EntityType="ProjectModel.Store.hotel" store:Type="Tables" Schema="project" />
     <EntitySet Name="hotelimage" EntityType="ProjectModel.Store.hotelimage" store:Type="Tables" Schema="project" />
-    <EntitySet Name="maplatlng" EntityType="ProjectModel.Store.maplatlng" store:Type="Tables" Schema="project" />
     <EntitySet Name="member" EntityType="ProjectModel.Store.member" store:Type="Tables" Schema="project" />
     <EntitySet Name="place" EntityType="ProjectModel.Store.place" store:Type="Tables" Schema="project" />
     <EntitySet Name="placeimage" EntityType="ProjectModel.Store.placeimage" store:Type="Tables" Schema="project" />
@@ -47,6 +41,10 @@
     </AssociationSet>
     <AssociationSet Name="rating_ibfk_1" Association="ProjectModel.Store.rating_ibfk_1">
       <End Role="member" EntitySet="member" />
+      <End Role="rating" EntitySet="rating" />
+    </AssociationSet>
+    <AssociationSet Name="rating_ibfk_2" Association="ProjectModel.Store.rating_ibfk_2">
+      <End Role="view" EntitySet="view" />
       <End Role="rating" EntitySet="rating" />
     </AssociationSet>
     <AssociationSet Name="travellist_ibfk_1" Association="ProjectModel.Store.travellist_ibfk_1">
@@ -116,14 +114,11 @@
     <Property Name="create_date" Type="text" />
     <Property Name="modify_date" Type="text" />
   </EntityType>
-  <!--產生期間發現錯誤:
-      警告 6002: 資料表/檢視 'def.project.friends' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。
-      -->
   <EntityType Name="friends">
     <Key>
-      <PropertyRef Name="Fid" />
-      <PropertyRef Name="Uid" />
+      <PropertyRef Name="Pid" />
     </Key>
+    <Property Name="Pid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Fid" Type="int" Nullable="false" />
     <Property Name="Uid" Type="int" Nullable="false" />
   </EntityType>
@@ -155,22 +150,6 @@
     <Property Name="Id" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="Name" Type="text" Nullable="false" />
     <Property Name="Image" Type="longblob" />
-  </EntityType>
-  <EntityType Name="maplatlng">
-    <Key>
-      <PropertyRef Name="sno" />
-    </Key>
-    <Property Name="pt" Type="text" Nullable="false" />
-    <Property Name="sno" Type="varchar" Nullable="false" MaxLength="40" />
-    <Property Name="pName" Type="text" Nullable="false" />
-    <Property Name="Lat" Type="text" Nullable="false" />
-    <Property Name="Lng" Type="text" Nullable="false" />
-    <Property Name="Lang" Type="text" Nullable="false" />
-    <Property Name="isView" Type="text" Nullable="false" />
-    <Property Name="pRange" Type="text" Nullable="false" />
-    <Property Name="m_layer2" Type="text" />
-    <Property Name="layer1" Type="text" Nullable="false" />
-    <Property Name="NoewIcon" Type="text" />
   </EntityType>
   <EntityType Name="member">
     <Key>
@@ -221,7 +200,7 @@
       <PropertyRef Name="RId" />
     </Key>
     <Property Name="RId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Sno" Type="text" Nullable="false" />
+    <Property Name="Sno" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="Point" Type="int" Nullable="false" />
     <Property Name="Comment" Type="text" Nullable="false" />
@@ -354,6 +333,18 @@
       </Principal>
       <Dependent Role="rating">
         <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="rating_ibfk_2">
+    <End Role="view" Type="ProjectModel.Store.view" Multiplicity="1" />
+    <End Role="rating" Type="ProjectModel.Store.rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="view">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="rating">
+        <PropertyRef Name="Sno" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

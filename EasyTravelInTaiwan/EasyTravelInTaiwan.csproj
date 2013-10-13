@@ -346,6 +346,9 @@
     <Compile Include="Models\food.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\friend.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\HomeInputModel.cs" />
     <Compile Include="Models\hotel.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
@@ -354,9 +357,6 @@
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Interface\IRepository.cs" />
-    <Compile Include="Models\maplatlng.cs">
-      <DependentUpon>ProjectModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\MapModel.cs" />
     <Compile Include="Models\member.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
@@ -405,10 +405,10 @@
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewImage.cs" />
+    <Compile Include="Models\SearchFavoriteModel.cs" />
     <Compile Include="Models\viewtype.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SearchFavoriteModel.cs" />
     <Compile Include="NavigationRoutes\INavigationRouteFilter.cs" />
     <Compile Include="NavigationRoutes\NamedRoute.cs" />
     <Compile Include="NavigationRoutes\NavigationExtensions.cs" />
@@ -827,6 +827,7 @@
     <Content Include="Views\Member\Friends\_friendsResultPartial.cshtml" />
     <Content Include="Views\Member\Friends\_friendsTreeViewPartial.cshtml" />
     <Content Include="Views\Member\Home.cshtml" />
+    <Content Include="Views\Member\Friends.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -24,6 +24,7 @@ namespace EasyTravelInTaiwan.Models
             List<rating> ratings = new List<rating>();
 
             List<rating> dbRatingData = db.ratings.ToList();
+            
 
             foreach (int tag in suggestTags)
             {

@@ -55,12 +55,25 @@ namespace EasyTravelInTaiwan.Controllers
         public ActionResult Home(string User)
         {
             int userId = int.Parse(User);
+            int isFriend;
+            try
+            {
+                isFriend = SearchFriendsModel.FindIfIsFriend((int)Session["UserId"], userId);
+                if (userId == (int)Session["UserId"]) isFriend = 0; // 自己
+            }
+            catch
+            {
+                isFriend = 2; // 不顯示
+            }
+            
             ViewBag.UserId = User;
+            ViewBag.FriendType = isFriend;
             ViewBag.UserName = db.members.Where(o => o.UserID == userId).Single().Name;
             return View();
         }
 
         #region Friends Partial
+
         public ActionResult Friends(string User)
         {
             ViewBag.UserId = User;
@@ -97,14 +110,19 @@ namespace EasyTravelInTaiwan.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddFriend(int? uId, int friendId)
+        public ActionResult AddFriend(string uId, int friendId)
         {
-            if (uId == null)
+            if (uId == string.Empty)
             {
                 return Json(new { Status = 2, Message = "請先登入會員 !!" }, JsonRequestBehavior.AllowGet);
             }
-            SearchFriendsModel.AddFriend(uId, friendId);
-            return Json(new { Status = 1, Message = "Success !!" }, JsonRequestBehavior.AllowGet);
+            int userId = int.Parse(uId);
+            if (userId == friendId)
+            {
+                return Json(new { Status = 3, Message = "自己" }, JsonRequestBehavior.AllowGet);
+            }
+            SearchFriendsModel.AddFriend(userId, friendId);
+            return Json(new { Status = 1, Message = "已加為好友 !!" }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

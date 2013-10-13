@@ -12,7 +12,14 @@
 
 <div class="row">
     <h2>@ViewBag.UserName 的個人頁面</h2>
-    <button id="AddFriend" class="btn">加為朋友</button>
+    @if (ViewBag.FriendType == 2)
+    {
+    <button id="AddFriend" class="btn"><i class="icon-star"></i> 加為朋友</button>
+    }
+    else if (ViewBag.FriendType == 1)
+    {
+        <button id="IsFriend" class="btn" disabled data-toggle="button">已經是朋友 <i class="icon-ok"></i></button>
+    }
 </div>
 <br />
 <div class="row">
@@ -85,8 +92,9 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 console.log(data);
-                if (data.Status != 2) {
-                    $("#AverageRatingPartial").html(data);
+                if (data.Status == 1) {
+                    alert(data.Message);
+                    window.location.replace("/Member/Home?User=" + id);
                 }
                 else {
                     alert(data.Message);

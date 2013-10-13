@@ -58,6 +58,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="friends">
+      <EntityTypeMapping TypeName="ProjectModel.friend">
+        <MappingFragment StoreEntitySet="friends">
+          <ScalarProperty Name="Pid" ColumnName="Pid" />
+          <ScalarProperty Name="Fid" ColumnName="Fid" />
+          <ScalarProperty Name="Uid" ColumnName="Uid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="hotels">
       <EntityTypeMapping TypeName="ProjectModel.hotel">
         <MappingFragment StoreEntitySet="hotel">
@@ -89,27 +98,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="maplatlngs">
-      <EntityTypeMapping TypeName="ProjectModel.maplatlng">
-        <MappingFragment StoreEntitySet="maplatlng">
-          <ScalarProperty Name="pt" ColumnName="pt" />
-          <ScalarProperty Name="sno" ColumnName="sno" />
-          <ScalarProperty Name="pName" ColumnName="pName" />
-          <ScalarProperty Name="Lat" ColumnName="Lat" />
-          <ScalarProperty Name="Lng" ColumnName="Lng" />
-          <ScalarProperty Name="Lang" ColumnName="Lang" />
-          <ScalarProperty Name="isView" ColumnName="isView" />
-          <ScalarProperty Name="pRange" ColumnName="pRange" />
-          <ScalarProperty Name="m_layer2" ColumnName="m_layer2" />
-          <ScalarProperty Name="layer1" ColumnName="layer1" />
-          <ScalarProperty Name="NoewIcon" ColumnName="NoewIcon" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="members">
       <EntityTypeMapping TypeName="ProjectModel.member">
         <MappingFragment StoreEntitySet="member">
-          <ScalarProperty Name="GId" ColumnName="GId" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="Account" ColumnName="Account" />
           <ScalarProperty Name="Password" ColumnName="Password" />
@@ -121,6 +112,7 @@
           <ScalarProperty Name="Birthday" ColumnName="Birthday" />
           <ScalarProperty Name="Role" ColumnName="Role" />
           <ScalarProperty Name="favorite" ColumnName="favorite" />
+          <ScalarProperty Name="GId" ColumnName="GId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -207,13 +199,5 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="friends" TypeName="ProjectModel.friends" StoreEntitySet="friends">
-      <EndProperty Name="member1">
-        <ScalarProperty Name="UserID" ColumnName="Uid" />
-      </EndProperty>
-      <EndProperty Name="member">
-        <ScalarProperty Name="UserID" ColumnName="Fid" />
-      </EndProperty>
-    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>
