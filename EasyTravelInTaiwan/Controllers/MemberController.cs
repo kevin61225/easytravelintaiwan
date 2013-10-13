@@ -542,10 +542,10 @@ namespace EasyTravelInTaiwan.Controllers
             MailMessage msg = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
 
-            msg.From = new MailAddress("taipetechbookstore@gmail.com");
+            msg.From = new MailAddress("easytravelintaiwan@gmail.com");
             msg.To.Add(member.Email);
-            msg.Subject = "Welcome to TaipeiTech BookStore !!";
-            msg.Body = "Hello !! " + member.Name + " ,welcome to TaipeiTech Bookstore !! Enjoy your shopping ~" + "\n\n by TaipeiTech Bookstore";
+            msg.Subject = "Welcome to Easy Travel In Taiwan !!";
+            msg.Body = "Hello !! " + member.Name + " ,welcome to Easy Travel In Taiwan !! Enjoy ~" + "\n\n by Easy Travel In Taiwan";
             msg.Priority = MailPriority.High;
 
             SmtpClient client = new SmtpClient();

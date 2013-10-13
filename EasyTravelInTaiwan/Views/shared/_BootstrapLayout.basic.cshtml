@@ -15,6 +15,7 @@
             height: 100%;
         }
     </style>
+    @*<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>*@
     @*<link href="#" rel="stylesheet" />*@
     @RenderSection("head", required: false)
     @Html.Partial("_html5shiv")
@@ -76,9 +77,8 @@
     <script src="~/scripts/fbAuthJScript.js"></script>
 
     @Scripts.Render("~/js")
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-    <script src="~/scripts/bootstrap-typeahead.js"></script>
-    <script src="~/scripts/jquery.blockUI.js"></script>
+    @*<script src="~/scripts/bootstrap-typeahead.js"></script>
+    <script src="~/scripts/jquery.blockUI.js"></script>*@
 @*    <script src="~/scripts/jquery.rating.js"></script>*@
     @RenderSection("Scripts", required: false)
 
