@@ -56,6 +56,7 @@ namespace EasyTravelInTaiwan.Controllers
             int uid;
             string _sno = sno;
             string _pt = pt;
+
             try
             {
                 uid = (int)Session["UserId"];

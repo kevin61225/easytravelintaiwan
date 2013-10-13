@@ -55,7 +55,9 @@
 </style>
 
 <!--引入 Google API-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.9&sensor=false"></script>
+<script src="~/scripts/jquery-sortable.js"></script>
 <script src="~/scripts/Directions.js"></script>
 
 @*<div class="hidden" id="Waypoints">
@@ -154,7 +156,7 @@
     function initialize() {
         $waypointId = $("#WaypointId").attr("value");
         Reset();
-
+        StartAjax();
         $.ajax({
             url: "@Url.Action("GetDirection")",
             type: "POST",
@@ -201,8 +203,13 @@
                 // 根據 SortList 做排序
                 SortWaypoint()
                 calcRoute();
+                $.unblockUI();
             }
         });
+    }
+
+    function StartAjax() {
+        $.blockUI({ message: "路線計算中 ..." });
     }
 
     function InitialItemClick() {
@@ -219,6 +226,44 @@
             gmarkers[id].setVisible(true);
         });
     }
+
+    var adjustment
+    $("ol.simple_with_animation").sortable({
+        group: 'simple_with_animation',
+        pullPlaceholder: false,
+        // animation on drop
+        onDrop: function (item, targetContainer, _super) {
+            var clonedItem = $('<li/>').css({ height: 0 })
+            item.before(clonedItem)
+            clonedItem.animate({ 'height': item.height() })
+
+            item.animate(clonedItem.position(), function () {
+                clonedItem.detach()
+                _super(item)
+            })
+            RefreshDirections();
+        },
+
+        // set item relative to cursor position
+        onDragStart: function ($item, container, _super) {
+            var offset = $item.offset(),
+            pointer = container.rootGroup.pointer
+
+            adjustment = {
+                left: pointer.left - offset.left,
+                top: pointer.top - offset.top
+            }
+
+            _super($item, container)
+        },
+        onDrag: function ($item, position) {
+            $item.css({
+                left: position.left - adjustment.left,
+                top: position.top - adjustment.top
+            })
+
+        }
+    });
 
     function setupLocationMarker(item) {
 

@@ -16,6 +16,7 @@ namespace EasyTravelInTaiwan.Models
                 return _userId;
             }
         }
+
         public SearchFavoriteModel(int Uid)
         {
             _userId = Uid;

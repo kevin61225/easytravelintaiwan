@@ -1,5 +1,5 @@
-﻿<link href="~/Content/jquery.rating.css" rel="stylesheet" />
-<script src="~/scripts/jquery.rating.js"></script>
+﻿@*<link href="~/Content/jquery.rating.css" rel="stylesheet" />*@
+@*<script src="~/scripts/jquery.rating.js"></script>*@
 
 綜合評價
 <p>
@@ -35,10 +35,12 @@
         $('input[type=radio]').rating('select', $rate);
     });
 
+
     $('.auto-submit-star').rating({
         callback: function (value, link) {
             var $pt = $("#Pt").attr("value");
             var $sno = $("#Sno").attr("value");
+
             $.ajax({
                 type: "POST",
                 url: "@Url.Action("PostRating")",
@@ -57,4 +59,5 @@
             });
         }
     });
+
 </script>

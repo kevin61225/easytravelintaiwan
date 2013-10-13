@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
 {
-    public class SearchResultModel  :List<ResultView>
+    public class SearchResultModel : List<ResultView>
     {
         public void TopRatingFoodByAmount(int resultCount)
         {
@@ -71,6 +71,55 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
             }
         }
 
+        public void TopRatingByType(string type)
+        {
+            int temp = int.Parse(type);
+            using (var db = new ProjectEntities())
+            {
+                int counts = 0;
+                List<view> viewlist = db.views.Where(o => o.viewtype1.Typenumber == temp).ToList();
+                var query = (from ratingItems in db.ratings
+                             group ratingItems by ratingItems.Sno into ratingItemsGrp
+                             orderby ratingItemsGrp.Sum(o => o.Point) descending
+                             select ratingItemsGrp.Key).ToList();
+                foreach (var item in query)
+                {
+                    for (int i = 0; i < viewlist.Count(); i++)
+                    {
+                        try
+                        {
+                            if (viewlist[i].Id == item)
+                            {
+                                Add(GetView(viewlist[i]));
+                                i++;
+                                break;
+                            }
+                        }
+                        catch
+                        {
+                        }
+                    }
+                    if (counts == 10) break;
+                }
+            }
+        }
+
+        static public List<view> GetViewsByRating(int User)
+        {
+            using (var db = new ProjectEntities())
+            {
+                List<travellistplace> places = db.travellistplaces.Where(o => o.travellist.UserId == User).Distinct().ToList();
+                List<view> views = new List<view>();
+
+                // 根據 travellistplace 找到 view
+                foreach (travellistplace item in places)
+                {
+                    view temp = db.views.Where(o => o.Id == item.Sno).Single();
+                    views.Add(temp);
+                }
+                return views;
+            }
+        }
 
         //public void TopSellByAmount(int resultCount)
         //{
@@ -196,7 +245,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
         static public string GetCityNameById(string cityId)
         {
             string output = string.Empty;
-            using(var db = new ProjectEntities())
+            using (var db = new ProjectEntities())
             {
                 return output = db.cities.Where(o => o.Citynumber == cityId).Single().Cityname;
             }
@@ -214,7 +263,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
         public string ShortDescription(string input)
         {
             if (input == null) return string.Empty;
-            return (input.Length > 100) ? input.Substring(0, 100) + "  ..." : input; 
+            return (input.Length > 100) ? input.Substring(0, 100) + "  ..." : input;
         }
 
         public void ByTitle(string keyWord)

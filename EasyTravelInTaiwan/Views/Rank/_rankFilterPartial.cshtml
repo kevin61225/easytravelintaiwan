@@ -3,17 +3,39 @@
 <div>
     <div class="form-inline">
         分類方式:  
-        <select id="CityListSelectPicker" class="selectpicker">
+        @*        <select id="CityListSelectPicker" class="selectpicker">
                 @foreach (var type in Model.Cities)
                 {
                     <option value="List-@type.Value">@type.Text</option>
                 }
-        </select>
+        </select>*@
         <select id="AreaListSelectPicker" class="selectpicker">
-                @foreach (var type in Model.ViewTypes)
-                {
-                    <option value="List-@type.Value">@type.Text</option>
-                }
+            @foreach (var type in Model.ViewTypes)
+            {
+                <option value="List-@type.Value">@type.Text</option>
+            }
         </select>
     </div>
 </div>
+
+<script type="text/javascript">
+
+    $(document).on('click', '.dropdown-menu .inner >li', function (e) {
+        var $this = $(this).attr("rel");
+        console.log($this);
+        var selectedValue = $("#AreaListSelectPicker option:eq('" + $this + "')");
+        console.log(selectedValue);
+        var str = selectedValue.attr('value');
+        var n = str.split("-");
+        selectedList = n[1];
+        $.ajax({
+            url: "@Url.Action("RankFilter", "Rank")",
+            type: "POST",
+            data: JSON.stringify({ type: selectedList }), //if you need to post Model data, use this
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $("#AreaListSelectPicker").html(data);
+            }
+        });
+    });
+</script>

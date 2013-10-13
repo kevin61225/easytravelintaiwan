@@ -17,36 +17,31 @@ namespace EasyTravelInTaiwan.Controllers
             return View();
         }
 
-        public ActionResult RankFilter()
+        public ActionResult RankFilter(string type)
         {
-            RankResultOptions options = new RankResultOptions();
+            RankResultOptions options = new RankResultOptions(type);
 
             return PartialView("_rankFilterPartial", options);
         }
 
-        public ActionResult RankResult()
-        {
-            return PartialView("_rankResultPartial");
-        }
-
-        public ActionResult ViewRankPartial()
+        public ActionResult ViewRankPartial(string type)
         {
             SearchResultModel model = new SearchResultModel();
-            model.TopRatingViewByAmount(10);
+            model.TopRatingByType(type);
             return PartialView("_rankResultPartial", model);
         }
 
-        public ActionResult FoodRankPartial()
+        public ActionResult FoodRankPartial(string type)
         {
             SearchResultModel model = new SearchResultModel();
-            model.TopRatingFoodByAmount(10);
+            model.TopRatingByType(type);
             return PartialView("_rankResultPartial", model);
         }
 
-        public ActionResult HotelRankPartial()
+        public ActionResult HotelRankPartial(string type)
         {
             SearchResultModel model = new SearchResultModel();
-            model.TopRatingHotelByAmount(10);
+            model.TopRatingByType(type);
             return PartialView("_rankResultPartial", model);
         }
 

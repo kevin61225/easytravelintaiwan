@@ -139,7 +139,7 @@ namespace EasyTravelInTaiwan.Models
             TypeName = SearchResultModel.GetViewTypeNameById(typeId);
             catalogs_id = food.catalogs_id;
             Address = food.address;
-            phone = food.phone;
+            Telphone = food.phone;
             business_hrs = food.business_hrs;
             price = food.price;
             Description = food.Description;

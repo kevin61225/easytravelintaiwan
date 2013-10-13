@@ -1,6 +1,9 @@
-﻿@foreach (EasyTravelInTaiwan.Models.ResultView item in Model)
-{                
+﻿@{int i = 0;}
+@foreach (EasyTravelInTaiwan.Models.ResultView item in Model)
+{
+    i++;
     <li class="searchItemBorder">
+        <p>第 @i 名</p>
         <div class="row">
             <div class="column">
                 <div class="span2" style="max-width: 150px">

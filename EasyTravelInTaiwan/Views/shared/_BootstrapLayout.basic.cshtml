@@ -77,10 +77,9 @@
 
     @Scripts.Render("~/js")
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-    <script src="~/scripts/jquery-sortable.js"></script>
     <script src="~/scripts/bootstrap-typeahead.js"></script>
     <script src="~/scripts/jquery.blockUI.js"></script>
-    <script src="~/scripts/jquery.rating.js"></script>
+@*    <script src="~/scripts/jquery.rating.js"></script>*@
     @RenderSection("Scripts", required: false)
 
     <!--Login Page -->
@@ -137,108 +136,14 @@
         });
     });
 
-    $('#hotSpotTab a').hover(function (e) {
-        e.preventDefault();
-        console.log("hover");
-        $(this).tab('show');
-    });
-
-    $('#FriendsList').click(function () {
-        var id = $('#UId').val();
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("FriendsResultPartial", "Member")",
-            data: JSON.stringify({ uId: id, type: "FriendsList", page: 1 }),
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                $("#FriendsResultPartial").html(data);
-            }
-         });
-    });
-
-    $('#RecommendFriendsList').click(function () {
-        var id = $('#UId').val();
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("FriendsResultPartial", "Member")",
-            data: JSON.stringify({ uId: id, type: "RecommendFriendsList", page: 1 }),
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                $("#FriendsResultPartial").html(data);
-            }
-         });
-    });
-
     $('#MainAlert').click(function () {
         $.growlUI('¤w¸gµn¥X');
-    });
-
-    $('.tree-toggle').click(function () {
-        $(this).parent().children('ul.tree').toggle(200);
-    });
-
-    var adjustment
-    $("ol.simple_with_animation").sortable({
-        group: 'simple_with_animation',
-        pullPlaceholder: false,
-        // animation on drop
-        onDrop: function (item, targetContainer, _super) {
-            var clonedItem = $('<li/>').css({ height: 0 })
-            item.before(clonedItem)
-            clonedItem.animate({ 'height': item.height() })
-
-            item.animate(clonedItem.position(), function () {
-                clonedItem.detach()
-                _super(item)
-            })
-            RefreshDirections();
-        },
-
-        // set item relative to cursor position
-        onDragStart: function ($item, container, _super) {
-            var offset = $item.offset(),
-            pointer = container.rootGroup.pointer
-
-            adjustment = {
-                left: pointer.left - offset.left,
-                top: pointer.top - offset.top
-            }
-
-            _super($item, container)
-        },
-        onDrag: function ($item, position) {
-            $item.css({
-                left: position.left - adjustment.left,
-                top: position.top - adjustment.top
-            })
-            
-        }
-    });
-
-    $('#AddFriend').click(function () {
-        console.log("click");
-    });
-
-    $('#TypeList li').click(function () {
-        var str = $(this).attr('id');
-        var n = str.split(".");
-
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("FavoriteResultPartial", "Member")",
-            data: JSON.stringify({ type: n[1], city: n[2], uId: n[3], page: 1 }),
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                $("#FavortieResultPartial").html(data);
-            }
-        });
     });
 
     //var $ = jQuery.noConflict();
     $(document).ready(function () {
         //$('#myCarousel').carousel({ interval: 3000, cycle: true });
         FacebookInit();
-
     });
 
     (function (d, s, id) {

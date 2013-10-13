@@ -4,8 +4,9 @@
     ViewBag.Title = TempData["Title"] + "- Easy Travel In Taiwan";
     Layout = "~/Views/shared/_BootstrapLayout.basic.cshtml";
 }
-
+<link href="~/Content/jquery.rating.css" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="~/scripts/jquery.rating.js"></script>
 
 
 <h3>
@@ -16,7 +17,7 @@
 </h3>
 <hr />
 <div id="slideShow" class="span5 pull-right ">
-    @Html.Partial("_imageSlidePartial",  Model.viewimages )
+    @Html.Partial("_imageSlidePartial", Model.viewimages)
 </div>
 <div id="AverageRatingPartial">
     @Html.Action("PlaceRatePartial", "Rating", new { sno = Model.Id })

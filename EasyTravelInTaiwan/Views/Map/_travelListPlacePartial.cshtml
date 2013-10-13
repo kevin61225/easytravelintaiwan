@@ -19,9 +19,8 @@
     <button id="Save-List-Button" class="btn" style="display: none;">儲存</button>
     @if ((int)ViewBag.TravelListLength > 1)
     {
-        <br />
         @Html.ActionLink("進行規劃", "Direction", new { tid = Model[0].Tid }, new { @class = "btn", target = "_blank" });
-        @*<button id="CalcDirection-Button" class="btn">進行規劃</button>*@
+@*<button id="CalcDirection-Button" class="btn">進行規劃</button>*@
     }
 </div>
 
@@ -128,13 +127,10 @@
             success: function (data) {
                 $("#TravelListPlacePartialView").html(data);
                 window.setTimeout(function () {
-                    $("#SaveAlert").fadeOut();
-                    window.setTimeout(function () {
-                        $("#SaveAlert").alert('close');
-                        $("#box").attr("tabindex", 5000);
-                        $("#box").niceScroll({ autohidemode: true });
-                    }, 1000);
-                }, 10000);
+                    $("#SaveAlert").fadeOut().alert('close');
+                    $("#box").attr("tabindex", 5000);
+                    $("#box").niceScroll({ autohidemode: true });
+                }, 1000);
                 $("#box").niceScroll({ autohidemode: true });
             },
         });

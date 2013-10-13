@@ -164,7 +164,8 @@
     font-weight: normal;
 }
 
-.bootstrap-select.show-menu-arrow .dropdown-toggle:before {
+.bootstrap-select.show-menu-arrow .dropdown-
+:before {
     content: '';
     display: inline-block;
     border-left: 7px solid transparent;

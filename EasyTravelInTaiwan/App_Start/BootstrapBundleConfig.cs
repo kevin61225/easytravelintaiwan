@@ -16,8 +16,13 @@ namespace BootstrapSupport
                 "~/Scripts/jquery.validate.js",
                 "~/scripts/jquery.validate.unobtrusive.js",
                 "~/Scripts/jquery.validate.unobtrusive-custom-for-bootstrap.js",
+                "~/Scripts/jquery.nicescroll.js",
                 "~/Scripts/InitializeComponent.js",
-                "~/Scripts/jquery.nicescroll.js"
+                //
+                "~/scripts/jquery-sortable.js",
+                "~/scripts/bootstrap-typeahead.js",
+                "~/scripts/jquery.rating.js",
+                "~/scripts/jquery.blockUI.js"
                 ));
 
             bundles.Add(new StyleBundle("~/content/css").Include(
