@@ -199,5 +199,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="notfoundimages">
+      <EntityTypeMapping TypeName="ProjectModel.notfoundimage">
+        <MappingFragment StoreEntitySet="notfoundimage">
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="NId" ColumnName="NId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

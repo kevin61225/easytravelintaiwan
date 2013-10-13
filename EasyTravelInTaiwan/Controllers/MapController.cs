@@ -197,13 +197,11 @@ namespace EasyTravelInTaiwan.Controllers
 
         public FileResult RenderBookImage(string id, string pt, int sid)
         {
-            string s = string.Format("{0}/{1}", Server.MapPath("~/Content/Images"), "ImageNotFound.jpg");
-            // FileStreamResult file = new FileStreamResult(new FileStream(s, FileMode.Open), "image/jpeg");
-
             byte[] img = ViewImage.GetImageById(db, id, pt, sid);
+            byte[] notFound = db.notfoundimages.Where(o => o.NId == 2).Single().Image;
 
             if (img != null) return File(img, "image/jpeg");
-            return new FileStreamResult(new FileStream(s, FileMode.Open), "image/jpeg");
+            return File(notFound, "image/jpeg");
         }
 
         public ActionResult ShowImage(string id)

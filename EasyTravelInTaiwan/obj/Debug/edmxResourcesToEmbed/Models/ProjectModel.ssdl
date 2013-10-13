@@ -8,6 +8,7 @@
     <EntitySet Name="hotel" EntityType="ProjectModel.Store.hotel" store:Type="Tables" Schema="project" />
     <EntitySet Name="hotelimage" EntityType="ProjectModel.Store.hotelimage" store:Type="Tables" Schema="project" />
     <EntitySet Name="member" EntityType="ProjectModel.Store.member" store:Type="Tables" Schema="project" />
+    <EntitySet Name="notfoundimage" EntityType="ProjectModel.Store.notfoundimage" store:Type="Tables" Schema="project" />
     <EntitySet Name="place" EntityType="ProjectModel.Store.place" store:Type="Tables" Schema="project" />
     <EntitySet Name="placeimage" EntityType="ProjectModel.Store.placeimage" store:Type="Tables" Schema="project" />
     <EntitySet Name="rating" EntityType="ProjectModel.Store.rating" store:Type="Tables" Schema="project" />
@@ -167,6 +168,13 @@
     <Property Name="Role" Type="int" Nullable="false" />
     <Property Name="favorite" Type="text" Nullable="false" />
     <Property Name="GId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="notfoundimage">
+    <Key>
+      <PropertyRef Name="NId" />
+    </Key>
+    <Property Name="NId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Image" Type="blob" Nullable="false" />
   </EntityType>
   <EntityType Name="place">
     <Key>

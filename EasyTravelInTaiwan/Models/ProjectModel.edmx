@@ -13,6 +13,7 @@
           <EntitySet Name="hotel" EntityType="ProjectModel.Store.hotel" store:Type="Tables" Schema="project" />
           <EntitySet Name="hotelimage" EntityType="ProjectModel.Store.hotelimage" store:Type="Tables" Schema="project" />
           <EntitySet Name="member" EntityType="ProjectModel.Store.member" store:Type="Tables" Schema="project" />
+          <EntitySet Name="notfoundimage" EntityType="ProjectModel.Store.notfoundimage" store:Type="Tables" Schema="project" />
           <EntitySet Name="place" EntityType="ProjectModel.Store.place" store:Type="Tables" Schema="project" />
           <EntitySet Name="placeimage" EntityType="ProjectModel.Store.placeimage" store:Type="Tables" Schema="project" />
           <EntitySet Name="rating" EntityType="ProjectModel.Store.rating" store:Type="Tables" Schema="project" />
@@ -172,6 +173,13 @@
           <Property Name="Role" Type="int" Nullable="false" />
           <Property Name="favorite" Type="text" Nullable="false" />
           <Property Name="GId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="notfoundimage">
+          <Key>
+            <PropertyRef Name="NId" />
+          </Key>
+          <Property Name="NId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Image" Type="blob" Nullable="false" />
         </EntityType>
         <EntityType Name="place">
           <Key>
@@ -454,6 +462,7 @@
             <End Role="view" EntitySet="views" />
             <End Role="rating" EntitySet="ratings" />
           </AssociationSet>
+          <EntitySet Name="notfoundimages" EntityType="ProjectModel.notfoundimage" />
         </EntityContainer>
         <EntityType Name="accommodation">
           <Key>
@@ -803,6 +812,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="notfoundimage">
+          <Key>
+            <PropertyRef Name="NId" />
+          </Key>
+          <Property Type="Int32" Name="NId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Binary" Name="Image" Nullable="false" MaxLength="Max" FixedLength="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1007,6 +1023,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="notfoundimages">
+            <EntityTypeMapping TypeName="ProjectModel.notfoundimage">
+              <MappingFragment StoreEntitySet="notfoundimage">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="NId" ColumnName="NId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1021,7 +1045,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
       </DesignerInfoPropertySet>

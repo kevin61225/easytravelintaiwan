@@ -361,6 +361,9 @@
     <Compile Include="Models\member.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\notfoundimage.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\place.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>

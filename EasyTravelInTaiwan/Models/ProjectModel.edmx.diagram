@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c433baaa13944028bd8a9063f2d16c17" Name="圖表1" ZoomLevel="80">
+      <Diagram DiagramId="c433baaa13944028bd8a9063f2d16c17" Name="圖表1" ZoomLevel="56">
         <EntityTypeShape EntityType="ProjectModel.accommodation" Width="1.5" PointX="5.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectModel.city" Width="1.5" PointX="7.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectModel.food" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
@@ -30,6 +30,7 @@
         <AssociationConnector Association="ProjectModel.travellistplace_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectModel.view_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectModel.rating_ibfk_2" />
+        <EntityTypeShape EntityType="ProjectModel.notfoundimage" Width="1.5" PointX="5.49003570409959" PointY="19.187737265223515" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

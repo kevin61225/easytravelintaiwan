@@ -59,6 +59,7 @@
       <End Role="view" EntitySet="views" />
       <End Role="rating" EntitySet="ratings" />
     </AssociationSet>
+    <EntitySet Name="notfoundimages" EntityType="ProjectModel.notfoundimage" />
   </EntityContainer>
   <EntityType Name="accommodation">
     <Key>
@@ -408,4 +409,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="notfoundimage">
+    <Key>
+      <PropertyRef Name="NId" />
+    </Key>
+    <Property Type="Int32" Name="NId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Binary" Name="Image" Nullable="false" MaxLength="Max" FixedLength="false" />
+  </EntityType>
 </Schema>
