@@ -79,16 +79,28 @@
             </div>
             <br />
             <div class="editor-label">
-                @Html.DisplayNameFor(model => model.ViewTypeList)
+                @Html.DisplayNameFor(model => model.ViewTypeList) (請至少勾選三項)
             </div>
-            @for (var i = 0; i < Model.ViewTypeList.Count; i++)
-            {
-                <div class="editor-field form-inline">
-                    @Html.DisplayFor(model => model.ViewTypeList[i].viewtype.Typename, new { @class = "checkbox" })
-                    @Html.HiddenFor(model => model.ViewTypeList[i].viewtype.Typenumber)
-                    @Html.CheckBoxFor(model => model.ViewTypeList[i].isCheck)
-                </div>
-            }
+            @{int j = 0;}
+            <div class="editor-field form-inline">
+                <br />
+                <table>
+                    <tr>
+                        @for (var i = 0; i < Model.ViewTypeList.Count; i++)
+                        {
+                            <td class="span4">
+                                @Html.DisplayFor(model => model.ViewTypeList[i].viewtype.Typename, new { @class = "checkbox" })
+                                @Html.HiddenFor(model => model.ViewTypeList[i].viewtype.Typenumber)
+                                @Html.CheckBoxFor(model => model.ViewTypeList[i].isCheck)
+                            </td>
+                            if (i % 3 == 0)
+                            {
+                            @Html.Raw("</tr><tr><p></p>")
+                            }
+                        }
+                    </tr>
+                </table>
+            </div>
             <br />
             <br />
             <br />

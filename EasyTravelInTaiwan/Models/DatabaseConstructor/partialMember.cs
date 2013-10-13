@@ -24,12 +24,12 @@ namespace EasyTravelInTaiwan.Models
             favorite = string.Empty;
             for (int i = 0; i < copiedMember.ViewTypeList.Count; i++)
             {
-                if(copiedMember.ViewTypeList[i].isCheck)
+                if (copiedMember.ViewTypeList[i].isCheck)
                 {
                     favorite += copiedMember.ViewTypeList[i].viewtype.Typenumber + "-";
                 }
             }
-            favorite = favorite.Remove(favorite.Length-1);
+            favorite = favorite.Remove(favorite.Length - 1);
             Role = 2;
         }
     }

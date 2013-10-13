@@ -40,6 +40,7 @@ namespace EasyTravelInTaiwan.Models
 
         static public byte[] GetImageById(ProjectEntities db, string id, string pt)
         {
+            byte[] notfound = db.notfoundimages.Where(o => o.NId == 2).Single().Image;
             ViewImage outputImage = new ViewImage();
             switch (pt)
             {
@@ -51,7 +52,7 @@ namespace EasyTravelInTaiwan.Models
                     }
                     catch
                     {
-                        outputImage.Image = null;
+                        outputImage.Image = notfound;
                     }
                     break;
                 case "07":
@@ -62,7 +63,7 @@ namespace EasyTravelInTaiwan.Models
                     }
                     catch
                     {
-                        outputImage.Image = null;
+                        outputImage.Image = notfound;
                     }
                     break;
                 case "10":
@@ -73,7 +74,7 @@ namespace EasyTravelInTaiwan.Models
                     }
                     catch
                     {
-                        outputImage.Image = null;
+                        outputImage.Image = notfound;
                     }
                     break;
             }
@@ -83,17 +84,18 @@ namespace EasyTravelInTaiwan.Models
         static public byte[] GetImageById(ProjectEntities db, string id, string pt, int sid)
         {
             ViewImage outputImage = new ViewImage();
+            byte[] notfound = db.notfoundimages.Where(o => o.NId == 2).Single().Image;
             switch (pt)
             {
                 case "06":
                     //hotel
                     try
                     {
-                        outputImage = ConverToViewImage(db.hotelimages.Where(o => o.Id == id).Where( o=> o.sid == sid).Single(), pt);
+                        outputImage = ConverToViewImage(db.hotelimages.Where(o => o.Id == id).Where(o => o.sid == sid).Single(), pt);
                     }
                     catch
                     {
-                        outputImage.Image = null;
+                        outputImage.Image = notfound;
                     }
                     break;
                 case "07":
@@ -104,7 +106,7 @@ namespace EasyTravelInTaiwan.Models
                     }
                     catch
                     {
-                        outputImage.Image = null;
+                        outputImage.Image = notfound;
                     }
                     break;
                 case "10":
@@ -115,11 +117,20 @@ namespace EasyTravelInTaiwan.Models
                     }
                     catch
                     {
-                        outputImage.Image = null;
+                        outputImage.Image = notfound;
                     }
                     break;
             }
             return outputImage.Image;
+        }
+
+        static public ViewImage GetNotFoundImage(ProjectEntities db)
+        {
+            ViewImage outputImage = new ViewImage();
+            byte[] notfound = db.notfoundimages.Where(o => o.NId == 2).Single().Image;
+            outputImage.Image = notfound;
+            outputImage.Name = "目前無圖片";
+            return outputImage;
         }
 
         static public ICollection<ViewImage> TransformToViewCollection(ICollection<hotelimage> hotelImages, string pt)

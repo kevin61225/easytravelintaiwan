@@ -165,6 +165,7 @@ namespace EasyTravelInTaiwan.Controllers
             {
                 return HttpNotFound();
             }
+            if (detail.viewimages.Count() == 0) detail.viewimages.Add(ViewImage.GetNotFoundImage(db));
             TempData["Title"] = place.Name;
             Session["Pt"] = place.Pt;
             return View(detail);
