@@ -8,6 +8,7 @@ using BootstrapSupport.HtmlHelpers;
 using System.Web.Services.Description;
 using System.Web.Security;
 using System.IO;
+using System.Data;
 
 namespace EasyTravelInTaiwan.Controllers
 {
@@ -337,6 +338,22 @@ namespace EasyTravelInTaiwan.Controllers
                 TempData["CreateList"] = "建立成功 !!";
                 return RedirectToAction("TravelListPartial", "Map");
             }
+        }
+
+        [HttpPost]
+        public ActionResult ChangeListName(string listId, string newName)
+        {
+            listId = listId.Remove(0, listId.IndexOf("-") + 1);
+            travellist renameItem = db.travellists.Find(int.Parse(listId));
+            if (renameItem != null)
+            {
+                renameItem.TName = newName;
+                db.Entry(renameItem).State = EntityState.Modified;
+                db.SaveChanges();
+                Session["TempTid"] = null;
+                TempData["CreateList"] = "更名成功 !!";
+            }
+            return RedirectToAction("TravelListPartial", "Map");
         }
 
         [HttpPost]

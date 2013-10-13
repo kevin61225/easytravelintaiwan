@@ -26,11 +26,11 @@
     //	create an array of ContextMenuItem objects
     //	an 'id' is defined for each of the four directions related items
     var menuItems = [];
-    menuItems.push({ className: 'context_menu_item', eventName: 'directions_origin_click', id: 'directionsOriginItem', label: '設定起點' });
-    menuItems.push({ className: 'context_menu_item', eventName: 'directions_destination_click', id: 'directionsDestinationItem', label: '設定終點' });
+    //menuItems.push({ className: 'context_menu_item', eventName: 'directions_origin_click', id: 'directionsOriginItem', label: '設定起點' });
+    //menuItems.push({ className: 'context_menu_item', eventName: 'directions_destination_click', id: 'directionsDestinationItem', label: '設定終點' });
     menuItems.push({ className: 'context_menu_item', eventName: 'directions_waypoint_click', id: 'directionsWaypointItem', label: '我想來這裡' });
-    menuItems.push({ className: 'context_menu_item', eventName: 'clear_directions_click', id: 'clearDirectionsItem', label: '清除路線' });
-    menuItems.push({ className: 'context_menu_item', eventName: 'get_directions_click', id: 'getDirectionsItem', label: '進行路線規劃' });
+    //menuItems.push({ className: 'context_menu_item', eventName: 'clear_directions_click', id: 'clearDirectionsItem', label: '清除路線' });
+    //menuItems.push({ className: 'context_menu_item', eventName: 'get_directions_click', id: 'getDirectionsItem', label: '進行路線規劃' });
     //	a menuItem with no properties will be rendered as a separator
     menuItems.push({});
     menuItems.push({ className: 'context_menu_item', eventName: 'zoom_in_click', label: '放大' });

@@ -28,6 +28,7 @@
         </select>
         @if (Model.Count > 0)
         {
+            <a href="#RenameCurrentListModal" role="button" class="btn" data-toggle="modal" id="renameButton">更名</a>
             <a href="#DeleteCurrentListModal" role="button" class="btn" data-toggle="modal" id="deleteButton">刪除</a>
         }
     </div>
@@ -74,6 +75,29 @@
 </div>
 
 
+<div id="RenameCurrentListModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="renameModalLabel">更變清單名稱</h3>
+    </div>
+
+    <div class="modal-body">
+
+        <div class="editor-label">
+            @Html.Label("新的名稱")
+        </div>
+        <div class="editor-field">
+            @Html.Editor("TravelListNewName")
+            @*@Html.ValidationMessageFor(model => model.Account)*@
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button id="CloseBtn3" class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+        <button id="Rename-List-Button" data-dismiss="modal" class="btn btn-primary">儲存</button>
+    </div>
+</div>
+
 <script type="text/javascript">
     var selectedList;
 
@@ -102,12 +126,13 @@
                 $("#TravelListPartialView").html(result);
                 $("#TravelListSelectPicker option").last().attr("selected", "selected");
                 RefreshPlaceList();
-                window.setTimeout(function () { $("#CreateAlert").fadeOut(); }, 10000);
+                window.setTimeout(function () { $("#CreateAlert").fadeOut(); }, 1000);
             }
         });
     });
 
     $("#Delete-List-Button").click(function () {
+
         var currentListItemNumber = $("#TravelListSelectPicker").find(":selected").val();
         $.ajax({
             url: "@Url.Action("DeleteList")",
@@ -118,7 +143,24 @@
                 $("#TravelListPartialView").html(result);
                 $("#TravelListSelectPicker option").last().attr("selected", "selected").change();
                 RefreshPlaceList();
-                window.setTimeout(function () { $("#CreateAlert").fadeOut(); }, 10000);
+                window.setTimeout(function () { $("#CreateAlert").fadeOut(); }, 1000);
+            }
+        });
+    });
+
+    $("#Rename-List-Button").click(function () {
+        var listName = $("#TravelListNewName").val();
+        var currentListItemNumber = $("#TravelListSelectPicker").find(":selected").val();
+        $.ajax({
+            url: "@Url.Action("ChangeListName")",
+            type: "POST",
+            data: JSON.stringify({ listId: currentListItemNumber, newName: listName }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                $("#TravelListPartialView").html(result);
+                $("#TravelListSelectPicker option").last().attr("selected", "selected").change();
+                RefreshPlaceList();
+                window.setTimeout(function () { $("#CreateAlert").fadeOut(); }, 1000);
             }
         });
     });
