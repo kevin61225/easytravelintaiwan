@@ -77,6 +77,24 @@
     });
 
     $('#AddFriend').click(function () {
-        console.log("click");
+        var id = $('#UId').val();
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("AddFriend", "Member")",
+            data: JSON.stringify({ uId: "@Session["UserId"]", friendId: id }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                console.log(data);
+                if (data.Status != 2) {
+                    $("#AverageRatingPartial").html(data);
+                }
+                else {
+                    alert(data.Message);
+
+                    window.location.replace("/Member/Login?ReturnUrl=%2fMember%2fHome%3fUser%3d" + id);
+                }
+                //$("#FriendsResultPartial").html(data);
+            }
+        });
     });
 </script>

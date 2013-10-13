@@ -96,6 +96,17 @@ namespace EasyTravelInTaiwan.Controllers
             return PartialView("Friends/_friendsResultPartial", model.ToPagedList(page, pageSize));
         }
 
+        [HttpPost]
+        public ActionResult AddFriend(int? uId, int friendId)
+        {
+            if (uId == null)
+            {
+                return Json(new { Status = 2, Message = "請先登入會員 !!" }, JsonRequestBehavior.AllowGet);
+            }
+            SearchFriendsModel.AddFriend(uId, friendId);
+            return Json(new { Status = 1, Message = "Success !!" }, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
 
         #region Favorit Partial
