@@ -608,7 +608,7 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 $("#TravelListPlacePartialView").html(data);
-                waypts = [];
+                //waypts = [];
                 for (var i = 0; i < gmarkers.length; i++) {
                     if (gmarkers[i].isChecked) {
                         gmarkers[i].isChecked = false;

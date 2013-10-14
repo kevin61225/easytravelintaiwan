@@ -23,6 +23,8 @@
 }
 
 <script type="text/javascript">
+    $(document).ajaxStart($.blockUI({ message: "請稍後... " }));
+    $(document).ajaxStop($.unblockUI);
     $("#HistoryInner").niceScroll({ autohidemode: true });
     $('#HistoryWrapper li').click(function () {
         var str = $(this).attr('id');

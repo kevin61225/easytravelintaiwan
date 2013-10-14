@@ -101,7 +101,7 @@
 <script type="text/javascript">
     var selectedList;
 
-    $(document).ajaxStart($.blockUI);
+    $(document).ajaxStart($.blockUI({ message: "請稍後... " }));
     $(document).ajaxStop($.unblockUI);
 
     $(document).ready(function () {
@@ -185,7 +185,7 @@
                             gmarkers[i].isChecked = false;
                         }
                     }
-                    waypts = [];
+                    //waypts = [];
                 }
             });
         }
