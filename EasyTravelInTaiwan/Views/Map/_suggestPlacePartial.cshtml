@@ -1,4 +1,15 @@
-﻿<h4>我所喜歡的</h4>
-@Html.Action("MyFavorPartial", "Map")
-<h4>他人推薦的</h4>
-@Html.Action("OthersSuggestPlacePartial", "Map")
+﻿<style>
+    .box {
+        height: 400px;
+    }
+
+        .box ul {
+            width: 97%;
+        }
+</style>
+<div class="box">
+    <h4>我所喜歡的</h4>
+    @Html.Action("MyFavorPartial", "Map")
+    <h4>他人推薦的</h4>
+    @Html.Action("OthersSuggestPlacePartial", "Map")
+</div>

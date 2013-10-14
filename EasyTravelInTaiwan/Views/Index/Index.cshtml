@@ -27,7 +27,17 @@
     .searchItemBorder {
         display: block;
     }
+
+    .box {
+        height: 320px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+        .box ul {
+            width: 97%;
+        }
 </style>
+
 
 @Html.Action("SearchDropdownList", "Search")
 
@@ -44,14 +54,14 @@
             <li><a href="#FoodTab2" data-toggle="tab">熱門美食</a></li>
             <li><a href="#HotelTab3" data-toggle="tab">熱門旅館</a></li>
         </ul>
-        <div class="tab-content">
-            <div class="tab-pane active box" id="ViewTab">
+        <div class="tab-content box">
+            <div class="tab-pane active" id="ViewTab">
                 @Html.Action("HotViewPartial")
             </div>
-            <div class="tab-pane box" id="FoodTab2">
+            <div class="tab-pane " id="FoodTab2">
                 @Html.Action("HotFoodPartial")
             </div>
-            <div class="tab-pane box" id="HotelTab3">
+            <div class="tab-pane " id="HotelTab3">
                 @Html.Action("HotHotelPartial")
             </div>
         </div>
