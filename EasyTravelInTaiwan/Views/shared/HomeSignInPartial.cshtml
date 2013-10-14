@@ -19,9 +19,9 @@
         @Html.LabelFor(model => model.RememberMe, new { @class = "checkbox" })
         @Html.ValidationMessageFor(model => model.RememberMe)
     </div>     
-    <br/>
+    <br/>@*
     @Html.ActionLink("忘記帳號密碼?", "ForgetPassword", "Member");
-    <br/>
+    *@<br/>
     <br />
     <button type="submit" class="btn btn-primary">登入</button>
     @Html.ActionLink("註冊會員", "Register", "Member", null, new { @class = "btn btn-primary" })

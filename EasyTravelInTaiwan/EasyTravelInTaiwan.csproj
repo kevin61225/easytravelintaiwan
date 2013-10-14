@@ -831,6 +831,7 @@
     <Content Include="Views\Member\Friends\_friendsTreeViewPartial.cshtml" />
     <Content Include="Views\Member\Home.cshtml" />
     <Content Include="Views\Member\Friends.cshtml" />
+    <Content Include="Views\Member\PersonalInfo\_personalInfoViewPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

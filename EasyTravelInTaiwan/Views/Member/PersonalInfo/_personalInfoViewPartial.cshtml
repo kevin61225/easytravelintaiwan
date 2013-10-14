@@ -1,0 +1,19 @@
+﻿@Html.Hidden("UId", Session["NowUid"])
+<div class="span3">
+    <div class="well row">
+        <div style="float:left;width: 40%;">
+            <p>個人喜好資訊：</p>
+        </div>
+        <div style="float:right;width: 60%;">
+            <ul class="nav nav-list">
+                @foreach (EasyTravelInTaiwan.Models.viewtype types in ViewBag.Favorites)
+                {
+                    <li>
+                        <a href="#">@types.Typename</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+

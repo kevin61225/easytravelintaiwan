@@ -65,11 +65,26 @@ namespace EasyTravelInTaiwan.Controllers
             {
                 isFriend = 2; // 不顯示
             }
-            
+
             ViewBag.UserId = User;
             ViewBag.FriendType = isFriend;
             ViewBag.UserName = db.members.Where(o => o.UserID == userId).Single().Name;
             return View();
+        }
+
+        public ActionResult PersonalInfo(string User)
+        {
+            int uid = int.Parse(User);
+            ViewBag.UserId = User;
+            member user = db.members.Where(o=>o.UserID == uid).Single();
+            user.SeperateTags();
+            List<viewtype> types = new List<viewtype>();
+            foreach (int i in user._tags)
+            {
+                types.Add(db.viewtypes.Where(o => o.Typenumber == i).Single());
+            }
+            ViewBag.Favorites = types;
+            return PartialView("PersonalInfo/_personalInfoViewPartial");
         }
 
         #region Friends Partial
