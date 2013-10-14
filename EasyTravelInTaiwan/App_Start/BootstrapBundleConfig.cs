@@ -9,14 +9,15 @@ namespace BootstrapSupport
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/js").Include(
-                "~/Scripts/jquery-{version}.js",
-                "~/Scripts/jquery-migrate-{version}.js",
-                "~/Scripts/bootstrap.js",
-                "~/Scripts/bootstrap-select.js",
-                "~/Scripts/jquery.validate.js",
+                "~/scripts/jquery-{version}.js",
+                "~/scripts/jquery-migrate-{version}.js",
+                "~/scripts/bootstrap.js",
+                "~/scripts/bootstrap-select.js",
+                "~/scripts/jquery.validate.js",
                 "~/scripts/jquery.validate.unobtrusive.js",
                 "~/Scripts/jquery.validate.unobtrusive-custom-for-bootstrap.js",
                 "~/Scripts/jquery.nicescroll.js",
+                "~/scripts/jquery.cookie.js",
                 "~/Scripts/InitializeComponent.js",
                 //
                 "~/scripts/jquery-sortable.js",

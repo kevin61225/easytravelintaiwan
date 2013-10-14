@@ -6,4 +6,6 @@
 $(function () {
     $('.selectpicker').selectpicker();
     $('.box').niceScroll({ autohidemode: true });
+    $.cookie.json = true;
+    $.cookie();
 });

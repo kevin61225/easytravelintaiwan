@@ -475,7 +475,31 @@ namespace EasyTravelInTaiwan.Controllers
         [Authorize]
         public ActionResult HistoryPartial()
         {
-            return PartialView("_historyPartial");
+            List<History> history = (List<History>)Session["Histories"];
+            return PartialView("_historyPartial", history);
+        }
+
+        [HttpPost]
+        public ActionResult RetrieveHistory(List<History> jsonHistory)
+        {
+            List<History> output;
+            if (jsonHistory != null)
+            {
+                output = new List<History>();
+                foreach (History h in jsonHistory)
+                {
+                    if (!output.Exists(o=>o.gId == h.gId))
+                    {
+                        output.Add(h);
+                    }
+                }
+            }
+            else
+            {
+                output = null;
+            }
+            Session["Histories"] = output;
+            return RedirectToAction("HistoryPartial");
         }
     }
 }

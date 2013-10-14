@@ -142,7 +142,7 @@ namespace EasyTravelInTaiwan.Controllers
 
         #endregion
 
-        #region Favorit Partial
+        #region Favorite Partial
 
         public ActionResult Favorite(string User)
         {

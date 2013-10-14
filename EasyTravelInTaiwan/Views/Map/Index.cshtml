@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Google Map";
+    ViewBag.Title = "旅遊規劃 - Easy Travel In Taiwan";
 }
 
 <style type="text/css">
@@ -27,10 +27,10 @@
         display: block;
     }
 
-    html, body, #container {
+    /*html, body, #container {
         height: 100%;
         width: 100%;
-    }
+    }*/
 
     .map_canvas {
         height: 600px;
@@ -67,13 +67,14 @@
 <link href="~/Content/ui.css" rel="stylesheet" />
 <link href="~/Content/ui.progress-bar.css" rel="stylesheet" />
 <link href="~/Content/bootstrap-select.css" rel="stylesheet" />
-<script src="~/scripts/jquery.validate.unobtrusive.js"></script>
+
 
 <!--引入 Google API-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.9&sensor=false"></script>
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+<script src="~/scripts/jquery.validate.unobtrusive.js"></script>
 <script src="~/scripts/jquery.ui.core.js"></script>
 <script src="~/scripts/jquery.ui.widget.js"></script>
 <script src="~/scripts/jquery.ui.progressbar.js"></script>
@@ -98,10 +99,10 @@
 <div class="row" style="height: auto;">
     <div id="map_canvas" class="map_canvas span8"></div>
     <div class="span4" style="float: right; position: relative">
-        <ul class="nav nav-tabs">
+        <ul id="MapTabs" class="nav nav-tabs">
             <li class="active"><a href="#TravelTab" data-toggle="tab">旅遊清單</a></li>
             <li><a href="#SuggestTab" data-toggle="tab">推薦清單</a></li>
-            <li><a href="#HistoryTab" data-toggle="tab">歷史紀錄</a></li>
+            <li id="History"><a href="#HistoryTab" data-toggle="tab">歷史紀錄</a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="TravelTab">
@@ -116,7 +117,7 @@
             <div class="tab-pane" id="SuggestTab">
                 @Html.Action("SuggestPlacePartial", "Map")
             </div>
-            <div class="tab-pane box" id="HistoryTab">
+            <div class="tab-pane" id="HistoryTab">
                 @Html.Action("HistoryPartial", "Map")
             </div>
         </div>
@@ -271,7 +272,7 @@
     }));
 
     $(document).ready(function () {
-
+        CheckHistory();
         $.ajax({
             type: 'POST',
             url: '/Map/GetMap',
@@ -415,6 +416,9 @@
         google.maps.event.addListener(marker, 'click', function () {
             infowindow.setContent('<p>' + item.Name + '</p><p>地址：' + item.Address + '</p><p>類型：' + item.Viewtype + '</p><a href="/Map/ViewPointDetails/' + item.Id + ' " target="_blank">點我看詳細內容</a>');
             infowindow.open(gmap, this);
+            waypts.push({ gId: marker.gId, title: marker.title });
+            $.cookie('waypts', waypts, { expires: 7 });
+            $('#History').click();
         });
 
         google.maps.event.addListener(marker, 'rightclick', function () {
@@ -591,19 +595,6 @@
 
     };
 
-    //$(document).ajaxStart($.blockUI({
-    //    message: $('<div id="progress_bar" class="ui-progress-bar ui-container"><div class="ui-progress" style="width: 90%;"><span class="ui-label" style="display: none;">資料讀取中... <b class="value">70%</b></span></div></div>'),
-    //    css: {
-    //        top: ($(window).height() - 240) / 2 + 'px',
-    //        left: ($(window).width() - 240) / 2 + 'px',
-    //        width: '240px',
-    //        color: '#fff',
-    //        background: 'none',
-    //        border: '0px',
-    //        opacity: .7
-    //    }
-    //}));
-
     $(document).on('click', '.dropdown-menu .inner >li', function (e) {
         var $this = $(this).attr("rel");
         var selectedValue = $("#TravelListSelectPicker option:eq('" + $this + "')");
@@ -625,7 +616,7 @@
                 }
             }
         });
-        });
+    });
 
     $(document).on('input', '#TravelListName', function (e) {
         var $this = $(this).val();
@@ -637,5 +628,24 @@
         }
     });
 
+    $('#History').click(function () {
+        var test = $.cookie('waypts');
+        console.log(test)
+        $.ajax({
+            url: "@Url.Action("RetrieveHistory", "Map")",
+            type: "POST",
+            data: JSON.stringify({ jsonHistory: test }), //if you need to post Model data, use this
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $("#HistoryTab").html(data);
+            }
+        });
+    });
+
+    function CheckHistory() {
+        if ($.cookie('waypts') != null) {
+            waypts = $.cookie('waypts');
+        }
+    }
 
 </script>

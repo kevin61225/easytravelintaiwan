@@ -349,6 +349,7 @@
     <Compile Include="Models\friend.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\History.cs" />
     <Compile Include="Models\HomeInputModel.cs" />
     <Compile Include="Models\hotel.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
@@ -728,6 +729,7 @@
     <Content Include="scripts\jquery-sortable.js" />
     <Content Include="scripts\jquery.ajax-progress.js" />
     <Content Include="scripts\jquery.blockUI.js" />
+    <Content Include="scripts\jquery.cookie.js" />
     <Content Include="scripts\jquery.form.js" />
     <Content Include="scripts\jquery.geocomplete.js" />
     <Content Include="scripts\jquery.nicescroll.js" />

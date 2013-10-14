@@ -1,1 +1,39 @@
-﻿<p>Howdy, I'm in History partial.</p>
+﻿
+<style>
+    #HistoryInner {
+        height: auto;
+    }
+    #HistoryInner ul {
+            width: 97%;
+        }
+</style>
+
+@if (Model != null)
+{
+    <div id="HistoryInner" class="well box" style="max-height: 480px">
+        <ul class="nav nav-pills nav-stacked " id="HistoryWrapper">
+            @foreach (EasyTravelInTaiwan.Models.History history in Model)
+            {
+                <li id="place.@history.gId">
+                    <a href="#">@history.title</a>
+                </li>
+            }
+        </ul>
+    </div>
+}
+
+<script type="text/javascript">
+    $("#HistoryInner").niceScroll({ autohidemode: true });
+    $('#HistoryWrapper li').click(function () {
+        var str = $(this).attr('id');
+        var n = str.split(".");
+        var id;
+        for (var i = 0; i < gmarkers.length; i++) {
+            if (gmarkers[i].gId == n[1]) {
+                id = i;
+            }
+        }
+        google.maps.event.trigger(gmarkers[id], "click");
+        gmarkers[id].setVisible(true);
+    });
+</script>
