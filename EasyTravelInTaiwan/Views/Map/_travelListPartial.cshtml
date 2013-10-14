@@ -151,6 +151,7 @@
     $("#Rename-List-Button").click(function () {
         var listName = $("#TravelListNewName").val();
         var currentListItemNumber = $("#TravelListSelectPicker").find(":selected").val();
+        console.log(currentListItemNumber);
         $.ajax({
             url: "@Url.Action("ChangeListName")",
             type: "POST",
@@ -158,54 +159,21 @@
             contentType: 'application/json; charset=utf-8',
             success: function (result) {
                 $("#TravelListPartialView").html(result);
-                $("#TravelListSelectPicker option").last().attr("selected", "selected").change();
+                $("#TravelListSelectPicker option[value=" + currentListItemNumber + "]").attr("selected", "selected").change();
                 RefreshPlaceList();
                 window.setTimeout(function () { $("#CreateAlert").fadeOut(); }, 1000);
             }
         });
     });
 
-    $(document).on('click', '.dropdown-menu .inner >li', function (e) {
-        var $this = $(this).attr("rel");
-        var selectedValue = $("#TravelListSelectPicker option:eq('" + $this + "')");
-        var str = selectedValue.attr('value');
+    function RefreshPlaceList() {
+        var str = $("#TravelListSelectPicker option").last().attr("value");
         var n = str.split("-");
         selectedList = n[1];
+        console.log(selectedList);
+
         $.ajax({
             url: "@Url.Action("OnChangeTravelList", "Map")",
-            type: "POST",
-            data: JSON.stringify({ selectedList: selectedList }), //if you need to post Model data, use this
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                $("#TravelListPlacePartialView").html(data);
-                waypts = [];
-                for (var i = 0; i < gmarkers.length; i++) {
-                    if (gmarkers[i].isChecked) {
-                        gmarkers[i].isChecked = false;
-                    }
-                }
-            }
-        });
-    });
-
-        $(document).on('input', '#TravelListName', function (e) {
-            var $this = $(this).val();
-            if ($this != '') {
-                $("#Create-List-Button").attr("disabled", false);
-            }
-            else {
-                $("#Create-List-Button").attr("disabled", true);
-            }
-        });
-
-        function RefreshPlaceList() {
-            var str = $("#TravelListSelectPicker option").last().attr("value");
-            var n = str.split("-");
-            selectedList = n[1];
-            console.log(selectedList);
-
-            $.ajax({
-                url: "@Url.Action("OnChangeTravelList", "Map")",
                 type: "POST",
                 data: JSON.stringify({ selectedList: selectedList }), //if you need to post Model data, use this
                 contentType: 'application/json; charset=utf-8',

@@ -604,4 +604,38 @@
     //    }
     //}));
 
+    $(document).on('click', '.dropdown-menu .inner >li', function (e) {
+        var $this = $(this).attr("rel");
+        var selectedValue = $("#TravelListSelectPicker option:eq('" + $this + "')");
+        var str = selectedValue.attr('value');
+        var n = str.split("-");
+        selectedList = n[1];
+        $.ajax({
+            url: "@Url.Action("OnChangeTravelList", "Map")",
+            type: "POST",
+            data: JSON.stringify({ selectedList: selectedList }), //if you need to post Model data, use this
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $("#TravelListPlacePartialView").html(data);
+                waypts = [];
+                for (var i = 0; i < gmarkers.length; i++) {
+                    if (gmarkers[i].isChecked) {
+                        gmarkers[i].isChecked = false;
+                    }
+                }
+            }
+        });
+        });
+
+    $(document).on('input', '#TravelListName', function (e) {
+        var $this = $(this).val();
+        if ($this != '') {
+            $("#Create-List-Button").attr("disabled", false);
+        }
+        else {
+            $("#Create-List-Button").attr("disabled", true);
+        }
+    });
+
+
 </script>

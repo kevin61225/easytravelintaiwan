@@ -9,40 +9,80 @@
 <div class="row">
     <div class="span8">
         <ul id="RankSpotTab" class="nav nav-tabs">
-            <li class="active"><a href="#ViewRankTab" data-toggle="tab">景點排行</a></li>
-            <li><a href="#FoodRankTab" data-toggle="tab">美食排行</a></li>
-            <li><a href="#HotelRankTab" data-toggle="tab">旅館排行</a></li>
+            <li id="view" class="active"><a href="#ViewRankTab" data-toggle="tab">景點排行</a></li>
+            <li id="food"><a href="#FoodRankTab" data-toggle="tab">美食排行</a></li>
+            <li id="hotel"><a href="#HotelRankTab" data-toggle="tab">旅館排行</a></li>
         </ul>
+        <div id="RankFilter">
+            @Html.Action("RankFilter", "Rank", new { type = "view" })
+        </div>
         <div class="tab-content">
             <div class="tab-pane active" id="ViewRankTab">
-                <div id="ViewRankFilter">
+                @*                <div id="ViewRankFilter">
                     @Html.Action("RankFilter", "Rank", new { type = "view" })
-                </div>
+                </div>*@
                 <br />
                 <div id="ViewRankPartial">
-                    @Html.Action("ViewRankPartial", "Rank", new { type = "1" })
+                    @Html.Action("RankPartial", "Rank", new { type = "1" })
                 </div>
             </div>
             <div class="tab-pane" id="FoodRankTab">
-                <div id="FoodRankFilter">
+                @*                <div id="FoodRankFilter">
                     @Html.Action("RankFilter", "Rank", new { type = "food" })
-                </div>
+                </div>*@
                 <br />
                 <div id="FoodRankPartial">
-                    @Html.Action("FoodRankPartial", "Rank", new { type = "3" })
+                    @Html.Action("RankPartial", "Rank", new { type = "3" })
                 </div>
             </div>
             <div class="tab-pane" id="HotelRankTab">
-                <div id="HotelRankFilter">
+                @*                <div id="HotelRankFilter">
                     @Html.Action("RankFilter", "Rank", new { type = "hotel" })
-                </div>
+                </div>*@
                 <br />
                 <div id="HotelRankPartial">
-                    @Html.Action("HotelRankPartial", "Rank", new { type = "16" })
+                    @Html.Action("RankPartial", "Rank", new { type = "16" })
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<script type="text/javascript">
+    $('#RankSpotTab li').click(function (e) {
+        e.preventDefault();
+        var id = $(this).attr('id')
+        $.ajax({
+            url: "@Url.Action("RankFilter", "Rank")",
+            type: "POST",
+            data: JSON.stringify({ type: id }), //if you need to post Model data, use this
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $("#AreaListSelectPicker").html(data);
+                $('.selectpicker').selectpicker('refresh');
+                RefreshContent(0);
+            }
+        });
+    });
 
+    $(document).on('click', '.dropdown-menu .inner >li', function (e) {
+        var $this = $(this).attr("rel");
+        RefreshContent($this)
+    });
+
+    function RefreshContent(index) {
+        var selectedValue = $("#AreaListSelectPicker option:eq('" + index + "')");
+        var str = selectedValue.attr('value');
+        var n = str.split("-");
+        selectedList = n[1];
+        $.ajax({
+            url: "@Url.Action("RankPartial", "Rank")",
+            type: "POST",
+            data: JSON.stringify({ type: selectedList }), //if you need to post Model data, use this
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $(".tab-pane").html(data);
+            }
+        });
+    }
+</script>
