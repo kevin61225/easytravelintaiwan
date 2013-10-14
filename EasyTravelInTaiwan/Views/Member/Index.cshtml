@@ -19,12 +19,12 @@
         font-family: Arial;
     }
 
-    .labelFont {
+    /*.labelFont {
         font-size: 18px;
         /*font-weight:bold;*/
-        color: #e8e8e8;
+    /*color: #e8e8e8;
         padding: 0px 0px 0px 30px;
-    }
+    }*/
 
     .position {
         padding: 0px 0px 0px 40px;
@@ -32,77 +32,73 @@
 </style>
 <div class="position">
     <br>
-    <br>
     <fieldset>
-        <legend class="headForm span8">My Account</legend>
-        <br>
-        <br>
-        <br>
-        <br>
-        <div class="display-label labelFont">
-            @Html.DisplayNameFor(model => model.Account)
-        </div>
-        <div class="display-field textColor">
-            @Html.DisplayFor(model => model.Account)
-        </div>
-        <br>
-        <div class="display-label labelFont">
-            @Html.DisplayNameFor(model => model.Name)
-        </div>
-        <div class="display-field textColor">
-            @Html.DisplayFor(model => model.Name)
+        <legend class="span10">個人資料</legend>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="well">
+            <div class="display-label labelFont">
+                @Html.DisplayNameFor(model => model.Account)
+            </div>
+            <div class="display-field textColor">
+                @Html.DisplayFor(model => model.Account)
+            </div>
         </div>
         <br>
-        <div class="display-label labelFont">
-            @Html.DisplayNameFor(model => model.Email)
+        <div class="well">
+            <div class="display-label labelFont">
+                @Html.DisplayNameFor(model => model.Name)
+            </div>
+            <div class="display-field textColor">
+                @Html.DisplayFor(model => model.Name)
+            </div>
+            <br>
         </div>
-        <div class="display-field textColor">
-            @Html.DisplayFor(model => model.Email)
+        <div class="well">
+            <div class="display-label labelFont">
+                @Html.DisplayNameFor(model => model.Email)
+            </div>
+            <div class="display-field textColor">
+                @Html.DisplayFor(model => model.Email)
+            </div>
+            <br>
         </div>
-        <br>
-        <div class="display-label labelFont">
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </div>
-        <div class="display-field textColor">
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </div>
-        <br>
-        <div class="display-label labelFont">
-            @Html.DisplayNameFor(model => model.Sex)
-        </div>
-        <div class="display-field textColor">
-            @{
-                if (Model.Sex == "Male")
-                {@Html.Label("male");
+        <div class="well">
+            <div class="display-label labelFont">
+                @Html.DisplayNameFor(model => model.Sex)
+            </div>
+            <div class="display-field textColor">
+                @{
+                    if (Model.Sex == "Male")
+                    {@Html.Label("男");
+                    }
+                    if (Model.Sex == "Female")
+                    { @Html.Label("女");
+                    }
                 }
-                if (Model.Sex == "Female")
-                { @Html.Label("female");
-                }
-            }
-            @*@Html.DisplayFor(model => model.Sex)*@
+                @*@Html.DisplayFor(model => model.Sex)*@
+            </div>
+            <br>
         </div>
-        <br>
-        <div class="display-label labelFont">
-            @Html.DisplayNameFor(model => model.UserAddress)
-        </div>
-        <div class="display-field textColor">
-            @Html.DisplayFor(model => model.UserAddress)
-        </div>
-        <br>
-        <div class="display-label labelFont">
-            @Html.DisplayNameFor(model => model.Birthday)
-        </div>
-        <div class="display-field textColor">
-            @Html.DisplayFor(model => model.Birthday)
+        <div class="well">
+            <div class="display-label labelFont">
+                @Html.DisplayNameFor(model => model.Birthday)
+            </div>
+            <div class="display-field textColor">
+                @Html.DisplayFor(model => model.Birthday)
+            </div>
         </div>
         <br />
-        <br>
+            @Html.Action("PersonalInfo", "Member", new { User = Model.UserID })
+        <br />
     </fieldset>
-    <p class="textColor">
+    @*    <p class="textColor">
         @Html.ActionLink("Account Setting", "EditAccount", "Member")
         <br>
         <br>
         @Html.ActionLink("HomePage", "Index", "Home")
-    </p>
+    </p>*@
 
 </div>

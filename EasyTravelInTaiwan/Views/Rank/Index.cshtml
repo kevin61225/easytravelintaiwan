@@ -5,7 +5,6 @@
 <script src="~/scripts/jquery.validate.unobtrusive.js"></script>
 <link href="~/Content/bootstrap-select.css" rel="stylesheet" />
 
-
 <div class="row">
     <div class="span8">
         <ul id="RankSpotTab" class="nav nav-tabs">
@@ -18,27 +17,18 @@
         </div>
         <div class="tab-content">
             <div class="tab-pane active" id="ViewRankTab">
-                @*                <div id="ViewRankFilter">
-                    @Html.Action("RankFilter", "Rank", new { type = "view" })
-                </div>*@
                 <br />
                 <div id="ViewRankPartial">
                     @Html.Action("RankPartial", "Rank", new { type = "1" })
                 </div>
             </div>
             <div class="tab-pane" id="FoodRankTab">
-                @*                <div id="FoodRankFilter">
-                    @Html.Action("RankFilter", "Rank", new { type = "food" })
-                </div>*@
                 <br />
                 <div id="FoodRankPartial">
                     @Html.Action("RankPartial", "Rank", new { type = "3" })
                 </div>
             </div>
             <div class="tab-pane" id="HotelRankTab">
-                @*                <div id="HotelRankFilter">
-                    @Html.Action("RankFilter", "Rank", new { type = "hotel" })
-                </div>*@
                 <br />
                 <div id="HotelRankPartial">
                     @Html.Action("RankPartial", "Rank", new { type = "16" })
