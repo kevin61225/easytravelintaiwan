@@ -86,6 +86,16 @@ namespace EasyTravelInTaiwan.Models
         public System.DateTime Birthday { get; set; }
 
         public int Role { get; set; }
+
+        static public int GetCheckedNumber(List<ViewTypeCheckbox> TypeList)
+        {
+            int output = 0;
+            foreach (ViewTypeCheckbox item in TypeList)
+            {
+                if (item.isCheck) output++;
+            }
+            return output;
+        }
     }
 
     public class ViewTypeCheckbox 

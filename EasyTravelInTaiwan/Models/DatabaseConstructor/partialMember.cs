@@ -30,6 +30,7 @@ namespace EasyTravelInTaiwan.Models
                 }
             }
             favorite = favorite.Remove(favorite.Length - 1);
+
             Role = 2;
         }
     }

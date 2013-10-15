@@ -354,6 +354,11 @@ namespace EasyTravelInTaiwan.Controllers
         public ActionResult Register(RegisterModel member)
         {
             //return RedirectToAction("Login", "Member");
+            if (RegisterModel.GetCheckedNumber(member.ViewTypeList) < 3)
+            {
+                TempData["Error"] = "請選擇至少三項的個人喜好 !!";
+                return RedirectToAction("Register", "Member");
+            }
             member registMember = new member(member);
             partialUser kernel = new partialUser();
             try
