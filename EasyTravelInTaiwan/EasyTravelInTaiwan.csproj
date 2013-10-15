@@ -321,6 +321,7 @@
     <Compile Include="BootstrapSupport\HtmlHelpers\Paging.cs" />
     <Compile Include="BootstrapSupport\ViewHelperExtensions.cs" />
     <Compile Include="Controllers\BootstrapBaseController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\ExampleLayoutsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
@@ -837,6 +838,7 @@
     <Content Include="Views\Member\Home.cshtml" />
     <Content Include="Views\Member\Friends.cshtml" />
     <Content Include="Views\Member\PersonalInfo\_personalInfoViewPartial.cshtml" />
+    <Content Include="Views\Error\ErrorPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -50,6 +50,17 @@ namespace EasyTravelInTaiwan.Models
         public virtual string modify_date { get; set; }
 
         public virtual ICollection<ViewImage> viewimages { get; set; }
+
+        public void CheckEmptyData()
+        {
+            string noInfo = "尚無資料";
+            if (Description == string.Empty) Description = noInfo;
+            if (Telphone == null) Telphone = noInfo;
+            if (Address == null) Address = noInfo;
+            if (Url == null) Url = noInfo;
+            if (Carmethod == null) Carmethod = noInfo;
+            if (Busmethod == null) Busmethod = noInfo;
+        }
     }
 
     public class ViewDetail : PlaceDetail
@@ -126,7 +137,7 @@ namespace EasyTravelInTaiwan.Models
             modify_date = acco.modify_date;
 
             ICollection<accomodationimage> accimages = new HashSet<accomodationimage>();
-            using(var db = new ProjectEntities())
+            using (var db = new ProjectEntities())
             {
                 accimages.Add(db.accomodationimages.Where(o => o.Id == acco.id).Single());
             }

@@ -38,6 +38,16 @@ namespace EasyTravelInTaiwan.Controllers
 
         public ActionResult Direction(int tid)
         {
+            try
+            {
+                db.travellistplaces.Where(list => list.Tid == tid).Single();
+
+            }
+            catch
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
+
             List<travellistplace> travelListPlace = db.travellistplaces.Where(list => list.Tid == tid).ToList<travellistplace>();
             List<view> viewList = new List<view>();
             foreach (travellistplace item in travelListPlace)
@@ -138,6 +148,10 @@ namespace EasyTravelInTaiwan.Controllers
         {
             view place = db.views.Find(id);
             PlaceDetail detail = new PlaceDetail();
+            if (place == null)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
             switch (place.Pt)
             {
                 case "06":
@@ -161,11 +175,8 @@ namespace EasyTravelInTaiwan.Controllers
                     detail = new ViewDetail(viewplace, place.Pt);
                     break;
             }
+            detail.CheckEmptyData();
 
-            if (place == null)
-            {
-                return HttpNotFound();
-            }
             if (detail.viewimages.Count() == 0) detail.viewimages.Add(ViewImage.GetNotFoundImage(db));
             TempData["Title"] = place.Name;
             Session["Pt"] = place.Pt;
@@ -488,7 +499,7 @@ namespace EasyTravelInTaiwan.Controllers
                 output = new List<History>();
                 foreach (History h in jsonHistory)
                 {
-                    if (!output.Exists(o=>o.gId == h.gId))
+                    if (!output.Exists(o => o.gId == h.gId))
                     {
                         output.Add(h);
                     }

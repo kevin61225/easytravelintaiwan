@@ -55,7 +55,12 @@ namespace EasyTravelInTaiwan.Controllers
         public ActionResult Home(string User)
         {
             int userId = int.Parse(User);
+            if (db.members.Where(o => o.UserID == userId).Single() == null)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
             int isFriend;
+
             try
             {
                 isFriend = SearchFriendsModel.FindIfIsFriend((int)Session["UserId"], userId);
@@ -70,6 +75,7 @@ namespace EasyTravelInTaiwan.Controllers
             ViewBag.FriendType = isFriend;
             ViewBag.UserName = db.members.Where(o => o.UserID == userId).Single().Name;
             Session["NowUid"] = userId;
+
             return View();
         }
 
@@ -77,7 +83,7 @@ namespace EasyTravelInTaiwan.Controllers
         {
             int uid = int.Parse(User);
             ViewBag.UserId = User;
-            member user = db.members.Where(o=>o.UserID == uid).Single();
+            member user = db.members.Where(o => o.UserID == uid).Single();
             user.travellists.ToList();
             user.SeperateTags();
             List<viewtype> types = new List<viewtype>();

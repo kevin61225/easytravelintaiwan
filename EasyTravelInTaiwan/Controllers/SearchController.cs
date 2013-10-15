@@ -75,7 +75,6 @@ namespace EasyTravelInTaiwan.Controllers
                     model.ByHotel(searchViewModel.searchWord);
                     break;
             }
-
             ViewBag.keyWord = searchViewModel.searchWord;
             ViewBag.key = searchViewModel.searchType;
             ViewBag.Filters = SearchResultModel.FilterType(searchViewModel.searchType);

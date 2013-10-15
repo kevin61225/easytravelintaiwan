@@ -237,8 +237,10 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
             temp.Pt = input.Pt;
             temp.IconType = input.IconType;
             temp.Description = ShortDescription(input.Description);
+            if (input.Description == string.Empty) temp.Description = "尚無簡介 ... ";
             temp.cityName = GetCityNameById(temp.City);
             temp.viewTypeName = GetViewTypeNameById(temp.Viewtype);
+            
             return temp;
         }
 
