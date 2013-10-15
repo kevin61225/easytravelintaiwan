@@ -23,6 +23,7 @@
     </h2>
 </div>
 <br />
+@Html.Hidden("UId", Session["NowUid"])
 <div class="row">
     <ul id="HomeFuntion" class="nav nav-tabs">
         <li class="active"><a href="#PersonalTab" data-toggle="tab">個人資訊</a></li>
@@ -64,6 +65,7 @@
 
     $('#FriendsList').click(function () {
         var id = $('#UId').val();
+        console.log(id);
         $.ajax({
             type: "POST",
             url: "@Url.Action("FriendsResultPartial", "Member")",
@@ -77,6 +79,7 @@
 
     $('#RecommendFriendsList').click(function () {
         var id = $('#UId').val();
+        console.log(id);
         $.ajax({
             type: "POST",
             url: "@Url.Action("FriendsResultPartial", "Member")",

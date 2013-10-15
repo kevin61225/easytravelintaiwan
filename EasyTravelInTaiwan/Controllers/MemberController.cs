@@ -69,6 +69,7 @@ namespace EasyTravelInTaiwan.Controllers
             ViewBag.UserId = User;
             ViewBag.FriendType = isFriend;
             ViewBag.UserName = db.members.Where(o => o.UserID == userId).Single().Name;
+            Session["NowUid"] = userId;
             return View();
         }
 
@@ -77,6 +78,7 @@ namespace EasyTravelInTaiwan.Controllers
             int uid = int.Parse(User);
             ViewBag.UserId = User;
             member user = db.members.Where(o=>o.UserID == uid).Single();
+            user.travellists.ToList();
             user.SeperateTags();
             List<viewtype> types = new List<viewtype>();
             foreach (int i in user._tags)
@@ -84,6 +86,8 @@ namespace EasyTravelInTaiwan.Controllers
                 types.Add(db.viewtypes.Where(o => o.Typenumber == i).Single());
             }
             ViewBag.Favorites = types;
+            ViewBag.TravelList = user.travellists.ToList();
+            ViewBag.TravelListCount = user.travellists.ToList().Count();
             return PartialView("PersonalInfo/_personalInfoViewPartial");
         }
 
@@ -104,7 +108,7 @@ namespace EasyTravelInTaiwan.Controllers
             model.Clear();
             model.RecommendFriends(uid);
             ViewBag.RecommendFriendCount = model.Count();
-            Session["NowUid"] = Uid;
+            //Session["NowUid"] = Uid;
             return PartialView("Friends/_friendsTreeViewPartial", model);
         }
 
