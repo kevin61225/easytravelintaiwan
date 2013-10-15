@@ -30,7 +30,8 @@
         <AssociationConnector Association="ProjectModel.travellistplace_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectModel.view_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectModel.rating_ibfk_2" />
-        <EntityTypeShape EntityType="ProjectModel.notfoundimage" Width="1.5" PointX="5.49003570409959" PointY="19.187737265223515" />
+        <EntityTypeShape EntityType="ProjectModel.notfoundimage" Width="1.5" PointX="9.5" PointY="12.875" />
+        <EntityTypeShape EntityType="ProjectModel.accomodationimage" Width="1.5" PointX="3.5" PointY="14.125" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

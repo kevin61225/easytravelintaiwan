@@ -335,6 +335,9 @@
     <Compile Include="Models\accommodation.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\accomodationimage.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\city.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>

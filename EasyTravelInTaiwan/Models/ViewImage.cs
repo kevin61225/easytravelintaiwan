@@ -26,6 +26,18 @@ namespace EasyTravelInTaiwan.Models
             return outputImage;
         }
 
+        static public ViewImage ConverToViewImage(accomodationimage image, string pt)
+        {
+            ViewImage outputImage = new ViewImage();
+            outputImage.Id = image.Id;
+            outputImage.sid = image.sid;
+            outputImage.Name = image.Name;
+            outputImage.Imagetype = 0;
+            outputImage.Image = image.Image;
+            outputImage.pt = pt;
+            return outputImage;
+        }
+
         static public ViewImage ConverToViewImage(placeimage image, string pt)
         {
             ViewImage outputImage = new ViewImage();
@@ -49,6 +61,14 @@ namespace EasyTravelInTaiwan.Models
                     try
                     {
                         outputImage = ConverToViewImage(db.hotelimages.Where(o => o.Id == id).First(), pt);
+                        break;
+                    }
+                    catch
+                    {
+                    }
+                    try
+                    {
+                        outputImage = ConverToViewImage(db.accomodationimages.Where(o => o.Id == id).First(), pt);
                     }
                     catch
                     {
@@ -92,6 +112,14 @@ namespace EasyTravelInTaiwan.Models
                     try
                     {
                         outputImage = ConverToViewImage(db.hotelimages.Where(o => o.Id == id).Where(o => o.sid == sid).Single(), pt);
+                        break;
+                    }
+                    catch
+                    {
+                    }
+                    try
+                    {
+                        outputImage = ConverToViewImage(db.accomodationimages.Where(o => o.Id == id).Where(o => o.sid == sid).Single(), pt);
                     }
                     catch
                     {
@@ -137,6 +165,16 @@ namespace EasyTravelInTaiwan.Models
         {
             ICollection<ViewImage> images = new HashSet<ViewImage>();
             foreach (hotelimage image in hotelImages)
+            {
+                images.Add(ConverToViewImage(image, pt));
+            }
+            return images;
+        }
+
+        static public ICollection<ViewImage> TransformToViewCollection(ICollection<accomodationimage> accImages, string pt)
+        {
+            ICollection<ViewImage> images = new HashSet<ViewImage>();
+            foreach (accomodationimage image in accImages)
             {
                 images.Add(ConverToViewImage(image, pt));
             }

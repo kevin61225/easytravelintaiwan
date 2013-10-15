@@ -125,7 +125,13 @@ namespace EasyTravelInTaiwan.Models
             create_date = acco.create_date;
             modify_date = acco.modify_date;
 
-            this.viewimages = new HashSet<ViewImage>();
+            ICollection<accomodationimage> accimages = new HashSet<accomodationimage>();
+            using(var db = new ProjectEntities())
+            {
+                accimages.Add(db.accomodationimages.Where(o => o.Id == acco.id).Single());
+            }
+
+            this.viewimages = ViewImage.TransformToViewCollection(accimages, pt);
         }
     }
 

@@ -11,7 +11,6 @@ namespace EasyTravelInTaiwan.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class member
     {
@@ -22,23 +21,15 @@ namespace EasyTravelInTaiwan.Models
             this.ratings = new HashSet<rating>();
             this.travellists = new HashSet<travellist>();
         }
-        
+    
         public int UserID { get; set; }
-
-        [Display(Name = "帳號名稱")]
         public string Account { get; set; }
         public string Password { get; set; }
-
-        [Display(Name = "使用者名稱")]
         public string Name { get; set; }
-
-        [Display(Name = "電子郵件信箱")]
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string Sex { get; set; }
         public string UserAddress { get; set; }
-
-        [Display(Name = "出生年月日")]
         public System.DateTime Birthday { get; set; }
         public int Role { get; set; }
         public string favorite { get; set; }
