@@ -32,6 +32,8 @@
         <AssociationConnector Association="ProjectModel.rating_ibfk_2" />
         <EntityTypeShape EntityType="ProjectModel.notfoundimage" Width="1.5" PointX="9.5" PointY="12.875" />
         <EntityTypeShape EntityType="ProjectModel.accomodationimage" Width="1.5" PointX="3.5" PointY="14.125" />
+        <EntityTypeShape EntityType="ProjectModel.favorite" Width="1.5" PointX="5.4793269175474189" PointY="7.95137758923293" />
+        <EntityTypeShape EntityType="ProjectModel.sortedhistory" Width="1.5" PointX="3.6644522918688378" PointY="5.0897150659420136" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -212,8 +212,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
         {
             using (var db = new ProjectEntities())
             {
-                List<view> views = SearchFavoriteModel.GetViewsByTravellistplace(uId);
-
+                List<view> views = SearchFavoriteModel.GetAllViewFromFavoriteByUserId(uId);
                 foreach (view item in views)
                 {
                     if (item.Viewtype == type && item.City == city)

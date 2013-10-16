@@ -14,6 +14,14 @@
         <li><a href="@Url.Action("CityViews", new { id = Model.Citynumber })">@Html.DisplayFor(model => model.CityName)</a> <span class="divider">/</span></li>
         <li class="active">@Html.DisplayFor(model => model.Name)</li>
     </ul>
+    @if (ViewBag.FavoriteType == 2)
+    {
+        <button id="AddToFavorite" class="btn"><i class="icon-star"></i> 加入收藏</button>
+    }
+    else if (ViewBag.FavoriteType == 1)
+    {
+        <button id="IsFavorite" class="btn" disabled data-toggle="button">已加入收藏 <i class="icon-ok"></i></button>
+    }
 </h3>
 <hr />
 <div id="slideShow" class="span5 pull-right ">
@@ -99,3 +107,28 @@
     @Html.ActionLink("Back to List", "ViewPointList")
     </p>
 </div>
+
+<script type="text/javascript">
+    $('#AddToFavorite').click(function () {
+        var id = $('#Sno').val();
+        console.log(id);
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("AddToFavorite", "Map")",
+            data: JSON.stringify({ userId: "@Session["UserId"]", placeId: id }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                console.log(data);
+                if (data.Status == 1) {
+                    alert(data.Message);
+                    window.location.replace("/Map/ViewPointDetails/" + id);
+                }
+                else {
+                    alert(data.Message);
+
+                    window.location.replace("/Member/Login?ReturnUrl=%2fMap%2fViewPointDetails%2f" + id);
+                }
+            }
+        });
+    });
+</script>

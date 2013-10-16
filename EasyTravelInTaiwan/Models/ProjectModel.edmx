@@ -9,6 +9,7 @@
           <EntitySet Name="accommodation" EntityType="ProjectModel.Store.accommodation" store:Type="Tables" Schema="project" />
           <EntitySet Name="accomodationimage" EntityType="ProjectModel.Store.accomodationimage" store:Type="Tables" Schema="project" />
           <EntitySet Name="city" EntityType="ProjectModel.Store.city" store:Type="Tables" Schema="project" />
+          <EntitySet Name="favorite" EntityType="ProjectModel.Store.favorite" store:Type="Tables" Schema="project" />
           <EntitySet Name="food" EntityType="ProjectModel.Store.food" store:Type="Tables" Schema="project" />
           <EntitySet Name="friends" EntityType="ProjectModel.Store.friends" store:Type="Tables" Schema="project" />
           <EntitySet Name="hotel" EntityType="ProjectModel.Store.hotel" store:Type="Tables" Schema="project" />
@@ -18,6 +19,7 @@
           <EntitySet Name="place" EntityType="ProjectModel.Store.place" store:Type="Tables" Schema="project" />
           <EntitySet Name="placeimage" EntityType="ProjectModel.Store.placeimage" store:Type="Tables" Schema="project" />
           <EntitySet Name="rating" EntityType="ProjectModel.Store.rating" store:Type="Tables" Schema="project" />
+          <EntitySet Name="sortedhistory" EntityType="ProjectModel.Store.sortedhistory" store:Type="Tables" Schema="project" />
           <EntitySet Name="travellist" EntityType="ProjectModel.Store.travellist" store:Type="Tables" Schema="project" />
           <EntitySet Name="travellistplace" EntityType="ProjectModel.Store.travellistplace" store:Type="Tables" Schema="project" />
           <EntitySet Name="view" EntityType="ProjectModel.Store.view" store:Type="Tables" Schema="project" />
@@ -65,6 +67,14 @@
           </Key>
           <Property Name="Citynumber" Type="varchar" Nullable="false" MaxLength="20" />
           <Property Name="Cityname" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="favorite">
+          <Key>
+            <PropertyRef Name="Fid" />
+          </Key>
+          <Property Name="Fid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="PlaceId" Type="text" Nullable="false" />
         </EntityType>
         <EntityType Name="food">
           <Key>
@@ -189,6 +199,14 @@
           <Property Name="Comment" Type="text" Nullable="false" />
           <Property Name="pt" Type="varchar" Nullable="false" MaxLength="4" />
         </EntityType>
+        <EntityType Name="sortedhistory">
+          <Key>
+            <PropertyRef Name="SId" />
+          </Key>
+          <Property Name="SId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Tid" Type="int" Nullable="false" />
+          <Property Name="historyString" Type="text" Nullable="false" />
+        </EntityType>
         <EntityType Name="travellist">
           <Key>
             <PropertyRef Name="Tid" />
@@ -304,6 +322,8 @@
           </AssociationSet>
           <EntitySet Name="notfoundimages" EntityType="ProjectModel.notfoundimage" />
           <EntitySet Name="accomodationimages" EntityType="ProjectModel.accomodationimage" />
+          <EntitySet Name="favorites" EntityType="ProjectModel.favorite" />
+          <EntitySet Name="sortedhistories" EntityType="ProjectModel.sortedhistory" />
         </EntityContainer>
         <EntityType Name="accommodation">
           <Key>
@@ -669,6 +689,22 @@
           <Property Type="String" Name="Name" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Type="Binary" Name="Image" Nullable="false" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <EntityType Name="favorite">
+          <Key>
+            <PropertyRef Name="Fid" />
+          </Key>
+          <Property Type="Int32" Name="Fid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="PlaceId" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sortedhistory">
+          <Key>
+            <PropertyRef Name="SId" />
+          </Key>
+          <Property Type="Int32" Name="SId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Tid" Nullable="false" />
+          <Property Type="String" Name="historyString" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -888,6 +924,24 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="sid" ColumnName="sid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="favorites">
+            <EntityTypeMapping TypeName="ProjectModel.favorite">
+              <MappingFragment StoreEntitySet="favorite">
+                <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Fid" ColumnName="Fid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sortedhistories">
+            <EntityTypeMapping TypeName="ProjectModel.sortedhistory">
+              <MappingFragment StoreEntitySet="sortedhistory">
+                <ScalarProperty Name="historyString" ColumnName="historyString" />
+                <ScalarProperty Name="Tid" ColumnName="Tid" />
+                <ScalarProperty Name="SId" ColumnName="SId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

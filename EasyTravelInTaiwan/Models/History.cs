@@ -24,4 +24,5 @@ namespace EasyTravelInTaiwan.Models
             this.histories = input;
         }
     }
+
 }

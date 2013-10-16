@@ -29,7 +29,8 @@ namespace EasyTravelInTaiwan.Models
             {
                 List<city> cities = db.cities.ToList();
                 // 先找到 view
-                List<view> views = GetViewsByTravellistplace(UserId);
+
+                List<view> views = GetAllViewFromFavoriteByUserId(UserId);
 
                 foreach (city item in cities)
                 {
@@ -55,7 +56,7 @@ namespace EasyTravelInTaiwan.Models
             }
         }
 
-        public void AddViewType(city item,  List<view> viewList)
+        public void AddViewType(city item, List<view> viewList)
         {
             using (var db = new ProjectEntities())
             {
@@ -94,6 +95,51 @@ namespace EasyTravelInTaiwan.Models
         {
             int output = input.Sum();
             return output;
+        }
+
+        static public int CheckIsFavorite(int userId, string place)
+        {
+            using (var db = new ProjectEntities())
+            {
+                try
+                {
+                    db.favorites.Where(o => o.UserId == userId).Where(o => o.PlaceId == place).Single();
+                    return 1;
+                }
+                catch
+                {
+                    return 2;
+                }
+            }
+        }
+
+        static public void AddFavorite(int uId, string placeId)
+        {
+            using (var db = new ProjectEntities())
+            {
+                favorite temp = new favorite();
+                temp.UserId = uId;
+                temp.PlaceId = placeId;
+                db.favorites.Add(temp);
+                db.SaveChanges();
+            }
+        }
+
+        static public List<view> GetAllViewFromFavoriteByUserId(int uId)
+        {
+            using (var db = new ProjectEntities())
+            {
+                List<favorite> favorites = db.favorites.Where(o => o.UserId == uId).ToList<favorite>();
+
+                List<view> allViews = db.views.ToList();
+                List<view> views = new List<view>();
+                foreach (favorite item in favorites)
+                {
+                    int index = allViews.FindIndex(o => o.Id == item.PlaceId);
+                    views.Add(allViews[index]);
+                }
+                return views;
+            }
         }
     }
 }

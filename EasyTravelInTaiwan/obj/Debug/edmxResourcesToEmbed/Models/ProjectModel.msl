@@ -217,5 +217,23 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="favorites">
+      <EntityTypeMapping TypeName="ProjectModel.favorite">
+        <MappingFragment StoreEntitySet="favorite">
+          <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Fid" ColumnName="Fid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sortedhistories">
+      <EntityTypeMapping TypeName="ProjectModel.sortedhistory">
+        <MappingFragment StoreEntitySet="sortedhistory">
+          <ScalarProperty Name="historyString" ColumnName="historyString" />
+          <ScalarProperty Name="Tid" ColumnName="Tid" />
+          <ScalarProperty Name="SId" ColumnName="SId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

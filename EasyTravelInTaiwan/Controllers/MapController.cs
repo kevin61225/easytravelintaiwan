@@ -51,6 +51,15 @@ namespace EasyTravelInTaiwan.Controllers
                 viewList.Add(tempView);
             }
             ViewBag.WaypointId = tid;
+            try
+            {
+                ViewBag.SId = db.sortedhistories.Where(o => o.Tid == tid).ToList<sortedhistory>()[0].SId;
+            }
+            catch
+            {
+                // 表示無路線紀錄
+                ViewBag.SId = -1;
+            }
             return View(viewList);
         }
 
@@ -61,6 +70,18 @@ namespace EasyTravelInTaiwan.Controllers
             mapMarkerList.GetByTid(tid);
 
             return Json(mapMarkerList, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult PostDirectionHistory(string tid, string sortedList)
+        {
+            sortedList = sortedList.Remove(sortedList.Length - 1);
+            sortedhistory history = new sortedhistory();
+            history.historyString = sortedList;
+            history.Tid = int.Parse(tid);
+            db.sortedhistories.Add(history);
+            db.SaveChanges();
+            return RedirectToAction("SortedHistory", "Map", new { tid = tid } );
         }
 
         public JsonResult GetMap()
@@ -169,7 +190,28 @@ namespace EasyTravelInTaiwan.Controllers
             if (detail.viewimages.Count() == 0) detail.viewimages.Add(ViewImage.GetNotFoundImage(db));
             TempData["Title"] = place.Name;
             Session["Pt"] = place.Pt;
+            try
+            {
+                ViewBag.FavoriteType = SearchFavoriteModel.CheckIsFavorite((int)Session["UserId"], place.Id);
+            }
+            catch
+            {
+                ViewBag.FavoriteType = 2;
+            }
             return View(detail);
+        }
+
+        [HttpPost]
+        public ActionResult AddToFavorite(string userId, string placeId)
+        {
+            if (userId == string.Empty)
+            {
+                return Json(new { Status = 2, Message = "請先登入會員 !!" }, JsonRequestBehavior.AllowGet);
+            }
+            int uId = int.Parse(userId);
+
+            SearchFavoriteModel.AddFavorite(uId, placeId);
+            return Json(new { Status = 1, Message = "已收藏 !!" }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ViewPointEdit(string id)
@@ -232,23 +274,43 @@ namespace EasyTravelInTaiwan.Controllers
             return View(db.cities.ToList());
         }
 
-        public ActionResult SortPlace(int tid)
+        public ActionResult SortPlace(int tid, int sid)
         {
             List<travellistplace> travelListPlace = db.travellistplaces.Where(list => list.Tid == tid).ToList<travellistplace>();
+            sortedhistory histories = new sortedhistory();
             List<view> placeInfo = new List<view>();
-            foreach (travellistplace place in travelListPlace)
+            if (sid == -1)
             {
-                view temp = new view();
-                try
+                foreach (travellistplace place in travelListPlace)
                 {
-                    temp = db.views.Where(o => o.Id == place.Sno).Single();
+                    view temp = new view();
+                    try
+                    {
+                        temp = db.views.Where(o => o.Id == place.Sno).Single();
+                    }
+                    catch
+                    {
+                    }
+                    placeInfo.Add(temp);
                 }
-                catch
-                {
-                }
-                placeInfo.Add(temp);
             }
-
+            else
+            {
+                histories = db.sortedhistories.Where(o => o.SId == sid).Single();
+                List<string> historylist = histories.SeperateString();
+                foreach (string place in historylist)
+                {
+                    view temp = new view();
+                    try
+                    {
+                        temp = db.views.Where(o => o.Id == place).Single();
+                    }
+                    catch
+                    {
+                    }
+                    placeInfo.Add(temp);
+                }
+            }
             ViewBag.TravelListPlaces = placeInfo;
             ViewBag.TravelListLength = placeInfo.Count();
             return PartialView("Direction/_sortPlacePartial", travelListPlace);
@@ -407,7 +469,14 @@ namespace EasyTravelInTaiwan.Controllers
             return RedirectToAction("TravelListPlacePartial", "Map");
             //return Json(new { Status = 1, Message = "Success" });
         }
-
+        
+         // 切換清單
+        [HttpPost]
+        public ActionResult OnChangeSortList(string selectedList, string Tid)
+        {
+            return RedirectToAction("SortPlace", "Map", new { tid = int.Parse(Tid), sid = int.Parse(selectedList) });
+            //return Json(new { Status = 1, Message = "Success" });
+        }
 
         public string FindRoleIdByName(System.Security.Principal.IPrincipal User)
         {
@@ -448,9 +517,26 @@ namespace EasyTravelInTaiwan.Controllers
             return;
         }
 
-        public ActionResult SortedHistory()
+        public ActionResult SortedHistory(string tid)
         {
+            int id = int.Parse(tid);
+            List<sortedhistory> list = db.sortedhistories.Where(o => o.Tid == id).ToList<sortedhistory>();
+            ViewBag.SelectList = list;
+            ViewBag.ListCount = list.Count();
+            ViewBag.ListName = GenerateListNameByNumber(list.Count());
             return PartialView("Direction/_sortedPlaceHistory");
+        }
+
+        private List<string> GenerateListNameByNumber(int count)
+        {
+            List<string> output = new List<string>();
+            for (int i = 0; i < count; i++)
+            {
+                string temp = "規劃 ";
+                temp += (i+1).ToString();
+                output.Add(temp);
+            }
+            return output;
         }
 
         [Authorize]
@@ -477,7 +563,6 @@ namespace EasyTravelInTaiwan.Controllers
             return PartialView("Map/_myFavorPartial", suggestions);
         }
 
-        [Authorize]
         public ActionResult HistoryPartial()
         {
             List<History> history = (List<History>)Session["Histories"];

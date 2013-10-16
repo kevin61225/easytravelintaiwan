@@ -347,6 +347,10 @@
     <Compile Include="Models\DatabaseConstructor\partialPlace.cs" />
     <Compile Include="Models\DatabaseConstructor\partialMember.cs" />
     <Compile Include="Models\DatabaseConstructor\partialUser.cs" />
+    <Compile Include="Models\DatabaseConstructor\partialHistory.cs" />
+    <Compile Include="Models\favorite.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\food.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
@@ -402,6 +406,9 @@
     <Compile Include="Models\SearchTypeAheadEntity.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Models\SetCalculation.cs" />
+    <Compile Include="Models\sortedhistory.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Suggestor.cs" />
     <Compile Include="Models\travellist.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>

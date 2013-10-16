@@ -61,6 +61,8 @@
     </AssociationSet>
     <EntitySet Name="notfoundimages" EntityType="ProjectModel.notfoundimage" />
     <EntitySet Name="accomodationimages" EntityType="ProjectModel.accomodationimage" />
+    <EntitySet Name="favorites" EntityType="ProjectModel.favorite" />
+    <EntitySet Name="sortedhistories" EntityType="ProjectModel.sortedhistory" />
   </EntityContainer>
   <EntityType Name="accommodation">
     <Key>
@@ -425,5 +427,21 @@
     <Property Type="String" Name="Id" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="Name" MaxLength="65535" FixedLength="false" Unicode="false" />
     <Property Type="Binary" Name="Image" Nullable="false" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="favorite">
+    <Key>
+      <PropertyRef Name="Fid" />
+    </Key>
+    <Property Type="Int32" Name="Fid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="UserId" Nullable="false" />
+    <Property Type="String" Name="PlaceId" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="sortedhistory">
+    <Key>
+      <PropertyRef Name="SId" />
+    </Key>
+    <Property Type="Int32" Name="SId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="Tid" Nullable="false" />
+    <Property Type="String" Name="historyString" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

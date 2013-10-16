@@ -41,5 +41,7 @@ namespace EasyTravelInTaiwan.Models
         public DbSet<viewtype> viewtypes { get; set; }
         public DbSet<notfoundimage> notfoundimages { get; set; }
         public DbSet<accomodationimage> accomodationimages { get; set; }
+        public DbSet<favorite> favorites { get; set; }
+        public DbSet<sortedhistory> sortedhistories { get; set; }
     }
 }
