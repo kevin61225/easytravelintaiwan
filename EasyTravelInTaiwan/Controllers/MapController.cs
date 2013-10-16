@@ -110,15 +110,9 @@ namespace EasyTravelInTaiwan.Controllers
         public ActionResult TravelListPlacePartial()
         {
             int tid = (int)Session["TempTid"];
-            if (tid == -1)
-            {
-                return HttpNotFound();
-            }
+
             List<travellistplace> travelListPlace = db.travellistplaces.Where(list => list.Tid == tid).ToList<travellistplace>();
-            if (travelListPlace == null)
-            {
-                return HttpNotFound();
-            }
+
             List<view> placeInfo = new List<view>();
             foreach (travellistplace place in travelListPlace)
             {

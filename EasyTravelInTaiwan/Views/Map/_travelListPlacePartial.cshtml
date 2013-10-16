@@ -1,6 +1,5 @@
 ﻿@model List<EasyTravelInTaiwan.Models.travellistplace>
 
-@*@Html.Partial("_alerts")*@
 
 @Html.Partial("_placeAlert")
 
@@ -20,7 +19,7 @@
 </div>
 <div>
     <button id="Save-List-Button" class="btn" style="display: none;">儲存</button>
-    @if ((int)ViewBag.TravelListLength > 1)
+    @if (ViewBag.TravelListLength > 1)
     {
         @Html.ActionLink("進行規劃", "Direction", new { tid = Model[0].Tid }, new { @class = "btn", target = "_blank" });
 @*<button id="CalcDirection-Button" class="btn">進行規劃</button>*@
