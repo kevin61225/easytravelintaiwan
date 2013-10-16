@@ -73,7 +73,13 @@
 @Html.Hidden("WaypointId", (string)Session["Pt"])
 
 <div class="row">
-    <div id="map_canvas" class="map_canvas" style="float: left; width: 70%;"></div>
+    <div class="row" style="float: left; width: 70%;">
+        <div id="map_canvas" class="map_canvas"></div>
+        <br/>
+        <div id="SortHistory">
+            @Html.Action("SortedHistory", "Map")
+        </div>
+    </div>
     <div style="float: right; width: 27%;">
         <ul id="DirectionInfo" class="nav nav-tabs">
             <li class="active"><a href="#DragTab" data-toggle="tab">路徑選擇</a></li>
@@ -413,6 +419,7 @@
 
         // 排序過後的 waypts
         waypts = placeItems;
+        console.log(waypts);
     }
 
     function Reset() {

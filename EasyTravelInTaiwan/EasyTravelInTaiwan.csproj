@@ -806,8 +806,8 @@
     <Content Include="Views\Map\ViewPointEdit.cshtml" />
     <Content Include="Views\Map\ViewPointList.cshtml" />
     <Content Include="Views\Map\_imagePartial.cshtml" />
-    <Content Include="Views\Map\_travelListPartial.cshtml" />
-    <Content Include="Views\Map\_travelListPlacePartial.cshtml" />
+    <Content Include="Views\Map\Map\_travelListPartial.cshtml" />
+    <Content Include="Views\Map\Map\_travelListPlacePartial.cshtml" />
     <Content Include="Views\Index\Index.cshtml" />
     <Content Include="Views\Index\_hotViewPartial.cshtml" />
     <Content Include="Views\Index\_hotHotelPartial.cshtml" />
@@ -825,20 +825,21 @@
     <Content Include="Views\Rank\Index.cshtml" />
     <Content Include="Views\Rank\_rankFilterPartial.cshtml" />
     <Content Include="Views\Rank\_rankResultPartial.cshtml" />
-    <Content Include="Views\Map\_sortPlacePartial.cshtml" />
+    <Content Include="Views\Map\Direction\_sortPlacePartial.cshtml" />
     <Content Include="Views\Member\Favorite.cshtml" />
     <Content Include="Views\Member\Favorite\_favoriteTreeViewPartial.cshtml" />
     <Content Include="Views\Member\Favorite\_favoriteResultPartial.cshtml" />
-    <Content Include="Views\Map\_suggestPlacePartial.cshtml" />
-    <Content Include="Views\Map\_historyPartial.cshtml" />
-    <Content Include="Views\Map\_myFavorPartial.cshtml" />
-    <Content Include="Views\Map\_othersSuggestPlacePartial.cshtml" />
+    <Content Include="Views\Map\Map\_suggestPlacePartial.cshtml" />
+    <Content Include="Views\Map\Map\_historyPartial.cshtml" />
+    <Content Include="Views\Map\Map\_myFavorPartial.cshtml" />
+    <Content Include="Views\Map\Map\_othersSuggestPlacePartial.cshtml" />
     <Content Include="Views\Member\Friends\_friendsResultPartial.cshtml" />
     <Content Include="Views\Member\Friends\_friendsTreeViewPartial.cshtml" />
     <Content Include="Views\Member\Home.cshtml" />
     <Content Include="Views\Member\Friends.cshtml" />
     <Content Include="Views\Member\PersonalInfo\_personalInfoViewPartial.cshtml" />
     <Content Include="Views\Error\ErrorPage.cshtml" />
+    <Content Include="Views\Map\Direction\_sortedPlaceHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

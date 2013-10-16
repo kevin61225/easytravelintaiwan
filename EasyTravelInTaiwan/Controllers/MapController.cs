@@ -38,12 +38,7 @@ namespace EasyTravelInTaiwan.Controllers
 
         public ActionResult Direction(int tid)
         {
-            try
-            {
-                db.travellistplaces.Where(list => list.Tid == tid).Single();
-
-            }
-            catch
+            if (db.travellistplaces.Where(list => list.Tid == tid).ToList<travellistplace>().Count() < 2)
             {
                 return RedirectToAction("ErrorPage", "Error");
             }
@@ -103,7 +98,7 @@ namespace EasyTravelInTaiwan.Controllers
                 ViewBag.SelectList = travelList.Where(o => o.Tid == (int)Session["TempTid"]).Single();
             }
 
-            return PartialView("_travelListPartial", travelList);
+            return PartialView("Map/_travelListPartial", travelList);
         }
 
         [Authorize]
@@ -129,7 +124,7 @@ namespace EasyTravelInTaiwan.Controllers
 
             ViewBag.TravelListPlaces = placeInfo;
             ViewBag.TravelListLength = placeInfo.Count();
-            return PartialView("_travelListPlacePartial", travelListPlace);
+            return PartialView("Map/_travelListPlacePartial", travelListPlace);
         }
 
         public ActionResult ViewPointList()
@@ -256,7 +251,7 @@ namespace EasyTravelInTaiwan.Controllers
 
             ViewBag.TravelListPlaces = placeInfo;
             ViewBag.TravelListLength = placeInfo.Count();
-            return PartialView("_sortPlacePartial", travelListPlace);
+            return PartialView("Direction/_sortPlacePartial", travelListPlace);
         }
 
         // 將細項加入清單
@@ -453,10 +448,15 @@ namespace EasyTravelInTaiwan.Controllers
             return;
         }
 
+        public ActionResult SortedHistory()
+        {
+            return PartialView("Direction/_sortedPlaceHistory");
+        }
+
         [Authorize]
         public ActionResult SuggestPlacePartial()
         {
-            return PartialView("_suggestPlacePartial");
+            return PartialView("Map/_suggestPlacePartial");
         }
 
         [Authorize]
@@ -465,7 +465,7 @@ namespace EasyTravelInTaiwan.Controllers
             int userId = (int)Session["UserId"];
             Suggestor suggestor = new Suggestor();
             List<view> suggestions = suggestor.GetOtherSuggestPlaceSno(userId);
-            return PartialView("_othersSuggestPlacePartial", suggestions);
+            return PartialView("Map/_othersSuggestPlacePartial", suggestions);
         }
 
         [Authorize]
@@ -474,14 +474,14 @@ namespace EasyTravelInTaiwan.Controllers
             int userId = (int)Session["UserId"];
             Suggestor suggestor = new Suggestor();
             List<view> suggestions = suggestor.GetMyFavorPlaceSno(userId);
-            return PartialView("_myFavorPartial", suggestions);
+            return PartialView("Map/_myFavorPartial", suggestions);
         }
 
         [Authorize]
         public ActionResult HistoryPartial()
         {
             List<History> history = (List<History>)Session["Histories"];
-            return PartialView("_historyPartial", history);
+            return PartialView("Map/_historyPartial", history);
         }
 
         [HttpPost]
