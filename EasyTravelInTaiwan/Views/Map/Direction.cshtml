@@ -32,9 +32,11 @@
     div.growlUI h1, div.growlUI h2 {
         color: white;
         font-family: "微軟正黑體";
+        font-size: 32px;
         font-weight: bold;
-        padding: 5px 5px 5px 75px;
-        text-align: left;
+        /*padding: 5px 5px 5px 75px;*/
+        padding: 5px 5px 5px 5px;
+        text-align: center;
     }
 
     .box {
@@ -173,6 +175,7 @@
                 for (var i = 0; i < result.length; i++) {
                     waypts.push({
                         location: result[i].Address,
+                        Name: result[i].Name,
                         stopover: true
                     });
                 }
@@ -367,18 +370,19 @@
         createDestinationTable();
         // Get list of addresses from indexing array.
         var all_points = new Array();
+        var all_name = new Array();
         for (var x in waypts) {
             all_points.push({
                 //location: document.getElementById(waypts[x]).value,
                 location: waypts[x].location,
                 stopover: true
             });
+            all_name.push(waypts[x].Name);
         }
-
         // Get which method of travel is to be used.
         var selectedMode = "DRIVING"
         // Calculate directions and display results.
-        directionsService.route(all_points, selectedMode, false, false, false, "mi");
+        directionsService.route(all_points, all_name, selectedMode, false, false, false, "mi");
     }
 
     function RefreshDirections() {

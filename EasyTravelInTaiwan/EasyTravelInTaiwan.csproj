@@ -825,7 +825,6 @@
     <Content Include="Views\Search\SearchLanguageResult.cshtml" />
     <Content Include="Views\Search\SearchResult.cshtml" />
     <Content Include="Views\Search\SearchResultPartial.cshtml" />
-    <Content Include="Views\Rating\Index.cshtml" />
     <Content Include="Views\Rating\_placeRatingPartial.cshtml" />
     <Content Include="Views\Map\_imageSlidePartial.cshtml" />
     <Content Include="Views\Map\Direction.cshtml" />

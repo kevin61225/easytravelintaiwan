@@ -18,11 +18,12 @@
     <input id="UserRate" name="Pt" type="hidden" value="@ViewBag.UserRate">
 </p>
 
-<input name="star1" type="radio" class="auto-submit-star star {half:true}" value="1" title="Very Bad" />
-<input name="star1" type="radio" class="auto-submit-star star {half:true}" value="2" title="Bad" />
-<input name="star1" type="radio" class="auto-submit-star star {half:true}" value="3" title="OK" />
-<input name="star1" type="radio" class="auto-submit-star star {half:true}" value="4" title="Good" />
-<input name="star1" type="radio" class="auto-submit-star star {half:true}" value="5" title="Very Good" />
+
+<input name="starRate" type="radio" class="ratingstar .auto-submit-star" value="1" title="Very Bad" />
+<input name="starRate" type="radio" class="ratingstar .auto-submit-star" value="2" title="Bad" />
+<input name="starRate" type="radio" class="ratingstar .auto-submit-star" value="3" title="OK" />
+<input name="starRate" type="radio" class="ratingstar .auto-submit-star" value="4" title="Good" />
+<input name="starRate" type="radio" class="ratingstar .auto-submit-star" value="5" title="Very Good" />
 
 
 <br />
@@ -32,32 +33,30 @@
 
     $(document).ready(function () {
         var $rate = $('#UserRate').val();
-        $('input[type=radio]').rating('select', $rate);
-    });
+        $('input[name=starRate][value=' + $rate + ']').attr('checked', 'checked');
 
-
-    $('.auto-submit-star').rating({
-        callback: function (value, link) {
-            var $pt = $("#Pt").attr("value");
-            var $sno = $("#Sno").attr("value");
-
-            $.ajax({
-                type: "POST",
-                url: "@Url.Action("PostRating")",
-                data: JSON.stringify({ rate: value, pt: $pt, sno: $sno }),
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    console.log("Done");
-                    if (data.Status != 2) {
-                        $("#AverageRatingPartial").html(data);
+        $('input.ratingstar').rating({
+            callback: function (value, link) {
+                console.log("click!")
+                var $pt = $("#Pt").attr("value");
+                var $sno = $("#Sno").attr("value");
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("PostRating", "Rating")",
+                    data: JSON.stringify({ rate: value, pt: $pt, sno: $sno }),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        console.log("Done");
+                        if (data.Status != 2) {
+                            $("#AverageRatingPartial").html(data);
+                        }
+                        else {
+                            alert(data.Message);
+                            window.location.replace("/Member/Login?ReturnUrl=%2fMap%2fViewPointDetails%2f" + data.Sno);
+                        }
                     }
-                    else {
-                        alert(data.Message);
-                        window.location.replace("/Member/Login?ReturnUrl=%2fMap%2fViewPointDetails%2f" + data.Sno);
-                    }
-                }
-            });
-        }
+                });
+            }
+        });
     });
-
 </script>

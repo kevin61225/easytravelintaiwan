@@ -21,14 +21,16 @@ function DirectionsRoute(directionsDisplay) {
  * @param {bool} onlyCurrent If using multiple routes, do we want to show all of them or just the current
  * @param {string} units The distance units to use, either "km" or "mi"
  */
-DirectionsRoute.prototype.route = function (destinations, selectedMode, hwy, toll, onlyCurrent, units) {
+DirectionsRoute.prototype.route = function (destinations, names, selectedMode, hwy, toll, onlyCurrent, units) {
     this.directionsDisplay.reset();
 
     // Determine unit system.
     var unitSystem = google.maps.DirectionsUnitSystem.IMPERIAL;
     if (units == "公里")
         unitSystem = google.maps.DirectionsUnitSystem.METRIC;
-
+    for (var i = 0; i < names.length; i++) {
+        PlaceName.push(names[i]);
+    }
     // Loop through all destinations in groups of 10, and find route to display.
     for (var idx1 = 0; idx1 < destinations.length - 1; idx1 += 9) {
         // Setup options.
@@ -42,7 +44,6 @@ DirectionsRoute.prototype.route = function (destinations, selectedMode, hwy, tol
             unitSystem: unitSystem,
             waypoints: destinations.slice(idx1 + 1, idx2)
         };
-
         // Determine path and display results.
         this.directionsService.route(request, function (response, status) {
             if (status == google.maps.DirectionsStatus.OK)
@@ -64,6 +65,8 @@ DirectionsRoute.prototype.route = function (destinations, selectedMode, hwy, tol
  * @param {DivObject} pane The div pane to put the step-by-step directions.
  */
 markers = new Array();
+PlaceName = new Array();
+
 function DirectionsDisplay(map, pane) {
     this.geocoder = new google.maps.Geocoder();
     this.legs = new Array();
@@ -231,8 +234,10 @@ DirectionsDisplay.prototype.create_stepbystep_ = function (response, units) {
         var legs = routes[rte].legs;
         for (var leg = 0; leg < legs.length; leg++) {
             var steps = legs[leg].steps;
-            var letter1 = String.fromCharCode(65 + leg);
-            var letter2 = String.fromCharCode(65 + leg + 1);
+            //var letter1 = String.fromCharCode(65 + leg);
+            //var letter2 = String.fromCharCode(65 + leg + 1);
+            var letter1 = PlaceName[leg];
+            var letter2 = PlaceName[leg + 1];
             htmlText += "<br>";
             htmlText += "<tr><th colspan=2><hr></th></tr>";
             htmlText += "<tr><th colspan=2 align='center'><u>路徑從 " + letter1 + " 至 " + letter2 + "</u></th></tr>"; //direction from

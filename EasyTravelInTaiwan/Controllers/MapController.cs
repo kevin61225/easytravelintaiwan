@@ -79,9 +79,20 @@ namespace EasyTravelInTaiwan.Controllers
             sortedhistory history = new sortedhistory();
             history.historyString = sortedList;
             history.Tid = int.Parse(tid);
-            db.sortedhistories.Add(history);
-            db.SaveChanges();
-            return RedirectToAction("SortedHistory", "Map", new { tid = tid } );
+            try
+            {
+                db.sortedhistories.Where(o => o.Tid == history.Tid).Where(o => o.historyString == history.historyString).Single();
+                List<sortedhistory> list = db.sortedhistories.Where(o => o.Tid == history.Tid).ToList<sortedhistory>();
+                int index = list.FindIndex(x => x.historyString == history.historyString);
+                return Json(new { Status = "1", Messages = "路徑已存在 ! (於規劃 "+ (index+1) + ")" }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                db.sortedhistories.Add(history);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("SortedHistory", "Map", new { tid = tid });
         }
 
         public JsonResult GetMap()
@@ -469,8 +480,8 @@ namespace EasyTravelInTaiwan.Controllers
             return RedirectToAction("TravelListPlacePartial", "Map");
             //return Json(new { Status = 1, Message = "Success" });
         }
-        
-         // 切換清單
+
+        // 切換清單
         [HttpPost]
         public ActionResult OnChangeSortList(string selectedList, string Tid)
         {
@@ -533,7 +544,7 @@ namespace EasyTravelInTaiwan.Controllers
             for (int i = 0; i < count; i++)
             {
                 string temp = "規劃 ";
-                temp += (i+1).ToString();
+                temp += (i + 1).ToString();
                 output.Add(temp);
             }
             return output;
