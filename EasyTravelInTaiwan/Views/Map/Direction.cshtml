@@ -50,16 +50,6 @@
 <script src="~/scripts/jquery-sortable.js"></script>
 <script src="~/scripts/Directions.js"></script>
 
-@*<div class="hidden" id="Waypoints">
-    <ul>
-        @foreach (EasyTravelInTaiwan.Models.view maplatlng in Model)
-        {
-            <li id="place.@maplatlng.Id">
-                <a href="#">@maplatlng.Name<i class="icon-remove pull-right"></i></a>
-            </li>
-        }
-    </ul>
-</div>*@
 @Html.Hidden("WaypointId", (string)Session["Pt"])
 
 <div class="row">
@@ -221,44 +211,6 @@
         });
     }
 
-    //var adjustment
-    //$("ol.simple_with_animation").sortable({
-    //    group: 'simple_with_animation',
-    //    pullPlaceholder: false,
-    //    // animation on drop
-    //    onDrop: function (item, targetContainer, _super) {
-    //        var clonedItem = $('<li/>').css({ height: 0 })
-    //        item.before(clonedItem)
-    //        clonedItem.animate({ 'height': item.height() })
-
-    //        item.animate(clonedItem.position(), function () {
-    //            clonedItem.detach()
-    //            _super(item)
-    //        })
-    //        RefreshDirections();
-    //    },
-
-    //    // set item relative to cursor position
-    //    onDragStart: function ($item, container, _super) {
-    //        var offset = $item.offset(),
-    //        pointer = container.rootGroup.pointer
-
-    //        adjustment = {
-    //            left: pointer.left - offset.left,
-    //            top: pointer.top - offset.top
-    //        }
-
-    //        _super($item, container)
-    //    },
-    //    onDrag: function ($item, position) {
-    //        $item.css({
-    //            left: position.left - adjustment.left,
-    //            top: position.top - adjustment.top
-    //        })
-
-    //    }
-    //});
-
     function setupLocationMarker(item) {
 
         var markerIcon;
@@ -387,6 +339,7 @@
 
     function RefreshDirections() {
         initialize();
+        console.log('re');
     }
 
     function SortWaypoint() {
@@ -410,21 +363,6 @@
         // 排序過後的 waypts
         waypts = placeItems;
     }
-
-@*    $("#SaveSortedPlaceBtn").click(function () {
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("PostDirectionHistory", "Map")",
-            data: JSON.stringify({ tid: $waypointId, sortedList: SortedNumber }),
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                $("#SortHistory").html(data);
-                $("#HistorylListSelectPicker option").last().attr("selected", "selected");
-                $('#HistorylListSelectPicker').selectpicker('refresh');
-                $.growlUI('路徑已儲存 !');
-            }
-        });
-    });*@
 
     $(document).on('click', '.dropdown-menu .inner >li', function (e) {
         var $this = $(this).attr("rel");

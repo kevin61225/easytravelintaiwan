@@ -179,7 +179,27 @@ namespace EasyTravelInTaiwan.Controllers
             ViewBag.Type = type;
             ViewBag.FoundNum = model.Count();
 
+            try
+            {
+                if (uId == (int)Session["UserId"]) ViewBag.Deletable = 0;
+            }
+            catch
+            {
+                ViewBag.Deletable = 1;
+            }
+
             return PartialView("Favorite/_favoriteResultPartial", model.ToPagedList(page, pageSize));
+        }
+
+        [HttpPost]
+        public ActionResult DeleteFavoritePlace(string UserId, string PlaceId)
+        {
+            int uid = int.Parse(UserId);
+            favorite temp = db.favorites.Where(o => o.UserId == uid).Where(o => o.PlaceId == PlaceId).Single();
+            db.favorites.Remove(temp);
+            db.SaveChanges();
+            return RedirectToAction("FavoriteResultPartial", "Member");
+            return Json(new { Status = "1", Messages = "Success" }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

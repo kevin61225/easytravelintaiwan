@@ -8,8 +8,19 @@
             <option value="List-@ViewBag.SelectList[i].SId">@ViewBag.ListName[i]</option>
             }
         }
+        else
+        {
+            <option value="">尚無紀錄</option>
+        }
     </select>
-    <button id="SaveSortedPlaceBtn" class="btn btn-success" aria-hidden="true">儲存順序</button>
+    @if (ViewBag.Deletable == 0)
+    {
+        <button id="SaveSortedPlaceBtn" class="btn btn-success" aria-hidden="true">儲存順序</button>
+        if(ViewBag.ListCount > 0)
+        {
+        <button id="DeleteSortedPlaceBtn" class="btn btn-success" aria-hidden="true">刪除</button>
+        }
+    }
 </div>
 
 <script type="text/javascript">
@@ -29,6 +40,27 @@
                     $("#HistorylListSelectPicker option").last().attr("selected", "selected");
                     $('#HistorylListSelectPicker').selectpicker('refresh');
                     $.growlUI('路徑已儲存 !');
+                }
+            }
+        });
+    });
+
+    $("#DeleteSortedPlaceBtn").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("DeleteDirectionHistory", "Map")",
+            data: JSON.stringify({ tid: $waypointId, sortedList: SortedNumber }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                if (data.Status == "1") {
+                    $.growlUI(data.Messages);
+                }
+                else {
+                    $("#SortHistory").html(data);
+                    $("#HistorylListSelectPicker option").last().attr("selected", "selected");
+                    $('#HistorylListSelectPicker').selectpicker('refresh');
+                    $('.dropdown-menu .inner >li:last').click();
+                    $.growlUI('已刪除規劃紀錄 !');
                 }
             }
         });

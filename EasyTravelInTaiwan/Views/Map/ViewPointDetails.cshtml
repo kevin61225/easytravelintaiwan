@@ -8,7 +8,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="~/scripts/jquery.rating.js"></script>
 
-
 <h3>
     <ul class="breadcrumb">
         <li><a href="@Url.Action("CityViews", new { id = Model.Citynumber })">@Html.DisplayFor(model => model.CityName)</a> <span class="divider">/</span></li>
@@ -16,7 +15,7 @@
     </ul>
     @if (ViewBag.FavoriteType == 2)
     {
-        <button id="AddToFavorite" class="btn"><i class="icon-star"></i> 加入收藏</button>
+        <button id="AddToFavorite" class="btn"><i class="icon-star"></i>加入收藏</button>
     }
     else if (ViewBag.FavoriteType == 1)
     {
@@ -125,7 +124,6 @@
                 }
                 else {
                     alert(data.Message);
-
                     window.location.replace("/Member/Login?ReturnUrl=%2fMap%2fViewPointDetails%2f" + id);
                 }
             }

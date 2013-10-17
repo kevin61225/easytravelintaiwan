@@ -1,5 +1,19 @@
-﻿@*<link href="~/Content/jquery.rating.css" rel="stylesheet" />*@
-@*<script src="~/scripts/jquery.rating.js"></script>*@
+﻿
+<style type="text/css">
+    div.growlUI {
+        font-family: "微軟正黑體";
+        font-size: 32px;
+        font-weight: bold;
+        top: 20%;
+        left: 20%;
+        width: auto;
+    }
+
+        div.growlUI h1, div.growlUI h2 {          
+            padding: 5px 5px 5px 5px;
+            text-align: center;
+        }
+</style>
 
 綜合評價
 <p>
@@ -24,8 +38,7 @@
 <input name="starRate" type="radio" class="ratingstar .auto-submit-star" value="3" title="OK" />
 <input name="starRate" type="radio" class="ratingstar .auto-submit-star" value="4" title="Good" />
 <input name="starRate" type="radio" class="ratingstar .auto-submit-star" value="5" title="Very Good" />
-
-
+     
 <br />
 <br />
 
@@ -46,9 +59,9 @@
                     data: JSON.stringify({ rate: value, pt: $pt, sno: $sno }),
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
-                        console.log("Done");
                         if (data.Status != 2) {
                             $("#AverageRatingPartial").html(data);
+                            $.growlUI('已給予評分 !');
                         }
                         else {
                             alert(data.Message);

@@ -60,6 +60,7 @@ namespace EasyTravelInTaiwan.Controllers
                 // 表示無路線紀錄
                 ViewBag.SId = -1;
             }
+
             return View(viewList);
         }
 
@@ -84,12 +85,33 @@ namespace EasyTravelInTaiwan.Controllers
                 db.sortedhistories.Where(o => o.Tid == history.Tid).Where(o => o.historyString == history.historyString).Single();
                 List<sortedhistory> list = db.sortedhistories.Where(o => o.Tid == history.Tid).ToList<sortedhistory>();
                 int index = list.FindIndex(x => x.historyString == history.historyString);
-                return Json(new { Status = "1", Messages = "路徑已存在 ! (於規劃 "+ (index+1) + ")" }, JsonRequestBehavior.AllowGet);
+                return Json(new { Status = "1", Messages = "路徑已存在 ! (於規劃 " + (index + 1) + ")" }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
                 db.sortedhistories.Add(history);
                 db.SaveChanges();
+            }
+
+            return RedirectToAction("SortedHistory", "Map", new { tid = tid });
+        }
+
+        [HttpPost]
+        public ActionResult DeleteDirectionHistory(string tid, string sortedList)
+        {
+            sortedList = sortedList.Remove(sortedList.Length - 1);
+            sortedhistory history = new sortedhistory();
+            history.historyString = sortedList;
+            history.Tid = int.Parse(tid);
+            try
+            {
+                sortedhistory historyTemp = db.sortedhistories.Where(o => o.Tid == history.Tid).Where(o => o.historyString == history.historyString).Single();
+                db.sortedhistories.Remove(historyTemp);
+                db.SaveChanges();
+            }
+            catch
+            {
+              
             }
 
             return RedirectToAction("SortedHistory", "Map", new { tid = tid });
@@ -485,7 +507,14 @@ namespace EasyTravelInTaiwan.Controllers
         [HttpPost]
         public ActionResult OnChangeSortList(string selectedList, string Tid)
         {
-            return RedirectToAction("SortPlace", "Map", new { tid = int.Parse(Tid), sid = int.Parse(selectedList) });
+            try
+            {
+                return RedirectToAction("SortPlace", "Map", new { tid = int.Parse(Tid), sid = int.Parse(selectedList) });
+            }
+            catch
+            {
+                return Json(new { Status = 1, Message = "刪除失敗 !" });
+            }
             //return Json(new { Status = 1, Message = "Success" });
         }
 
@@ -532,6 +561,16 @@ namespace EasyTravelInTaiwan.Controllers
         {
             int id = int.Parse(tid);
             List<sortedhistory> list = db.sortedhistories.Where(o => o.Tid == id).ToList<sortedhistory>();
+            try
+            {
+                int uid = (int)Session["UserId"];
+                travellist tlist = db.travellists.Where(o => o.Tid == id).Where(o => o.UserId == uid).Single();
+                ViewBag.Deletable = 0;
+            }
+            catch
+            {
+                ViewBag.Deletable = 1;
+            }
             ViewBag.SelectList = list;
             ViewBag.ListCount = list.Count();
             ViewBag.ListName = GenerateListNameByNumber(list.Count());

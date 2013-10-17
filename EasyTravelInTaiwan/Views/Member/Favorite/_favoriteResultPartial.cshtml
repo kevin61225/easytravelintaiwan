@@ -13,14 +13,20 @@
                         @Html.ActionLink(item.Name, "ViewPointDetails", "Map", new { id = item.Id }, new { @class = "btn-link" })
                     </h5>
                 </div>
+                @if (ViewBag.Deletable == 0)
+                {
+                    <div class="pull-right">
+                        <button id="DeleteFavoriteBtn" value="@item.Id" class="btn">移除 <i class="icon-remove"></i></button>
+                    </div>
+                }
                 <div class="row">
                     <div class="span3">
-                        <a href="@Url.Action("ViewPointDetails", "Map", new { id = item.Id })" title="
-                            tem.Name">
+                        <a href="@Url.Action("ViewPointDetails", "Map", new { id = item.Id })" title="item.Name">
                             <img src="@Url.Action("RenderBookImage", "Search", new { id = item.Id, pt = item.Pt })" width="150" height="150" alt="@item.Name"/>
                         </a>
                     </div>
                     <div class="span8">
+                        <br />
                         <div>
                             <p>位於： @item.cityName</p>
                             <p>屬於： @item.viewTypeName</p>
@@ -34,10 +40,34 @@
             </li>
         }
     </ul>
-    @Html.Pager(Model.PageIndex,
+    @*    @Html.Pager(Model.PageIndex,
             Model.TotalPages,
-            x => Url.Action("FavoriteResultPartial", "Member", new  {  city = 1,  type = 1,  uId = 19, page = x }),
-            "pagination-centered")
+            x => Url.Action("FavoriteResultPartial", "Member", new { city = 1, type = 1, uId = 19, page = x }),
+            "pagination-centered")*@
 
-    @*@Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount, new AjaxOptions { UpdateTargetId = "FavortieResultPartial"}).Options(o => o.Action("FavoriteResultPartial"))*@
 </div>
+
+<script type="text/javascript">
+    $('#DeleteFavoriteBtn').click(function () {
+        var placeId = $(this).val();
+        console.log(placeId);
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("DeleteFavoritePlace", "Member")",
+            data: JSON.stringify({ UserId: "@Session["UserId"]", PlaceId: placeId, }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                console.log(data);
+                if (data.Status == 1) {
+                    alert(data.Messages);
+                    //window.location.replace("/Member/Home?User=" + id);
+                }
+                else {
+                    alert(data.Messages);
+
+                    window.location.replace("/Member/Login?ReturnUrl=%2fMember%2fHome%3fUser%3d" + id);
+                }
+            }
+        });
+    });
+</script>
