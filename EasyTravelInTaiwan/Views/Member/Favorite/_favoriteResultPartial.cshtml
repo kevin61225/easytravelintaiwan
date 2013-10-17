@@ -16,7 +16,7 @@
                 @if (ViewBag.Deletable == 0)
                 {
                     <div class="pull-right">
-                        <button id="DeleteFavoriteBtn" value="@item.Id" class="btn">移除 <i class="icon-remove"></i></button>
+                        <button name="DeleteFavoriteBtn" id="DeleteFavoriteBtn" value="@item.Id" class="btn">移除 <i class="icon-remove"></i></button>
                     </div>
                 }
                 <div class="row">
@@ -54,20 +54,24 @@
         $.ajax({
             type: "POST",
             url: "@Url.Action("DeleteFavoritePlace", "Member")",
-            data: JSON.stringify({ UserId: "@Session["UserId"]", PlaceId: placeId, }),
+            data: JSON.stringify({ UserId: "@Session["UserId"]", PlaceId: placeId, city: city, type: type }),
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                console.log(data);
-                if (data.Status == 1) {
-                    alert(data.Messages);
-                    //window.location.replace("/Member/Home?User=" + id);
-                }
-                else {
-                    alert(data.Messages);
-
-                    window.location.replace("/Member/Login?ReturnUrl=%2fMember%2fHome%3fUser%3d" + id);
-                }
+                $('#FavortieResultPartial').html(data);
             }
         });
     });
+    @*$(document).on('click', '#DeleteFavoriteBtn', function () {
+        var placeId = $(this).val();
+        console.log(placeId);
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("DeleteFavoritePlace", "Member")",
+            data: JSON.stringify({ UserId: "@Session["UserId"]", PlaceId: placeId, city: city, type: type }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $('#FavortieResultPartial').html(data);
+            }
+        });
+    });*@
 </script>

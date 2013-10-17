@@ -192,14 +192,14 @@ namespace EasyTravelInTaiwan.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeleteFavoritePlace(string UserId, string PlaceId)
+        public ActionResult DeleteFavoritePlace(string UserId, string PlaceId, string city, string type)
         {
             int uid = int.Parse(UserId);
             favorite temp = db.favorites.Where(o => o.UserId == uid).Where(o => o.PlaceId == PlaceId).Single();
             db.favorites.Remove(temp);
             db.SaveChanges();
-            return RedirectToAction("FavoriteResultPartial", "Member");
-            return Json(new { Status = "1", Messages = "Success" }, JsonRequestBehavior.AllowGet);
+            return RedirectToAction("FavoriteResultPartial", "Member", new { type = type, city = city, uId = uid, page = 1 });
+            //return Json(new { Status = "1", Messages = "Success" }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

@@ -1,6 +1,6 @@
 ﻿<style>
     #Suggestbox {
-        height: 400px;
+        height: auto;
     }
 
         #Suggestbox ul {
@@ -13,3 +13,9 @@
     <h4>他人推薦的</h4>
     @Html.Action("OthersSuggestPlacePartial", "Map")
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Suggestbox").niceScroll({ autohidemode: true });
+    });
+</script>

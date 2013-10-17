@@ -25,7 +25,10 @@
 <script type="text/javascript">
     $(document).ajaxStart($.blockUI({ message: "請稍後... " }));
     $(document).ajaxStop($.unblockUI);
-    $("#HistoryInner").niceScroll({ autohidemode: true });
+    $(document).ready(function () {
+        $("#HistoryInner").niceScroll({ autohidemode: true });
+    });
+   
     $('#HistoryWrapper li').click(function () {
         var str = $(this).attr('id');
         var n = str.split(".");
@@ -35,7 +38,8 @@
                 id = i;
             }
         }
-        google.maps.event.trigger(gmarkers[id], "click");
-        gmarkers[id].setVisible(true);
+        SetGmarkerVisible(id);
+        //google.maps.event.trigger(gmarkers[id], "click");
+        //gmarkers[id].setVisible(true);
     });
 </script>

@@ -44,10 +44,13 @@
 </div>
 
 <script type="text/javascript">
+    var city;
+    var type;
     $('#TypeList li').click(function () {
         var str = $(this).attr('id');
         var n = str.split(".");
-
+        type = n[1];
+        city = n[2];
         $.ajax({
             type: "POST",
             url: "@Url.Action("FavoriteResultPartial", "Member")",

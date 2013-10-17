@@ -13,9 +13,11 @@
         for (var i = 0; i < gmarkers.length; i++) {
             if (gmarkers[i].gId == n[1]) {
                 id = i;
+                console.log(id);
             }
         }
-        google.maps.event.trigger(gmarkers[id], "click");
-        gmarkers[id].setVisible(true);
+        SetGmarkerVisible(id);
+        //google.maps.event.trigger(gmarkers[id], "click");
+        //gmarkers[id].setVisible(true);
     });
 </script>

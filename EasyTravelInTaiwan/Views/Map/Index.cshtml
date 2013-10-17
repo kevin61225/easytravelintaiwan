@@ -141,14 +141,6 @@
 
 <script type="text/javascript">
 
-    $(window).on('unload', function () {
-        //localStorage.clear();
-    });
-
-    //$(window).on('beforeunload', function (e) {
-    //    return '如果直接離開的話，尚未儲存的資訊將會被清除。';
-    //});
-
     var mainIcon = {
         url: '/Content/Icons/04.png',
         origin: new google.maps.Point(0, 0),
@@ -259,16 +251,6 @@
 
     $(document).ajaxStart($.blockUI({
         message: "資料讀取中... "
-        //,
-        //css: {
-        //    top: ($(window).height() - 240) / 2 + 'px',
-        //    left: ($(window).width() - 240) / 2 + 'px',
-        //    width: '240px',
-        //    color: '#fff',
-        //    background: 'none',
-        //    border: '0px',
-        //    opacity: .7
-        //}
     }));
 
     $(document).ready(function () {
@@ -301,7 +283,6 @@
                 //var str = $(this).attr('id');
                 //var n = str.split(".");
                 var name = $("#SearchView").val();
-                console.log(name);
                 for (var i = 0; i < gmarkers.length; i++) {
                     if (gmarkers[i].title == name) {
                         id = i;
@@ -320,11 +301,6 @@
         historicalOverlay = new google.maps.GroundOverlay('/Content/images/PleaseZoomIn.png', imageBounds);
         historicalOverlay.setMap(gmap);
 
-        ////google.maps.event.addListener(gmarker, 'dblclick', function () {
-        ////    // When a user double clicks on the icon fit to the map to the bounds
-        ////    gmap.fitBounds(distanceWidget.get('bounds'));
-        ////    console.log("dbclick!!");
-        ////});
         $.each(mapData, function (i, item) {
             setupLocationMarker(item);
         });
@@ -417,7 +393,7 @@
             infowindow.setContent('<p>' + item.Name + '</p><p>地址：' + item.Address + '</p><p>類型：' + item.Viewtype + '</p><a href="/Map/ViewPointDetails/' + item.Id + ' " target="_blank">點我看詳細內容</a>');
             infowindow.open(gmap, this);
             waypts.push({ gId: marker.gId, title: marker.title });
-            $.cookie('waypts', waypts, { expires: 7 });
+            $.cookie('wayptsCookie', waypts, { expires: 7 });
             $('#History').click();
         });
 
@@ -555,7 +531,6 @@
 
         sizer.bindTo('map', this);
         sizer.bindTo('position', this, 'sizer_position');
-        console.log('a ha !!');
         var me = this;
         google.maps.event.addListener(sizer, 'drag', function () {
             // Set the circle distance (radius)
@@ -608,7 +583,7 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 $("#TravelListPlacePartialView").html(data);
-                //waypts = [];
+
                 for (var i = 0; i < gmarkers.length; i++) {
                     if (gmarkers[i].isChecked) {
                         gmarkers[i].isChecked = false;
@@ -629,7 +604,7 @@
     });
 
     $('#History').click(function () {
-        var test = $.cookie('waypts');
+        var test = $.cookie('wayptsCookie');
         console.log(test)
         $.ajax({
             url: "@Url.Action("RetrieveHistory", "Map")",
@@ -643,9 +618,22 @@
     });
 
     function CheckHistory() {
-        if ($.cookie('waypts') != null) {
-            waypts = $.cookie('waypts');
+        if ($.cookie('wayptsCookie') != null) {
+            waypts = $.cookie('wayptsCookie');
+            console.log("Get Cookie!!");
+            console.log(waypts);
         }
+    }
+
+    function RefreshAllScrollBar() {
+        $("#box").niceScroll({ autohidemode: true });
+        $("#HistoryInner").niceScroll({ autohidemode: true });
+        $("#Suggestbox").niceScroll({ autohidemode: true });
+    }
+
+    function SetGmarkerVisible(index) {
+        google.maps.event.trigger(gmarkers[index], "click");
+        gmarkers[index].setVisible(true);
     }
 
 </script>
