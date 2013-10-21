@@ -513,49 +513,141 @@ namespace EasyTravelInTaiwan.Controllers
 
         #region Facebook Login
 
-        public ActionResult FacebookLogin(string fbID, string fbName, string fbEmail)
+        public ActionResult FacebookRegister(string fbID)
         {
-            LoginModel loginModel = new LoginModel();
+            List<viewtype> types = db.viewtypes.ToList();
+            List<ViewTypeCheckbox> list = new List<ViewTypeCheckbox>();
+            RegisterModel model = new RegisterModel();
+            for (int i = 0; i < types.Count; i++)
+            {
+                ViewTypeCheckbox temp = new ViewTypeCheckbox();
+                temp.viewtype = types[i];
+                list.Add(temp);
+            }
+            model.ViewTypeList = list;
+            ViewBag.FbID = fbID;
+            return View(model);
+        }
 
-            RegisterForFB(fbID, fbName, fbEmail);
+        [HttpPost]
+        public ActionResult FacebookRegist(RegisterModel member, string fbID)
+        {
+            if (RegisterModel.GetCheckedNumber(member.ViewTypeList) < 3)
+            {
+                TempData["Error"] = "請選擇至少三項的個人喜好 !!";
+                return RedirectToAction("FacebookRegister", "Member", new { fbID = fbID });
+            }
+            member registMember = new member(member);
+
+            // 將 favorite 匯入 fbmember
+            member fbmember = db.members.Where(o => o.Account == fbID).Single();
+            fbmember.favorite = registMember.favorite;
+            db.Entry(fbmember).State = EntityState.Modified;
+            db.SaveChanges();
+
+            partialUser kernel = new partialUser();
+
+            kernel.LoadUserData();
+            //kernel.RunSeparate();
+            kernel.SetGroupIdBySingle(fbmember.Account);
+            SendEmailForRegist(fbmember);
+
+            LoginModel loginModel = new LoginModel();
             loginModel.UserName = fbID;
             loginModel.Password = fbID;
             loginModel.RememberMe = false;
+
             if (!AutoLogin(loginModel))
             {
                 return RedirectToAction("Login", "Member");
             }
-            TempData["success"] = "登入成功 !!";
-            return RedirectToAction("Index", "Home");
+            Session["FBUser"] = fbID;
+            return RedirectToAction("Index", "Index");
         }
 
-        [HttpPost]
-        public bool RegisterForFB(string fbID, string fbName, string fbEmail)
+        public ActionResult FacebookLogin(string fbID, string fbName, string fbEmail, string sex)
+        {
+            LoginModel loginModel = new LoginModel();
+            if (!CheckFacebookAccountExist(fbID))
+            {
+                RegisterForFB(fbID, fbName, fbEmail, sex);
+                return RedirectToAction("FacebookRegister", "Member", new { fbID = fbID });          
+            }
+            if (!CheckHasFavorite(fbID))
+            {
+                return RedirectToAction("FacebookRegister", "Member", new { fbID = fbID });     
+            }
+
+            loginModel.UserName = fbID;
+            loginModel.Password = fbID;
+            loginModel.RememberMe = false;
+
+            if (!AutoLogin(loginModel))
+            {
+                return RedirectToAction("Login", "Member");
+            }
+            Session["FBUser"] = fbID;
+            TempData["success"] = "登入成功 !!";
+            return RedirectToAction("Index", "Index");
+        }
+
+        public bool CheckHasFavorite(string fbID)
+        {
+            try
+            {
+                member temp = db.members.Where(o => o.Account == fbID).Single();
+                if (temp.favorite == string.Empty) return false;
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool CheckFacebookAccountExist(string fbID)
+        {
+            try
+            {
+                facebookprofile temp = db.facebookprofiles.Where(o => o.FacebookId == fbID).Single();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public void RegisterForFB(string fbID, string fbName, string fbEmail, string sex)
         {
             member fbMember = new member();
             fbMember.Account = fbID;
-            fbMember.Password = fbID;
+            fbMember.Password = Encrypt(fbID, true); ;
             fbMember.Name = fbName;
             fbMember.Email = fbEmail;
             fbMember.Role = 2;
+            fbMember.favorite = string.Empty;
             fbMember.Birthday = DateTime.Now;
             fbMember.PhoneNumber = "unknown";
-            fbMember.Sex = "Male";
+            if(sex == "male")
+            {
+                fbMember.Sex = "Male";
+            }
+            else if(sex == "female")
+            {
+                fbMember.Sex = "Female";
+            }
             fbMember.UserAddress = "unknown";
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    db.members.Add(fbMember);
-                    db.SaveChanges();
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-            return true;
+            db.members.Add(fbMember);
+            db.SaveChanges();
+
+            member addedMember = db.members.Where(o => o.Account == fbID).Single();
+            facebookprofile fbpro = new facebookprofile();
+            fbpro.FacebookId = fbID;
+            fbpro.UserId = addedMember.UserID;
+            db.facebookprofiles.Add(fbpro);
+            db.SaveChanges();
         }
 
         #endregion

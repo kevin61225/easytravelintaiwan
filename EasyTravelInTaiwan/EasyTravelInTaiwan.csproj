@@ -348,6 +348,9 @@
     <Compile Include="Models\DatabaseConstructor\partialMember.cs" />
     <Compile Include="Models\DatabaseConstructor\partialUser.cs" />
     <Compile Include="Models\DatabaseConstructor\partialHistory.cs" />
+    <Compile Include="Models\facebookprofile.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\favorite.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
@@ -846,6 +849,7 @@
     <Content Include="Views\Member\PersonalInfo\_personalInfoViewPartial.cshtml" />
     <Content Include="Views\Error\ErrorPage.cshtml" />
     <Content Include="Views\Map\Direction\_sortedPlaceHistory.cshtml" />
+    <Content Include="Views\Member\FacebookRegister.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

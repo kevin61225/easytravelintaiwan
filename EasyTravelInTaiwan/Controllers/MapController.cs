@@ -111,7 +111,7 @@ namespace EasyTravelInTaiwan.Controllers
             }
             catch
             {
-              
+
             }
 
             return RedirectToAction("SortedHistory", "Map", new { tid = tid });
@@ -360,28 +360,16 @@ namespace EasyTravelInTaiwan.Controllers
                 foreach (travellistplace item in info)
                 {
                     travellistplace temp = new travellistplace();
+
                     try
                     {
-                        temp = db.travellistplaces.Where(o => o.Sno == item.Sno).Single();
+                        temp = db.travellistplaces.Where(o => o.Tid == tid).Where(o => o.Sno == item.Sno).Single();
                     }
                     catch
                     {
-
-                    }
-                    if (!db.travellistplaces.ToList().Contains(temp))
-                    {
                         item.Tid = tid;
-                        try
-                        {
-                            db.travellistplaces.Add(item);
-                            db.SaveChanges();
-                        }
-                        catch
-                        {
-                            TempData["Error"] = "儲存錯誤";
-                            return Json(new { Status = 3, Message = "Saving Error in " + item.Sno });
-                        }
-
+                        db.travellistplaces.Add(item);
+                        db.SaveChanges();
                     }
                 }
                 TempData["SaveSuccess"] = "儲存成功 !!";

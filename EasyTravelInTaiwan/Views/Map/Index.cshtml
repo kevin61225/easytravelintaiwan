@@ -72,7 +72,7 @@
 <!--引入 Google API-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.9&sensor=false"></script>
+@*<script src="https://maps.googleapis.com/maps/api/js?v=3.9&sensor=false"></script>*@
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
 <script src="~/scripts/jquery.validate.unobtrusive.js"></script>
 <script src="~/scripts/jquery.ui.core.js"></script>
@@ -80,9 +80,9 @@
 <script src="~/scripts/jquery.ui.progressbar.js"></script>
 <script src="~/scripts/jquery.blockUI.js"></script>
 
+<script src="~/scripts/GoogleMapRightClick.js"></script>
 <script src="~/scripts/ContextMenu.js"></script>
 <script src="~/scripts/jquery.geocomplete.js"></script>
-<script src="~/scripts/GoogleMapRightClick.js"></script>
 <script src="~/scripts/jquery.ajax-progress.js"></script>
 <script src="~/scripts/progress.js"></script>
 
@@ -138,7 +138,6 @@
 
 
 <div id="info"></div>
-
 <script type="text/javascript">
 
     var mainIcon = {
@@ -245,7 +244,7 @@
     var gmarker = $("#inputGeo").geocomplete("marker");
     var infowindow = new google.maps.InfoWindow();
     var gmarkers = [];
-    var waypts = [];
+    var waypts = new Array();
     var contextMenu;
     var unloading = false;
 
@@ -393,7 +392,7 @@
             infowindow.setContent('<p>' + item.Name + '</p><p>地址：' + item.Address + '</p><p>類型：' + item.Viewtype + '</p><a href="/Map/ViewPointDetails/' + item.Id + ' " target="_blank">點我看詳細內容</a>');
             infowindow.open(gmap, this);
             waypts.push({ gId: marker.gId, title: marker.title });
-            $.cookie('wayptsCookie', waypts, { expires: 7 });
+            $.cookie('wayptsCookie', waypts);
             $('#History').click();
         });
 
@@ -619,7 +618,7 @@
 
     function CheckHistory() {
         if ($.cookie('wayptsCookie') != null) {
-            waypts = $.cookie('wayptsCookie');
+            waypts = JSON.parse($.cookie('wayptsCookie'));
             console.log("Get Cookie!!");
             console.log(waypts);
         }

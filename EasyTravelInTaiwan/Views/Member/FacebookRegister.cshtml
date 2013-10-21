@@ -1,0 +1,48 @@
+﻿@model EasyTravelInTaiwan.Models.RegisterModel
+
+@{
+    ViewBag.Title = "Easy Travel In Taiwan - 註冊";
+    Layout = "~/Views/shared/_BootstrapLayout.empty.cshtml";
+}
+
+<h2>會員註冊</h2>
+
+@using (Html.BeginForm("FacebookRegist", "Member", new { fbID = ViewBag.FbID }))
+{
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <div class="editor-label">
+            @Html.DisplayNameFor(model => model.ViewTypeList) (請至少勾選三項)
+        </div>
+        <div class="editor-field form-inline">
+            <br />
+            <table>
+                <tr>
+                    @for (var i = 0; i < Model.ViewTypeList.Count; i++)
+                    {
+                        <td class="span4">
+                            @Html.DisplayFor(model => model.ViewTypeList[i].viewtype.Typename, new { @class = "checkbox" })
+                            @Html.HiddenFor(model => model.ViewTypeList[i].viewtype.Typenumber)
+                            @Html.CheckBoxFor(model => model.ViewTypeList[i].isCheck)
+                        </td>
+                        if (i % 3 == 0)
+                        {
+                        @Html.Raw("</tr><tr><p></p>")
+                        }
+                    }
+                </tr>
+            </table>
+        </div>
+        <br />
+        <br />
+        <br />
+        <p>
+            <input type="submit" value="創建帳號" class="btn btn-success" />
+            @Html.ActionLink("回首頁", "Index", "Index", null, new { @class = "btn btn-primary" })
+        </p>
+        <br />
+    </fieldset>
+    
+}

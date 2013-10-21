@@ -26,7 +26,10 @@ namespace EasyTravelInTaiwan.Models
         }
     
         public DbSet<accommodation> accommodations { get; set; }
+        public DbSet<accomodationimage> accomodationimages { get; set; }
         public DbSet<city> cities { get; set; }
+        public DbSet<facebookprofile> facebookprofiles { get; set; }
+        public DbSet<favorite> favorites { get; set; }
         public DbSet<food> foods { get; set; }
         public DbSet<friend> friends { get; set; }
         public DbSet<hotel> hotels { get; set; }
@@ -35,13 +38,11 @@ namespace EasyTravelInTaiwan.Models
         public DbSet<place> places { get; set; }
         public DbSet<placeimage> placeimages { get; set; }
         public DbSet<rating> ratings { get; set; }
+        public DbSet<sortedhistory> sortedhistories { get; set; }
         public DbSet<travellist> travellists { get; set; }
         public DbSet<travellistplace> travellistplaces { get; set; }
         public DbSet<view> views { get; set; }
         public DbSet<viewtype> viewtypes { get; set; }
         public DbSet<notfoundimage> notfoundimages { get; set; }
-        public DbSet<accomodationimage> accomodationimages { get; set; }
-        public DbSet<favorite> favorites { get; set; }
-        public DbSet<sortedhistory> sortedhistories { get; set; }
     }
 }

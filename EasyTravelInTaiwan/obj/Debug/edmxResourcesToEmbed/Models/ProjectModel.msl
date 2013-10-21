@@ -25,11 +25,39 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="accomodationimages">
+      <EntityTypeMapping TypeName="ProjectModel.accomodationimage">
+        <MappingFragment StoreEntitySet="accomodationimage">
+          <ScalarProperty Name="sid" ColumnName="sid" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="cities">
       <EntityTypeMapping TypeName="ProjectModel.city">
         <MappingFragment StoreEntitySet="city">
           <ScalarProperty Name="Citynumber" ColumnName="Citynumber" />
           <ScalarProperty Name="Cityname" ColumnName="Cityname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="facebookprofiles">
+      <EntityTypeMapping TypeName="ProjectModel.facebookprofile">
+        <MappingFragment StoreEntitySet="facebookprofile">
+          <ScalarProperty Name="Pid" ColumnName="Pid" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="FacebookId" ColumnName="FacebookId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="favorites">
+      <EntityTypeMapping TypeName="ProjectModel.favorite">
+        <MappingFragment StoreEntitySet="favorite">
+          <ScalarProperty Name="Fid" ColumnName="Fid" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -157,6 +185,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="sortedhistories">
+      <EntityTypeMapping TypeName="ProjectModel.sortedhistory">
+        <MappingFragment StoreEntitySet="sortedhistory">
+          <ScalarProperty Name="SId" ColumnName="SId" />
+          <ScalarProperty Name="Tid" ColumnName="Tid" />
+          <ScalarProperty Name="historyString" ColumnName="historyString" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="travellists">
       <EntityTypeMapping TypeName="ProjectModel.travellist">
         <MappingFragment StoreEntitySet="travellist">
@@ -204,34 +241,6 @@
         <MappingFragment StoreEntitySet="notfoundimage">
           <ScalarProperty Name="Image" ColumnName="Image" />
           <ScalarProperty Name="NId" ColumnName="NId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="accomodationimages">
-      <EntityTypeMapping TypeName="ProjectModel.accomodationimage">
-        <MappingFragment StoreEntitySet="accomodationimage">
-          <ScalarProperty Name="Image" ColumnName="Image" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="sid" ColumnName="sid" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="favorites">
-      <EntityTypeMapping TypeName="ProjectModel.favorite">
-        <MappingFragment StoreEntitySet="favorite">
-          <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="Fid" ColumnName="Fid" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="sortedhistories">
-      <EntityTypeMapping TypeName="ProjectModel.sortedhistory">
-        <MappingFragment StoreEntitySet="sortedhistory">
-          <ScalarProperty Name="historyString" ColumnName="historyString" />
-          <ScalarProperty Name="Tid" ColumnName="Tid" />
-          <ScalarProperty Name="SId" ColumnName="SId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

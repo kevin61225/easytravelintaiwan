@@ -16,7 +16,7 @@ namespace EasyTravelInTaiwan.Models
     {
         public view()
         {
-            this.rating = new HashSet<rating>();
+            this.ratings = new HashSet<rating>();
         }
     
         public string Id { get; set; }
@@ -30,7 +30,7 @@ namespace EasyTravelInTaiwan.Models
         public string IconType { get; set; }
         public string Description { get; set; }
     
+        public virtual ICollection<rating> ratings { get; set; }
         public virtual viewtype viewtype1 { get; set; }
-        public virtual ICollection<rating> rating { get; set; }
     }
 }

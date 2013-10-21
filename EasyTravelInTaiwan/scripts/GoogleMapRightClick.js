@@ -106,10 +106,10 @@
                 break;
             case 'directions_waypoint_click':
                 if (!gmarkers[markerIndex].isChecked) {
-                    waypts.push({
-                        location: tempWaypt,
-                        stopover: true
-                    });
+                    //waypts.push({
+                    //    location: tempWaypt,
+                    //    stopover: true
+                    //});
                     $("#InputsWrapper").append('<li id="place.' + gmarkers[markerIndex].gId + '"><a href="#">' + tempWaypt + '<i class="icon-remove pull-right"></i></a></li>');
                     $("#Save-List-Button").click();
 

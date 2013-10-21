@@ -40,19 +40,19 @@
                         <div class="navbar-form pull-right">
                             @if (!User.Identity.IsAuthenticated)
                             {
-@*<button class="btn btn-primary" type="button" onclick="FacebookLogin()">
-                                    <img alt="140x140" src="~/Content/images/FB-logo.png" width="20" height="20" />
-                                </button>*@
+                                <button class="btn btn-primary" type="button" onclick="FacebookLogin()">
+                                    <img alt="140x140" src="~/Content/images/FB-logo.png" width="20" height="20" /></button>
                                 <a href="#myModal" role="button" class="btn btn-primary" data-toggle="modal">登入</a>
                             }
                             else
                             {
+                                <img src="https://graph.facebook.com/@Session["FBUser"]/picture?type=small">
                                 <div class="btn-group">
                                     <a class="btn btn-primary" href="#"><i class="icon-user icon-white"></i>&nbsp;&nbsp;Welcome !! @Session["UserName"]</a>
                                     <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="~/Member/Index"><i class="icon-pencil"></i> 會員資料</a></li>
-                                        <li><a href="~/Member/Home?User=@Session["UserId"]"><i class="icon-list-alt"></i> 我的首頁</a></li>
+                                        <li><a href="~/Member/Index"><i class="icon-pencil"></i>會員資料</a></li>
+                                        <li><a href="~/Member/Home?User=@Session["UserId"]"><i class="icon-list-alt"></i>我的首頁</a></li>
                                         @*<li><a href="~/Book/IndexTrace"><i class="icon-list-alt"></i>我的收藏</a></li>*@
                                         @*<li><a href="~/Rating/Index"><i class="icon-list-alt"></i> 評分列表</a></li>*@
                                     </ul>
@@ -140,16 +140,17 @@
     //var $ = jQuery.noConflict();
     $(document).ready(function () {
         //$('#myCarousel').carousel({ interval: 3000, cycle: true });
-        FacebookInit();
+        //FacebookInit();
     });
 
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1&appId=544818928892863";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+    //(function (d, s, id) {
+    //    var js, fjs = d.getElementsByTagName(s)[0];
+    //    if (d.getElementById(id)) return;
+    //    js = d.createElement(s); js.id = id;
+    //    js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1&appId=544818928892863";
+    //    fjs.parentNode.insertBefore(js, fjs);
+    //}(document, 'script', 'facebook-jssdk'));
+
 </script>
 
 <script>
@@ -163,6 +164,58 @@
     ga('create', 'UA-44866846-1', 'no-ip.info');
     ga('send', 'pageview');
 
+</script>
+
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '544818928892863', // App ID
+            channelUrl: 'http://localhost:51145/', // Channel File
+            status: true, // check login status
+            cookie: true, // enable cookies to allow the server to access the session
+            xfbml: true  // parse XFBML
+        });
+
+        FB.Event.subscribe('auth.authResponseChange', function (response) {
+
+            console.log(response);
+            if (response.status === 'connected') {
+                //already logged-in
+            }
+            else if (response.status === 'not_authorized') {
+                // first time login
+                FacebookLogin();
+            } else {
+                // auto-login
+                FacebookLogin();
+            }
+        });
+    };
+
+    // Load the SDK asynchronously
+    (function (d) {
+        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement('script'); js.id = id; js.async = true;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        ref.parentNode.insertBefore(js, ref);
+    }(document));
+
+    function FacebookLogin() {
+        FB.login(function (response) {
+            console.log(response);
+            if (response.authResponse) {
+                FB.api('/me', function (response) {
+                    var fbID = response.id;
+                    var fbName = response.name;
+                    var fbEmail = response.email;
+                    console.log(response);
+                    SetProfilePicture(fbID);
+                    location.href = '/Member/FacebookLogin?fbID=' + fbID + '&fbName=' + fbName + '&fbEmail=' + fbEmail + '&sex=' + response.gender;
+                });
+            }
+        }, { scope: 'email' });
+    }
 </script>
 
 
