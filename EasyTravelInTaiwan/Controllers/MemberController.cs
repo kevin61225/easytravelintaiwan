@@ -89,8 +89,17 @@ namespace EasyTravelInTaiwan.Controllers
         public ActionResult PersonalInfo(string User)
         {
             int uid = int.Parse(User);
+            List<travellist> filterdInfo = new List<travellist>();
             ViewBag.UserId = User;
             member user = db.members.Where(o => o.UserID == uid).Single();
+
+            // 篩選
+            foreach(travellist item in user.travellists.ToList())
+            {
+                List<travellistplace> places = db.travellistplaces.Where(o => o.Tid == item.Tid).ToList<travellistplace>();
+                if (places.Count > 1) filterdInfo.Add(item);
+            }
+
             user.travellists.ToList();
             user.SeperateTags();
             List<viewtype> types = new List<viewtype>();
@@ -99,8 +108,8 @@ namespace EasyTravelInTaiwan.Controllers
                 types.Add(db.viewtypes.Where(o => o.Typenumber == i).Single());
             }
             ViewBag.Favorites = types;
-            ViewBag.TravelList = user.travellists.ToList();
-            ViewBag.TravelListCount = user.travellists.ToList().Count();
+            ViewBag.TravelList = filterdInfo.ToList();
+            ViewBag.TravelListCount = filterdInfo.Count();
             return PartialView("PersonalInfo/_personalInfoViewPartial");
         }
 
