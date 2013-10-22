@@ -357,6 +357,9 @@
     <Compile Include="Models\food.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\foodimage.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\friend.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
@@ -669,6 +672,7 @@
     <Content Include="Content\images\FB-logo.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\images\PleaseZoomIn.png" />
+    <Content Include="Content\images\userProfilePic.jpg" />
     <Content Include="Content\jquery.rating.css" />
     <Content Include="Content\nicescroll.css" />
     <Content Include="Content\ui.css" />

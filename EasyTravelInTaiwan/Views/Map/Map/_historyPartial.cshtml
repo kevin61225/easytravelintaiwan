@@ -1,17 +1,24 @@
-﻿
-<style>
-    #HistoryInner {
+﻿<style>
+    /*#HistoryInner {
         height: auto;
     }
     #HistoryInner ul {
             width: 97%;
-        }
+        }*/
+    /*#HistoryWrapper .box {
+        height: auto;
+    }*/
+    /*#HistoryInner {
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }*/
 </style>
 
 @if (Model != null)
 {
-    <div id="HistoryInner" class="well box" style="max-height: 480px">
-        <ul class="nav nav-pills nav-stacked " id="HistoryWrapper">
+    //style="max-height: 480px"
+    <div id="HistoryInner" class="well" style="max-height: 480px;">
+        <ul id="HistoryWrapper" class="nav nav-pills nav-stacked">
             @foreach (EasyTravelInTaiwan.Models.History history in Model)
             {
                 <li id="place.@history.gId">
@@ -25,10 +32,11 @@
 <script type="text/javascript">
     $(document).ajaxStart($.blockUI({ message: "請稍後... " }));
     $(document).ajaxStop($.unblockUI);
+
     $(document).ready(function () {
         $("#HistoryInner").niceScroll({ autohidemode: true });
     });
-   
+
     $('#HistoryWrapper li').click(function () {
         var str = $(this).attr('id');
         var n = str.split(".");

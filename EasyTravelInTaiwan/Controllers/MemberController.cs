@@ -75,7 +75,14 @@ namespace EasyTravelInTaiwan.Controllers
             ViewBag.FriendType = isFriend;
             ViewBag.UserName = db.members.Where(o => o.UserID == userId).Single().Name;
             Session["NowUid"] = userId;
-
+            try
+            {
+                Session["FbId"] = db.members.Where(o => o.UserID == userId).Single().facebookprofiles.Single().FacebookId;
+            }
+            catch
+            {
+                Session["FbId"] = "";
+            }
             return View();
         }
 
@@ -394,7 +401,7 @@ namespace EasyTravelInTaiwan.Controllers
             }
             kernel.LoadUserData();
             //kernel.RunSeparate();
-            kernel.SetGroupIdBySingle(member.Account);
+            kernel.SetGroupIdBySingle(registMember.Account);
             SendEmailForRegist(registMember);
             TempData["success"] = "註冊成功，已寄信至您的電子郵件信箱。並請您重新登入 !! ";
             return RedirectToAction("Login", "Member");
@@ -513,7 +520,7 @@ namespace EasyTravelInTaiwan.Controllers
 
         #region Facebook Login
 
-        public ActionResult FacebookRegister(string fbID)
+        public ActionResult FacebookRegister()
         {
             List<viewtype> types = db.viewtypes.ToList();
             List<ViewTypeCheckbox> list = new List<ViewTypeCheckbox>();
@@ -525,12 +532,12 @@ namespace EasyTravelInTaiwan.Controllers
                 list.Add(temp);
             }
             model.ViewTypeList = list;
-            ViewBag.FbID = fbID;
+            ViewBag.FbID = (string)TempData["FBId"];
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult FacebookRegist(RegisterModel member, string fbID)
+        public ActionResult FacebookRegist(RegisterModel member, string fbID, string returnUrl)
         {
             if (RegisterModel.GetCheckedNumber(member.ViewTypeList) < 3)
             {
@@ -562,20 +569,23 @@ namespace EasyTravelInTaiwan.Controllers
                 return RedirectToAction("Login", "Member");
             }
             Session["FBUser"] = fbID;
-            return RedirectToAction("Index", "Index");
+            //return RedirectToAction("Index", "Index");
+            return RedirectToLocal(returnUrl);
         }
 
-        public ActionResult FacebookLogin(string fbID, string fbName, string fbEmail, string sex)
+        public ActionResult FacebookLogin(string fbID, string fbName, string fbEmail, string sex, string returnUrl)
         {
             LoginModel loginModel = new LoginModel();
             if (!CheckFacebookAccountExist(fbID))
             {
                 RegisterForFB(fbID, fbName, fbEmail, sex);
-                return RedirectToAction("FacebookRegister", "Member", new { fbID = fbID });          
+                TempData["FBId"] = fbID;
+                return RedirectToAction("FacebookRegister", "Member");          
             }
             if (!CheckHasFavorite(fbID))
             {
-                return RedirectToAction("FacebookRegister", "Member", new { fbID = fbID });     
+                TempData["FBId"] = fbID;
+                return RedirectToAction("FacebookRegister", "Member");     
             }
 
             loginModel.UserName = fbID;
@@ -586,9 +596,11 @@ namespace EasyTravelInTaiwan.Controllers
             {
                 return RedirectToAction("Login", "Member");
             }
+
             Session["FBUser"] = fbID;
             TempData["success"] = "登入成功 !!";
-            return RedirectToAction("Index", "Index");
+            //return RedirectToAction("Index", "Index");
+            return RedirectToLocal(returnUrl);
         }
 
         public bool CheckHasFavorite(string fbID)

@@ -173,7 +173,13 @@ namespace EasyTravelInTaiwan.Models
             create_date = food.create_date;
             modify_date = food.modify_date;
 
-            this.viewimages = new HashSet<ViewImage>();
+            ICollection<foodimage> foodimages = new HashSet<foodimage>();
+            using (var db = new ProjectEntities())
+            {
+                foodimages.Add(db.foodimages.Where(o => o.Id == food.id).Single());
+            }
+
+            this.viewimages = ViewImage.TransformToViewCollection(foodimages, pt);
         }
     }
 }

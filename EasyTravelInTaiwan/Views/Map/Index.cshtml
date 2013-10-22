@@ -188,14 +188,6 @@
         anchor: new google.maps.Point(17, 38)
     };
 
-    //// Hide the label at start
-    //$('#progress_bar .ui-progress .ui-label').hide();
-    //// Set initial value
-    //$('#progress_bar .ui-progress').css('width', '50%');
-    //// Simulate some progress
-    //$('#progress_bar .ui-progress').animateProgress(50, function () {
-    //});
-
     $("#inputGeo").geocomplete({
         map: ".map_canvas",
         location: new google.maps.LatLng(25.039941, 121.512812),
@@ -253,6 +245,7 @@
     }));
 
     $(document).ready(function () {
+        //InitialScrollBar();
         CheckHistory();
         $.ajax({
             type: 'POST',
@@ -616,6 +609,28 @@
         });
     });
 
+    $('#MapTabs a[href="#TravelTab"]').click(function () {
+        //HideAllScrollBar();
+        $("#InputsWrapper").getNiceScroll().hide();
+        //$("#InputsWrapper").getNiceScroll().show();
+    });
+
+    $('#MapTabs a[href="#SuggestTab"]').click(function () {
+        //HideAllScrollBar();
+        $("#InputsWrapper").getNiceScroll().hide();
+        $("#HistoryInner").getNiceScroll().hide();
+        //$("#otherWrapper").getNiceScroll().show();
+        //$("#FavorWrapper").getNiceScroll().show();
+    });
+
+    $('#MapTabs a[href="#HistoryTab"]').click(function () {
+        //HideAllScrollBar();
+        $("#otherWrapper").getNiceScroll().hide();
+        $("#FavorWrapper").getNiceScroll().hide();
+        $("#InputsWrapper").getNiceScroll().hide();
+        //$("#HistoryInner").getNiceScroll().show();
+    });
+
     function CheckHistory() {
         if ($.cookie('wayptsCookie') != null) {
             waypts = JSON.parse($.cookie('wayptsCookie'));
@@ -624,10 +639,12 @@
         }
     }
 
-    function RefreshAllScrollBar() {
-        $("#box").niceScroll({ autohidemode: true });
-        $("#HistoryInner").niceScroll({ autohidemode: true });
-        $("#Suggestbox").niceScroll({ autohidemode: true });
+    function HideAllScrollBar() {
+        $("#otherWrapper").getNiceScroll().hide();
+        $("#FavorWrapper").getNiceScroll().hide();
+        $("#InputsWrapper").getNiceScroll().hide();
+        $("#HistoryInner").getNiceScroll().hide();
+        console.log("hide");
     }
 
     function SetGmarkerVisible(index) {

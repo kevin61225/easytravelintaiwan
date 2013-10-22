@@ -46,18 +46,22 @@
                             }
                             else
                             {
-                                <img src="https://graph.facebook.com/@Session["FBUser"]/picture?type=small">
-                                <div class="btn-group">
-                                    <a class="btn btn-primary" href="#"><i class="icon-user icon-white"></i>&nbsp;&nbsp;Welcome !! @Session["UserName"]</a>
-                                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="~/Member/Index"><i class="icon-pencil"></i>會員資料</a></li>
-                                        <li><a href="~/Member/Home?User=@Session["UserId"]"><i class="icon-list-alt"></i>我的首頁</a></li>
-                                        @*<li><a href="~/Book/IndexTrace"><i class="icon-list-alt"></i>我的收藏</a></li>*@
-                                        @*<li><a href="~/Rating/Index"><i class="icon-list-alt"></i> 評分列表</a></li>*@
-                                    </ul>
+                                <div id="form-inline">
+                                    <div id="ProfilePicture" class="pull-left">
+                                        <img src="~/Content/images/userProfilePic.jpg" width="60" height="60" />
+                                    </div>
+                                    <div class="btn-group">
+                                        <a class="btn btn-primary" href="#"><i class="icon-user icon-white"></i>&nbsp;&nbsp;Welcome !! @Session["UserName"]</a>
+                                        <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="~/Member/Index"><i class="icon-pencil"></i>會員資料</a></li>
+                                            <li><a href="~/Member/Home?User=@Session["UserId"]"><i class="icon-list-alt"></i>我的首頁</a></li>
+                                            @*<li><a href="~/Book/IndexTrace"><i class="icon-list-alt"></i>我的收藏</a></li>*@
+                                            @*<li><a href="~/Rating/Index"><i class="icon-list-alt"></i> 評分列表</a></li>*@
+                                        </ul>
+                                    </div>
+                                    <button id="LogoutBtn" class="btn btn-primary" type="button" onclick="Logout()">登出</button>
                                 </div>
-                                <button id="LogoutBtn" class="btn btn-primary" type="button" onclick="Logout()">登出</button>
                             }
                         </div>
                     </div>
@@ -92,21 +96,6 @@
         <div class="modal-body">
             <br />
             @Html.Action("HomeSignInPartial", "Member")
-            @*<ul class="nav nav-tabs" id="signInTab">
-                <li class="active"><a href="#logIn" data-toggle="tab">登入</a></li>
-                <li><a href="#signUp" data-toggle="tab">註冊</a></li>
-            </ul>
-            <div class="tab-content">
-                <!--Login -->
-                <br />
-                <div class="tab-pane active" id="logIn" style="max-height: 300px">
-                    @Html.Action("HomeSignInPartial", "Member")
-                </div>
-                <!--Sign up -->
-                <div class="tab-pane" id="signUp" style="max-height: 300px">
-                    @Html.Action("HomeSignUpPartial", "Member")
-                </div>
-            </div>*@
         </div>
     </div>
 </body>
@@ -142,15 +131,6 @@
         //$('#myCarousel').carousel({ interval: 3000, cycle: true });
         //FacebookInit();
     });
-
-    //(function (d, s, id) {
-    //    var js, fjs = d.getElementsByTagName(s)[0];
-    //    if (d.getElementById(id)) return;
-    //    js = d.createElement(s); js.id = id;
-    //    js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1&appId=544818928892863";
-    //    fjs.parentNode.insertBefore(js, fjs);
-    //}(document, 'script', 'facebook-jssdk'));
-
 </script>
 
 <script>
@@ -170,7 +150,8 @@
     window.fbAsyncInit = function () {
         FB.init({
             appId: '544818928892863', // App ID
-            channelUrl: 'http://localhost:51145/', // Channel File
+            //channelUrl: 'http://localhost:51145/', // Channel File
+            channelUrl: 'http://easytravelintaiwan.no-ip.info/',
             status: true, // check login status
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: true  // parse XFBML
@@ -210,12 +191,23 @@
                     var fbName = response.name;
                     var fbEmail = response.email;
                     console.log(response);
+
                     SetProfilePicture(fbID);
                     location.href = '/Member/FacebookLogin?fbID=' + fbID + '&fbName=' + fbName + '&fbEmail=' + fbEmail + '&sex=' + response.gender;
                 });
             }
         }, { scope: 'email' });
     }
+
+    $(document).ready(function () {
+        SetProfilePicture(@Session["FBUser"]);
+    });
+        function SetProfilePicture(profileId) {
+            console.log(profileId);
+            if (profileId != undefined) {
+                $('#ProfilePicture').html('<img src="' + 'https://graph.facebook.com/' + profileId + '/picture?width=40&height=40"></img>');
+            }
+        }
 </script>
 
 

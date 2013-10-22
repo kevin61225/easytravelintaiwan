@@ -5,7 +5,7 @@
 */
 $(function () {
     $('.selectpicker').selectpicker();
-    $('.box').niceScroll({ autohidemode: true });
+    //$('.box').niceScroll({ autohidemode: true });
     $.cookie.json = true;
     $.cookie();
 });

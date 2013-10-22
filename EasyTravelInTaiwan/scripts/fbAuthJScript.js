@@ -47,7 +47,9 @@
 
 
 function SetProfilePicture(profileId) {
-    $('#ProfilePicture').html('<img src="' + 'https://graph.facebook.com/' + profileId + '/picture?type=small"></img>');
+    if (profileId != "") {
+        $('#ProfilePicture').html('<img src="' + 'https://graph.facebook.com/' + profileId + '/picture?width=40&height=60"></img>');
+    }
     console.log("set!!");
 }
 

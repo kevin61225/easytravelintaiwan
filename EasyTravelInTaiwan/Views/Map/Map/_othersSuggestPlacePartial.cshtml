@@ -1,11 +1,22 @@
 ﻿@model List<EasyTravelInTaiwan.Models.view>
-<ul class="nav nav-pills nav-stacked" id="otherWrapper">
-    @foreach (EasyTravelInTaiwan.Models.view place in Model)
-    {
-        <li id="place.@place.Id"><a href="#">@place.Name</a></li>
-    }
-</ul>
+<style>
+    /*#otherWrapper .box {
+        height: auto;
+    }*/
+</style>
+<div id="otherSuggestPlace" class="well" style="max-height: 175px;">
+    <ul id="otherWrapper" class="nav nav-pills nav-stacked">
+        @foreach (EasyTravelInTaiwan.Models.view place in Model)
+        {
+            <li id="place.@place.Id"><a href="#">@place.Name</a></li>
+        }
+    </ul>
+</div>
 <script type="text/javascript">
+    $(document).ready(function () {
+        $("#otherSuggestPlace").niceScroll({ autohidemode: true });
+    });
+
     $('#otherWrapper li').click(function () {
         var str = $(this).attr('id');
         var n = str.split(".");

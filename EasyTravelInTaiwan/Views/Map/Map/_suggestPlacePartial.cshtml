@@ -1,21 +1,15 @@
 ﻿<style>
-    #Suggestbox {
+    /*#Suggestbox {
         height: auto;
     }
 
         #Suggestbox ul {
             width: 97%;
-        }
+        }*/
 </style>
-<div id="Suggestbox" class="box">
+<div id="Suggestbox">
     <h4>我所喜歡的</h4>
     @Html.Action("MyFavorPartial", "Map")
     <h4>他人推薦的</h4>
     @Html.Action("OthersSuggestPlacePartial", "Map")
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#Suggestbox").niceScroll({ autohidemode: true });
-    });
-</script>

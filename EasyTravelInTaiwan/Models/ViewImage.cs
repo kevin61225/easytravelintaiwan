@@ -26,6 +26,18 @@ namespace EasyTravelInTaiwan.Models
             return outputImage;
         }
 
+        static public ViewImage ConverToViewImage(foodimage image, string pt)
+        {
+            ViewImage outputImage = new ViewImage();
+            outputImage.Id = image.Id;
+            outputImage.sid = image.sid;
+            outputImage.Name = image.Name;
+            outputImage.Imagetype = 0;
+            outputImage.Image = image.Image;
+            outputImage.pt = pt;
+            return outputImage;
+        }
+
         static public ViewImage ConverToViewImage(accomodationimage image, string pt)
         {
             ViewImage outputImage = new ViewImage();
@@ -79,7 +91,7 @@ namespace EasyTravelInTaiwan.Models
                     //food
                     try
                     {
-                        outputImage = ConverToViewImage(db.placeimages.Where(o => o.Id == id).First(), pt);
+                        outputImage = ConverToViewImage(db.foodimages.Where(o => o.Id == id).First(), pt);
                     }
                     catch
                     {
@@ -130,7 +142,7 @@ namespace EasyTravelInTaiwan.Models
                     //food
                     try
                     {
-                        outputImage = ConverToViewImage(db.placeimages.Where(o => o.Id == id).Where(o => o.sid == sid).Single(), pt);
+                        outputImage = ConverToViewImage(db.foodimages.Where(o => o.Id == id).Where(o => o.sid == sid).Single(), pt);
                     }
                     catch
                     {
@@ -175,6 +187,16 @@ namespace EasyTravelInTaiwan.Models
         {
             ICollection<ViewImage> images = new HashSet<ViewImage>();
             foreach (accomodationimage image in accImages)
+            {
+                images.Add(ConverToViewImage(image, pt));
+            }
+            return images;
+        }
+
+        static public ICollection<ViewImage> TransformToViewCollection(ICollection<foodimage> foodImages, string pt)
+        {
+            ICollection<ViewImage> images = new HashSet<ViewImage>();
+            foreach (foodimage image in foodImages)
             {
                 images.Add(ConverToViewImage(image, pt));
             }

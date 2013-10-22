@@ -7,6 +7,7 @@
     <EntitySet Name="facebookprofile" EntityType="ProjectModel.Store.facebookprofile" store:Type="Tables" Schema="project" />
     <EntitySet Name="favorite" EntityType="ProjectModel.Store.favorite" store:Type="Tables" Schema="project" />
     <EntitySet Name="food" EntityType="ProjectModel.Store.food" store:Type="Tables" Schema="project" />
+    <EntitySet Name="foodimage" EntityType="ProjectModel.Store.foodimage" store:Type="Tables" Schema="project" />
     <EntitySet Name="friends" EntityType="ProjectModel.Store.friends" store:Type="Tables" Schema="project" />
     <EntitySet Name="hotel" EntityType="ProjectModel.Store.hotel" store:Type="Tables" Schema="project" />
     <EntitySet Name="hotelimage" EntityType="ProjectModel.Store.hotelimage" store:Type="Tables" Schema="project" />
@@ -23,46 +24,6 @@
     <AssociationSet Name="facebookprofile_ibfk_1" Association="ProjectModel.Store.facebookprofile_ibfk_1">
       <End Role="member" EntitySet="member" />
       <End Role="facebookprofile" EntitySet="facebookprofile" />
-    </AssociationSet>
-    <AssociationSet Name="friends_ibfk_1" Association="ProjectModel.Store.friends_ibfk_1">
-      <End Role="member" EntitySet="member" />
-      <End Role="friends" EntitySet="friends" />
-    </AssociationSet>
-    <AssociationSet Name="friends_ibfk_2" Association="ProjectModel.Store.friends_ibfk_2">
-      <End Role="member" EntitySet="member" />
-      <End Role="friends" EntitySet="friends" />
-    </AssociationSet>
-    <AssociationSet Name="hotelimage_ibfk_2" Association="ProjectModel.Store.hotelimage_ibfk_2">
-      <End Role="hotel" EntitySet="hotel" />
-      <End Role="hotelimage" EntitySet="hotelimage" />
-    </AssociationSet>
-    <AssociationSet Name="place_ibfk_1" Association="ProjectModel.Store.place_ibfk_1">
-      <End Role="city" EntitySet="city" />
-      <End Role="place" EntitySet="place" />
-    </AssociationSet>
-    <AssociationSet Name="place_ibfk_2" Association="ProjectModel.Store.place_ibfk_2">
-      <End Role="viewtype" EntitySet="viewtype" />
-      <End Role="place" EntitySet="place" />
-    </AssociationSet>
-    <AssociationSet Name="placeimage_ibfk_1" Association="ProjectModel.Store.placeimage_ibfk_1">
-      <End Role="place" EntitySet="place" />
-      <End Role="placeimage" EntitySet="placeimage" />
-    </AssociationSet>
-    <AssociationSet Name="rating_ibfk_1" Association="ProjectModel.Store.rating_ibfk_1">
-      <End Role="member" EntitySet="member" />
-      <End Role="rating" EntitySet="rating" />
-    </AssociationSet>
-    <AssociationSet Name="rating_ibfk_2" Association="ProjectModel.Store.rating_ibfk_2">
-      <End Role="view" EntitySet="view" />
-      <End Role="rating" EntitySet="rating" />
-    </AssociationSet>
-    <AssociationSet Name="travellist_ibfk_1" Association="ProjectModel.Store.travellist_ibfk_1">
-      <End Role="member" EntitySet="member" />
-      <End Role="travellist" EntitySet="travellist" />
-    </AssociationSet>
-    <AssociationSet Name="travellistplace_ibfk_2" Association="ProjectModel.Store.travellistplace_ibfk_2">
-      <End Role="travellist" EntitySet="travellist" />
-      <End Role="travellistplace" EntitySet="travellistplace" />
     </AssociationSet>
     <AssociationSet Name="view_ibfk_2" Association="ProjectModel.Store.view_ibfk_2">
       <End Role="viewtype" EntitySet="viewtype" />
@@ -147,6 +108,15 @@
     <Property Name="y" Type="double" />
     <Property Name="create_date" Type="text" />
     <Property Name="modify_date" Type="text" />
+  </EntityType>
+  <EntityType Name="foodimage">
+    <Key>
+      <PropertyRef Name="sid" />
+    </Key>
+    <Property Name="sid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Id" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Name" Type="text" />
+    <Property Name="Image" Type="longblob" Nullable="false" />
   </EntityType>
   <EntityType Name="friends">
     <Key>
@@ -302,136 +272,6 @@
       </Principal>
       <Dependent Role="facebookprofile">
         <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="friends_ibfk_1">
-    <End Role="member" Type="ProjectModel.Store.member" Multiplicity="1" />
-    <End Role="friends" Type="ProjectModel.Store.friends" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="member">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="friends">
-        <PropertyRef Name="Fid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="friends_ibfk_2">
-    <End Role="member" Type="ProjectModel.Store.member" Multiplicity="1" />
-    <End Role="friends" Type="ProjectModel.Store.friends" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="member">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="friends">
-        <PropertyRef Name="Uid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="hotelimage_ibfk_2">
-    <End Role="hotel" Type="ProjectModel.Store.hotel" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="hotelimage" Type="ProjectModel.Store.hotelimage" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="hotel">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="hotelimage">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="place_ibfk_1">
-    <End Role="city" Type="ProjectModel.Store.city" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="place" Type="ProjectModel.Store.place" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="city">
-        <PropertyRef Name="Citynumber" />
-      </Principal>
-      <Dependent Role="place">
-        <PropertyRef Name="Citynumber" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="place_ibfk_2">
-    <End Role="viewtype" Type="ProjectModel.Store.viewtype" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="place" Type="ProjectModel.Store.place" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="viewtype">
-        <PropertyRef Name="Typenumber" />
-      </Principal>
-      <Dependent Role="place">
-        <PropertyRef Name="Typenumber" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="placeimage_ibfk_1">
-    <End Role="place" Type="ProjectModel.Store.place" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="placeimage" Type="ProjectModel.Store.placeimage" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="place">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="placeimage">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="rating_ibfk_1">
-    <End Role="member" Type="ProjectModel.Store.member" Multiplicity="1" />
-    <End Role="rating" Type="ProjectModel.Store.rating" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="member">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="rating">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="rating_ibfk_2">
-    <End Role="view" Type="ProjectModel.Store.view" Multiplicity="1" />
-    <End Role="rating" Type="ProjectModel.Store.rating" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="view">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="rating">
-        <PropertyRef Name="Sno" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="travellist_ibfk_1">
-    <End Role="member" Type="ProjectModel.Store.member" Multiplicity="1" />
-    <End Role="travellist" Type="ProjectModel.Store.travellist" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="member">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="travellist">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="travellistplace_ibfk_2">
-    <End Role="travellist" Type="ProjectModel.Store.travellist" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="travellistplace" Type="ProjectModel.Store.travellistplace" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="travellist">
-        <PropertyRef Name="Tid" />
-      </Principal>
-      <Dependent Role="travellistplace">
-        <PropertyRef Name="Tid" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

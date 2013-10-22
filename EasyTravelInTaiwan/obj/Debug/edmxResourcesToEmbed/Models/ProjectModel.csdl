@@ -68,6 +68,7 @@
       <End Role="view" EntitySet="views" />
     </AssociationSet>
     <EntitySet Name="notfoundimages" EntityType="ProjectModel.notfoundimage" />
+    <EntitySet Name="foodimages" EntityType="ProjectModel.foodimage" />
   </EntityContainer>
   <EntityType Name="accommodation">
     <Key>
@@ -469,6 +470,15 @@
       <PropertyRef Name="NId" />
     </Key>
     <Property Type="Int32" Name="NId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Binary" Name="Image" Nullable="false" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="foodimage">
+    <Key>
+      <PropertyRef Name="sid" />
+    </Key>
+    <Property Type="Int32" Name="sid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Id" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Name" MaxLength="65535" FixedLength="false" Unicode="false" />
     <Property Type="Binary" Name="Image" Nullable="false" MaxLength="Max" FixedLength="false" />
   </EntityType>
 </Schema>

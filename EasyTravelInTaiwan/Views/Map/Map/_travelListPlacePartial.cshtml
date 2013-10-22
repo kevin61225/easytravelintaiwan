@@ -4,8 +4,8 @@
 @Html.Partial("_placeAlert")
 
 <div>詳細位置</div>
-<div class="box well" id="box">
-    <ul class="nav nav-pills nav-stacked" id="InputsWrapper">
+<div id="placesbox" class="well"  style="max-height: 230px;">
+    <ul class="nav nav-pills nav-stacked" id="InputsWrapper"">
         @if (Model.Count() > 0)
         {
             foreach (EasyTravelInTaiwan.Models.view maplatlng in ViewBag.TravelListPlaces)
@@ -22,7 +22,6 @@
     @if (ViewBag.TravelListLength > 1)
     {
         @Html.ActionLink("進行規劃", "Direction", new { tid = Model[0].Tid }, new { @class = "btn", target = "_blank" });
-@*<button id="CalcDirection-Button" class="btn">進行規劃</button>*@
     }
 </div>
 
@@ -34,11 +33,11 @@
     $(document).ajaxStop($.unblockUI);
 
     $(document).ready(function () {
-        $("#box").attr("tabindex", 5000);
-        $("#box").niceScroll({ autohidemode: true });
+        //RefreshAllScrollBar();
+        $("#placesbox").attr("tabindex", 5000);
+        $("#placesbox").niceScroll({ autohidemode: true });
     });
 
-    $("#CalcDirection-Button");
     $("#InputsWrapper li i").hover(
         function () {
             $(this).removeClass("icon-remove");
@@ -88,11 +87,13 @@
                     $("#TravelListPlacePartialView").html(data);
                     window.setTimeout(function () {
                         $("#SaveAlert").fadeOut().alert('close');
-                        $("#box").attr("tabindex", 5000);
-                        $("#box").niceScroll({ autohidemode: true });
+                        //$("#InputsWrapper").attr("tabindex", 5000);
+                        //$("#InputsWrapper").niceScroll({ autohidemode: true });
+                        $("#placesbox").getNiceScroll().resize();
                     }, 10000);
                 }
-                $("#box").niceScroll({ autohidemode: true });
+                //$("#InputsWrapper").niceScroll({ autohidemode: true });
+                $("#placesbox").getNiceScroll().resize();
             }
         });
     });
@@ -124,10 +125,12 @@
                 $("#TravelListPlacePartialView").html(data);
                 window.setTimeout(function () {
                     $("#SaveAlert").fadeOut().alert('close');
-                    $("#box").attr("tabindex", 5000);
-                    $("#box").niceScroll({ autohidemode: true });
+                    //$("#InputsWrapper").attr("tabindex", 5000);
+                    //$("#InputsWrapper").niceScroll({ autohidemode: true });
+                    $("#placesbox").getNiceScroll().resize();
                 }, 1000);
-                $("#box").niceScroll({ autohidemode: true });
+                //$("#InputsWrapper").niceScroll({ autohidemode: true });
+                $("#placesbox").getNiceScroll().resize();
             },
         });
     });
