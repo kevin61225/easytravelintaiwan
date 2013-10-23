@@ -1,4 +1,5 @@
 ﻿<div class="form-inline well">
+    清單名稱 - @ViewBag.TravelListName , 擁有者 - @ViewBag.UserName , 規劃路線 - 
     <select id="HistorylListSelectPicker" class="selectpicker">
 
         @if (ViewBag.ListCount > 0)
@@ -16,14 +17,14 @@
     @if (ViewBag.Deletable == 0)
     {
         <button id="SaveSortedPlaceBtn" class="btn btn-success" aria-hidden="true">儲存順序</button>
-        if(ViewBag.ListCount > 0)
+        if (ViewBag.ListCount > 0)
         {
         <button id="DeleteSortedPlaceBtn" class="btn btn-success" aria-hidden="true">刪除</button>
         }
     }
 </div>
 
-<script type="text/javascript"> 
+<script type="text/javascript">
     $("#SaveSortedPlaceBtn").click(function () {
         $.ajax({
             type: "POST",

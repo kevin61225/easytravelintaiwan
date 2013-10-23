@@ -47,7 +47,8 @@
         },
 
         markerOptions: {
-            draggable: false
+            draggable: false,
+            visible: false
         },
 
         maxZoom: 16,

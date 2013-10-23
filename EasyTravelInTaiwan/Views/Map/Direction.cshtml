@@ -87,11 +87,13 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="DragTab">
-                <div id="SortPlace" class="box">
+                <div id="SortPlace">
                     <p>＊按住地點後可移動排序＊</p>
-                    <ol id="SortedList" class="nav nav-pills nav-stacked well simple_with_animation vertical">
-                        @Html.Action("SortPlace", "Map", new { tid = ViewBag.WaypointId, sid = ViewBag.SId })
-                    </ol>
+                    <div class="box">
+                        <ol id="SortedList" class="nav nav-pills nav-stacked well simple_with_animation vertical">
+                            @Html.Action("SortPlace", "Map", new { tid = ViewBag.WaypointId, sid = ViewBag.SId })
+                        </ol>
+                    </div>
                 </div>
             </div>
             <div class="tab-pane box" id="InfoTab">

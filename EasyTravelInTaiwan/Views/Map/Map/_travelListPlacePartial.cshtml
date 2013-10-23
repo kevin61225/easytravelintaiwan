@@ -4,8 +4,8 @@
 @Html.Partial("_placeAlert")
 
 <div>詳細位置</div>
-<div id="placesbox" class="well"  style="max-height: 230px;">
-    <ul class="nav nav-pills nav-stacked" id="InputsWrapper"">
+<div class="box well" id="box">
+    <ul class="nav nav-pills nav-stacked" id="InputsWrapper">
         @if (Model.Count() > 0)
         {
             foreach (EasyTravelInTaiwan.Models.view maplatlng in ViewBag.TravelListPlaces)
@@ -33,9 +33,8 @@
     $(document).ajaxStop($.unblockUI);
 
     $(document).ready(function () {
-        //RefreshAllScrollBar();
-        $("#placesbox").attr("tabindex", 5000);
-        $("#placesbox").niceScroll({ autohidemode: true });
+        $("#box").attr("tabindex", 5000);
+        $("#box").niceScroll({ autohidemode: true });
     });
 
     $("#InputsWrapper li i").hover(
@@ -87,13 +86,12 @@
                     $("#TravelListPlacePartialView").html(data);
                     window.setTimeout(function () {
                         $("#SaveAlert").fadeOut().alert('close');
-                        //$("#InputsWrapper").attr("tabindex", 5000);
-                        //$("#InputsWrapper").niceScroll({ autohidemode: true });
-                        $("#placesbox").getNiceScroll().resize();
+                        //$("#box").attr("tabindex", 5000);
+                        //$("#box").niceScroll({ autohidemode: true });
+                        $("#box").getNiceScroll().resize();
                     }, 10000);
                 }
-                //$("#InputsWrapper").niceScroll({ autohidemode: true });
-                $("#placesbox").getNiceScroll().resize();
+                $("#box").getNiceScroll().resize();
             }
         });
     });
@@ -125,13 +123,22 @@
                 $("#TravelListPlacePartialView").html(data);
                 window.setTimeout(function () {
                     $("#SaveAlert").fadeOut().alert('close');
-                    //$("#InputsWrapper").attr("tabindex", 5000);
-                    //$("#InputsWrapper").niceScroll({ autohidemode: true });
-                    $("#placesbox").getNiceScroll().resize();
+                    //$("#box").attr("tabindex", 5000);
+                    //$("#box").niceScroll({ autohidemode: true });
+                    $("#box").getNiceScroll().resize();
                 }, 1000);
-                //$("#InputsWrapper").niceScroll({ autohidemode: true });
-                $("#placesbox").getNiceScroll().resize();
+                $("#box").getNiceScroll().resize();
             },
         });
     });
+
+    function HideInputWrapper() {
+        $("#placesbox").getNiceScroll().hide();
+        $("#placesbox").getNiceScroll().resize();
+    }
+    function ShowInputWrapper() {
+        $("#placesbox").getNiceScroll().show();
+        $("#placesbox").getNiceScroll().resize();
+    }
+
 </script>

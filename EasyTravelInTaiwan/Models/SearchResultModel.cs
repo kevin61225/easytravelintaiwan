@@ -91,7 +91,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
                             if (viewlist[i].Id == item)
                             {
                                 Add(GetView(viewlist[i]));
-                                i++;
+                                counts++;
                                 break;
                             }
                         }

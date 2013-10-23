@@ -246,6 +246,8 @@
 
     $(document).ready(function () {
         //InitialScrollBar();
+        //$("#placesbox").niceScroll({ autohidemode: true });
+        //$("#HistoryWrapper").niceScroll({ autohidemode: true });
         CheckHistory();
         $.ajax({
             type: 'POST',
@@ -299,7 +301,7 @@
 
         InitRightClick();
 
-        var distanceWidget = new DistanceWidget();
+        //var distanceWidget = new DistanceWidget();
 
         //google.maps.event.addListener(gmarker, 'position_changed', function () {
         //    distanceWidget.set('position', gmarker.getPosition());
@@ -321,13 +323,13 @@
             }
         });
 
-        google.maps.event.addListener(distanceWidget, 'distance_changed', function () {
-            displayInfo(distanceWidget);
-        });
+        //google.maps.event.addListener(distanceWidget, 'distance_changed', function () {
+        //    displayInfo(distanceWidget);
+        //});
 
-        google.maps.event.addListener(distanceWidget, 'position_changed', function () {
-            displayInfo(distanceWidget);
-        });
+        //google.maps.event.addListener(distanceWidget, 'position_changed', function () {
+        //    displayInfo(distanceWidget);
+        //});
 
         console.log(gmarkers.length);
     }
@@ -611,23 +613,31 @@
 
     $('#MapTabs a[href="#TravelTab"]').click(function () {
         //HideAllScrollBar();
-        $("#InputsWrapper").getNiceScroll().hide();
-        //$("#InputsWrapper").getNiceScroll().show();
+        HideInputWrapper();
+        ShowInputWrapper();
     });
 
     $('#MapTabs a[href="#SuggestTab"]').click(function () {
+        //$("#placesbox").getNiceScroll().hide();
+        HideInputWrapper();
         //HideAllScrollBar();
-        $("#InputsWrapper").getNiceScroll().hide();
-        $("#HistoryInner").getNiceScroll().hide();
+        //$("#InputsWrapper").getNiceScroll().hide();
+        //$("#HistoryWrapper").getNiceScroll().hide();
         //$("#otherWrapper").getNiceScroll().show();
         //$("#FavorWrapper").getNiceScroll().show();
     });
 
     $('#MapTabs a[href="#HistoryTab"]').click(function () {
+        //$("#placesbox").getNiceScroll().hide();
+        HideInputWrapper();
         //HideAllScrollBar();
-        $("#otherWrapper").getNiceScroll().hide();
-        $("#FavorWrapper").getNiceScroll().hide();
-        $("#InputsWrapper").getNiceScroll().hide();
+        //$("#InputsWrapper").getNiceScroll().hide();
+        //$("#HistoryWrapper").getNiceScroll().resize();
+        //$("#HistoryWrapper").getNiceScroll().show();
+
+        //$("#otherWrapper").getNiceScroll().hide();
+        //$("#FavorWrapper").getNiceScroll().hide();
+        //$("#InputsWrapper").getNiceScroll().hide();
         //$("#HistoryInner").getNiceScroll().show();
     });
 

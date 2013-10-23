@@ -238,7 +238,7 @@ DirectionsDisplay.prototype.create_stepbystep_ = function (response, units) {
             //var letter2 = String.fromCharCode(65 + leg + 1);
             var letter1 = PlaceName[leg];
             var letter2 = PlaceName[leg + 1];
-            htmlText += "<br>";
+            //htmlText += "<br>";
             htmlText += "<tr><th colspan=2><hr></th></tr>";
             htmlText += "<tr><th colspan=2 align='center'><u>路徑從 " + letter1 + " 至 " + letter2 + "</u></th></tr>"; //direction from
             var totalDist = 0;

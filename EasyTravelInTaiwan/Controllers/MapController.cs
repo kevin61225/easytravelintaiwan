@@ -60,7 +60,6 @@ namespace EasyTravelInTaiwan.Controllers
                 // 表示無路線紀錄
                 ViewBag.SId = -1;
             }
-
             return View(viewList);
         }
 
@@ -562,6 +561,8 @@ namespace EasyTravelInTaiwan.Controllers
             ViewBag.SelectList = list;
             ViewBag.ListCount = list.Count();
             ViewBag.ListName = GenerateListNameByNumber(list.Count());
+            ViewBag.UserName = db.travellists.Where(o => o.Tid == id).Single().member.Name;
+            ViewBag.TravelListName = db.travellists.Where(o => o.Tid == id).Single().TName;
             return PartialView("Direction/_sortedPlaceHistory");
         }
 
