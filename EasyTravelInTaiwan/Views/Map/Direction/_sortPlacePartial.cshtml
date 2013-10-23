@@ -1,75 +1,49 @@
-﻿<style type="text/css">
-    body.dragging, body.dragging * {
-        cursor: move !important;
-    }
+﻿
 
-    .dragged {
-        position: absolute;
-        opacity: 0.5;
-        z-index: 2000;
-    }
-
-    ol.simple_with_animation li.placeholder {
-        position: relative;
-        /** More li styles **/
-    }
-
-        ol.simple_with_animation li.placeholder:before {
-            position: absolute;
-            /** Define arrowhead **/
-        }
-</style>
-
-<p>＊按住地點後可移動排序＊</p>
-<div class="well">
-    <ol id="SortedList" class="nav nav-pills nav-stacked simple_with_animation vertical">
         @foreach (EasyTravelInTaiwan.Models.view maplatlng in ViewBag.TravelListPlaces)
         {
             <li id="place.@maplatlng.Id">
                 <a href="#">@maplatlng.Name</a>
             </li>
         }
-    </ol>
-</div>
+
 
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        $("ol.simple_with_animation").sortable({
-            group: 'simple_with_animation',
-            pullPlaceholder: false,
-            // animation on drop
-            onDrop: function (item, targetContainer, _super) {
-                var clonedItem = $('<li/>').css({ height: 0 })
-                item.before(clonedItem)
-                clonedItem.animate({ 'height': item.height() })
+    //$("#SortedList").sortable({
+    //    group: 'simple_with_animation',
+    //    pullPlaceholder: false,
+    //    // animation on drop
+    //    onDrop: function (item, targetContainer, _super) {
+    //        var clonedItem = $('<li/>').css({ height: 0 })
+    //        item.before(clonedItem)
+    //        clonedItem.animate({ 'height': item.height() })
 
-                item.animate(clonedItem.position(), function () {
-                    clonedItem.detach()
-                    _super(item)
-                })
-                RefreshDirections();
-            },
+    //        item.animate(clonedItem.position(), function () {
+    //            clonedItem.detach()
+    //            _super(item)
+    //        })
+    //        RefreshDirections();
+    //    },
 
-            // set item relative to cursor position
-            onDragStart: function ($item, container, _super) {
-                var offset = $item.offset(),
-                pointer = container.rootGroup.pointer
+    //    // set item relative to cursor position
+    //    onDragStart: function ($item, container, _super) {
+    //        var offset = $item.offset(),
+    //        pointer = container.rootGroup.pointer
 
-                adjustment = {
-                    left: pointer.left - offset.left,
-                    top: pointer.top - offset.top
-                }
+    //        adjustment = {
+    //            left: pointer.left - offset.left,
+    //            top: pointer.top - offset.top
+    //        }
 
-                _super($item, container)
-            },
-            onDrag: function ($item, position) {
-                $item.css({
-                    left: position.left - adjustment.left,
-                    top: position.top - adjustment.top
-                })
+    //        _super($item, container)
+    //    },
+    //    onDrag: function ($item, position) {
+    //        $item.css({
+    //            left: position.left - adjustment.left,
+    //            top: position.top - adjustment.top
+    //        })
 
-            }
-        });
-    });
+    //    }
+    //});
 </script>

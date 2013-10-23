@@ -42,6 +42,26 @@
     .box {
         height: 500px;
     }
+
+    body.dragging, body.dragging * {
+        cursor: move !important;
+    }
+
+    .dragged {
+        position: absolute;
+        opacity: 0.5;
+        z-index: 2000;
+    }
+
+    ol.simple_with_animation li.placeholder {
+        position: relative;
+        /** More li styles **/
+    }
+
+        ol.simple_with_animation li.placeholder:before {
+            position: absolute;
+            /** Define arrowhead **/
+        }
 </style>
 
 <!--引入 Google API-->
@@ -68,7 +88,10 @@
         <div class="tab-content">
             <div class="tab-pane active" id="DragTab">
                 <div id="SortPlace" class="box">
-                    @Html.Action("SortPlace", "Map", new { tid = ViewBag.WaypointId, sid = ViewBag.SId })
+                    <p>＊按住地點後可移動排序＊</p>
+                    <ol id="SortedList" class="nav nav-pills nav-stacked well simple_with_animation vertical">
+                        @Html.Action("SortPlace", "Map", new { tid = ViewBag.WaypointId, sid = ViewBag.SId })
+                    </ol>
                 </div>
             </div>
             <div class="tab-pane box" id="InfoTab">
@@ -364,6 +387,43 @@
         waypts = placeItems;
     }
 
+    $("#SortedList").sortable({
+        group: 'simple_with_animation',
+        pullPlaceholder: false,
+        // animation on drop
+        onDrop: function (item, targetContainer, _super) {
+            var clonedItem = $('<li/>').css({ height: 0 })
+            item.before(clonedItem)
+            clonedItem.animate({ 'height': item.height() })
+
+            item.animate(clonedItem.position(), function () {
+                clonedItem.detach()
+                _super(item)
+            })
+            RefreshDirections();
+        },
+
+        // set item relative to cursor position
+        onDragStart: function ($item, container, _super) {
+            var offset = $item.offset(),
+            pointer = container.rootGroup.pointer
+
+            adjustment = {
+                left: pointer.left - offset.left,
+                top: pointer.top - offset.top
+            }
+
+            _super($item, container)
+        },
+        onDrag: function ($item, position) {
+            $item.css({
+                left: position.left - adjustment.left,
+                top: position.top - adjustment.top
+            })
+
+        }
+    });
+
     $(document).on('click', '.dropdown-menu .inner >li', function (e) {
         var $this = $(this).attr("rel");
         var selectedValue = $("#HistorylListSelectPicker option:eq('" + $this + "')");
@@ -376,16 +436,20 @@
             data: JSON.stringify({ selectedList: selectedList, tid: $waypointId }), //if you need to post Model data, use this
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                $("#SortPlace").html(data);
+                $("#SortedList").html(data);
                 RefreshDirections();
             }
         });
     });
 
-    function Reset() {
-        gmarkers = [];
-        waypts = [];
-        SortedNumber = "";
-    }
+        $(document).ready(function () {
+            $('.box').niceScroll({ autohidemode: true });
+        });
+
+        function Reset() {
+            gmarkers = [];
+            waypts = [];
+            SortedNumber = "";
+        }
 </script>
 
