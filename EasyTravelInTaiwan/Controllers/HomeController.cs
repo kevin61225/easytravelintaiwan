@@ -13,7 +13,7 @@ namespace BootstrapMvcSample.Controllers
     public class HomeController : BootstrapBaseController
     {
         //dbproject1Entities db = new dbproject1Entities();
-        private ProjectEntities db = new ProjectEntities();
+        private ProjectEntities1 db = new ProjectEntities1();
         private static List<HomeInputModel> _models = ModelIntializer.CreateHomeInputModels();
         public ActionResult Index()
         {

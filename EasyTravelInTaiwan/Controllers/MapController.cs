@@ -16,7 +16,7 @@ namespace EasyTravelInTaiwan.Controllers
     {
         //
         // GET: /Map/
-        ProjectEntities db = new ProjectEntities();
+        ProjectEntities1 db = new ProjectEntities1();
 
         [Authorize(Roles = "Admin, Clerk, Customer")]
         public ActionResult Index()
@@ -157,7 +157,7 @@ namespace EasyTravelInTaiwan.Controllers
         [Authorize]
         public ActionResult TravelListPlacePartial()
         {
-            int tid = (int)Session["TempTid"];
+            int tid = (Session["TempTid"] == null) ? -1 : (int)Session["TempTid"];
 
             List<travellistplace> travelListPlace = db.travellistplaces.Where(list => list.Tid == tid).ToList<travellistplace>();
 
@@ -401,7 +401,7 @@ namespace EasyTravelInTaiwan.Controllers
                     db.travellists.Add(newList);
                     db.SaveChanges();
                 }
-                catch
+                catch(Exception e)
                 {
                     TempData["CreateError"] = "儲存時發生問題，請重新整理頁面";
                     return RedirectToAction("Index", "Map");

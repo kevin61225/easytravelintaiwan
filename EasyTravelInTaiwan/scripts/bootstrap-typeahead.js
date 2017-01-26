@@ -1,4 +1,4 @@
-$("#Search").typeahead({
+$("#search-text").typeahead({
     source: function (query, process) {
         var placeList = [];
         var typeValue = $("#searchType").val();
@@ -24,7 +24,7 @@ $("#Search").typeahead({
     */
 });
 
-$("#SearchView").typeahead({
+$("#searchView-text").typeahead({
     source: function (query, process) {
         var placeList = [];
         var typeValue = 0;

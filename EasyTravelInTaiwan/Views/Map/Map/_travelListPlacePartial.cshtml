@@ -10,9 +10,9 @@
         {
             foreach (EasyTravelInTaiwan.Models.view maplatlng in ViewBag.TravelListPlaces)
             {
-            <li id="place.@maplatlng.Id">
-                <a href="#">@maplatlng.Name<i class="icon-remove pull-right"></i></a>
-            </li>
+                <li id="place.@maplatlng.Id">
+                    <a href="#">@maplatlng.Name<i class="icon-remove pull-right"></i></a>
+                </li>
             }
         }
     </ul>
@@ -27,118 +27,124 @@
 
 
 <script type="text/javascript">
-    var selectedList;
+    (function () {
+        var selectedList;
 
-    $(document).ajaxStart($.blockUI({ message: "請稍後... " }));
-    $(document).ajaxStop($.unblockUI);
+        //$(document).ajaxStart($.blockUI({ message: "請稍後... " }));
+        //$(document).ajaxStop($.unblockUI);
 
-    $(document).ready(function () {
-        $("#box").attr("tabindex", 5000);
-        $("#box").niceScroll({ autohidemode: true });
-    });
+        //$(document).ready(function () {
+        //    $("#box").attr("tabindex", 5000);
+        //    $("#box").niceScroll({ autohidemode: true });
+        //});
 
-    $("#InputsWrapper li i").hover(
-        function () {
-            $(this).removeClass("icon-remove");
-            $(this).addClass("icon-remove-circle");
-        },
-        function () {
-            $(this).removeClass("icon-remove-circle");
-            $(this).addClass("icon-remove");
-        }
-    );
 
-    $('#InputsWrapper li').click(function () {
-        //if (e.button == 1) {
-        var str = $(this).attr('id');
-        var n = str.split(".");
-        var id;
-        for (var i = 0; i < gmarkers.length; i++) {
-            if (gmarkers[i].gId == n[1]) {
-                id = i;
-            }
-        }
-        google.maps.event.trigger(gmarkers[id], "click");
-        gmarkers[id].setVisible(true);
-    });
+            init();
 
-    // remove place event
-    $("#InputsWrapper li i").click(function (e) {
 
-        var place = $(this).parent().parent().attr('id');
-        var n = place.split(".");
+        function init() {
 
-        for (var i = 0; i < gmarkers.length; i++) {
-            if (gmarkers[i].gId == n[1]) {
-                gmarkers[i].isChecked = false;
-            }
-        }
+            $("#box").attr("tabindex", 5000);
+            $("#box").niceScroll({ autohidemode: true });
 
-        var $removeLi = $(this).parent().parent();
+            $("#InputsWrapper li i").hover(
+                function () {
+                    $(this).removeClass("icon-remove");
+                    $(this).addClass("icon-remove-circle");
+                },
+                function () {
+                    $(this).removeClass("icon-remove-circle");
+                    $(this).addClass("icon-remove");
+                }
+            );
 
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("DeletePlace")",
-            data: JSON.stringify({ deletePlaceId: place }),
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                if (data.Status != 2) {
-                    $("#TravelListPlacePartialView").html(data);
-                    window.setTimeout(function () {
-                        $("#SaveAlert").fadeOut().alert('close');
-                        //$("#box").attr("tabindex", 5000);
-                        //$("#box").niceScroll({ autohidemode: true });
+            $('#InputsWrapper li').click(function () {
+                //if (e.button == 1) {
+                var str = $(this).attr('id');
+                var n = str.split(".");
+                var id;
+                for (var i = 0; i < gmarkers.length; i++) {
+                    if (gmarkers[i].gId == n[1]) {
+                        id = i;
+                    }
+                }
+                google.maps.event.trigger(gmarkers[id], "click");
+                gmarkers[id].setVisible(true);
+            });
+
+            // remove place event
+            $("#InputsWrapper li i").click(function (e) {
+
+                var place = $(this).parent().parent().attr('id');
+                var n = place.split(".");
+
+                for (var i = 0; i < gmarkers.length; i++) {
+                    if (gmarkers[i].gId == n[1]) {
+                        gmarkers[i].isChecked = false;
+                    }
+                }
+
+                var $removeLi = $(this).parent().parent();
+
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("DeletePlace")",
+                    data: JSON.stringify({ deletePlaceId: place }),
+                    contentType: 'application/json; charset=utf-8',
+                    beforeSend: blockUI(),
+                    success: function (data) {
+                        if (data.Status != 2) {
+                            $("#TravelListPlacePartialView").html(data);
+                            window.setTimeout(function () {
+                                $("#SaveAlert").fadeOut().alert('close');
+                                //$("#box").attr("tabindex", 5000);
+                                //$("#box").niceScroll({ autohidemode: true });
+                                $("#box").getNiceScroll().resize();
+                            }, 10000);
+                        }
                         $("#box").getNiceScroll().resize();
-                    }, 10000);
-                }
-                $("#box").getNiceScroll().resize();
-            }
-        });
-    });
+                        $.unblockUI();
+                    }
+                });
+            });
 
-    $('#Save-List-Button').click(function () {
+            $('#Save-List-Button').click(function () {
 
-        var placeItems = [];
+                var placeItems = [];
 
-        $("#InputsWrapper").children().each(function () {
-            var $this = $(this);
-            var str = $(this).attr('id');
-            var n = str.split(".");
-            var id;
-            for (var i = 0; i < gmarkers.length; i++) {
-                if (gmarkers[i].gId == n[1]) {
-                    id = i;
-                }
-            }
-            var item = { Tid: selectedList, sno: gmarkers[id].gId };
-            placeItems.push(item);
-        });
+                $("#InputsWrapper").children().each(function () {
+                    var $this = $(this);
+                    var str = $(this).attr('id');
+                    var n = str.split(".");
+                    var id;
+                    for (var i = 0; i < gmarkers.length; i++) {
+                        if (gmarkers[i].gId == n[1]) {
+                            id = i;
+                        }
+                    }
+                    var item = { Tid: selectedList, sno: gmarkers[id].gId };
+                    placeItems.push(item);
+                });
 
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("PostPlace")",
-            data: JSON.stringify(placeItems),
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                $("#TravelListPlacePartialView").html(data);
-                window.setTimeout(function () {
-                    $("#SaveAlert").fadeOut().alert('close');
-                    //$("#box").attr("tabindex", 5000);
-                    //$("#box").niceScroll({ autohidemode: true });
-                    $("#box").getNiceScroll().resize();
-                }, 1000);
-                $("#box").getNiceScroll().resize();
-            },
-        });
-    });
-
-    function HideInputWrapper() {
-        $("#placesbox").getNiceScroll().hide();
-        $("#placesbox").getNiceScroll().resize();
-    }
-    function ShowInputWrapper() {
-        $("#placesbox").getNiceScroll().show();
-        $("#placesbox").getNiceScroll().resize();
-    }
-
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("PostPlace")",
+                    data: JSON.stringify(placeItems),
+                    contentType: 'application/json; charset=utf-8',
+                    beforeSend: blockUI(),
+                    success: function (data) {
+                        $("#TravelListPlacePartialView").html(data);
+                        window.setTimeout(function () {
+                            $("#SaveAlert").fadeOut().alert('close');
+                            //$("#box").attr("tabindex", 5000);
+                            //$("#box").niceScroll({ autohidemode: true });
+                            $("#box").getNiceScroll().resize();
+                        }, 1000);
+                        $("#box").getNiceScroll().resize();
+                        $.unblockUI();
+                    },
+                });
+            });
+        }
+    })();
 </script>

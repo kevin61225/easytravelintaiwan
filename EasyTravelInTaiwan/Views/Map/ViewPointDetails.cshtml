@@ -87,8 +87,8 @@
     </div>
     <div>
         @*<div class="display-label">
-            @Html.DisplayName("ImageList")
-        </div>*@
+                @Html.DisplayName("ImageList")
+            </div>*@
         <div class="display-field">
             <div>
                 @Html.Partial("_imagePartial", Model.viewimages)
@@ -103,30 +103,32 @@
 <div class="hide">
     <p>
         @Html.ActionLink("Edit", "ViewPointEdit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "ViewPointList")
+        @Html.ActionLink("Back to List", "ViewPointList")
     </p>
 </div>
 
-<script type="text/javascript">
-    $('#AddToFavorite').click(function () {
-        var id = $('#Sno').val();
-        console.log(id);
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("AddToFavorite", "Map")",
-            data: JSON.stringify({ userId: "@Session["UserId"]", placeId: id }),
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                console.log(data);
-                if (data.Status == 1) {
-                    alert(data.Message);
-                    window.location.replace("/Map/ViewPointDetails/" + id);
+@section Scripts{
+    <script type="text/javascript">
+        $('#AddToFavorite').click(function () {
+            var id = $('#Sno').val();
+            console.log(id);
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("AddToFavorite", "Map")",
+                data: JSON.stringify({ userId: "@Session["UserId"]", placeId: id }),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    console.log(data);
+                    if (data.Status == 1) {
+                        alert(data.Message);
+                        window.location.replace("/Map/ViewPointDetails/" + id);
+                    }
+                    else {
+                        alert(data.Message);
+                        window.location.replace("/Member/Login?ReturnUrl=%2fMap%2fViewPointDetails%2f" + id);
+                    }
                 }
-                else {
-                    alert(data.Message);
-                    window.location.replace("/Member/Login?ReturnUrl=%2fMap%2fViewPointDetails%2f" + id);
-                }
-            }
+            });
         });
-    });
-</script>
+    </script>
+}

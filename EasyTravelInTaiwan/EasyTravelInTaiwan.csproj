@@ -49,8 +49,10 @@
     <Reference Include="Microsoft.Web.Mvc">
       <HintPath>..\packages\Mvc4Futures.4.0.20710.0\lib\net40\Microsoft.Web.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
-    <Reference Include="MySql.Web, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=6.9.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\MySql.Data.6.9.7\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -372,11 +374,17 @@
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Interface\IRepository.cs" />
+    <Compile Include="Models\maplatlng.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MapModel.cs" />
     <Compile Include="Models\member.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\notfoundimage.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\oneinfodata.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\place.cs">
@@ -642,6 +650,7 @@
     <Content Include="Content\2012.1.214\Windows7\sprite-vertical.png" />
     <Content Include="Content\2012.1.214\Windows7\sprite.png" />
     <Content Include="Content\body.css" />
+    <Content Include="Content\bootstrap-lightbox.min.css" />
     <Content Include="Content\bootstrap-mvc-validation.css" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
@@ -649,6 +658,9 @@
     <Content Include="Content\bootstrap-select.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\units\search-result-partial.css" />
+    <Content Include="Content\units\index.css" />
+    <Content Include="Content\units\map.css" />
     <Content Include="Content\Icons\01.png" />
     <Content Include="Content\Icons\02.png" />
     <Content Include="Content\Icons\03.png" />
@@ -710,6 +722,7 @@
     <Content Include="scripts\2012.1.214\telerik.upload.min.js" />
     <Content Include="scripts\2012.1.214\telerik.window.min.js" />
     <Content Include="scripts\bootstrap-carousel.js" />
+    <Content Include="scripts\bootstrap-lightbox.min.js" />
     <Content Include="scripts\bootstrap-select.js" />
     <Content Include="scripts\bootstrap-select.min.js" />
     <Content Include="scripts\bootstrap-typeahead.js" />
@@ -718,6 +731,7 @@
     <Content Include="scripts\ContextMenu.js" />
     <Content Include="scripts\Directions.js" />
     <Content Include="scripts\fbAuthJScript.js" />
+    <Content Include="scripts\googleIcons.js" />
     <Content Include="scripts\GoogleMapRightClick.js" />
     <Content Include="scripts\html5shiv.js" />
     <EntityDeploy Include="Models\ProjectModel.edmx">
@@ -737,6 +751,7 @@
       <DependentUpon>ProjectModel.edmx</DependentUpon>
       <LastGenOutput>ProjectModel.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\EasyTravelInTaiwan.pubxml" />
     <None Include="Properties\PublishProfiles\project.pubxml" />
     <None Include="scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="scripts\InitializeComponent.js" />
@@ -765,6 +780,8 @@
     <Content Include="scripts\jquery.validate.unobtrusive.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="scripts\progress.js" />
+    <Content Include="scripts\units\sort-history.js" />
+    <Content Include="scripts\units\map-main.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

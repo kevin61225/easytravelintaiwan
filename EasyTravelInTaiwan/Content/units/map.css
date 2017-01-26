@@ -1,0 +1,69 @@
+﻿    .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        border-top: 1px solid #ddd;
+        height: 541px;
+        padding: 10px;
+    }
+
+    .nav-tabs {
+        font-family: "微軟正黑體";
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+
+    .nav {
+        border-bottom: none;
+    }
+
+
+    .searchItemBorder {
+        display: block;
+    }
+
+    /*html, body, #container {
+        height: 100%;
+        width: 100%;
+    }*/
+
+    .map_canvas {
+        height: 600px;
+        float: left;
+        position: relative;
+    }
+
+    /*	start styles for the ContextMenu	*/
+    .context_menu {
+        background-color: white;
+        border: 1px solid gray;
+    }
+
+    .context_menu_item {
+        padding: 3px 6px;
+    }
+
+        .context_menu_item:hover {
+            background-color: #CCCCCC;
+        }
+
+    .context_menu_separator {
+        background-color: gray;
+        height: 1px;
+        margin: 0;
+        padding: 0;
+    }
+
+    #clearDirectionsItem, #getDirectionsItem {
+        display: none;
+    }
+
+    div.growlUI {
+        background: url(check48.png) no-repeat 10px 10px;
+    }
+
+        div.growlUI h1, div.growlUI h2 {
+            color: white;
+            padding: 5px 5px 5px 75px;
+            text-align: left;
+        }

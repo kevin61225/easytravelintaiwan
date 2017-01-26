@@ -13,10 +13,10 @@ namespace EasyTravelInTaiwan.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ProjectEntities : DbContext
+    public partial class ProjectEntities1 : DbContext
     {
-        public ProjectEntities()
-            : base("name=ProjectEntities")
+        public ProjectEntities1()
+            : base("name=ProjectEntities1")
         {
         }
     
@@ -31,10 +31,14 @@ namespace EasyTravelInTaiwan.Models
         public DbSet<facebookprofile> facebookprofiles { get; set; }
         public DbSet<favorite> favorites { get; set; }
         public DbSet<food> foods { get; set; }
+        public DbSet<foodimage> foodimages { get; set; }
         public DbSet<friend> friends { get; set; }
         public DbSet<hotel> hotels { get; set; }
         public DbSet<hotelimage> hotelimages { get; set; }
+        public DbSet<maplatlng> maplatlngs { get; set; }
         public DbSet<member> members { get; set; }
+        public DbSet<notfoundimage> notfoundimages { get; set; }
+        public DbSet<oneinfodata> oneinfodatas { get; set; }
         public DbSet<place> places { get; set; }
         public DbSet<placeimage> placeimages { get; set; }
         public DbSet<rating> ratings { get; set; }
@@ -43,7 +47,5 @@ namespace EasyTravelInTaiwan.Models
         public DbSet<travellistplace> travellistplaces { get; set; }
         public DbSet<view> views { get; set; }
         public DbSet<viewtype> viewtypes { get; set; }
-        public DbSet<notfoundimage> notfoundimages { get; set; }
-        public DbSet<foodimage> foodimages { get; set; }
     }
 }

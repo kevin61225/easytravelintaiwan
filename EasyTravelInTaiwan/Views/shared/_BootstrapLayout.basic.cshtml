@@ -1,4 +1,4 @@
-@using System.Web.Optimization
+ï»¿@using System.Web.Optimization
 @using BootstrapSupport
 @using NavigationRoutes
 
@@ -8,6 +8,11 @@
     <meta charset="utf-8">
     <title>@ViewBag.Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="og:description" content="å¿«é€Ÿå»ºç«‹æ—…éŠåœ°åœ–çš„å¥½å¤¥ä¼´ï¼" />
+    <meta property="og:title" content="@ViewBag.Title" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="@Request.Url.AbsoluteUri" />
+    <link rel="alternate" href="@Request.Url.AbsoluteUri" hreflang="zh-Hant" />
     <link rel="SHORTCUT ICON" href="~/EzIcon.ico" />
     <link href="@Styles.Url("~/content/css")" rel="stylesheet"/>
     <style type="text/css">
@@ -19,9 +24,20 @@
     @*<link href="#" rel="stylesheet" />*@
     @RenderSection("head", required: false)
     @Html.Partial("_html5shiv")
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-44866846-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
     @* favicons and touch icons go here *@
 </head>
-
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
@@ -31,7 +47,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
-                <a class="brand" href="@Url.Action("Index", "Index")" title="¦^­º­¶">EasyTravelInTaiwan</a>
+                <a class="brand" href="@Url.Action("Index", "Index")" title="å›žé¦–é ">EasyTravelInTaiwan</a>
                 <div class="nav-collapse collapse">
                     <ul class="nav">
                         @Html.Navigation()
@@ -42,7 +58,7 @@
                             {
                                 <button class="btn btn-primary" type="button" onclick="FacebookLogin()">
                                     <img alt="140x140" src="~/Content/images/FB-logo.png" width="20" height="20" /></button>
-                                <a href="#myModal" role="button" class="btn btn-primary" data-toggle="modal">µn¤J</a>
+                                <a href="#myModal" role="button" class="btn btn-primary" data-toggle="modal">ç™»å…¥</a>
                             }
                             else
                             {
@@ -51,16 +67,17 @@
                                         <img src="~/Content/images/userProfilePic.jpg" width="60" height="60" />
                                     </div>
                                     <div class="btn-group">
-                                        <a class="btn btn-primary" href="#"><i class="icon-user icon-white"></i>&nbsp;&nbsp;Welcome !! @Session["UserName"]</a>
+                                        <a class="btn btn-primary" href="#"><i class="icon-user icon-white"></i>&nbsp;&nbsp;Welcome !! @User.Identity.Name</a>
                                         <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="~/Member/Index"><i class="icon-pencil"></i>·|­û¸ê®Æ</a></li>
-                                            <li><a href="~/Member/Home?User=@Session["UserId"]"><i class="icon-list-alt"></i>§Úªº­º­¶</a></li>
-                                            @*<li><a href="~/Book/IndexTrace"><i class="icon-list-alt"></i>§Úªº¦¬ÂÃ</a></li>*@
-                                            @*<li><a href="~/Rating/Index"><i class="icon-list-alt"></i> µû¤À¦Cªí</a></li>*@
+                                            
+                                            <li><a href="~/Member/Index"><i class="icon-pencil"></i>å€‹äººè³‡æ–™</a></li>
+                                            <li><a href="~/Member/Home?User=@User.Identity.Name"><i class="icon-list-alt"></i>ä¿®æ”¹è³‡æ–™</a></li>
+                                            @*<li><a href="~/Book/IndexTrace"><i class="icon-list-alt"></i>ï¿½Úªï¿½ï¿½ï¿½ï¿½ï¿½</a></li>*@
+                                            @*<li><a href="~/Rating/Index"><i class="icon-list-alt"></i> ï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½</a></li>*@
                                         </ul>
                                     </div>
-                                    <button id="LogoutBtn" class="btn btn-primary" type="button" onclick="Logout()">µn¥X</button>
+                                    <button id="LogoutBtn" class="btn btn-primary" type="button" onclick="Logout()">ç™»å‡º</button>
                                 </div>
                             }
                         </div>
@@ -74,14 +91,15 @@
         @Html.Partial("_validationSummary")
         @RenderBody()
         <hr>
-        <footer>
-            <p>&copy; Company Easy Travel In Taiwan @System.DateTime.Now.ToString("yyyy")</p>
+        <footer class="text-center">
+            <p>&copy; Easy Travel In Taiwan @System.DateTime.Now.ToString("yyyy")</p>
         </footer>
     </div>
-    <script src="~/scripts/jquery.cookie.js"></script>
-    <script src="~/scripts/fbAuthJScript.js"></script>
-
+    
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     @Scripts.Render("~/js")
+    @*<script src="~/scripts/fbAuthJScript.js"></script>*@
     @*<script src="~/scripts/bootstrap-typeahead.js"></script>
     <script src="~/scripts/jquery.blockUI.js"></script>*@
     @*    <script src="~/scripts/jquery.rating.js"></script>*@
@@ -90,8 +108,8 @@
     <!--Login Page -->
     <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">¡Ñ</button>
-            <h3 id="myModalLabel">µn¤J</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+            <h3 id="myModalLabel">ç™»å…¥</h3>
         </div>
         <div class="modal-body">
             <br />
@@ -114,7 +132,6 @@
 </style>
 
 <script type="text/javascript">
-    // Åý alert ¦Û°Ê®ø¥¢ (¤­¬í)
     $(".alert").addClass("in");
     window.setTimeout(function () { $("#MainAlert").fadeOut(); }, 1000);
 
@@ -133,25 +150,12 @@
     });
 </script>
 
-<script>
-    (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date(); a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-    ga('create', 'UA-44866846-1', 'no-ip.info');
-    ga('send', 'pageview');
-
-</script>
-
-<script>
+<script type="text/javascript">
     window.fbAsyncInit = function () {
         FB.init({
             appId: '544818928892863', // App ID
             //channelUrl: 'http://localhost:51145/', // Channel File
-            channelUrl: 'http://easytravelintaiwan.no-ip.info/',
+            //channelUrl: 'http://www.easytravelintaiwan.com/',
             status: true, // check login status
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: true  // parse XFBML
@@ -203,7 +207,7 @@
         SetProfilePicture(@Session["FBUser"]);
     });
         function SetProfilePicture(profileId) {
-            console.log(profileId);
+            //console.log(profileId);
             if (profileId != undefined) {
                 $('#ProfilePicture').html('<img src="' + 'https://graph.facebook.com/' + profileId + '/picture?width=40&height=40"></img>');
             }

@@ -25,7 +25,7 @@ namespace EasyTravelInTaiwan.Models
 
         public void Initialize()
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 List<city> cities = db.cities.ToList();
                 // 先找到 view
@@ -41,7 +41,7 @@ namespace EasyTravelInTaiwan.Models
 
         static public List<view> GetViewsByTravellistplace(int User)
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 List<travellistplace> places = db.travellistplaces.Where(o => o.travellist.UserId == User).Distinct().ToList();
                 List<view> views = new List<view>();
@@ -58,7 +58,7 @@ namespace EasyTravelInTaiwan.Models
 
         public void AddViewType(city item, List<view> viewList)
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 FavoritePlaces favorite = new FavoritePlaces();
                 favorite.ViewTypeSum = new List<int>();
@@ -80,7 +80,7 @@ namespace EasyTravelInTaiwan.Models
         public int GetViewTypeSumByUserId(viewtype input, string city, List<view> viewList)
         {
             int sum = 0;
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 // 再根據 view 找到 citys & viewtype
                 foreach (view item in viewList)
@@ -99,7 +99,7 @@ namespace EasyTravelInTaiwan.Models
 
         static public int CheckIsFavorite(int userId, string place)
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 try
                 {
@@ -115,7 +115,7 @@ namespace EasyTravelInTaiwan.Models
 
         static public void AddFavorite(int uId, string placeId)
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 favorite temp = new favorite();
                 temp.UserId = uId;
@@ -127,7 +127,7 @@ namespace EasyTravelInTaiwan.Models
 
         static public List<view> GetAllViewFromFavoriteByUserId(int uId)
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 List<favorite> favorites = db.favorites.Where(o => o.UserId == uId).ToList<favorite>();
 

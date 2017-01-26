@@ -1,42 +1,8 @@
 ﻿@{
     ViewBag.Title = "Easy Travel In Taiwan";
 }
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<style>
-    .tab-content {
-        border-left: 1px solid #ddd;
-        border-right: 1px solid #ddd;
-        border-bottom: 1px solid #ddd;
-        border-top: 1px solid #ddd;
-        max-height: 500px;
-        max-width: 800px;
-        padding: 10px;
-    }
-
-    .nav-tabs {
-        font-family: "微軟正黑體";
-        font-weight: bold;
-        margin-bottom: 0;
-    }
-
-    .nav {
-        border-bottom: none;
-    }
-
-
-    .searchItemBorder {
-        display: block;
-    }
-
-    .box {
-        height: 320px;
-        overflow-y: scroll;
-        overflow-x: hidden;
-    }
-        .box ul {
-            width: 97%;
-        }
-</style>
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>*@
+<link href="~/Content/units/index.css" rel="stylesheet" />
 
 
 @Html.Action("SearchDropdownList", "Search")
@@ -57,13 +23,16 @@
         </ul>
         <div class="tab-content box">
             <div class="tab-pane active" id="ViewTab">
-                @Html.Action("HotViewPartial")
+                @*@Html.Action("HotViewPartial")*@
+                @{Html.RenderAction("HotViewPartial");}
             </div>
             <div class="tab-pane " id="FoodTab2">
-                @Html.Action("HotFoodPartial")
+                @*@Html.Action("HotFoodPartial")*@
+                @{Html.RenderAction("HotFoodPartial");}
             </div>
             <div class="tab-pane " id="HotelTab3">
-                @Html.Action("HotHotelPartial")
+                @*@Html.Action("HotHotelPartial")*@
+                @{Html.RenderAction("HotHotelPartial");}
             </div>
         </div>
     </div>
@@ -75,9 +44,12 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    $('#hotSpotTab a').hover(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-    });
-</script>
+@section Scripts
+{
+    <script type="text/javascript">
+        $('#hotSpotTab a').hover(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
+    </script>
+}

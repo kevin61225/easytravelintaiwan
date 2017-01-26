@@ -1,6 +1,6 @@
 ﻿@model EasyTravelInTaiwan.Models.SearchViewModel
 
-<style>
+<style type="text/css">
     .dropList {
         width: 137px;
     }
@@ -18,7 +18,7 @@
 {
     <div class="row-fluid">
         <div class="form-inline">
-            @Html.TextBoxFor(model => model.searchWord, new { @class = "span7", @id = "Search", @data = "typeahead", @placeholder = "輸入關鍵字", autocomplete = "off" })
+            @Html.TextBoxFor(model => model.searchWord, new { @class = "span7", @id = "search-text", @data = "typeahead", @placeholder = "輸入關鍵字", autocomplete = "off" })
             @Html.ValidationMessageFor(model => model.searchWord)
             @Html.DropDownListFor(model => model.searchType,
             new SelectList(new List<Object>{ 

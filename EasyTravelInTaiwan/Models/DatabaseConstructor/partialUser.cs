@@ -8,7 +8,7 @@ namespace EasyTravelInTaiwan.Models
 {
     public class partialUser
     {
-        ProjectEntities db = new ProjectEntities();
+        ProjectEntities1 db = new ProjectEntities1();
 
         List<member> users;
 

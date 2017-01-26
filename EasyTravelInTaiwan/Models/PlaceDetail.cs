@@ -137,7 +137,7 @@ namespace EasyTravelInTaiwan.Models
             modify_date = acco.modify_date;
 
             ICollection<accomodationimage> accimages = new HashSet<accomodationimage>();
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 accimages.Add(db.accomodationimages.Where(o => o.Id == acco.id).Single());
             }
@@ -174,7 +174,7 @@ namespace EasyTravelInTaiwan.Models
             modify_date = food.modify_date;
 
             ICollection<foodimage> foodimages = new HashSet<foodimage>();
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 foodimages.Add(db.foodimages.Where(o => o.Id == food.id).Single());
             }

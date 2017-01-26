@@ -62,7 +62,7 @@ namespace EasyTravelInTaiwan.Models
             return outputImage;
         }
 
-        static public byte[] GetImageById(ProjectEntities db, string id, string pt)
+        static public byte[] GetImageById(ProjectEntities1 db, string id, string pt)
         {
             byte[] notfound = db.notfoundimages.Where(o => o.NId == 2).Single().Image;
             ViewImage outputImage = new ViewImage();
@@ -113,7 +113,7 @@ namespace EasyTravelInTaiwan.Models
             return outputImage.Image;
         }
 
-        static public byte[] GetImageById(ProjectEntities db, string id, string pt, int sid)
+        static public byte[] GetImageById(ProjectEntities1 db, string id, string pt, int sid)
         {
             ViewImage outputImage = new ViewImage();
             byte[] notfound = db.notfoundimages.Where(o => o.NId == 2).Single().Image;
@@ -164,7 +164,7 @@ namespace EasyTravelInTaiwan.Models
             return outputImage.Image;
         }
 
-        static public ViewImage GetNotFoundImage(ProjectEntities db)
+        static public ViewImage GetNotFoundImage(ProjectEntities1 db)
         {
             ViewImage outputImage = new ViewImage();
             byte[] notfound = db.notfoundimages.Where(o => o.NId == 2).Single().Image;

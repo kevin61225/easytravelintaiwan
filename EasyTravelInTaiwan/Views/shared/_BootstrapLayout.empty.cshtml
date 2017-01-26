@@ -1,4 +1,4 @@
-@using System.Web.Optimization
+﻿@using System.Web.Optimization
 @using BootstrapSupport
 @using NavigationRoutes
 <!DOCTYPE html>
@@ -51,8 +51,8 @@
         @Html.Partial("_alerts")
         @RenderBody()
         <hr>
-        <footer>
-            <p>&copy; Company Easy Travel In Taiwan @System.DateTime.Now.ToString("yyyy")</p>
+        <footer class="text-center">
+            <p>&copy; Easy Travel In Taiwan @System.DateTime.Now.ToString("yyyy")</p>
         </footer>
 
     </div> <!-- container -->

@@ -11,9 +11,9 @@ namespace EasyTravelInTaiwan.Controllers
 {
     public class SearchController : Controller
     {
-        ProjectEntities db = new ProjectEntities();
+        ProjectEntities1 db = new ProjectEntities1();
 
-        public ActionResult SearchPlace(int type)
+        public ActionResult SearchPlace(string query, int type)
         {
             var entityList = new SearchModel();
 
@@ -21,19 +21,19 @@ namespace EasyTravelInTaiwan.Controllers
             {
                 case 0:
                     // 搜全部
-                    entityList.AddPlaceSearch();
+                    entityList.AddPlaceSearch(query);
                     break;
                 case 1:
-                    entityList.AddFoodSearch();
+                    entityList.AddFoodSearch(query);
                     break;
                 case 2:
-                    entityList.AddViewSearch();
+                    entityList.AddViewSearch(query);
                     break;
                 case 3:
-                    entityList.AddHotelSearch();
+                    entityList.AddHotelSearch(query);
                     break;
             }
-            return Json(entityList, JsonRequestBehavior.AllowGet);
+            return Json(entityList.Take(10), JsonRequestBehavior.AllowGet);
         }
 
         public void CartTest(int key = 0)

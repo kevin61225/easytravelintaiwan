@@ -8,20 +8,21 @@
         left: 30px;
     }
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>*@
 
 <div class="row">
     <div id="ProFilePicture"><img src="~/Content/images/userProfilePic.jpg" /></div>
-    <h2>@ViewBag.UserName 的個人頁面
-        @if (ViewBag.FriendType == 2)
-        {
-            <button id="AddFriend" class="btn"><i class="icon-star"></i>加為朋友</button>
-        }
-        else if (ViewBag.FriendType == 1)
-        {
-            <button id="IsFriend" class="btn" disabled data-toggle="button">已經是朋友 <i class="icon-ok"></i></button>
-        }
-    </h2>
+    <h2>
+        @ViewBag.UserName 的個人頁面
+    @if (ViewBag.FriendType == 2)
+    {
+        <button id="AddFriend" class="btn"><i class="icon-star"></i>加為朋友</button>
+    }
+    else if (ViewBag.FriendType == 1)
+    {
+        <button id="IsFriend" class="btn" disabled data-toggle="button">已經是朋友 <i class="icon-ok"></i></button>
+    }
+</h2>
 </div>
 <br />
 @Html.Hidden("UId", Session["NowUid"])
@@ -45,82 +46,84 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    var city;
-    var type;
+@section Scripts{
+    <script type="text/javascript">
+        var city;
+        var type;
 
-    $(document).ready(function () {
-        if ($('#FbId').val() != "") {
-            $('#ProFilePicture').html('<img src="' + 'https://graph.facebook.com/' + $('#FbId').val() + '/picture?type=large"></img>');
-        }
-    });
-
-    $('#TypeList li').click(function () {
-        var str = $(this).attr('id');
-        var n = str.split(".");
-        type = n[1];
-        city = n[2];
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("FavoriteResultPartial", "Member")",
-            data: JSON.stringify({ type: n[1], city: n[2], uId: n[3], page: 1 }),
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                $("#FavortieResultPartial").html(data);
+        $(document).ready(function () {
+            if ($('#FbId').val() != "") {
+                $('#ProFilePicture').html('<img src="' + 'https://graph.facebook.com/' + $('#FbId').val() + '/picture?type=large"></img>');
             }
         });
-    });
 
-    $('.tree-toggle').click(function () {
-        $(this).parent().children('ul.tree').toggle(200);
-    });
-
-    $('#FriendsList').click(function () {
-        var id = $('#UId').val();
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("FriendsResultPartial", "Member")",
-            data: JSON.stringify({ uId: id, type: "FriendsList", page: 1 }),
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                $("#FriendsResultPartial").html(data);
-            }
-        });
-    });
-
-    $('#RecommendFriendsList').click(function () {
-        var id = $('#UId').val();
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("FriendsResultPartial", "Member")",
-            data: JSON.stringify({ uId: id, type: "RecommendFriendsList", page: 1 }),
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                $("#FriendsResultPartial").html(data);
-            }
-        });
-    });
-
-    $('#AddFriend').click(function () {
-        var id = $('#UId').val();
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("AddFriend", "Member")",
-            data: JSON.stringify({ uId: "@Session["UserId"]", friendId: id }),
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                console.log(data);
-                if (data.Status == 1) {
-                    alert(data.Message);
-                    window.location.replace("/Member/Home?User=" + id);
+        $('#TypeList li').click(function () {
+            var str = $(this).attr('id');
+            var n = str.split(".");
+            type = n[1];
+            city = n[2];
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("FavoriteResultPartial", "Member")",
+                data: JSON.stringify({ type: n[1], city: n[2], uId: n[3], page: 1 }),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    $("#FavortieResultPartial").html(data);
                 }
-                else {
-                    alert(data.Message);
-
-                    window.location.replace("/Member/Login?ReturnUrl=%2fMember%2fHome%3fUser%3d" + id);
-                }
-                //$("#FriendsResultPartial").html(data);
-            }
+            });
         });
-    });
-</script>
+
+        $('.tree-toggle').click(function () {
+            $(this).parent().children('ul.tree').toggle(200);
+        });
+
+        $('#FriendsList').click(function () {
+            var id = $('#UId').val();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("FriendsResultPartial", "Member")",
+                data: JSON.stringify({ uId: id, type: "FriendsList", page: 1 }),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    $("#FriendsResultPartial").html(data);
+                }
+            });
+        });
+
+        $('#RecommendFriendsList').click(function () {
+            var id = $('#UId').val();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("FriendsResultPartial", "Member")",
+                data: JSON.stringify({ uId: id, type: "RecommendFriendsList", page: 1 }),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    $("#FriendsResultPartial").html(data);
+                }
+            });
+        });
+
+        $('#AddFriend').click(function () {
+            var id = $('#UId').val();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("AddFriend", "Member")",
+                data: JSON.stringify({ uId: "@Session["UserId"]", friendId: id }),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    console.log(data);
+                    if (data.Status == 1) {
+                        alert(data.Message);
+                        window.location.replace("/Member/Home?User=" + id);
+                    }
+                    else {
+                        alert(data.Message);
+
+                        window.location.replace("/Member/Login?ReturnUrl=%2fMember%2fHome%3fUser%3d" + id);
+                    }
+                    //$("#FriendsResultPartial").html(data);
+                }
+            });
+        });
+    </script>
+}

@@ -7,7 +7,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
     {
         public void TopRatingFoodByAmount(int resultCount)
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 var query = (from ratingItems in db.ratings
                              where ratingItems.pt == "07"
@@ -29,7 +29,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
 
         public void TopRatingHotelByAmount(int resultCount)
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 var query = (from ratingItems in db.ratings
                              where ratingItems.pt == "06"
@@ -51,7 +51,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
 
         public void TopRatingViewByAmount(int resultCount)
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 var query = (from ratingItems in db.ratings
                              where ratingItems.pt == "10"
@@ -74,7 +74,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
         public void TopRatingByType(string type)
         {
             int temp = int.Parse(type);
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 int counts = 0;
                 List<view> viewlist = db.views.Where(o => o.viewtype1.Typenumber == temp).ToList();
@@ -106,7 +106,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
 
         static public List<view> GetViewsByRating(int User)
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 List<travellistplace> places = db.travellistplaces.Where(o => o.travellist.UserId == User).Distinct().ToList();
                 List<view> views = new List<view>();
@@ -155,7 +155,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
 
         public void GetAllPlaces()
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 var query = from views in db.views
                             select views;
@@ -168,7 +168,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
 
         public void GetAllHotels()
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 var query = from hotels in db.views
                             where hotels.Pt == "06"
@@ -182,7 +182,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
 
         public void GetAllFoods()
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 var query = from foods in db.views
                             where foods.Pt == "07"
@@ -196,7 +196,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
 
         public void GetAllViews()
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 var query = from views in db.views
                             where views.Pt == "10"
@@ -210,7 +210,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
 
         public void GetPersonalFavorite(int type, string city, int uId)
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 List<view> views = SearchFavoriteModel.GetAllViewFromFavoriteByUserId(uId);
                 foreach (view item in views)
@@ -246,7 +246,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
         static public string GetCityNameById(string cityId)
         {
             string output = string.Empty;
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 return output = db.cities.Where(o => o.Citynumber == cityId).Single().Cityname;
             }
@@ -255,7 +255,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
         static public string GetViewTypeNameById(int typeId)
         {
             string output = string.Empty;
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 return output = db.viewtypes.Where(o => o.Typenumber == typeId).Single().Typename;
             }
@@ -269,7 +269,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
 
         public void ByTitle(string keyWord)
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 var query = from places in db.views
                             where places.Name.Contains(keyWord)
@@ -284,7 +284,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
 
         public void ByFood(string keyWord)
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 var query = from foods in db.views
                             where foods.Name.Contains(keyWord) && foods.Pt == "07"
@@ -298,7 +298,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
 
         public void ByView(string keyWord)
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 var query = from views in db.views
                             where views.Name.Contains(keyWord) && views.Pt == "10"
@@ -312,7 +312,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
 
         public void ByHotel(string keyWord)
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 var query = from hotels in db.views
                             where hotels.Name.Contains(keyWord) && hotels.Pt == "06"

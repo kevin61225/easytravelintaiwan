@@ -4,39 +4,41 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0f9ecbc716d64c77a9004aa7740c5b94" Name="圖表1">
-        <EntityTypeShape EntityType="ProjectModel.accommodation" Width="1.5" PointX="10.75" PointY="12.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.accomodationimage" Width="1.5" PointX="8.75" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.city" Width="1.5" PointX="4.5" PointY="16" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.facebookprofile" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.favorite" Width="1.5" PointX="2.75" PointY="10.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.food" Width="1.5" PointX="11.75" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.friend" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.hotel" Width="1.5" PointX="8.75" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.hotelimage" Width="1.5" PointX="11" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.member" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.place" Width="1.5" PointX="6.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.placeimage" Width="1.5" PointX="9" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.rating" Width="1.5" PointX="6" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.sortedhistory" Width="1.5" PointX="4.75" PointY="10.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.travellist" Width="1.5" PointX="3" PointY="13.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.travellistplace" Width="1.5" PointX="5.25" PointY="13.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.view" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.viewtype" Width="1.5" PointX="1.5" PointY="1.875" IsExpanded="true" />
-        <AssociationConnector Association="ProjectModel.place_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="ProjectModel.facebookprofile_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="ProjectModel.friends_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="ProjectModel.friends_ibfk_2" ManuallyRouted="false" />
-        <AssociationConnector Association="ProjectModel.hotelimage_ibfk_2" ManuallyRouted="false" />
-        <AssociationConnector Association="ProjectModel.rating_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="ProjectModel.travellist_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="ProjectModel.place_ibfk_2" ManuallyRouted="false" />
-        <AssociationConnector Association="ProjectModel.placeimage_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="ProjectModel.rating_ibfk_2" ManuallyRouted="false" />
-        <AssociationConnector Association="ProjectModel.travellistplace_ibfk_2" ManuallyRouted="false" />
-        <AssociationConnector Association="ProjectModel.view_ibfk_2" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="ProjectModel.notfoundimage" Width="1.5" PointX="1.5213437962910832" PointY="30.527315437107958" />
-        <EntityTypeShape EntityType="ProjectModel.foodimage" Width="1.5" PointX="1.7479582716468527" PointY="4.9653915487999987" />
+      <Diagram DiagramId="be1b35d56e4e4e08943b023777803d73" Name="Diagram1">
+        <EntityTypeShape EntityType="EasyTravelModel.accommodation" Width="1.5" PointX="10.75" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyTravelModel.accomodationimage" Width="1.5" PointX="8.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyTravelModel.city" Width="1.5" PointX="4.5" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyTravelModel.facebookprofile" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyTravelModel.favorite" Width="1.5" PointX="2.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyTravelModel.food" Width="1.5" PointX="11.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyTravelModel.foodimage" Width="1.5" PointX="4.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyTravelModel.friend" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyTravelModel.hotel" Width="1.5" PointX="8.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyTravelModel.hotelimage" Width="1.5" PointX="11" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyTravelModel.maplatlng" Width="1.5" PointX="7.75" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyTravelModel.member" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyTravelModel.notfoundimage" Width="1.5" PointX="12.75" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyTravelModel.oneinfodata" Width="1.5" PointX="13.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyTravelModel.place" Width="1.5" PointX="6.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyTravelModel.placeimage" Width="1.5" PointX="9" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyTravelModel.rating" Width="1.5" PointX="6" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyTravelModel.sortedhistory" Width="1.5" PointX="13.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyTravelModel.travellist" Width="1.5" PointX="3" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyTravelModel.travellistplace" Width="1.5" PointX="5.25" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyTravelModel.view" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyTravelModel.viewtype" Width="1.5" PointX="1.5" PointY="1.875" IsExpanded="true" />
+        <AssociationConnector Association="EasyTravelModel.place_place_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyTravelModel.facebookprofile_facebookprofile_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyTravelModel.friends_friends_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyTravelModel.friends_friends_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyTravelModel.hotelimage_hotelimage_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyTravelModel.rating_rating_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyTravelModel.travellist_travellist_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyTravelModel.place_place_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyTravelModel.placeimage_placeimage_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyTravelModel.rating_rating_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyTravelModel.travellistplace_travellistplace_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyTravelModel.view_view_ibfk_2" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

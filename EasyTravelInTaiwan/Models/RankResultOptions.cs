@@ -24,7 +24,7 @@ namespace EasyTravelInTaiwan.Models
 
         public void GetFood()
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 foreach (viewtype type in db.viewtypes.ToList())
                 {
@@ -40,7 +40,7 @@ namespace EasyTravelInTaiwan.Models
 
         public void GetHotel()
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 foreach (viewtype type in db.viewtypes.ToList())
                 {
@@ -56,7 +56,7 @@ namespace EasyTravelInTaiwan.Models
 
         public void GetView()
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 foreach (viewtype type in db.viewtypes.ToList())
                 {

@@ -16,7 +16,8 @@ namespace EasyTravelInTaiwan.Controllers
         {
             return View();
         }
-
+        
+        [ChildActionOnly]
         public ActionResult HotFoodPartial()
         {
 
@@ -27,6 +28,7 @@ namespace EasyTravelInTaiwan.Controllers
             return PartialView("_hotFoodPartial", model);
         }
 
+        [ChildActionOnly]
         public ActionResult HotHotelPartial()
         {
 
@@ -37,6 +39,7 @@ namespace EasyTravelInTaiwan.Controllers
             return PartialView("_hotHotelPartial", model);
         }
 
+        [ChildActionOnly]
         public ActionResult HotViewPartial()
         {
 

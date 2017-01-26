@@ -7,7 +7,7 @@ namespace EasyTravelInTaiwan.Models
 {
     public class Suggestor
     {
-        private ProjectEntities db = new ProjectEntities();
+        private ProjectEntities1 db = new ProjectEntities1();
 
         public List<view> GetOtherSuggestPlaceSno(int userId)
         {

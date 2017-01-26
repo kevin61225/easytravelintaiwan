@@ -13,22 +13,30 @@
     </ul>
 </div>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $("#otherSuggestPlace").niceScroll({ autohidemode: true });
-    });
-    
-    $('#otherWrapper li').click(function () {
-        var str = $(this).attr('id');
-        var n = str.split(".");
-        var id;
-        for (var i = 0; i < gmarkers.length; i++) {
-            if (gmarkers[i].gId == n[1]) {
-                id = i;
-                console.log(id);
-            }
+
+    (function () {
+        //$.blockUI({ message: "請稍後... " });
+
+        init();
+        //$.unblockUI();
+        function init() {
+            $("#otherSuggestPlace").niceScroll({ autohidemode: true });
+
+            $('#otherWrapper li').click(function () {
+                var str = $(this).attr('id');
+                var n = str.split(".");
+                var id;
+                for (var i = 0; i < gmarkers.length; i++) {
+                    if (gmarkers[i].gId == n[1]) {
+                        id = i;
+                        console.log(id);
+                    }
+                }
+                SetGmarkerVisible(id);
+                //google.maps.event.trigger(gmarkers[id], "click");
+                //gmarkers[id].setVisible(true);
+            });
         }
-        SetGmarkerVisible(id);
-        //google.maps.event.trigger(gmarkers[id], "click");
-        //gmarkers[id].setVisible(true);
-    });
+    })();
+
 </script>

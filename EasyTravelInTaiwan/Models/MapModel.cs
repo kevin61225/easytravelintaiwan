@@ -19,7 +19,7 @@ namespace EasyTravelInTaiwan.Models
         public void GetByTid(string tid)
         {
             int Tid = int.Parse(tid);
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 List<travellistplace> travelListPlace = db.travellistplaces.Where(list => list.Tid == Tid).ToList<travellistplace>();
                 List<view> viewList = new List<view>();
@@ -33,7 +33,7 @@ namespace EasyTravelInTaiwan.Models
 
         public void GetAll()
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 var query = from views in db.views
                             select views;

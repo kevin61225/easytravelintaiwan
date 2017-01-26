@@ -12,7 +12,7 @@ namespace EasyTravelInTaiwan.Controllers
     {
         //
         // GET: /Rating/
-        ProjectEntities db = new ProjectEntities();
+        ProjectEntities1 db = new ProjectEntities1();
 
         public ActionResult Index()
         {

@@ -20,7 +20,7 @@ namespace EasyTravelInTaiwan.Models.Repository
         }
 
         public GenericRepository()
-            : this(new ProjectEntities())
+            : this(new ProjectEntities1())
         {
         }
 

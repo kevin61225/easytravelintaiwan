@@ -8,7 +8,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
     {
         public void SearchFriends(int UserId)
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 List<friend> list = db.members.Where(o => o.UserID == UserId).Single().friends.ToList();
                 foreach (friend item in list)
@@ -20,7 +20,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
 
         public void RecommendFriends(int UserId)
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 int gId = db.members.Where(o => o.UserID == UserId).Single().GId;
                 List<member> output = new List<member>();
@@ -49,7 +49,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
         static public int FindIfIsFriend(int userId, int friendsId)
         {
             int output;
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 try
                 {
@@ -66,7 +66,7 @@ namespace EasyTravelInTaiwan.Models                      //搜尋結果的Model
 
         static public void AddFriend(int uid, int friendId)
         {
-            using (var db = new ProjectEntities())
+            using (var db = new ProjectEntities1())
             {
                 friend relation1 = new friend();
                 relation1.Fid = uid;

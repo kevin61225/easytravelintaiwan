@@ -4,130 +4,100 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ProjectModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="ProjectModelStoreContainer">
-          <EntitySet Name="accommodation" EntityType="ProjectModel.Store.accommodation" store:Type="Tables" Schema="project" />
-          <EntitySet Name="accomodationimage" EntityType="ProjectModel.Store.accomodationimage" store:Type="Tables" Schema="project" />
-          <EntitySet Name="city" EntityType="ProjectModel.Store.city" store:Type="Tables" Schema="project" />
-          <EntitySet Name="facebookprofile" EntityType="ProjectModel.Store.facebookprofile" store:Type="Tables" Schema="project" />
-          <EntitySet Name="favorite" EntityType="ProjectModel.Store.favorite" store:Type="Tables" Schema="project" />
-          <EntitySet Name="food" EntityType="ProjectModel.Store.food" store:Type="Tables" Schema="project" />
-          <EntitySet Name="foodimage" EntityType="ProjectModel.Store.foodimage" store:Type="Tables" Schema="project" />
-          <EntitySet Name="friends" EntityType="ProjectModel.Store.friends" store:Type="Tables" Schema="project" />
-          <EntitySet Name="hotel" EntityType="ProjectModel.Store.hotel" store:Type="Tables" Schema="project" />
-          <EntitySet Name="hotelimage" EntityType="ProjectModel.Store.hotelimage" store:Type="Tables" Schema="project" />
-          <EntitySet Name="member" EntityType="ProjectModel.Store.member" store:Type="Tables" Schema="project" />
-          <EntitySet Name="notfoundimage" EntityType="ProjectModel.Store.notfoundimage" store:Type="Tables" Schema="project" />
-          <EntitySet Name="place" EntityType="ProjectModel.Store.place" store:Type="Tables" Schema="project" />
-          <EntitySet Name="placeimage" EntityType="ProjectModel.Store.placeimage" store:Type="Tables" Schema="project" />
-          <EntitySet Name="rating" EntityType="ProjectModel.Store.rating" store:Type="Tables" Schema="project" />
-          <EntitySet Name="sortedhistory" EntityType="ProjectModel.Store.sortedhistory" store:Type="Tables" Schema="project" />
-          <EntitySet Name="travellist" EntityType="ProjectModel.Store.travellist" store:Type="Tables" Schema="project" />
-          <EntitySet Name="travellistplace" EntityType="ProjectModel.Store.travellistplace" store:Type="Tables" Schema="project" />
-          <EntitySet Name="view" EntityType="ProjectModel.Store.view" store:Type="Tables" Schema="project" />
-          <EntitySet Name="viewtype" EntityType="ProjectModel.Store.viewtype" store:Type="Tables" Schema="project" />
-          <AssociationSet Name="facebookprofile_ibfk_1" Association="ProjectModel.Store.facebookprofile_ibfk_1">
-            <End Role="member" EntitySet="member" />
-            <End Role="facebookprofile" EntitySet="facebookprofile" />
-          </AssociationSet>
-          <AssociationSet Name="view_ibfk_2" Association="ProjectModel.Store.view_ibfk_2">
-            <End Role="viewtype" EntitySet="viewtype" />
-            <End Role="view" EntitySet="view" />
-          </AssociationSet>
-        </EntityContainer>
+    <Schema Namespace="EasyTravelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="accommodation">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="type" Type="text" Nullable="false" />
-          <Property Name="title" Type="text" />
-          <Property Name="catalogs_id" Type="text" />
-          <Property Name="address" Type="text" />
-          <Property Name="phone" Type="text" />
-          <Property Name="business_hrs" Type="text" />
-          <Property Name="price" Type="text" />
-          <Property Name="Description" Type="text" />
-          <Property Name="route" Type="text" />
-          <Property Name="ImageUrl" Type="text" />
-          <Property Name="sc_id" Type="text" />
-          <Property Name="post_id" Type="text" />
-          <Property Name="link" Type="text" />
-          <Property Name="x" Type="double" />
-          <Property Name="y" Type="double" />
-          <Property Name="create_date" Type="text" />
-          <Property Name="modify_date" Type="text" />
+          <Property Name="id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="type" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="title" Type="nvarchar(max)" />
+          <Property Name="catalogs_id" Type="nvarchar(max)" />
+          <Property Name="address" Type="nvarchar(max)" />
+          <Property Name="phone" Type="nvarchar(max)" />
+          <Property Name="business_hrs" Type="nvarchar(max)" />
+          <Property Name="price" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="route" Type="nvarchar(max)" />
+          <Property Name="ImageUrl" Type="nvarchar(max)" />
+          <Property Name="sc_id" Type="nvarchar(max)" />
+          <Property Name="post_id" Type="nvarchar(max)" />
+          <Property Name="link" Type="nvarchar(max)" />
+          <Property Name="x" Type="float" />
+          <Property Name="y" Type="float" />
+          <Property Name="create_date" Type="nvarchar(max)" />
+          <Property Name="modify_date" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="accomodationimage">
           <Key>
             <PropertyRef Name="sid" />
           </Key>
-          <Property Name="sid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Id" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Name" Type="text" />
-          <Property Name="Image" Type="longblob" Nullable="false" />
+          <Property Name="sid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Image" Type="varbinary(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="city">
           <Key>
             <PropertyRef Name="Citynumber" />
           </Key>
-          <Property Name="Citynumber" Type="varchar" Nullable="false" MaxLength="20" />
-          <Property Name="Cityname" Type="text" Nullable="false" />
+          <Property Name="Citynumber" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Cityname" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="facebookprofile">
           <Key>
             <PropertyRef Name="Pid" />
           </Key>
-          <Property Name="Pid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Pid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="FacebookId" Type="text" Nullable="false" />
+          <Property Name="FacebookId" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="favorite">
           <Key>
             <PropertyRef Name="Fid" />
           </Key>
-          <Property Name="Fid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Fid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="PlaceId" Type="text" Nullable="false" />
+          <Property Name="PlaceId" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="food">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="type" Type="text" Nullable="false" />
-          <Property Name="title" Type="text" />
-          <Property Name="catalogs_id" Type="text" />
-          <Property Name="address" Type="text" />
-          <Property Name="phone" Type="text" />
-          <Property Name="business_hrs" Type="text" />
-          <Property Name="price" Type="text" />
-          <Property Name="Description" Type="text" />
-          <Property Name="route" Type="text" />
-          <Property Name="tianmama" Type="text" />
-          <Property Name="ImageUrl" Type="text" />
-          <Property Name="sc_id" Type="text" />
-          <Property Name="post_id" Type="text" />
-          <Property Name="link" Type="text" />
-          <Property Name="x" Type="double" />
-          <Property Name="y" Type="double" />
-          <Property Name="create_date" Type="text" />
-          <Property Name="modify_date" Type="text" />
+          <Property Name="id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="type" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="title" Type="nvarchar(max)" />
+          <Property Name="catalogs_id" Type="nvarchar(max)" />
+          <Property Name="address" Type="nvarchar(max)" />
+          <Property Name="phone" Type="nvarchar(max)" />
+          <Property Name="business_hrs" Type="nvarchar(max)" />
+          <Property Name="price" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="route" Type="nvarchar(max)" />
+          <Property Name="tianmama" Type="nvarchar(max)" />
+          <Property Name="ImageUrl" Type="nvarchar(max)" />
+          <Property Name="sc_id" Type="nvarchar(max)" />
+          <Property Name="post_id" Type="nvarchar(max)" />
+          <Property Name="link" Type="nvarchar(max)" />
+          <Property Name="x" Type="float" />
+          <Property Name="y" Type="float" />
+          <Property Name="create_date" Type="nvarchar(max)" />
+          <Property Name="modify_date" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="foodimage">
           <Key>
             <PropertyRef Name="sid" />
           </Key>
-          <Property Name="sid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Id" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Name" Type="text" />
-          <Property Name="Image" Type="longblob" Nullable="false" />
+          <Property Name="sid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Image" Type="varbinary(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="friends">
           <Key>
             <PropertyRef Name="Pid" />
           </Key>
-          <Property Name="Pid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Pid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Fid" Type="int" Nullable="false" />
           <Property Name="Uid" Type="int" Nullable="false" />
         </EntityType>
@@ -135,142 +105,167 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Name" Type="text" Nullable="false" />
-          <Property Name="Citynumber" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Citynumber" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Typenumber" Type="int" Nullable="false" />
-          <Property Name="Description" Type="text" />
-          <Property Name="Address" Type="text" Nullable="false" />
-          <Property Name="Url" Type="text" />
-          <Property Name="Telphone" Type="varchar" MaxLength="50" />
-          <Property Name="FaxNumber" Type="varchar" MaxLength="20" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Url" Type="nvarchar(max)" />
+          <Property Name="Telphone" Type="nvarchar" MaxLength="50" />
+          <Property Name="FaxNumber" Type="nvarchar" MaxLength="20" />
           <Property Name="Rooms" Type="int" />
-          <Property Name="Price" Type="text" />
-          <Property Name="Email" Type="text" />
+          <Property Name="Price" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
           <Property Name="star" Type="int" />
-          <Property Name="Lat" Type="text" />
-          <Property Name="Lng" Type="text" />
+          <Property Name="Lat" Type="nvarchar(max)" />
+          <Property Name="Lng" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="hotelimage">
           <Key>
             <PropertyRef Name="sid" />
           </Key>
-          <Property Name="sid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Id" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Name" Type="text" Nullable="false" />
-          <Property Name="Image" Type="longblob" />
+          <Property Name="sid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Image" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="maplatlng">
+          <Key>
+            <PropertyRef Name="sno" />
+          </Key>
+          <Property Name="pt" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="sno" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="pName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Lat" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Lng" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Lang" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="isView" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="pRange" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="m_layer2" Type="nvarchar(max)" />
+          <Property Name="layer1" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="NoewIcon" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="member">
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Account" Type="varchar" Nullable="false" MaxLength="40" />
-          <Property Name="Password" Type="varchar" Nullable="false" MaxLength="40" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="40" />
-          <Property Name="Email" Type="varchar" Nullable="false" MaxLength="40" />
-          <Property Name="PhoneNumber" Type="varchar" Nullable="false" MaxLength="20" />
-          <Property Name="Sex" Type="varchar" Nullable="false" MaxLength="10" />
-          <Property Name="UserAddress" Type="varchar" Nullable="false" MaxLength="49" />
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Sex" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="UserAddress" Type="nvarchar" MaxLength="49" Nullable="false" />
           <Property Name="Birthday" Type="date" Nullable="false" />
           <Property Name="Role" Type="int" Nullable="false" />
-          <Property Name="favorite" Type="text" Nullable="false" />
+          <Property Name="favorite" Type="nvarchar(max)" Nullable="false" />
           <Property Name="GId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="notfoundimage">
           <Key>
             <PropertyRef Name="NId" />
           </Key>
-          <Property Name="NId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Image" Type="blob" Nullable="false" />
+          <Property Name="NId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Image" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="oneinfodata">
+          <Key>
+            <PropertyRef Name="sno" />
+          </Key>
+          <Property Name="sno" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="pName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="summ" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="detail" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="place">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Name" Type="text" Nullable="false" />
-          <Property Name="Citynumber" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Citynumber" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Typenumber" Type="int" Nullable="false" />
-          <Property Name="Description" Type="text" Nullable="false" />
-          <Property Name="Telphone" Type="text" />
-          <Property Name="Address" Type="text" />
-          <Property Name="Url" Type="text" />
-          <Property Name="Carmethod" Type="text" />
-          <Property Name="Busmethod" Type="text" />
-          <Property Name="Lat" Type="text" />
-          <Property Name="Lng" Type="text" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Telphone" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="Url" Type="nvarchar(max)" />
+          <Property Name="Carmethod" Type="nvarchar(max)" />
+          <Property Name="Busmethod" Type="nvarchar(max)" />
+          <Property Name="Lat" Type="nvarchar(max)" />
+          <Property Name="Lng" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="placeimage">
           <Key>
             <PropertyRef Name="sid" />
           </Key>
-          <Property Name="sid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Id" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Name" Type="text" Nullable="false" />
+          <Property Name="sid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Imagetype" Type="int" Nullable="false" />
-          <Property Name="Image" Type="longblob" />
+          <Property Name="Image" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="rating">
           <Key>
             <PropertyRef Name="RId" />
           </Key>
-          <Property Name="RId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Sno" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="RId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sno" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="Point" Type="int" Nullable="false" />
-          <Property Name="Comment" Type="text" Nullable="false" />
-          <Property Name="pt" Type="varchar" Nullable="false" MaxLength="4" />
+          <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="pt" Type="nvarchar" MaxLength="4" Nullable="false" />
         </EntityType>
         <EntityType Name="sortedhistory">
           <Key>
             <PropertyRef Name="SId" />
           </Key>
-          <Property Name="SId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Tid" Type="int" Nullable="false" />
-          <Property Name="historyString" Type="text" Nullable="false" />
+          <Property Name="historyString" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="travellist">
           <Key>
             <PropertyRef Name="Tid" />
           </Key>
-          <Property Name="Tid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Tid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="TName" Type="text" Nullable="false" />
+          <Property Name="TName" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="travellistplace">
           <Key>
             <PropertyRef Name="Pid" />
           </Key>
-          <Property Name="Pid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Pid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Tid" Type="int" Nullable="false" />
-          <Property Name="Sno" Type="text" Nullable="false" />
+          <Property Name="Sno" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="view">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Name" Type="text" Nullable="false" />
-          <Property Name="Lat" Type="text" Nullable="false" />
-          <Property Name="Lng" Type="text" Nullable="false" />
-          <Property Name="Address" Type="text" Nullable="false" />
-          <Property Name="City" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Lat" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Lng" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Viewtype" Type="int" Nullable="false" />
-          <Property Name="Pt" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="IconType" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="Description" Type="text" />
+          <Property Name="Pt" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="IconType" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="viewtype">
           <Key>
             <PropertyRef Name="Typenumber" />
           </Key>
-          <Property Name="Typenumber" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Typename" Type="text" Nullable="false" />
+          <Property Name="Typenumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Typename" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
-        <Association Name="facebookprofile_ibfk_1">
-          <End Role="member" Type="ProjectModel.Store.member" Multiplicity="1" />
-          <End Role="facebookprofile" Type="ProjectModel.Store.facebookprofile" Multiplicity="*" />
+        <Association Name="facebookprofile$facebookprofile_ibfk_1">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="facebookprofile" Type="Self.facebookprofile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="member">
               <PropertyRef Name="UserID" />
@@ -280,362 +275,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="view_ibfk_2">
-          <End Role="viewtype" Type="ProjectModel.Store.viewtype" Multiplicity="1" />
-          <End Role="view" Type="ProjectModel.Store.view" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="viewtype">
-              <PropertyRef Name="Typenumber" />
-            </Principal>
-            <Dependent Role="view">
-              <PropertyRef Name="Viewtype" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-      </Schema></edmx:StorageModels>
-    <!-- CSDL content -->
-    <edmx:ConceptualModels>
-      <Schema Namespace="ProjectModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="ProjectEntities" p1:LazyLoadingEnabled="true">
-          <EntitySet Name="accommodations" EntityType="ProjectModel.accommodation" />
-          <EntitySet Name="accomodationimages" EntityType="ProjectModel.accomodationimage" />
-          <EntitySet Name="cities" EntityType="ProjectModel.city" />
-          <EntitySet Name="facebookprofiles" EntityType="ProjectModel.facebookprofile" />
-          <EntitySet Name="favorites" EntityType="ProjectModel.favorite" />
-          <EntitySet Name="foods" EntityType="ProjectModel.food" />
-          <EntitySet Name="friends" EntityType="ProjectModel.friend" />
-          <EntitySet Name="hotels" EntityType="ProjectModel.hotel" />
-          <EntitySet Name="hotelimages" EntityType="ProjectModel.hotelimage" />
-          <EntitySet Name="members" EntityType="ProjectModel.member" />
-          <EntitySet Name="places" EntityType="ProjectModel.place" />
-          <EntitySet Name="placeimages" EntityType="ProjectModel.placeimage" />
-          <EntitySet Name="ratings" EntityType="ProjectModel.rating" />
-          <EntitySet Name="sortedhistories" EntityType="ProjectModel.sortedhistory" />
-          <EntitySet Name="travellists" EntityType="ProjectModel.travellist" />
-          <EntitySet Name="travellistplaces" EntityType="ProjectModel.travellistplace" />
-          <EntitySet Name="views" EntityType="ProjectModel.view" />
-          <EntitySet Name="viewtypes" EntityType="ProjectModel.viewtype" />
-          <AssociationSet Name="place_ibfk_1" Association="ProjectModel.place_ibfk_1">
-            <End Role="city" EntitySet="cities" />
-            <End Role="place" EntitySet="places" />
-          </AssociationSet>
-          <AssociationSet Name="facebookprofile_ibfk_1" Association="ProjectModel.facebookprofile_ibfk_1">
-            <End Role="member" EntitySet="members" />
-            <End Role="facebookprofile" EntitySet="facebookprofiles" />
-          </AssociationSet>
-          <AssociationSet Name="friends_ibfk_1" Association="ProjectModel.friends_ibfk_1">
-            <End Role="member" EntitySet="members" />
-            <End Role="friends" EntitySet="friends" />
-          </AssociationSet>
-          <AssociationSet Name="friends_ibfk_2" Association="ProjectModel.friends_ibfk_2">
-            <End Role="member" EntitySet="members" />
-            <End Role="friends" EntitySet="friends" />
-          </AssociationSet>
-          <AssociationSet Name="hotelimage_ibfk_2" Association="ProjectModel.hotelimage_ibfk_2">
-            <End Role="hotel" EntitySet="hotels" />
-            <End Role="hotelimage" EntitySet="hotelimages" />
-          </AssociationSet>
-          <AssociationSet Name="rating_ibfk_1" Association="ProjectModel.rating_ibfk_1">
-            <End Role="member" EntitySet="members" />
-            <End Role="rating" EntitySet="ratings" />
-          </AssociationSet>
-          <AssociationSet Name="travellist_ibfk_1" Association="ProjectModel.travellist_ibfk_1">
-            <End Role="member" EntitySet="members" />
-            <End Role="travellist" EntitySet="travellists" />
-          </AssociationSet>
-          <AssociationSet Name="place_ibfk_2" Association="ProjectModel.place_ibfk_2">
-            <End Role="viewtype" EntitySet="viewtypes" />
-            <End Role="place" EntitySet="places" />
-          </AssociationSet>
-          <AssociationSet Name="placeimage_ibfk_1" Association="ProjectModel.placeimage_ibfk_1">
-            <End Role="place" EntitySet="places" />
-            <End Role="placeimage" EntitySet="placeimages" />
-          </AssociationSet>
-          <AssociationSet Name="rating_ibfk_2" Association="ProjectModel.rating_ibfk_2">
-            <End Role="view" EntitySet="views" />
-            <End Role="rating" EntitySet="ratings" />
-          </AssociationSet>
-          <AssociationSet Name="travellistplace_ibfk_2" Association="ProjectModel.travellistplace_ibfk_2">
-            <End Role="travellist" EntitySet="travellists" />
-            <End Role="travellistplace" EntitySet="travellistplaces" />
-          </AssociationSet>
-          <AssociationSet Name="view_ibfk_2" Association="ProjectModel.view_ibfk_2">
-            <End Role="viewtype" EntitySet="viewtypes" />
-            <End Role="view" EntitySet="views" />
-          </AssociationSet>
-          <EntitySet Name="notfoundimages" EntityType="ProjectModel.notfoundimage" />
-          <EntitySet Name="foodimages" EntityType="ProjectModel.foodimage" />
-        </EntityContainer>
-        <EntityType Name="accommodation">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="type" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="title" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="catalogs_id" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="address" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="phone" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="business_hrs" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="price" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="Description" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="route" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="ImageUrl" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="sc_id" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="post_id" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="link" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="x" Type="Double" />
-          <Property Name="y" Type="Double" />
-          <Property Name="create_date" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="modify_date" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="accomodationimage">
-          <Key>
-            <PropertyRef Name="sid" />
-          </Key>
-          <Property Name="sid" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Name" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="Image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="city">
-          <Key>
-            <PropertyRef Name="Citynumber" />
-          </Key>
-          <Property Name="Citynumber" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="Cityname" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="places" Relationship="ProjectModel.place_ibfk_1" FromRole="city" ToRole="place" />
-        </EntityType>
-        <EntityType Name="facebookprofile">
-          <Key>
-            <PropertyRef Name="Pid" />
-          </Key>
-          <Property Name="Pid" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="FacebookId" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="member" Relationship="ProjectModel.facebookprofile_ibfk_1" FromRole="facebookprofile" ToRole="member" />
-        </EntityType>
-        <EntityType Name="favorite">
-          <Key>
-            <PropertyRef Name="Fid" />
-          </Key>
-          <Property Name="Fid" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="PlaceId" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="food">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="type" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="title" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="catalogs_id" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="address" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="phone" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="business_hrs" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="price" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="Description" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="route" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="tianmama" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="ImageUrl" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="sc_id" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="post_id" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="link" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="x" Type="Double" />
-          <Property Name="y" Type="Double" />
-          <Property Name="create_date" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="modify_date" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="friend">
-          <Key>
-            <PropertyRef Name="Pid" />
-          </Key>
-          <Property Name="Pid" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="Fid" Type="Int32" Nullable="false" />
-          <Property Name="Uid" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="member" Relationship="ProjectModel.friends_ibfk_1" FromRole="friends" ToRole="member" />
-          <NavigationProperty Name="member1" Relationship="ProjectModel.friends_ibfk_2" FromRole="friends" ToRole="member" />
-        </EntityType>
-        <EntityType Name="hotel">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="Citynumber" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="Typenumber" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="Url" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="Telphone" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="FaxNumber" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="Rooms" Type="Int32" />
-          <Property Name="Price" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="Email" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="star" Type="Int32" />
-          <Property Name="Lat" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="Lng" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="hotelimages" Relationship="ProjectModel.hotelimage_ibfk_2" FromRole="hotel" ToRole="hotelimage" />
-        </EntityType>
-        <EntityType Name="hotelimage">
-          <Key>
-            <PropertyRef Name="sid" />
-          </Key>
-          <Property Name="sid" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="hotel" Relationship="ProjectModel.hotelimage_ibfk_2" FromRole="hotelimage" ToRole="hotel" />
-        </EntityType>
-        <EntityType Name="member">
-          <Key>
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="Account" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
-          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="Sex" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
-          <Property Name="UserAddress" Type="String" Nullable="false" MaxLength="49" Unicode="false" FixedLength="false" />
-          <Property Name="Birthday" Type="DateTime" Nullable="false" />
-          <Property Name="Role" Type="Int32" Nullable="false" />
-          <Property Name="favorite" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="GId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="facebookprofiles" Relationship="ProjectModel.facebookprofile_ibfk_1" FromRole="member" ToRole="facebookprofile" />
-          <NavigationProperty Name="friends" Relationship="ProjectModel.friends_ibfk_1" FromRole="member" ToRole="friends" />
-          <NavigationProperty Name="friends1" Relationship="ProjectModel.friends_ibfk_2" FromRole="member" ToRole="friends" />
-          <NavigationProperty Name="ratings" Relationship="ProjectModel.rating_ibfk_1" FromRole="member" ToRole="rating" />
-          <NavigationProperty Name="travellists" Relationship="ProjectModel.travellist_ibfk_1" FromRole="member" ToRole="travellist" />
-        </EntityType>
-        <EntityType Name="place">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="Citynumber" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="Typenumber" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="Telphone" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="Address" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="Url" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="Carmethod" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="Busmethod" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="Lat" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="Lng" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="city" Relationship="ProjectModel.place_ibfk_1" FromRole="place" ToRole="city" />
-          <NavigationProperty Name="viewtype" Relationship="ProjectModel.place_ibfk_2" FromRole="place" ToRole="viewtype" />
-          <NavigationProperty Name="placeimages" Relationship="ProjectModel.placeimage_ibfk_1" FromRole="place" ToRole="placeimage" />
-        </EntityType>
-        <EntityType Name="placeimage">
-          <Key>
-            <PropertyRef Name="sid" />
-          </Key>
-          <Property Name="sid" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="Imagetype" Type="Int32" Nullable="false" />
-          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="place" Relationship="ProjectModel.placeimage_ibfk_1" FromRole="placeimage" ToRole="place" />
-        </EntityType>
-        <EntityType Name="rating">
-          <Key>
-            <PropertyRef Name="RId" />
-          </Key>
-          <Property Name="RId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="Sno" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="Point" Type="Int32" Nullable="false" />
-          <Property Name="Comment" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="pt" Type="String" Nullable="false" MaxLength="4" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="member" Relationship="ProjectModel.rating_ibfk_1" FromRole="rating" ToRole="member" />
-          <NavigationProperty Name="view" Relationship="ProjectModel.rating_ibfk_2" FromRole="rating" ToRole="view" />
-        </EntityType>
-        <EntityType Name="sortedhistory">
-          <Key>
-            <PropertyRef Name="SId" />
-          </Key>
-          <Property Name="SId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="Tid" Type="Int32" Nullable="false" />
-          <Property Name="historyString" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="travellist">
-          <Key>
-            <PropertyRef Name="Tid" />
-          </Key>
-          <Property Name="Tid" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="TName" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="member" Relationship="ProjectModel.travellist_ibfk_1" FromRole="travellist" ToRole="member" />
-          <NavigationProperty Name="travellistplaces" Relationship="ProjectModel.travellistplace_ibfk_2" FromRole="travellist" ToRole="travellistplace" />
-        </EntityType>
-        <EntityType Name="travellistplace">
-          <Key>
-            <PropertyRef Name="Pid" />
-          </Key>
-          <Property Name="Pid" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="Tid" Type="Int32" Nullable="false" />
-          <Property Name="Sno" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="travellist" Relationship="ProjectModel.travellistplace_ibfk_2" FromRole="travellistplace" ToRole="travellist" />
-        </EntityType>
-        <EntityType Name="view">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="Lat" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="Lng" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <Property Name="City" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="Viewtype" Type="Int32" Nullable="false" />
-          <Property Name="Pt" Type="String" Nullable="false" MaxLength="4" Unicode="false" FixedLength="false" />
-          <Property Name="IconType" Type="String" Nullable="false" MaxLength="4" Unicode="false" FixedLength="false" />
-          <Property Name="Description" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="ratings" Relationship="ProjectModel.rating_ibfk_2" FromRole="view" ToRole="rating" />
-          <NavigationProperty Name="viewtype1" Relationship="ProjectModel.view_ibfk_2" FromRole="view" ToRole="viewtype" />
-        </EntityType>
-        <EntityType Name="viewtype">
-          <Key>
-            <PropertyRef Name="Typenumber" />
-          </Key>
-          <Property Name="Typenumber" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="Typename" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="places" Relationship="ProjectModel.place_ibfk_2" FromRole="viewtype" ToRole="place" />
-          <NavigationProperty Name="views" Relationship="ProjectModel.view_ibfk_2" FromRole="viewtype" ToRole="view" />
-        </EntityType>
-        <Association Name="place_ibfk_1">
-          <End Role="city" Type="ProjectModel.city" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="place" Type="ProjectModel.place" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="city">
-              <PropertyRef Name="Citynumber" />
-            </Principal>
-            <Dependent Role="place">
-              <PropertyRef Name="Citynumber" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="facebookprofile_ibfk_1">
-          <End Role="member" Type="ProjectModel.member" Multiplicity="1" />
-          <End Role="facebookprofile" Type="ProjectModel.facebookprofile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="member">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="facebookprofile">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="friends_ibfk_1">
-          <End Role="member" Type="ProjectModel.member" Multiplicity="1" />
-          <End Role="friends" Type="ProjectModel.friend" Multiplicity="*" />
+        <Association Name="friends$friends_ibfk_1">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="friends" Type="Self.friends" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="member">
               <PropertyRef Name="UserID" />
@@ -645,9 +287,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="friends_ibfk_2">
-          <End Role="member" Type="ProjectModel.member" Multiplicity="1" />
-          <End Role="friends" Type="ProjectModel.friend" Multiplicity="*" />
+        <Association Name="friends$friends_ibfk_2">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="friends" Type="Self.friends" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="member">
               <PropertyRef Name="UserID" />
@@ -657,11 +299,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="hotelimage_ibfk_2">
-          <End Role="hotel" Type="ProjectModel.hotel" Multiplicity="1">
+        <Association Name="hotelimage$hotelimage_ibfk_2">
+          <End Role="hotel" Type="Self.hotel" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="hotelimage" Type="ProjectModel.hotelimage" Multiplicity="*" />
+          <End Role="hotelimage" Type="Self.hotelimage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="hotel">
               <PropertyRef Name="Id" />
@@ -671,35 +313,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="rating_ibfk_1">
-          <End Role="member" Type="ProjectModel.member" Multiplicity="1" />
-          <End Role="rating" Type="ProjectModel.rating" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="member">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="rating">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="travellist_ibfk_1">
-          <End Role="member" Type="ProjectModel.member" Multiplicity="1" />
-          <End Role="travellist" Type="ProjectModel.travellist" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="member">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="travellist">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="place_ibfk_2">
-          <End Role="viewtype" Type="ProjectModel.viewtype" Multiplicity="1">
+        <Association Name="place$place_ibfk_1">
+          <End Role="city" Type="Self.city" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="place" Type="ProjectModel.place" Multiplicity="*" />
+          <End Role="place" Type="Self.place" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="city">
+              <PropertyRef Name="Citynumber" />
+            </Principal>
+            <Dependent Role="place">
+              <PropertyRef Name="Citynumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="place$place_ibfk_2">
+          <End Role="viewtype" Type="Self.viewtype" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="place" Type="Self.place" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="viewtype">
               <PropertyRef Name="Typenumber" />
@@ -709,11 +341,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="placeimage_ibfk_1">
-          <End Role="place" Type="ProjectModel.place" Multiplicity="1">
+        <Association Name="placeimage$placeimage_ibfk_1">
+          <End Role="place" Type="Self.place" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="placeimage" Type="ProjectModel.placeimage" Multiplicity="*" />
+          <End Role="placeimage" Type="Self.placeimage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="place">
               <PropertyRef Name="Id" />
@@ -723,9 +355,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="rating_ibfk_2">
-          <End Role="view" Type="ProjectModel.view" Multiplicity="1" />
-          <End Role="rating" Type="ProjectModel.rating" Multiplicity="*" />
+        <Association Name="rating$rating_ibfk_1">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="rating" Type="Self.rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="rating">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rating$rating_ibfk_2">
+          <End Role="view" Type="Self.view" Multiplicity="1" />
+          <End Role="rating" Type="Self.rating" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="view">
               <PropertyRef Name="Id" />
@@ -735,11 +379,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="travellistplace_ibfk_2">
-          <End Role="travellist" Type="ProjectModel.travellist" Multiplicity="1">
+        <Association Name="travellist$travellist_ibfk_1">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="travellist" Type="Self.travellist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="travellist">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="travellistplace$travellistplace_ibfk_2">
+          <End Role="travellist" Type="Self.travellist" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="travellistplace" Type="ProjectModel.travellistplace" Multiplicity="*" />
+          <End Role="travellistplace" Type="Self.travellistplace" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="travellist">
               <PropertyRef Name="Tid" />
@@ -749,9 +405,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="view_ibfk_2">
-          <End Role="viewtype" Type="ProjectModel.viewtype" Multiplicity="1" />
-          <End Role="view" Type="ProjectModel.view" Multiplicity="*" />
+        <Association Name="view$view_ibfk_2">
+          <End Role="viewtype" Type="Self.viewtype" Multiplicity="1" />
+          <End Role="view" Type="Self.view" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="viewtype">
               <PropertyRef Name="Typenumber" />
@@ -761,30 +417,598 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="notfoundimage">
+        <EntityContainer Name="EasyTravelModelStoreContainer">
+          <EntitySet Name="accommodation" EntityType="Self.accommodation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="accomodationimage" EntityType="Self.accomodationimage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="city" EntityType="Self.city" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="facebookprofile" EntityType="Self.facebookprofile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="favorite" EntityType="Self.favorite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="food" EntityType="Self.food" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="foodimage" EntityType="Self.foodimage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="friends" EntityType="Self.friends" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="hotel" EntityType="Self.hotel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="hotelimage" EntityType="Self.hotelimage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="maplatlng" EntityType="Self.maplatlng" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="member" EntityType="Self.member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="notfoundimage" EntityType="Self.notfoundimage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="oneinfodata" EntityType="Self.oneinfodata" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="place" EntityType="Self.place" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="placeimage" EntityType="Self.placeimage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rating" EntityType="Self.rating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sortedhistory" EntityType="Self.sortedhistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="travellist" EntityType="Self.travellist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="travellistplace" EntityType="Self.travellistplace" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="view" EntityType="Self.view" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="viewtype" EntityType="Self.viewtype" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="facebookprofile$facebookprofile_ibfk_1" Association="Self.facebookprofile$facebookprofile_ibfk_1">
+            <End Role="member" EntitySet="member" />
+            <End Role="facebookprofile" EntitySet="facebookprofile" />
+          </AssociationSet>
+          <AssociationSet Name="friends$friends_ibfk_1" Association="Self.friends$friends_ibfk_1">
+            <End Role="member" EntitySet="member" />
+            <End Role="friends" EntitySet="friends" />
+          </AssociationSet>
+          <AssociationSet Name="friends$friends_ibfk_2" Association="Self.friends$friends_ibfk_2">
+            <End Role="member" EntitySet="member" />
+            <End Role="friends" EntitySet="friends" />
+          </AssociationSet>
+          <AssociationSet Name="hotelimage$hotelimage_ibfk_2" Association="Self.hotelimage$hotelimage_ibfk_2">
+            <End Role="hotel" EntitySet="hotel" />
+            <End Role="hotelimage" EntitySet="hotelimage" />
+          </AssociationSet>
+          <AssociationSet Name="place$place_ibfk_1" Association="Self.place$place_ibfk_1">
+            <End Role="city" EntitySet="city" />
+            <End Role="place" EntitySet="place" />
+          </AssociationSet>
+          <AssociationSet Name="place$place_ibfk_2" Association="Self.place$place_ibfk_2">
+            <End Role="viewtype" EntitySet="viewtype" />
+            <End Role="place" EntitySet="place" />
+          </AssociationSet>
+          <AssociationSet Name="placeimage$placeimage_ibfk_1" Association="Self.placeimage$placeimage_ibfk_1">
+            <End Role="place" EntitySet="place" />
+            <End Role="placeimage" EntitySet="placeimage" />
+          </AssociationSet>
+          <AssociationSet Name="rating$rating_ibfk_1" Association="Self.rating$rating_ibfk_1">
+            <End Role="member" EntitySet="member" />
+            <End Role="rating" EntitySet="rating" />
+          </AssociationSet>
+          <AssociationSet Name="rating$rating_ibfk_2" Association="Self.rating$rating_ibfk_2">
+            <End Role="view" EntitySet="view" />
+            <End Role="rating" EntitySet="rating" />
+          </AssociationSet>
+          <AssociationSet Name="travellist$travellist_ibfk_1" Association="Self.travellist$travellist_ibfk_1">
+            <End Role="member" EntitySet="member" />
+            <End Role="travellist" EntitySet="travellist" />
+          </AssociationSet>
+          <AssociationSet Name="travellistplace$travellistplace_ibfk_2" Association="Self.travellistplace$travellistplace_ibfk_2">
+            <End Role="travellist" EntitySet="travellist" />
+            <End Role="travellistplace" EntitySet="travellistplace" />
+          </AssociationSet>
+          <AssociationSet Name="view$view_ibfk_2" Association="Self.view$view_ibfk_2">
+            <End Role="viewtype" EntitySet="viewtype" />
+            <End Role="view" EntitySet="view" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EasyTravelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="accommodation">
           <Key>
-            <PropertyRef Name="NId" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Type="Int32" Name="NId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Binary" Name="Image" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="catalogs_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="business_hrs" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="route" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="sc_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="post_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="x" Type="Double" />
+          <Property Name="y" Type="Double" />
+          <Property Name="create_date" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="modify_date" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="accomodationimage">
+          <Key>
+            <PropertyRef Name="sid" />
+          </Key>
+          <Property Name="sid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="city">
+          <Key>
+            <PropertyRef Name="Citynumber" />
+          </Key>
+          <Property Name="Citynumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cityname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="places" Relationship="Self.place_place_ibfk_1" FromRole="city" ToRole="place" />
+        </EntityType>
+        <EntityType Name="facebookprofile">
+          <Key>
+            <PropertyRef Name="Pid" />
+          </Key>
+          <Property Name="Pid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="FacebookId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="member" Relationship="Self.facebookprofile_facebookprofile_ibfk_1" FromRole="facebookprofile" ToRole="member" />
+        </EntityType>
+        <EntityType Name="favorite">
+          <Key>
+            <PropertyRef Name="Fid" />
+          </Key>
+          <Property Name="Fid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="PlaceId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="food">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="catalogs_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="business_hrs" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="route" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tianmama" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="sc_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="post_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="x" Type="Double" />
+          <Property Name="y" Type="Double" />
+          <Property Name="create_date" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="modify_date" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="foodimage">
           <Key>
             <PropertyRef Name="sid" />
           </Key>
-          <Property Type="Int32" Name="sid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Id" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Name" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="Binary" Name="Image" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="sid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
         </EntityType>
+        <EntityType Name="friend">
+          <Key>
+            <PropertyRef Name="Pid" />
+          </Key>
+          <Property Name="Pid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fid" Type="Int32" Nullable="false" />
+          <Property Name="Uid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="member" Relationship="Self.friends_friends_ibfk_1" FromRole="friends" ToRole="member" />
+          <NavigationProperty Name="member1" Relationship="Self.friends_friends_ibfk_2" FromRole="friends" ToRole="member" />
+        </EntityType>
+        <EntityType Name="hotel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Citynumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Typenumber" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Telphone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FaxNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Rooms" Type="Int32" />
+          <Property Name="Price" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="star" Type="Int32" />
+          <Property Name="Lat" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Lng" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="hotelimages" Relationship="Self.hotelimage_hotelimage_ibfk_2" FromRole="hotel" ToRole="hotelimage" />
+        </EntityType>
+        <EntityType Name="hotelimage">
+          <Key>
+            <PropertyRef Name="sid" />
+          </Key>
+          <Property Name="sid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="hotel" Relationship="Self.hotelimage_hotelimage_ibfk_2" FromRole="hotelimage" ToRole="hotel" />
+        </EntityType>
+        <EntityType Name="maplatlng">
+          <Key>
+            <PropertyRef Name="sno" />
+          </Key>
+          <Property Name="pt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sno" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Lat" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Lng" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Lang" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="isView" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pRange" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="m_layer2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="layer1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NoewIcon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="member">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sex" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserAddress" Type="String" MaxLength="49" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Role" Type="Int32" Nullable="false" />
+          <Property Name="favorite" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="facebookprofiles" Relationship="Self.facebookprofile_facebookprofile_ibfk_1" FromRole="member" ToRole="facebookprofile" />
+          <NavigationProperty Name="friends" Relationship="Self.friends_friends_ibfk_1" FromRole="member" ToRole="friends" />
+          <NavigationProperty Name="friends1" Relationship="Self.friends_friends_ibfk_2" FromRole="member" ToRole="friends" />
+          <NavigationProperty Name="ratings" Relationship="Self.rating_rating_ibfk_1" FromRole="member" ToRole="rating" />
+          <NavigationProperty Name="travellists" Relationship="Self.travellist_travellist_ibfk_1" FromRole="member" ToRole="travellist" />
+        </EntityType>
+        <EntityType Name="notfoundimage">
+          <Key>
+            <PropertyRef Name="NId" />
+          </Key>
+          <Property Name="NId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="oneinfodata">
+          <Key>
+            <PropertyRef Name="sno" />
+          </Key>
+          <Property Name="sno" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="summ" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="place">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Citynumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Typenumber" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Telphone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Carmethod" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Busmethod" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Lat" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Lng" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="city" Relationship="Self.place_place_ibfk_1" FromRole="place" ToRole="city" />
+          <NavigationProperty Name="viewtype" Relationship="Self.place_place_ibfk_2" FromRole="place" ToRole="viewtype" />
+          <NavigationProperty Name="placeimages" Relationship="Self.placeimage_placeimage_ibfk_1" FromRole="place" ToRole="placeimage" />
+        </EntityType>
+        <EntityType Name="placeimage">
+          <Key>
+            <PropertyRef Name="sid" />
+          </Key>
+          <Property Name="sid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Imagetype" Type="Int32" Nullable="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="place" Relationship="Self.placeimage_placeimage_ibfk_1" FromRole="placeimage" ToRole="place" />
+        </EntityType>
+        <EntityType Name="rating">
+          <Key>
+            <PropertyRef Name="RId" />
+          </Key>
+          <Property Name="RId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Point" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pt" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="member" Relationship="Self.rating_rating_ibfk_1" FromRole="rating" ToRole="member" />
+          <NavigationProperty Name="view" Relationship="Self.rating_rating_ibfk_2" FromRole="rating" ToRole="view" />
+        </EntityType>
+        <EntityType Name="sortedhistory">
+          <Key>
+            <PropertyRef Name="SId" />
+          </Key>
+          <Property Name="SId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tid" Type="Int32" Nullable="false" />
+          <Property Name="historyString" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="travellist">
+          <Key>
+            <PropertyRef Name="Tid" />
+          </Key>
+          <Property Name="Tid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="TName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="member" Relationship="Self.travellist_travellist_ibfk_1" FromRole="travellist" ToRole="member" />
+          <NavigationProperty Name="travellistplaces" Relationship="Self.travellistplace_travellistplace_ibfk_2" FromRole="travellist" ToRole="travellistplace" />
+        </EntityType>
+        <EntityType Name="travellistplace">
+          <Key>
+            <PropertyRef Name="Pid" />
+          </Key>
+          <Property Name="Pid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tid" Type="Int32" Nullable="false" />
+          <Property Name="Sno" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="travellist" Relationship="Self.travellistplace_travellistplace_ibfk_2" FromRole="travellistplace" ToRole="travellist" />
+        </EntityType>
+        <EntityType Name="view">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Lat" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Lng" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Viewtype" Type="Int32" Nullable="false" />
+          <Property Name="Pt" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IconType" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ratings" Relationship="Self.rating_rating_ibfk_2" FromRole="view" ToRole="rating" />
+          <NavigationProperty Name="viewtype1" Relationship="Self.view_view_ibfk_2" FromRole="view" ToRole="viewtype" />
+        </EntityType>
+        <EntityType Name="viewtype">
+          <Key>
+            <PropertyRef Name="Typenumber" />
+          </Key>
+          <Property Name="Typenumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Typename" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="places" Relationship="Self.place_place_ibfk_2" FromRole="viewtype" ToRole="place" />
+          <NavigationProperty Name="views" Relationship="Self.view_view_ibfk_2" FromRole="viewtype" ToRole="view" />
+        </EntityType>
+        <Association Name="place_place_ibfk_1">
+          <End Role="city" Type="Self.city" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="place" Type="Self.place" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="city">
+              <PropertyRef Name="Citynumber" />
+            </Principal>
+            <Dependent Role="place">
+              <PropertyRef Name="Citynumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="facebookprofile_facebookprofile_ibfk_1">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="facebookprofile" Type="Self.facebookprofile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="facebookprofile">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="friends_friends_ibfk_1">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="friends" Type="Self.friend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="friends">
+              <PropertyRef Name="Fid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="friends_friends_ibfk_2">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="friends" Type="Self.friend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="friends">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="hotelimage_hotelimage_ibfk_2">
+          <End Role="hotel" Type="Self.hotel" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="hotelimage" Type="Self.hotelimage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hotel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="hotelimage">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rating_rating_ibfk_1">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="rating" Type="Self.rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="rating">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="travellist_travellist_ibfk_1">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="travellist" Type="Self.travellist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="travellist">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="place_place_ibfk_2">
+          <End Role="viewtype" Type="Self.viewtype" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="place" Type="Self.place" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="viewtype">
+              <PropertyRef Name="Typenumber" />
+            </Principal>
+            <Dependent Role="place">
+              <PropertyRef Name="Typenumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="placeimage_placeimage_ibfk_1">
+          <End Role="place" Type="Self.place" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="placeimage" Type="Self.placeimage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="place">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="placeimage">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rating_rating_ibfk_2">
+          <End Role="view" Type="Self.view" Multiplicity="1" />
+          <End Role="rating" Type="Self.rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="view">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="rating">
+              <PropertyRef Name="Sno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="travellistplace_travellistplace_ibfk_2">
+          <End Role="travellist" Type="Self.travellist" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="travellistplace" Type="Self.travellistplace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="travellist">
+              <PropertyRef Name="Tid" />
+            </Principal>
+            <Dependent Role="travellistplace">
+              <PropertyRef Name="Tid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="view_view_ibfk_2">
+          <End Role="viewtype" Type="Self.viewtype" Multiplicity="1" />
+          <End Role="view" Type="Self.view" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="viewtype">
+              <PropertyRef Name="Typenumber" />
+            </Principal>
+            <Dependent Role="view">
+              <PropertyRef Name="Viewtype" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProjectEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="accommodations" EntityType="Self.accommodation" />
+          <EntitySet Name="accomodationimages" EntityType="Self.accomodationimage" />
+          <EntitySet Name="cities" EntityType="Self.city" />
+          <EntitySet Name="facebookprofiles" EntityType="Self.facebookprofile" />
+          <EntitySet Name="favorites" EntityType="Self.favorite" />
+          <EntitySet Name="foods" EntityType="Self.food" />
+          <EntitySet Name="foodimages" EntityType="Self.foodimage" />
+          <EntitySet Name="friends" EntityType="Self.friend" />
+          <EntitySet Name="hotels" EntityType="Self.hotel" />
+          <EntitySet Name="hotelimages" EntityType="Self.hotelimage" />
+          <EntitySet Name="maplatlngs" EntityType="Self.maplatlng" />
+          <EntitySet Name="members" EntityType="Self.member" />
+          <EntitySet Name="notfoundimages" EntityType="Self.notfoundimage" />
+          <EntitySet Name="oneinfodatas" EntityType="Self.oneinfodata" />
+          <EntitySet Name="places" EntityType="Self.place" />
+          <EntitySet Name="placeimages" EntityType="Self.placeimage" />
+          <EntitySet Name="ratings" EntityType="Self.rating" />
+          <EntitySet Name="sortedhistories" EntityType="Self.sortedhistory" />
+          <EntitySet Name="travellists" EntityType="Self.travellist" />
+          <EntitySet Name="travellistplaces" EntityType="Self.travellistplace" />
+          <EntitySet Name="views" EntityType="Self.view" />
+          <EntitySet Name="viewtypes" EntityType="Self.viewtype" />
+          <AssociationSet Name="place_place_ibfk_1" Association="Self.place_place_ibfk_1">
+            <End Role="city" EntitySet="cities" />
+            <End Role="place" EntitySet="places" />
+          </AssociationSet>
+          <AssociationSet Name="facebookprofile_facebookprofile_ibfk_1" Association="Self.facebookprofile_facebookprofile_ibfk_1">
+            <End Role="member" EntitySet="members" />
+            <End Role="facebookprofile" EntitySet="facebookprofiles" />
+          </AssociationSet>
+          <AssociationSet Name="friends_friends_ibfk_1" Association="Self.friends_friends_ibfk_1">
+            <End Role="member" EntitySet="members" />
+            <End Role="friends" EntitySet="friends" />
+          </AssociationSet>
+          <AssociationSet Name="friends_friends_ibfk_2" Association="Self.friends_friends_ibfk_2">
+            <End Role="member" EntitySet="members" />
+            <End Role="friends" EntitySet="friends" />
+          </AssociationSet>
+          <AssociationSet Name="hotelimage_hotelimage_ibfk_2" Association="Self.hotelimage_hotelimage_ibfk_2">
+            <End Role="hotel" EntitySet="hotels" />
+            <End Role="hotelimage" EntitySet="hotelimages" />
+          </AssociationSet>
+          <AssociationSet Name="rating_rating_ibfk_1" Association="Self.rating_rating_ibfk_1">
+            <End Role="member" EntitySet="members" />
+            <End Role="rating" EntitySet="ratings" />
+          </AssociationSet>
+          <AssociationSet Name="travellist_travellist_ibfk_1" Association="Self.travellist_travellist_ibfk_1">
+            <End Role="member" EntitySet="members" />
+            <End Role="travellist" EntitySet="travellists" />
+          </AssociationSet>
+          <AssociationSet Name="place_place_ibfk_2" Association="Self.place_place_ibfk_2">
+            <End Role="viewtype" EntitySet="viewtypes" />
+            <End Role="place" EntitySet="places" />
+          </AssociationSet>
+          <AssociationSet Name="placeimage_placeimage_ibfk_1" Association="Self.placeimage_placeimage_ibfk_1">
+            <End Role="place" EntitySet="places" />
+            <End Role="placeimage" EntitySet="placeimages" />
+          </AssociationSet>
+          <AssociationSet Name="rating_rating_ibfk_2" Association="Self.rating_rating_ibfk_2">
+            <End Role="view" EntitySet="views" />
+            <End Role="rating" EntitySet="ratings" />
+          </AssociationSet>
+          <AssociationSet Name="travellistplace_travellistplace_ibfk_2" Association="Self.travellistplace_travellistplace_ibfk_2">
+            <End Role="travellist" EntitySet="travellists" />
+            <End Role="travellistplace" EntitySet="travellistplaces" />
+          </AssociationSet>
+          <AssociationSet Name="view_view_ibfk_2" Association="Self.view_view_ibfk_2">
+            <End Role="viewtype" EntitySet="viewtypes" />
+            <End Role="view" EntitySet="views" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ProjectModelStoreContainer" CdmEntityContainer="ProjectEntities">
+        <EntityContainerMapping StorageEntityContainer="EasyTravelModelStoreContainer" CdmEntityContainer="ProjectEntities1">
           <EntitySetMapping Name="accommodations">
-            <EntityTypeMapping TypeName="ProjectModel.accommodation">
+            <EntityTypeMapping TypeName="EasyTravelModel.accommodation">
               <MappingFragment StoreEntitySet="accommodation">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="type" ColumnName="type" />
@@ -808,7 +1032,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="accomodationimages">
-            <EntityTypeMapping TypeName="ProjectModel.accomodationimage">
+            <EntityTypeMapping TypeName="EasyTravelModel.accomodationimage">
               <MappingFragment StoreEntitySet="accomodationimage">
                 <ScalarProperty Name="sid" ColumnName="sid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -818,7 +1042,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="cities">
-            <EntityTypeMapping TypeName="ProjectModel.city">
+            <EntityTypeMapping TypeName="EasyTravelModel.city">
               <MappingFragment StoreEntitySet="city">
                 <ScalarProperty Name="Citynumber" ColumnName="Citynumber" />
                 <ScalarProperty Name="Cityname" ColumnName="Cityname" />
@@ -826,7 +1050,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="facebookprofiles">
-            <EntityTypeMapping TypeName="ProjectModel.facebookprofile">
+            <EntityTypeMapping TypeName="EasyTravelModel.facebookprofile">
               <MappingFragment StoreEntitySet="facebookprofile">
                 <ScalarProperty Name="Pid" ColumnName="Pid" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -835,7 +1059,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="favorites">
-            <EntityTypeMapping TypeName="ProjectModel.favorite">
+            <EntityTypeMapping TypeName="EasyTravelModel.favorite">
               <MappingFragment StoreEntitySet="favorite">
                 <ScalarProperty Name="Fid" ColumnName="Fid" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -844,7 +1068,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="foods">
-            <EntityTypeMapping TypeName="ProjectModel.food">
+            <EntityTypeMapping TypeName="EasyTravelModel.food">
               <MappingFragment StoreEntitySet="food">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="type" ColumnName="type" />
@@ -868,8 +1092,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="foodimages">
+            <EntityTypeMapping TypeName="EasyTravelModel.foodimage">
+              <MappingFragment StoreEntitySet="foodimage">
+                <ScalarProperty Name="sid" ColumnName="sid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="friends">
-            <EntityTypeMapping TypeName="ProjectModel.friend">
+            <EntityTypeMapping TypeName="EasyTravelModel.friend">
               <MappingFragment StoreEntitySet="friends">
                 <ScalarProperty Name="Pid" ColumnName="Pid" />
                 <ScalarProperty Name="Fid" ColumnName="Fid" />
@@ -878,7 +1112,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="hotels">
-            <EntityTypeMapping TypeName="ProjectModel.hotel">
+            <EntityTypeMapping TypeName="EasyTravelModel.hotel">
               <MappingFragment StoreEntitySet="hotel">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -899,7 +1133,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="hotelimages">
-            <EntityTypeMapping TypeName="ProjectModel.hotelimage">
+            <EntityTypeMapping TypeName="EasyTravelModel.hotelimage">
               <MappingFragment StoreEntitySet="hotelimage">
                 <ScalarProperty Name="sid" ColumnName="sid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -908,8 +1142,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="maplatlngs">
+            <EntityTypeMapping TypeName="EasyTravelModel.maplatlng">
+              <MappingFragment StoreEntitySet="maplatlng">
+                <ScalarProperty Name="pt" ColumnName="pt" />
+                <ScalarProperty Name="sno" ColumnName="sno" />
+                <ScalarProperty Name="pName" ColumnName="pName" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="Lng" ColumnName="Lng" />
+                <ScalarProperty Name="Lang" ColumnName="Lang" />
+                <ScalarProperty Name="isView" ColumnName="isView" />
+                <ScalarProperty Name="pRange" ColumnName="pRange" />
+                <ScalarProperty Name="m_layer2" ColumnName="m_layer2" />
+                <ScalarProperty Name="layer1" ColumnName="layer1" />
+                <ScalarProperty Name="NoewIcon" ColumnName="NoewIcon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="members">
-            <EntityTypeMapping TypeName="ProjectModel.member">
+            <EntityTypeMapping TypeName="EasyTravelModel.member">
               <MappingFragment StoreEntitySet="member">
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Account" ColumnName="Account" />
@@ -926,8 +1177,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="notfoundimages">
+            <EntityTypeMapping TypeName="EasyTravelModel.notfoundimage">
+              <MappingFragment StoreEntitySet="notfoundimage">
+                <ScalarProperty Name="NId" ColumnName="NId" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="oneinfodatas">
+            <EntityTypeMapping TypeName="EasyTravelModel.oneinfodata">
+              <MappingFragment StoreEntitySet="oneinfodata">
+                <ScalarProperty Name="sno" ColumnName="sno" />
+                <ScalarProperty Name="pName" ColumnName="pName" />
+                <ScalarProperty Name="summ" ColumnName="summ" />
+                <ScalarProperty Name="detail" ColumnName="detail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="places">
-            <EntityTypeMapping TypeName="ProjectModel.place">
+            <EntityTypeMapping TypeName="EasyTravelModel.place">
               <MappingFragment StoreEntitySet="place">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -945,7 +1214,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="placeimages">
-            <EntityTypeMapping TypeName="ProjectModel.placeimage">
+            <EntityTypeMapping TypeName="EasyTravelModel.placeimage">
               <MappingFragment StoreEntitySet="placeimage">
                 <ScalarProperty Name="sid" ColumnName="sid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -956,7 +1225,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ratings">
-            <EntityTypeMapping TypeName="ProjectModel.rating">
+            <EntityTypeMapping TypeName="EasyTravelModel.rating">
               <MappingFragment StoreEntitySet="rating">
                 <ScalarProperty Name="RId" ColumnName="RId" />
                 <ScalarProperty Name="Sno" ColumnName="Sno" />
@@ -968,7 +1237,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sortedhistories">
-            <EntityTypeMapping TypeName="ProjectModel.sortedhistory">
+            <EntityTypeMapping TypeName="EasyTravelModel.sortedhistory">
               <MappingFragment StoreEntitySet="sortedhistory">
                 <ScalarProperty Name="SId" ColumnName="SId" />
                 <ScalarProperty Name="Tid" ColumnName="Tid" />
@@ -977,7 +1246,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="travellists">
-            <EntityTypeMapping TypeName="ProjectModel.travellist">
+            <EntityTypeMapping TypeName="EasyTravelModel.travellist">
               <MappingFragment StoreEntitySet="travellist">
                 <ScalarProperty Name="Tid" ColumnName="Tid" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -986,7 +1255,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="travellistplaces">
-            <EntityTypeMapping TypeName="ProjectModel.travellistplace">
+            <EntityTypeMapping TypeName="EasyTravelModel.travellistplace">
               <MappingFragment StoreEntitySet="travellistplace">
                 <ScalarProperty Name="Pid" ColumnName="Pid" />
                 <ScalarProperty Name="Tid" ColumnName="Tid" />
@@ -995,7 +1264,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="views">
-            <EntityTypeMapping TypeName="ProjectModel.view">
+            <EntityTypeMapping TypeName="EasyTravelModel.view">
               <MappingFragment StoreEntitySet="view">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1011,28 +1280,10 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="viewtypes">
-            <EntityTypeMapping TypeName="ProjectModel.viewtype">
+            <EntityTypeMapping TypeName="EasyTravelModel.viewtype">
               <MappingFragment StoreEntitySet="viewtype">
                 <ScalarProperty Name="Typenumber" ColumnName="Typenumber" />
                 <ScalarProperty Name="Typename" ColumnName="Typename" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="notfoundimages">
-            <EntityTypeMapping TypeName="ProjectModel.notfoundimage">
-              <MappingFragment StoreEntitySet="notfoundimage">
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="NId" ColumnName="NId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="foodimages">
-            <EntityTypeMapping TypeName="ProjectModel.foodimage">
-              <MappingFragment StoreEntitySet="foodimage">
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="sid" ColumnName="sid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1050,8 +1301,9 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
       </DesignerInfoPropertySet>
     </Options>

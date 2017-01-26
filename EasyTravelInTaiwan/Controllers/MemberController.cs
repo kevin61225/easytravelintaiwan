@@ -21,7 +21,7 @@ namespace EasyTravelInTaiwan.Controllers
     public class MemberController : Controller
     {
         //private dbproject1Entities db = new dbproject1Entities();
-        private ProjectEntities db = new ProjectEntities();
+        private ProjectEntities1 db = new ProjectEntities1();
 
         //
         // GET: /Member/
@@ -281,8 +281,8 @@ namespace EasyTravelInTaiwan.Controllers
             // Create the cookie.
             Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
 
-            Session["UserName"] = user.Name;
-            Session["UserId"] = user.UserID;
+            //Session["UserName"] = user.Name;
+            //Session["UserId"] = user.UserID;
 
             return true;
         }
@@ -400,6 +400,7 @@ namespace EasyTravelInTaiwan.Controllers
             try
             {
                 registMember.Password = Encrypt(member.Password, true);
+                registMember.UserID = db.members.Count()+1;
                 db.members.Add(registMember);
                 db.SaveChanges();
             }

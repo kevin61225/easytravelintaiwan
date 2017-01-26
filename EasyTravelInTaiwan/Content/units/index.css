@@ -1,0 +1,33 @@
+﻿    .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        border-top: 1px solid #ddd;
+        max-height: 500px;
+        max-width: 800px;
+        padding: 10px;
+    }
+
+    .nav-tabs {
+        font-family: "微軟正黑體";
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+
+    .nav {
+        border-bottom: none;
+    }
+
+
+    .searchItemBorder {
+        display: block;
+    }
+
+    .box {
+        height: 320px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+        .box ul {
+            width: 97%;
+        }

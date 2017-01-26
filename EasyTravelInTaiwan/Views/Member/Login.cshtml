@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "登入";
-    Layout = "~/Views/shared/_BootstrapLayout.empty.cshtml";
+    //Layout = "~/Views/shared/_BootstrapLayout.empty.cshtml";
 }
 <div id="ReturnUrl" class="hidden">@ViewBag.ReturnUrl</div>
 <div style="text-align: center; vertical-align: middle;">
@@ -38,56 +38,58 @@
     }
 </div>
 
-<script src="~/scripts/jquery-1.9.1.min.js"></script>
-<script>
-    var url = $('#ReturnUrl').val();
-    console.log(url);
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: '544818928892863', // App ID
-            //channelUrl: 'http://localhost:51145/', // Channel File
-            channelUrl: 'http://easytravelintaiwan.no-ip.info/',
-            status: true, // check login status
-            cookie: true, // enable cookies to allow the server to access the session
-            xfbml: true  // parse XFBML
-        });
+@*<script src="~/scripts/jquery-1.9.1.min.js"></script>*@
+@*@section Scripts{
+    <script type="text/javascript">
+        var url = $('#ReturnUrl').val();
+        console.log(url);
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '544818928892863', // App ID
+                //channelUrl: 'http://localhost:51145/', // Channel File
+                channelUrl: 'http://easytravelintaiwan.no-ip.info/',
+                status: true, // check login status
+                cookie: true, // enable cookies to allow the server to access the session
+                xfbml: true  // parse XFBML
+            });
 
-        FB.Event.subscribe('auth.authResponseChange', function (response) {
+            FB.Event.subscribe('auth.authResponseChange', function (response) {
 
-            console.log(response);
-            if (response.status === 'connected') {
-                //already logged-in
-            }
-            else if (response.status === 'not_authorized') {
-                // first time login
-                FacebookLogin();
-            } else {
-                // auto-login
-                FacebookLogin();
-            }
-        });
-    };
+                console.log(response);
+                if (response.status === 'connected') {
+                    //already logged-in
+                }
+                else if (response.status === 'not_authorized') {
+                    // first time login
+                    FacebookLogin();
+                } else {
+                    // auto-login
+                    FacebookLogin();
+                }
+            });
+        };
 
-    // Load the SDK asynchronously
-    (function (d) {
-        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-        if (d.getElementById(id)) { return; }
-        js = d.createElement('script'); js.id = id; js.async = true;
-        js.src = "//connect.facebook.net/en_US/all.js";
-        ref.parentNode.insertBefore(js, ref);
-    }(document));
+        // Load the SDK asynchronously
+        (function (d) {
+            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement('script'); js.id = id; js.async = true;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            ref.parentNode.insertBefore(js, ref);
+        }(document));
 
-    function FacebookLogin() {
-        FB.login(function (response) {
-            console.log(response);
-            if (response.authResponse) {
-                FB.api('/me', function (response) {
-                    var fbID = response.id;
-                    var fbName = response.name;
-                    var fbEmail = response.email;
-                    location.href = '/Member/FacebookLogin?fbID=' + fbID + '&fbName=' + fbName + '&fbEmail=' + fbEmail + '&sex=' + response.gender + '&returnUrl=' + url;
-                });
-            }
-        }, { scope: 'email' });
-    }
-</script>
+        function FacebookLogin() {
+            FB.login(function (response) {
+                console.log(response);
+                if (response.authResponse) {
+                    FB.api('/me', function (response) {
+                        var fbID = response.id;
+                        var fbName = response.name;
+                        var fbEmail = response.email;
+                        location.href = '/Member/FacebookLogin?fbID=' + fbID + '&fbName=' + fbName + '&fbEmail=' + fbEmail + '&sex=' + response.gender + '&returnUrl=' + url;
+                    });
+                }
+            }, { scope: 'email' });
+        }
+    </script>
+}*@
